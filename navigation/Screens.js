@@ -167,8 +167,8 @@ function HomeStack(props) {
           header: ({ navigation, scene }) => (
             <Header
               title="Home"
+              tabs={tabs.categories}
               search
-              options
               navigation={navigation}
               scene={scene}
             />
