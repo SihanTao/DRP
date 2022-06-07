@@ -1,4 +1,6 @@
 import React from 'react';
+import { Text } from 'galio-framework';
+import { argonTheme, tabs } from "../constants/";
 import { StyleSheet, Dimensions, ScrollView } from 'react-native';
 import { Block, theme } from 'galio-framework';
 
@@ -12,8 +14,18 @@ class Home extends React.Component {
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.articles}>
+        <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
+        <Text
+            h1
+            style={{ marginBottom: theme.SIZES.BASE / 2 }}
+            color={argonTheme.COLORS.DEFAULT}
+          >
+            Popular Recently
+          </Text>
+        </Block>
+
         <Block flex>
-          <Card item={articles[0]} horizontal  />
+          <Card item={articles[0]} horizontal />
           <Block flex row>
             <Card item={articles[1]} style={{ marginRight: theme.SIZES.BASE }} />
             <Card item={articles[2]} />
@@ -36,7 +48,7 @@ class Home extends React.Component {
 
 const styles = StyleSheet.create({
   home: {
-    width: width,    
+    width: width,
   },
   articles: {
     width: width - theme.SIZES.BASE * 2,
