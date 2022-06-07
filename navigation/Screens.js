@@ -30,7 +30,7 @@ function ElementsStack(props) {
     <Stack.Navigator
       screenOptions={{
         mode: "card",
-        headerShown: false,
+        headerShown: 'screen',
       }}
     >
       <Stack.Screen
@@ -43,21 +43,26 @@ function ElementsStack(props) {
           cardStyle: { backgroundColor: "#F8F9FE" },
         }}
       />
+    </Stack.Navigator>
+  );
+}
+
+function RegisterStack(props) {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        mode: "card",
+        headerShown: 'screen',
+      }}
+    >
       <Stack.Screen
-        name="Pro"
-        component={Pro}
+        name="Account"
+        component={Register}
         options={{
           header: ({ navigation, scene }) => (
-            <Header
-              title=""
-              back
-              white
-              transparent
-              navigation={navigation}
-              scene={scene}
-            />
+            <Header title="Account" navigation={navigation} scene={scene} />
           ),
-          headerTransparent: true,
+          cardStyle: { backgroundColor: "#F8F9FE" },
         }}
       />
     </Stack.Navigator>
@@ -233,7 +238,7 @@ function AppStack(props) {
     >
       <Drawer.Screen name="Home" component={HomeStack} />
       <Drawer.Screen name="Profile" component={ProfileStack} />
-      <Drawer.Screen name="Account" component={Register} />
+      <Drawer.Screen name="Account" component={RegisterStack} />
       <Drawer.Screen name="Elements" component={ElementsStack} />
       <Drawer.Screen name="Articles" component={ArticlesStack} />
     </Drawer.Navigator>
