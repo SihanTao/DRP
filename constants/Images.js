@@ -25,6 +25,8 @@ const Products = {
   'View article': 'https://images.unsplash.com/photo-1501601983405-7c7cabaa1581?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=840&q=840',
 };
 
+const Snooker = 'https://www.planetsport.com/image-library/land/700/s/snooker-2022-23-season-schedule.jpg';
+
 export default {
   Onboarding,
   Logo,
@@ -37,5 +39,6 @@ export default {
   Pro,
   ArgonLogo,
   iOSLogo,
-  androidLogo
+  androidLogo,
+  Snooker,
 };
