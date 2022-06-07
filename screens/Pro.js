@@ -39,7 +39,7 @@ export default class Pro extends React.Component {
                 </Block>
               </Block>
               <Text size={16} color='rgba(255,255,255,0.6)' style={{ marginTop: 35 }}>
-                Take advantage of all the features and screens made upon Galio Design System, coded on React Native for both.
+                Not Implemented. (DRP 22)
               </Text>
               <Block row style={{ marginTop: theme.SIZES.BASE * 1.5, marginBottom: theme.SIZES.BASE * 4 }}>
                 <Image
@@ -53,8 +53,8 @@ export default class Pro extends React.Component {
                 shadowless
                 style={styles.button}
                 color={argonTheme.COLORS.INFO}
-                onPress={() => Linking.openURL('https://www.creative-tim.com/product/argon-pro-react-native').catch((err) => console.error('An error occurred', err))}>
-                <Text bold color={theme.COLORS.WHITE}>BUY NOW</Text>
+                onPress={() => Linking.openURL('https://https://www.imperial.ac.uk/').catch((err) => console.error('An error occurred', err))}>
+                <Text bold color={theme.COLORS.WHITE}>Imperial College London Official Site</Text>
               </Button>
             </Block>
           </Block>

@@ -64,6 +64,7 @@ function ElementsStack(props) {
   );
 }
 
+
 function ArticlesStack(props) {
   return (
     <Stack.Navigator
@@ -129,6 +130,7 @@ function ProfileStack(props) {
           headerTransparent: true,
         }}
       />
+      
       <Stack.Screen
         name="Pro"
         component={Pro}
@@ -200,7 +202,7 @@ export default function OnboardingStack(props) {
     <Stack.Navigator
       screenOptions={{
         mode: "card",
-        headerShown: false,
+        headerShown: false, // Todo: Delete before 
       }}
     >
       <Stack.Screen
