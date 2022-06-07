@@ -3,6 +3,8 @@ import { Text } from 'galio-framework';
 import { argonTheme, tabs } from "../constants/";
 import { StyleSheet, Dimensions, ScrollView } from 'react-native';
 import { Block, theme } from 'galio-framework';
+import goStudySpaceSlideShow from '../constants/goStudySpaceSlideShow';
+import AutomatedSlideshow from '../components/AutomatedSlideShow';
 
 import { Card } from '../components';
 import articles from '../constants/articles';
@@ -15,7 +17,7 @@ class Home extends React.Component {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.articles}>
         <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
-        <Text
+          <Text
             h1
             style={{ marginBottom: theme.SIZES.BASE / 2 }}
             color={argonTheme.COLORS.DEFAULT}
@@ -24,7 +26,7 @@ class Home extends React.Component {
           </Text>
         </Block>
 
-        <Block flex>
+        {/* <Block flex>
           <Card item={articles[0]} horizontal />
           <Block flex row>
             <Card item={articles[1]} style={{ marginRight: theme.SIZES.BASE }} />
@@ -32,7 +34,11 @@ class Home extends React.Component {
           </Block>
           <Card item={articles[3]} horizontal />
           <Card item={articles[4]} full />
-        </Block>
+        </Block> */}
+          <AutomatedSlideshow 
+          dataSource={goStudySpaceSlideShow}
+          ></AutomatedSlideshow>
+
       </ScrollView>
     )
   }
