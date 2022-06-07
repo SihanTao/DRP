@@ -135,7 +135,7 @@ function ProfileStack(props) {
           headerTransparent: true,
         }}
       />
-      
+
       <Stack.Screen
         name="Pro"
         component={Pro}
@@ -193,13 +193,6 @@ export default function OnboardingStack(props) {
         headerShown: false, // Todo: Delete before 
       }}
     >
-      <Stack.Screen
-        name="Onboarding"
-        component={Onboarding}
-        option={{
-          headerTransparent: true,
-        }}
-      />
       <Stack.Screen name="App" component={AppStack} />
     </Stack.Navigator>
   );
