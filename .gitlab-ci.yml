@@ -4,6 +4,22 @@ default:
   services:
     - node:18
 
-test:
+stages:
+  - build
+  - test
+  - deploy
+
+no_build_yet:
+  stage: build
   script:
-    - echo hello
+    - echo SKIP
+
+no_test_yet:
+  stage: test
+  script:
+    - echo SKIP
+
+no_deploy_yet:
+  stage: test
+  script:
+    - echo SKIP
