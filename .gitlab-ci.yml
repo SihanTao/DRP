@@ -18,9 +18,10 @@ no_build_yet:
 test_if_node_is_present:
   stage: test
   script:
-    - echo "before node"
+    - echo "before node version check"
     - node -v
-    - echo "after node"
+    - npm -v
+    - echo "after node version check"
 
 no_deploy_yet:
   stage: deploy
