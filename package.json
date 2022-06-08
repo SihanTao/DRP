@@ -1,13 +1,16 @@
 {
-  "name": "argon-react-native",
+  "name": "imperial-find",
   "version": "1.8.0",
-  "description": "Argon React Native, based on Argon Design System. Coded by Creative Tim",
+  "description": "DRP project for 2nd Imperial Computing Students",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "eject": "expo eject"
+  },
+  "engines": {
+    "yarn": "1.x"
   },
   "repository": {
     "type": "git",
@@ -21,21 +24,22 @@
     "@react-navigation/native": "^6.0.10",
     "@react-navigation/stack": "^6.2.1",
     "@use-expo/font": "^2.0.0",
-    "expo": "^45.0.0",
+    "expo": "^45.0.5",
     "expo-app-loading": "~2.0.0",
     "expo-asset": "~8.5.0",
     "expo-font": "~10.1.0",
     "expo-modules-core": "~0.9.2",
+    "expo-updates": "~0.13.2",
     "galio-framework": "^0.8.0",
     "prop-types": "^15.7.2",
     "react": "17.0.2",
     "react-native": "0.68.2",
     "react-native-gesture-handler": "~2.2.1",
+    "react-native-image-slider-show": "1.0.3",
     "react-native-modal-dropdown": "git+https://github.com/siemiatj/react-native-modal-dropdown.git",
     "react-native-reanimated": "~2.8.0",
     "react-native-safe-area-context": "4.2.4",
-    "react-native-screens": "~3.11.1",
-    "react-native-image-slider-show": "1.0.3"
+    "react-native-screens": "~3.11.1"
   },
   "devDependencies": {
     "babel-preset-expo": "~9.1.0"
@@ -58,10 +62,6 @@
     "argon expo react native",
     "react native ui template"
   ],
-  "author": "Creative Tim <hello@creative-tim.com> (https://www.creative-tim.com/)",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/creativetimofficial/argon-react-native/issues"
-  },
-  "homepage": "https://demos.creative-tim.com/argon-react-native"
+  "author": "Creative Tim <hello@creative-tim.com> (https://www.creative-tim.com/) + DRP22 2022",
+  "license": "MIT"
 }
