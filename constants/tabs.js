@@ -6,9 +6,10 @@ export default tabs = {
   //   { id: 'car_motorcycle', title: 'Car & Motorcycle' },
   // ],
   categories: [
-    {id: 'study_place', title: 'Study Place'},
-    {id: 'water_fountain', title: 'Water Fountain'},
-    {id: 'cafe', title: 'Cafe'},
-    {id: 'toilet', title: 'Toilet'},
+    {id: 'study_space', title: '#study_space'},
+    {id: 'water_fountain', title: '#water_fountain'},
+    {id: 'cafe', title: '#cafe'},
+    {id: 'toilet', title: '#toilet'},
+    {id: 'microwave', title: '#microwave'},
   ]
 }
