@@ -5,6 +5,30 @@ import { useFonts } from '@use-expo/font';
 import { Asset } from "expo-asset";
 import { Block, GalioProvider } from "galio-framework";
 import { NavigationContainer } from "@react-navigation/native";
+import { initializeApp } from 'firebase/app';
+import {
+    getAuth,
+    onAuthStateChanged,
+    GoogleAuthProvider,
+    signInWithPopup,
+    signOut,
+} from 'firebase/auth';
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  query,
+  orderBy,
+  limit,
+  onSnapshot,
+  setDoc,
+  updateDoc,
+  doc,
+  serverTimestamp,
+} from 'firebase/firestore';
+import { getFirebaseConfig } from './backend/firebase-config.js';
+
+import { getDatabase, ref, onValue, set } from 'firebase/database';
 
 // Before rendering any navigation stack
 import { enableScreens } from "react-native-screens";
@@ -26,6 +50,12 @@ const assetImages = [
 
 // cache product images
 articles.map(article => assetImages.push(article.image));
+
+// Initialize Firebase
+const app = initializeApp(getFirebaseConfig());
+
+// Initialize Cloud FireStore and get a reference to the server
+const db = getFirestore(app);
 
 function cacheImages(images) {
   return images.map(image => {

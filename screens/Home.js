@@ -10,7 +10,6 @@ import Images from '../constants/Images';
 import { Card } from '../components';
 import articles from '../constants/articles';
 const { width } = Dimensions.get('screen');
-
 class Home extends React.Component {
   renderArticles = () => {
     return (
