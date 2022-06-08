@@ -20,6 +20,6 @@ no_test_yet:
     - echo SKIP
 
 no_deploy_yet:
-  stage: test
+  stage: deploy
   script:
     - echo SKIP
