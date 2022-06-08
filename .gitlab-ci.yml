@@ -18,6 +18,7 @@ no_test_yet:
   stage: test
   script:
     - echo SKIP
+    - node -v
 
 no_deploy_yet:
   stage: deploy
