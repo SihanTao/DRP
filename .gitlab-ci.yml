@@ -1,0 +1,9 @@
+default:
+  image: ubuntu:latest
+
+  services:
+    - node:18
+
+test:
+  script:
+    - echo hello
