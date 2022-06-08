@@ -2,8 +2,8 @@ build-job:
   stage: build
   script:
     - echo "Start Building"
+    - npm install --global yarn
     - yarn install
-    - yarn start
     - echo "Build complete"
 
 test-job1:
