@@ -9,6 +9,9 @@
     "ios": "expo start --ios",
     "eject": "expo eject"
   },
+  "engines": {
+    "yarn": "1.x"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/creativetimofficial/argon-react-native.git"
