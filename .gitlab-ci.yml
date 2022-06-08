@@ -2,7 +2,7 @@ default:
   image: ubuntu:latest
 
   services:
-    - node:18
+    - node:latest
 
 stages:
   - build
