@@ -2,8 +2,8 @@ default:
   image: ubuntu:latest
 
   before_script:
-    - apt-get -y update
-    - apt-get -y install nodejs
+    - sudo apt-get -y update
+    - sudo apt-get -y install nodejs
 
 stages:
   - build
@@ -20,7 +20,7 @@ test_if_node_is_present:
   script:
     - echo "before node version check"
     - node -v
-    - npm -v
+    # - npm -v
     - echo "after node version check"
 
 no_deploy_yet:
