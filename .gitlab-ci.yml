@@ -1,8 +1,9 @@
 default:
   image: ubuntu:latest
 
-  services:
-    - node:latest
+  before_script:
+    - apt-get -y update
+    - apt-get -y install nodejs
 
 stages:
   - build
