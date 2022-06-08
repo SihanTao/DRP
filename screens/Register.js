@@ -41,6 +41,8 @@ class Register extends React.Component {
                       <Text style={styles.socialTextButtons}>GITHUB</Text>
                     </Block>
                   </Button>
+
+                  {/* TODO:  GOOGLE SIGN IN */}
                   <Button style={styles.socialButtons}>
                     <Block row>
                       <Icon
@@ -53,6 +55,7 @@ class Register extends React.Component {
                       <Text style={styles.socialTextButtons}>GOOGLE</Text>
                     </Block>
                   </Button>
+
                 </Block>
               </Block>
               <Block flex>
