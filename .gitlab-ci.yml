@@ -3,7 +3,6 @@ default:
 
   services:
     - node:latest
-    - npm:latest
 
   before_script:
     # - apt-get -y update
