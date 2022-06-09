@@ -1,48 +1,19 @@
-# default:
-#   image: $CI_REGISTRY_IMAGE
-
-stages:
-  - build_image
-  - build
-  - setup_test
-  - test
-  - deploy
-
-build image:
-  stage: build_image
-  image: docker:latest
-  services: 
-    - docker:dind
-  script:
-    - echo "login starts..."
-    - echo $CI_REGISTRY_PASSWORD |\
-      docker login -u $CI_REGISTRY_USER $CI_REGISTRY --password-stdin
-    - echo "build image $CI_REGISTRY_IMAGE"
-    - docker build -t $CI_REGISTRY_IMAGE .
-    - echo "push image"
-    - docker push $CI_REGISTRY_IMAGE
-
-.no_build_yet:
-  stage: build
-  script:
-    - echo SKIP
-
-.node_version_test:
-  stage: setup_test
-  script:
-    - node -v
-  
-.npm_version_test:
-  stage: setup_test
-  script:
-    - npm -v
-
-.python_version_test:
-  stage: setup_test
+some test job:
+  image: python:3.8
   script:
     - python --version
+    - pip --version
+    - pip install pytest
+    - pytest --version
+    - echo "Doing complex stuff"
 
-.no_deploy_yet:
-  stage: deploy
+build image:
+  image: docker:19.03.12
+  services:
+    - docker:19.03.12-dind
+  variables:
+    IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
   script:
-    - echo SKIP
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker build -t $IMAGE_TAG .
+    - docker push $IMAGE_TAG
