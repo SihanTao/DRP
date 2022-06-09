@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, StyleSheet } from "react-native";
 import { ColorPicker, ModalInput, Separator, Tag } from "react-native-btr";
+import DropDownSearchBar from "../components/DropDownSearchBar";
 
 export default function SearchResult() {
   let [tags, setTags] = useState([
@@ -38,7 +39,10 @@ export default function SearchResult() {
   };
 
   return (
+    
     <View style={styles.container}>
+      <DropDownSearchBar> 
+      </DropDownSearchBar> 
       <Text style={{ fontSize: 20, margin: 20 }}>Create</Text>
       <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
         {tags.map((tag, index) => (
