@@ -1,6 +1,7 @@
 // Galio components
 import { Block, Button as GaButton, Text, theme } from "galio-framework";
-import { Button, Header, Icon, Input, Select, Switch } from "../components/";
+import { Button, Header, Input, Select, Switch } from "../components/";
+import { Icon } from "galio-framework";
 import {
   Dimensions,
   ScrollView,
@@ -174,7 +175,7 @@ class Elements extends React.Component {
                 size={11}
                 style={{ marginRight: 10 }}
                 color={argonTheme.COLORS.ICON}
-                name="search-zoom-in"
+                name="search"
                 family="ArgonExtra"
               />
             }
@@ -188,7 +189,7 @@ class Elements extends React.Component {
               <Icon
                 size={11}
                 color={argonTheme.COLORS.ICON}
-                name="search-zoom-in"
+                name="search"
                 family="ArgonExtra"
               />
             }
