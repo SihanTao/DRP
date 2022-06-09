@@ -1,8 +1,8 @@
 default:
-  image: ubuntu:latest
+  image: node:latest
 
-  services:
-    - node:latest
+  # services:
+  #   - node:latest
 
   before_script:
     # - apt-get -y update
