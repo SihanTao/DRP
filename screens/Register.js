@@ -10,10 +10,31 @@ import { Block, Checkbox, Text, theme } from "galio-framework";
 
 import { Button, Icon, Input } from "../components";
 import { Images, argonTheme } from "../constants";
+import { writeUserData } from "../backend/databaseReadWrite";
+
+// Testing 
+import users from "../constants/users";
 
 const { width, height } = Dimensions.get("screen");
 
 class Register extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: '',
+      useremail: '',
+      userpassword: '',
+    }
+  }
+
+  onChangeName(text) {
+    this.setState({
+      username: text,
+    })
+
+    const username = this.state.username;
+  }
+
   render() {
     return (
       <Block flex middle>
@@ -71,6 +92,7 @@ class Register extends React.Component {
                       <Input
                         borderless
                         placeholder="Name"
+                        onChangeText={(username) => this.setState({username})}
                         iconContent={
                           <Icon
                             size={16}
@@ -86,6 +108,7 @@ class Register extends React.Component {
                       <Input
                         borderless
                         placeholder="Email"
+                        onChangeText={(useremail) => this.setState({useremail})}
                         iconContent={
                           <Icon
                             size={16}
@@ -102,6 +125,7 @@ class Register extends React.Component {
                         password
                         borderless
                         placeholder="Password"
+                        onChangeText={(userpassword) => this.setState({userpassword})}
                         iconContent={
                           <Icon
                             size={16}
@@ -142,7 +166,10 @@ class Register extends React.Component {
                       </Button>
                     </Block>
                     <Block middle>
-                      <Button color="primary" style={styles.createButton}>
+                      <Button color="primary"
+                        style={styles.createButton}
+                        onPress={() => writeUserData(this.state.username, this.state.useremail, this.state.userpassword)}
+                      >
                         <Text bold size={14} color={argonTheme.COLORS.WHITE}>
                           CREATE ACCOUNT
                         </Text>

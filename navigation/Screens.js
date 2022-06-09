@@ -18,6 +18,8 @@ import Register from "../screens/Register";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createStackNavigator } from "@react-navigation/stack";
+import { initializeApp } from "firebase/app";
+import firebaseConfig from "../constants/firebaseConfig";
 import TagDemo from "../screens/Tag";
 import SearchResult from "../screens/SearchResult"
 
@@ -218,6 +220,7 @@ function SearchResultStack(props) {
 }
 
 export default function OnboardingStack(props) {
+  initializeApp(firebaseConfig);
   return (
     <Stack.Navigator
       screenOptions={{
