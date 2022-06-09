@@ -1,5 +1,5 @@
-default:
-  image: $CI_REGISTRY_IMAGE
+# default:
+#   image: $CI_REGISTRY_IMAGE
 
 stages:
   - build_image
@@ -10,7 +10,7 @@ stages:
 
 build image:
   stage: build_image
-  image: docker
+  image: docker:latest
   services: 
     - docker:dind
   script:
