@@ -28,4 +28,5 @@ deploy-prod:
     - apt-get -y install watchman
     - npm install --global expo-cli
     - expo --version
+    - expo install expo-updates
     - expo publish
