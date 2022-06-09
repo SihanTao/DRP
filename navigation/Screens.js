@@ -30,7 +30,7 @@ function ElementsStack(props) {
     <Stack.Navigator
       screenOptions={{
         mode: "card",
-        headerShown: 'screen',
+        headerShown: false,
       }}
     >
       <Stack.Screen
@@ -52,7 +52,7 @@ function RegisterStack(props) {
     <Stack.Navigator
       screenOptions={{
         mode: "card",
-        headerShown: 'screen',
+        headerShown: false,
       }}
     >
       <Stack.Screen
@@ -75,7 +75,7 @@ function ArticlesStack(props) {
     <Stack.Navigator
       screenOptions={{
         mode: "card",
-        headerShown: "screen",
+        headerShown: false,
       }}
     >
       <Stack.Screen
@@ -115,7 +115,7 @@ function ProfileStack(props) {
       initialRouteName="Profile"
       screenOptions={{
         mode: "card",
-        headerShown: "screen",
+        headerShown: false,
       }}
     >
       <Stack.Screen
@@ -162,7 +162,7 @@ function HomeStack(props) {
     <Stack.Navigator
       screenOptions={{
         mode: "card",
-        headerShown: "screen",
+        headerShown: "float",
       }}
     >
       <Stack.Screen
@@ -190,7 +190,7 @@ export default function OnboardingStack(props) {
     <Stack.Navigator
       screenOptions={{
         mode: "card",
-        headerShown: false, // Todo: Delete before 
+        headerShown: false,
       }}
     >
       <Stack.Screen name="App" component={AppStack} />

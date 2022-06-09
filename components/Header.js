@@ -59,12 +59,12 @@ class Header extends React.Component {
     //   ]
     // }
 
-    // switch (title) {
-    //   case 'Home':
-    //     return ([
-    //       <BellButton key='chat-home' navigation={navigation} isWhite={white} />,
-    //       <BasketButton key='basket-home' navigation={navigation} isWhite={white} />
-    //     ]);
+    switch (title) {
+      case 'Home':
+        return ([
+          <BellButton key='chat-home' navigation={navigation} isWhite={white} />,
+          <BasketButton key='basket-home' navigation={navigation} isWhite={white} />
+        ]);
     //   case 'Deals':
     //     return ([
     //       <BellButton key='chat-categories' navigation={navigation} />,
@@ -100,9 +100,9 @@ class Header extends React.Component {
     //       <BellButton key='chat-search' navigation={navigation} isWhite={white} />,
     //       <BasketButton key='basket-search' navigation={navigation} isWhite={white} />
     //     ]);
-    //   default:
-    //     break;
-    // }
+      default:
+        break;
+    }
   }
   renderSearch = () => {
     const { navigation } = this.props;
