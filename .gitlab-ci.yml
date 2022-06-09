@@ -23,10 +23,12 @@ deploy-prod:
     - echo "This job deploys something from the $CI_COMMIT_BRANCH branch."
     - node --version
     - npm --version
+    - yarn --version
     - apt-get -y update
     - apt-get -y install git
     - apt-get -y install watchman
     - npm install --global expo-cli
     - expo --version
+    - yarn install
     - expo install expo-updates
     - expo publish
