@@ -18,6 +18,8 @@ import Register from "../screens/Register";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createStackNavigator } from "@react-navigation/stack";
+import { initializeApp } from "firebase/app";
+import firebaseConfig from "../constants/firebaseConfig";
 
 const { width } = Dimensions.get("screen");
 
@@ -186,6 +188,7 @@ function HomeStack(props) {
 }
 
 export default function OnboardingStack(props) {
+  initializeApp(firebaseConfig);
   return (
     <Stack.Navigator
       screenOptions={{
