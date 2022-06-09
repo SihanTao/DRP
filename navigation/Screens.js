@@ -20,6 +20,8 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createStackNavigator } from "@react-navigation/stack";
 import { initializeApp } from "firebase/app";
 import firebaseConfig from "../constants/firebaseConfig";
+import TagDemo from "../screens/Tag";
+import SearchResult from "../screens/SearchResult"
 
 const { width } = Dimensions.get("screen");
 
@@ -88,23 +90,6 @@ function ArticlesStack(props) {
             <Header title="Articles" navigation={navigation} scene={scene} />
           ),
           cardStyle: { backgroundColor: "#F8F9FE" },
-        }}
-      />
-      <Stack.Screen
-        name="Pro"
-        component={Pro}
-        options={{
-          header: ({ navigation, scene }) => (
-            <Header
-              title=""
-              back
-              white
-              transparent
-              navigation={navigation}
-              scene={scene}
-            />
-          ),
-          headerTransparent: true,
         }}
       />
     </Stack.Navigator>
@@ -176,6 +161,7 @@ function HomeStack(props) {
               title="Home"
               tabs={tabs.categories}
               search
+              // multiselect
               navigation={navigation}
               scene={scene}
             />
@@ -183,6 +169,52 @@ function HomeStack(props) {
           cardStyle: { backgroundColor: "#F8F9FE" },
         }}
       />
+    </Stack.Navigator>
+  );
+}
+
+function TagStack(props) {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        mode: "card",
+        headerShown: "screen",
+      }}
+    >
+      <Stack.Screen
+        name="Tags"
+        component={TagDemo}
+        options={{
+          header: ({ navigation, scene }) => (
+            <Header title="Tag" navigation={navigation} scene={scene} />
+          ),
+          cardStyle: { backgroundColor: "#F8F9FE" },
+        }}
+      />
+
+    </Stack.Navigator>
+  );
+}
+
+function SearchResultStack(props) {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        mode: "card",
+        headerShown: false,
+      }}
+    >
+      <Stack.Screen
+        name="SearchResult"
+        component={SearchResult}
+        options={{
+          header: ({ navigation, scene }) => (
+            <Header title="SearchResult" navigation={navigation} scene={scene} />
+          ),
+          cardStyle: { backgroundColor: "#F8F9FE" },
+        }}
+      />
+
     </Stack.Navigator>
   );
 }
@@ -237,6 +269,7 @@ function AppStack(props) {
       <Drawer.Screen name="Account" component={RegisterStack} />
       <Drawer.Screen name="Elements" component={ElementsStack} />
       <Drawer.Screen name="Articles" component={ArticlesStack} />
+      <Drawer.Screen name="SearchResult" component={SearchResultStack} />
     </Drawer.Navigator>
   );
 }
