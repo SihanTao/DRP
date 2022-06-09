@@ -9,6 +9,9 @@ import {
   Platform,
 } from 'react-native';
 import { SearchBar } from 'react-native-elements';
+import { Block, theme } from 'galio-framework';
+import Input from '../components/Input';
+import Icon from '../components/Icon';
 
 export default class DropDownSearchBar extends React.Component {
   constructor(props) {
@@ -83,16 +86,28 @@ export default class DropDownSearchBar extends React.Component {
       );
     }
     return (
+      // <Block center>
       //ListView to show with textinput used as search bar
       <View style={styles.viewStyle}>
         <SearchBar
           round
+          lightTheme
+          inputStyle={{margin: 1}}
           searchIcon={{ size: 24 }}
           onChangeText={text => this.SearchFilterFunction(text)}
           onClear={text => this.SearchFilterFunction('')}
-          placeholder="Type Here..."
+          placeholder="What are you Looking for?"
           value={this.state.search}
         />
+        {/* <Input
+          right
+          color="black"
+          style={styles.search}
+          placeholder="What are you looking for?"
+          placeholderTextColor={'#8898AA'}
+          // onFocus={() => navigation.navigate('Pro')}
+          iconContent={<Icon size={16} color={theme.COLORS.MUTED} name="search-zoom-in" family="ArgonExtra" />}
+        /> */}
         <FlatList
           data={this.state.dataSource}
           ItemSeparatorComponent={this.ListViewItemSeparator}
@@ -115,7 +130,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flex: 1,
     backgroundColor: 'white',
-    marginTop: Platform.OS == 'ios' ? 30 : 0,
+    width:'100%',
   },
   textStyle: {
     padding: 10,

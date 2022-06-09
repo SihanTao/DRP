@@ -1,5 +1,4 @@
 import React from 'react';
-import { withNavigation } from '@react-navigation/compat';
 import { TouchableOpacity, StyleSheet, Platform, Dimensions, View } from 'react-native';
 import { Button, Block, NavBar, Text, theme } from 'galio-framework';
 
@@ -97,12 +96,12 @@ class Header extends React.Component {
     //   ]
     // }
 
-    // switch (title) {
-    //   case 'Home':
-    //     return ([
-    //       <BellButton key='chat-home' navigation={navigation} isWhite={white} />,
-    //       <BasketButton key='basket-home' navigation={navigation} isWhite={white} />
-    //     ]);
+    switch (title) {
+      case 'Home':
+        return ([
+          <BellButton key='chat-home' navigation={navigation} isWhite={white} />,
+          <BasketButton key='basket-home' navigation={navigation} isWhite={white} />
+        ]);
     //   case 'Deals':
     //     return ([
     //       <BellButton key='chat-categories' navigation={navigation} />,
@@ -138,9 +137,9 @@ class Header extends React.Component {
     //       <BellButton key='chat-search' navigation={navigation} isWhite={white} />,
     //       <BasketButton key='basket-search' navigation={navigation} isWhite={white} />
     //     ]);
-    //   default:
-    //     break;
-    // }
+      default:
+        break;
+    }
   }
   renderSearch = () => {
     const { navigation } = this.props;
@@ -368,4 +367,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withNavigation(Header);
+export default Header;

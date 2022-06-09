@@ -129,7 +129,7 @@ export default function SearchResult() {
           />
         </ModalInput>
       )}
-    </View>
+    </View> 
   );
 }
 
