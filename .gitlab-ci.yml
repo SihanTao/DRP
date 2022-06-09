@@ -11,10 +11,10 @@
 #     - docker push $CI_REGISTRY_IMAGE
 
 stages:
-  # - build
-  # - setup_test
-  # - test
-  # - deploy
+  - build
+  - setup_test
+  - test
+  - deploy
 
 another_default:
   # stage: build
@@ -30,27 +30,27 @@ another_default:
     - echo "push image"
     - docker push $CI_REGISTRY_IMAGE
 
-no_build_yet:
+.no_build_yet:
   stage: build
   script:
     - echo SKIP
 
-node_version_test:
+.node_version_test:
   stage: setup_test
   script:
     - node -v
   
-npm_version_test:
+.npm_version_test:
   stage: setup_test
   script:
     - npm -v
 
-# python_version_test:
-#   stage: setup_test
-#   script:
-#     - python --version
+.python_version_test:
+  stage: setup_test
+  script:
+    - python --version
 
-no_deploy_yet:
+.no_deploy_yet:
   stage: deploy
   script:
     - echo SKIP
