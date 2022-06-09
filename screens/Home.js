@@ -23,7 +23,7 @@ class Home extends React.Component {
             style={{ marginBottom: theme.SIZES.BASE / 2 }}
             color={argonTheme.COLORS.DEFAULT}
           >
-            Recommandation
+            Recommendation
           </Text>
         </Block>
 

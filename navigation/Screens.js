@@ -159,6 +159,7 @@ function HomeStack(props) {
               title="Home"
               tabs={tabs.categories}
               search
+              // multiselect
               navigation={navigation}
               scene={scene}
             />

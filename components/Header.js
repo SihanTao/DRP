@@ -1,12 +1,13 @@
 import React from 'react';
 import { withNavigation } from '@react-navigation/compat';
-import { TouchableOpacity, StyleSheet, Platform, Dimensions } from 'react-native';
+import { TouchableOpacity, StyleSheet, Platform, Dimensions, View } from 'react-native';
 import { Button, Block, NavBar, Text, theme } from 'galio-framework';
 
 import Icon from './Icon';
 import Input from './Input';
 import Tabs from './Tabs';
 import argonTheme from '../constants/Theme';
+import MultiSelect from './MultiSelect';
 
 import { ColorPicker, ModalInput, Separator, Tag } from "react-native-btr";
 
@@ -46,6 +47,40 @@ const SearchButton = ({isWhite, style, navigation}) => (
     />
   </TouchableOpacity>
 );
+
+const onSelectedItemsChange = (selectedItems) => {
+  // do something with selectedItems
+  console.log('Selected Items: ', selectedItems);
+};
+
+const items = [{
+  id: '92iijs7yta',
+  name: 'Ondo',
+}, {
+  id: 'a0s0a8ssbsd',
+  name: 'Ogun',
+}, {
+  id: '16hbajsabsd',
+  name: 'Calabar',
+}, {
+  id: 'nahs75a5sg',
+  name: 'Lagos',
+}, {
+  id: '667atsas',
+  name: 'Maiduguri',
+}, {
+  id: 'hsyasajs',
+  name: 'Anambra',
+}, {
+  id: 'djsjudksjd',
+  name: 'Benue',
+}, {
+  id: 'sdhyaysdj',
+  name: 'Kaduna',
+}, {
+  id: 'suudydjsjd',
+  name: 'Abuja',
+}];
 
 class Header extends React.Component {
   handleLeftPress = () => {
@@ -161,19 +196,46 @@ class Header extends React.Component {
     )
   }
 
+  renderMultiSelect = () => {
+    const { tabs, tabIndex, navigation } = this.props;
+    return (
+      //<View style={multiSelectStyles.container}>
+        <MultiSelect
+          single
+          items={items}
+          uniqueKey="id"
+          onSelectedItemsChange={onSelectedItemsChange}
+          selectedItems={[]}
+          selectText="Pick Items"
+          searchInputPlaceholderText="Search Items..."
+          tagRemoveIconColor="#CCC"
+          tagBorderColor="#CCC"
+          tagTextColor="#CCC"
+          selectedItemTextColor="#CCC"
+          selectedItemIconColor="#CCC"
+          itemTextColor="#000"
+          searchInputStyle={{ color: '#CCC' }}
+          submitButtonColor="#CCC"
+          submitButtonText="Submit"
+        />
+      //</View>
+    );
+  }
+
   renderHeader = () => {
-    const { search, options, tabs } = this.props;
+    const { multiselect, search, options, tabs } = this.props;
     if (search || tabs || options) {
       return (
         <Block center>
           {search ? this.renderSearch() : null}
+          {/* {multiselect ? this.renderMultiSelect() : null} */}
           {options ? this.renderOptions() : null}
           {tabs ? this.renderTabs() : null}
         </Block>
       );
     }
   }
-  
+
   render() {
     const { back, title, white, transparent, bgColor, iconColor, titleColor, navigation, ...props } = this.props;
 
@@ -219,6 +281,24 @@ class Header extends React.Component {
     );
   }
 }
+
+const multiSelectStyles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#F5FCFF',
+    padding: 10,
+  },
+  welcome: {
+    fontSize: 20,
+    textAlign: 'center',
+    margin: 30,
+  },
+  instructions: {
+    textAlign: 'center',
+    color: '#333333',
+    marginBottom: 5,
+  },
+});
 
 const styles = StyleSheet.create({
   button: {
