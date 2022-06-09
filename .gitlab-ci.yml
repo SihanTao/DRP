@@ -4,6 +4,19 @@ default:
   services:
     - python:latest
 
+another_default:
+  image: docker
+  services: 
+    - docker:dind
+  script:
+    - echo "login starts..."
+    - echo $CI_REGISTRY_PASSWORD |\
+      docker login -u $CI_REGISTRY_USER $CI_REGISTRY --password-stdin
+    - echo "build image $CI_REGISTRY_IMAGE"
+    - docker build -t $CI_REGISTRY_IMAGE .
+    - echo "push image"
+    - docker push $CI_REGISTRY_IMAGE
+
 stages:
   - build
   - setup_test
