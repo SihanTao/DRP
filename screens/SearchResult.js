@@ -1,12 +1,22 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, StyleSheet } from "react-native";
+import { Text } from 'galio-framework';
+import { View, TextInput, StyleSheet, ImageBackground, Dimensions, Linking } from "react-native";
 import { ColorPicker, ModalInput, Separator, Tag } from "react-native-btr";
 import DropDownSearchBar from "../components/DropDownSearchBar";
+import Images from '../constants/Images';
+import { Block, theme } from 'galio-framework';
+import Home from '../screens/Home'
+
+const { width } = Dimensions.get('screen');
 
 export default function SearchResult() {
   let [tags, setTags] = useState([
-    { name: "tag", color: "#f44", active: false },
-    { name: "production", color: "#484", active: false },
+    { name: "#study space", color: "#f44", active: false },
+    { name: "#silent", color: "#484", active: false },
+    { name: "#group", color: "#E91", active: false },
+    { name: "#toilet", color: "#9C2", active: false },
+    { name: "#microwave", color: "#673", active: false },
+    { name: "#water_fountain", color: "#4CA", active: false },
   ]);
 
   const [visible, setVisible] = useState(false);
@@ -41,95 +51,77 @@ export default function SearchResult() {
   return (
     
     <View style={styles.container}>
-      <DropDownSearchBar> 
-      </DropDownSearchBar> 
-      <Text style={{ fontSize: 20, margin: 20 }}>Create</Text>
-      <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
-        {tags.map((tag, index) => (
-          <View key={tag.name + index} style={{ margin: 2 }}>
-            <Tag
-              name={tag.name}
-              style={{
-                backgroundColor: tag.color,
-                color: "#fff",
-                borderRadius: 50,
-              }}
-              iconRight="cancel"
-              onPress={() => removeTag(index)}
-            />
+      <View style={styles.container2}>
+          <DropDownSearchBar style={{ }}> 
+          </DropDownSearchBar> 
+      </View>
+      <View style={styles.container5}>
+        <View style={styles.container}>
+          <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+            {tags.map((tag, index) => {
+              const backgroundColor = tag.active ? tag.color : "#0000";
+              const color = tag.active ? "#fff" : tag.color;
+              return (
+                <View key={tag.name + index} style={{ margin: 2 }}>
+                  <Tag
+                    name={tag.name}
+                    style={{
+                      backgroundColor,
+                      color,
+                      borderWidth: 1,
+                      borderRadius: 50,
+                    }}
+                    onPress={() => toggleTag(index)}
+                  />
+                </View>
+              );
+            })}
           </View>
-        ))}
-        <View style={{ margin: 2 }}>
-          <Tag
-            name="add tag"
-            iconLeft="add-circle"
-            style={{
-              backgroundColor: "#0008",
-              color: "#fff",
-              borderRadius: 50,
-            }}
-            onPress={toggle}
-          />
+          {visible && (
+            <ModalInput onCancel={onCancel} onOk={onOk}>
+              <ColorPicker
+                selectedColor={color}
+                onSelect={(color) => setColor(color)}
+              />
+              <Separator />
+              <TextInput
+                autoFocus={true}
+                placeholder="Tag"
+                multiline={true}
+                value={text}
+                onChangeText={(text) => setText(text)}
+                underlineColorAndroid="#0000"
+                style={styles.textInput}
+              />
+            </ModalInput>
+          )}
+        </View> 
+        <View style={styles.container5}>
+          <Home noRecommendation={true}></Home>
+        {/* <Block flex card shadow style={styles.category}>
+            <ImageBackground
+              source={{ uri: Images.Snooker }}
+              style={[
+                styles.imageBlock,
+                { width: width - theme.SIZES.BASE * 2, height: 252 },
+              ]}
+              imageStyle={{
+                width: width - theme.SIZES.BASE * 2,
+                height: 150,
+              }}
+            >
+              <Block style={styles.categoryTitle}>
+                <Text size={18} bold color={theme.COLORS.WHITE}
+                  onPress={() => Linking.openURL('https://www.union.ic.ac.uk/rcc/snooker_billiards/home/about.php')
+                    .catch((err) => console.error('An error occurred', err))}>
+                  Imperial Union Snooker
+                </Text>
+              </Block>
+            </ImageBackground>
+          </Block> */}
         </View>
       </View>
-      <Text style={{ fontSize: 20, margin: 20 }}>Toggle</Text>
-      <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
-        {tags.map((tag, index) => {
-          const backgroundColor = tag.active ? tag.color : "#0000";
-          const color = tag.active ? "#fff" : tag.color;
-          return (
-            <View key={tag.name + index} style={{ margin: 2 }}>
-              <Tag
-                name={tag.name}
-                style={{
-                  backgroundColor,
-                  color,
-                  borderWidth: 1,
-                  borderRadius: 50,
-                }}
-                onPress={() => toggleTag(index)}
-              />
-            </View>
-          );
-        })}
-      </View>
-      <Text style={{ fontSize: 20, margin: 20 }}>Read</Text>
-      <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
-        {tags
-          .filter((tag) => tag.active)
-          .map((tag, index) => (
-            <View key={tag.name + index} style={{ margin: 2 }}>
-              <Tag
-                name={tag.name}
-                style={{
-                  backgroundColor: tag.color,
-                  color: "#fff",
-                  borderRadius: 50,
-                }}
-                onPress={() => {}}
-              />
-            </View>
-          ))}
-      </View>
-      {visible && (
-        <ModalInput onCancel={onCancel} onOk={onOk}>
-          <ColorPicker
-            selectedColor={color}
-            onSelect={(color) => setColor(color)}
-          />
-          <Separator />
-          <TextInput
-            autoFocus={true}
-            placeholder="Tag"
-            multiline={true}
-            value={text}
-            onChangeText={(text) => setText(text)}
-            underlineColorAndroid="#0000"
-            style={styles.textInput}
-          />
-        </ModalInput>
-      )}
-    </View> 
+    </View>
   );
 }
 
@@ -138,6 +130,23 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    marginTop: 0,
+    width: '100%',
+    //backgroundColor: "#abdbe3",
+  },
+  container2: {
+    flex: 2,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 0,
+  },
+  container5: {
+    flex: 5,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 0,
+    //backgroundColor: "#abdbe3",
+    width: '100%',
   },
   textInput: {
     flex: 1,

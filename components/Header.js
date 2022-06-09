@@ -10,6 +10,8 @@ import MultiSelect from './MultiSelect';
 
 import { ColorPicker, ModalInput, Separator, Tag } from "react-native-btr";
 
+import SearchResult from "../screens/SearchResult"
+
 const { height, width } = Dimensions.get('window');
 const iPhoneX = () => Platform.OS === 'ios' && (height === 812 || width === 812 || height === 896 || width === 896);
 
@@ -150,7 +152,8 @@ class Header extends React.Component {
         style={styles.search}
         placeholder="What are you looking for?"
         placeholderTextColor={'#8898AA'}
-        // onFocus={() => navigation.navigate('Pro')}
+        onSubmitEditing={()=>navigation.navigate('SearchResult')}
+        //onFocus={() => navigation.navigate('SearchResult')}
         iconContent={<Icon size={16} color={theme.COLORS.MUTED} name="search-zoom-in" family="ArgonExtra" />}
       />
     );

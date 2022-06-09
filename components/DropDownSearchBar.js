@@ -131,6 +131,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
     width:'100%',
+    marginTop: 0,
   },
   textStyle: {
     padding: 10,

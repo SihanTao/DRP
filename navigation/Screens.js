@@ -176,7 +176,7 @@ function TagStack(props) {
     <Stack.Navigator
       screenOptions={{
         mode: "card",
-        headerShown: "screen",
+        headerShown: false,
       }}
     >
       <Stack.Screen
@@ -184,7 +184,7 @@ function TagStack(props) {
         component={TagDemo}
         options={{
           header: ({ navigation, scene }) => (
-            <Header title="Tag" navigation={navigation} scene={scene} />
+            <Header title="Tags" navigation={navigation} scene={scene} />
           ),
           cardStyle: { backgroundColor: "#F8F9FE" },
         }}
@@ -267,6 +267,7 @@ function AppStack(props) {
       <Drawer.Screen name="Elements" component={ElementsStack} />
       <Drawer.Screen name="Articles" component={ArticlesStack} />
       <Drawer.Screen name="SearchResult" component={SearchResultStack} />
+      <Drawer.Screen name="Tags" component={TagStack} />
     </Drawer.Navigator>
   );
 }
