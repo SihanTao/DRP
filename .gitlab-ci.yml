@@ -1,14 +1,15 @@
-some test job:
-  image: python:3.8
-  script:
-    - python --version
-    - pip --version
-    - pip install pytest
-    - pytest --version
-    - echo "Doing complex stuff"
+# some test job:
+#   image: python:3.8
+#   script:
+#     - python --version
+#     - pip --version
+#     - pip install pytest
+#     - pytest --version
+#     - echo "Doing complex stuff"
 
-build image:
+build:
   image: docker:19.03.12
+  stage: build
   services:
     - docker:19.03.12-dind
   variables:
