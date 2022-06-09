@@ -31,4 +31,5 @@ deploy-prod:
     - expo --version
     - yarn install
     - expo install expo-updates
+    - expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD
     - expo publish
