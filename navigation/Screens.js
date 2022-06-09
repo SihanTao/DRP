@@ -19,6 +19,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createStackNavigator } from "@react-navigation/stack";
 import TagDemo from "../screens/Tag";
+import SearchResult from "../screens/SearchResult"
 
 const { width } = Dimensions.get("screen");
 
@@ -192,6 +193,29 @@ function TagStack(props) {
   );
 }
 
+function SearchResultStack(props) {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        mode: "card",
+        headerShown: "screen",
+      }}
+    >
+      <Stack.Screen
+        name="SearchResult"
+        component={SearchResult}
+        options={{
+          header: ({ navigation, scene }) => (
+            <Header title="SearchResult" navigation={navigation} scene={scene} />
+          ),
+          cardStyle: { backgroundColor: "#F8F9FE" },
+        }}
+      />
+
+    </Stack.Navigator>
+  );
+}
+
 export default function OnboardingStack(props) {
   return (
     <Stack.Navigator
@@ -241,7 +265,7 @@ function AppStack(props) {
       <Drawer.Screen name="Account" component={RegisterStack} />
       <Drawer.Screen name="Elements" component={ElementsStack} />
       <Drawer.Screen name="Articles" component={ArticlesStack} />
-      <Drawer.Screen name="Tags" component={TagStack} />
+      <Drawer.Screen name="SearchResult" component={SearchResultStack} />
     </Drawer.Navigator>
   );
 }

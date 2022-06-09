@@ -19,11 +19,11 @@ class Home extends React.Component {
         contentContainerStyle={styles.articles}>
         <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
           <Text
-            h1
+            h3
             style={{ marginBottom: theme.SIZES.BASE / 2 }}
             color={argonTheme.COLORS.DEFAULT}
           >
-            Popular Recently
+            Recommandation
           </Text>
         </Block>
 

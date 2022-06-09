@@ -156,7 +156,8 @@ class Header extends React.Component {
       <Tabs
         data={tabs || []}
         initialIndex={tabIndex || defaultTab}
-        onChange={id => navigation.setParams({ tabId: id })} />
+        onChange={id => navigation.setParams({ tabId: id })}
+        navigation={navigation} />
     )
   }
 

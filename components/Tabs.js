@@ -2,6 +2,8 @@ import React from 'react';
 import { StyleSheet, Dimensions, FlatList, Animated } from 'react-native';
 import { Block, theme } from 'galio-framework';
 
+import TagDemo from "../screens/Tag";
+
 const { width } = Dimensions.get('screen');
 import argonTheme from '../constants/Theme';
 
@@ -22,10 +24,11 @@ export default class Tabs extends React.Component {
     active: null,
   }
 
-  componentDidMount() {
-    const { initialIndex } = this.props;
-    initialIndex && this.selectMenu(initialIndex);
-  }
+  //select first by default
+  // componentDidMount() {
+  //   const { initialIndex } = this.props;
+  //   initialIndex && this.selectMenu(initialIndex);
+  // }
 
   animatedValue = new Animated.Value(1);
 
@@ -49,6 +52,7 @@ export default class Tabs extends React.Component {
   }
 
   selectMenu = (id) => {
+    const { navigation } = this.props;
     this.setState({ active: id });
 
     this.menuRef.current.scrollToIndex({
@@ -58,10 +62,12 @@ export default class Tabs extends React.Component {
 
     this.animate();
     this.props.onChange && this.props.onChange(id);
+    navigation.navigate('SearchResult');
   }
 
   renderItem = (item) => {
     const isActive = this.state.active === item.id;
+    const { navigation } = this.props;
 
     const textColor = this.animatedValue.interpolate({
       inputRange: [0, 1],
