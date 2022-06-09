@@ -4,13 +4,14 @@ default:
   # services:
   #   - node:latest
 
-  before_script:
+  # before_script:
     # - apt-get -y update
     # - apt-get -y install nodejs
     # - apt-get -y install npm
 
 stages:
   - build
+  - setup_test
   - test
   - deploy
 
@@ -19,13 +20,15 @@ no_build_yet:
   script:
     - echo SKIP
 
-test_if_node_is_present:
-  stage: test
+node_version_test:
+  stage: setup_test
   script:
-    - echo "before node version check"
     - node -v
-    # - npm -v
-    - echo "after node version check"
+  
+npm_version_test:
+  stage: setup_test
+  script:
+    - npm -v
 
 no_deploy_yet:
   stage: deploy
