@@ -1,13 +1,8 @@
 default:
   image: node:latest
 
-  # services:
-  #   - node:latest
-
-  # before_script:
-    # - apt-get -y update
-    # - apt-get -y install nodejs
-    # - apt-get -y install npm
+  services:
+    - python:latest
 
 stages:
   - build
@@ -29,6 +24,11 @@ npm_version_test:
   stage: setup_test
   script:
     - npm -v
+
+python_version_test:
+  stage: setup_test
+  script:
+    - python --version
 
 no_deploy_yet:
   stage: deploy
