@@ -4,7 +4,14 @@ default:
   services:
     - python:latest
 
+stages:
+  - build
+  - setup_test
+  - test
+  - deploy
+
 another_default:
+  stage: build
   image: docker
   services: 
     - docker:dind
@@ -16,12 +23,6 @@ another_default:
     - docker build -t $CI_REGISTRY_IMAGE .
     - echo "push image"
     - docker push $CI_REGISTRY_IMAGE
-
-stages:
-  - build
-  - setup_test
-  - test
-  - deploy
 
 no_build_yet:
   stage: build
@@ -38,10 +39,10 @@ npm_version_test:
   script:
     - npm -v
 
-python_version_test:
-  stage: setup_test
-  script:
-    - python --version
+# python_version_test:
+#   stage: setup_test
+#   script:
+#     - python --version
 
 no_deploy_yet:
   stage: deploy
