@@ -1,0 +1,10 @@
+This is the Google Pub/Sub fake.
+Implementation may be incomplete or differ from the real system.
+6月 09, 2022 7:49:23 下午 com.google.cloud.pubsub.testing.v1.Main main
+信息: IAM integration is disabled. IAM policy methods and ACL checks are not supported
+6月 09, 2022 7:49:23 下午 io.gapi.emulators.netty.NettyUtil applyJava7LongHostnameWorkaround
+信息: Applied Java 7 long hostname workaround.
+6月 09, 2022 7:49:23 下午 com.google.cloud.pubsub.testing.v1.Main main
+信息: Server started, listening on 8085
+6月 09, 2022 7:49:23 下午 io.gapi.emulators.grpc.GrpcServer$3 operationComplete
+信息: Adding handler(s) to newly registered Channel.

@@ -1,0 +1,191 @@
+[debug] [2022-06-09T18:48:50.216Z] ----------------------------------------------------------------------
+[debug] [2022-06-09T18:48:50.217Z] Command:       /usr/local/bin/node /usr/local/bin/firebase emulators:start
+[debug] [2022-06-09T18:48:50.218Z] CLI Version:   11.0.1
+[debug] [2022-06-09T18:48:50.218Z] Platform:      linux
+[debug] [2022-06-09T18:48:50.218Z] Node Version:  v16.15.1
+[debug] [2022-06-09T18:48:50.218Z] Time:          Thu Jun 09 2022 19:48:50 GMT+0100 (英国夏令时间)
+[debug] [2022-06-09T18:48:50.218Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2022-06-09T18:48:50.256Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2022-06-09T18:48:50.256Z] > authorizing via signed-in user (kevintao0626@gmail.com)
+[debug] [2022-06-09T18:48:50.432Z] openjdk version "17.0.3" 2022-04-19
+
+[debug] [2022-06-09T18:48:50.433Z] OpenJDK Runtime Environment (build 17.0.3+7-Ubuntu-0ubuntu0.20.04.1)
+OpenJDK 64-Bit Server VM (build 17.0.3+7-Ubuntu-0ubuntu0.20.04.1, mixed mode, sharing)
+
+[debug] [2022-06-09T18:48:50.441Z] Parsed Java major version: 17
+[info] i  emulators: Starting emulators: auth, functions, firestore, database, hosting, pubsub, storage {"metadata":{"emulator":{"name":"hub"},"message":"Starting emulators: auth, functions, firestore, database, hosting, pubsub, storage"}}
+[debug] [2022-06-09T18:48:50.468Z] [hub] writing locator at /tmp/hub-drp22-c4cf7.json
+[info] ✔  functions: Using node@16 from host. {"metadata":{"emulator":{"name":"functions"},"message":"Using node@16 from host."}}
+[debug] [2022-06-09T18:48:50.486Z] defaultcredentials: writing to file /home/sihan/.config/firebase/kevintao0626_gmail_com_application_default_credentials.json
+[debug] [2022-06-09T18:48:50.488Z] Setting GAC to /home/sihan/.config/firebase/kevintao0626_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to /home/sihan/.config/firebase/kevintao0626_gmail_com_application_default_credentials.json"}}
+[debug] [2022-06-09T18:48:50.490Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/drp22-c4cf7/adminSdkConfig [none]
+[debug] [2022-06-09T18:48:50.753Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/drp22-c4cf7/adminSdkConfig 200
+[debug] [2022-06-09T18:48:50.753Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/drp22-c4cf7/adminSdkConfig {"projectId":"drp22-c4cf7","databaseURL":"https://drp22-c4cf7-default-rtdb.europe-west1.firebasedatabase.app","storageBucket":"drp22-c4cf7.appspot.com","locationId":"europe-west"}
+[info] i  firestore: downloading cloud-firestore-emulator-v1.14.3.jar... {"metadata":{"emulator":{"name":"firestore"},"message":"downloading cloud-firestore-emulator-v1.14.3.jar..."}}
+[debug] [2022-06-09T18:48:50.786Z] >>> [apiv2][query] GET https://storage.googleapis.com/firebase-preview-drop/emulator/cloud-firestore-emulator-v1.14.3.jar 
+[debug] [2022-06-09T18:48:50.948Z] <<< [apiv2][status] GET https://storage.googleapis.com/firebase-preview-drop/emulator/cloud-firestore-emulator-v1.14.3.jar 200
+[debug] [2022-06-09T18:48:50.948Z] <<< [apiv2][body] GET https://storage.googleapis.com/firebase-preview-drop/emulator/cloud-firestore-emulator-v1.14.3.jar [stream]
+[debug] [2022-06-09T18:49:05.403Z] Ignoring unsupported arg: projectId {"metadata":{"emulator":{"name":"firestore"},"message":"Ignoring unsupported arg: projectId"}}
+[debug] [2022-06-09T18:49:05.403Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"firestore"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2022-06-09T18:49:05.403Z] Starting Firestore Emulator with command {"binary":"java","args":["-Dgoogle.cloud_firestore.debug_log_level=FINE","-Duser.language=en","-jar","/home/sihan/.cache/firebase/emulators/cloud-firestore-emulator-v1.14.3.jar","--host","localhost","--port",8080,"--rules","/home/sihan/DRP22/firestore.rules","--functions_emulator","localhost:5001"],"optionalArgs":["port","webchannel_port","host","rules","functions_emulator","seed_from_export"],"joinArgs":false} {"metadata":{"emulator":{"name":"firestore"},"message":"Starting Firestore Emulator with command {\"binary\":\"java\",\"args\":[\"-Dgoogle.cloud_firestore.debug_log_level=FINE\",\"-Duser.language=en\",\"-jar\",\"/home/sihan/.cache/firebase/emulators/cloud-firestore-emulator-v1.14.3.jar\",\"--host\",\"localhost\",\"--port\",8080,\"--rules\",\"/home/sihan/DRP22/firestore.rules\",\"--functions_emulator\",\"localhost:5001\"],\"optionalArgs\":[\"port\",\"webchannel_port\",\"host\",\"rules\",\"functions_emulator\",\"seed_from_export\"],\"joinArgs\":false}"}}
+[info] i  firestore: Firestore Emulator logging to firestore-debug.log {"metadata":{"emulator":{"name":"firestore"},"message":"Firestore Emulator logging to \u001b[1mfirestore-debug.log\u001b[22m"}}
+[debug] [2022-06-09T18:49:06.035Z] Jun 09, 2022 7:49:06 PM com.google.cloud.datastore.emulator.firestore.websocket.WebSocketServer start
+INFO: Started WebSocket server on ws://localhost:33303
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 09, 2022 7:49:06 PM com.google.cloud.datastore.emulator.firestore.websocket.WebSocketServer start\nINFO: Started WebSocket server on ws://localhost:33303\n"}}
+[debug] [2022-06-09T18:49:06.074Z] API endpoint: http:// {"metadata":{"emulator":{"name":"firestore"},"message":"API endpoint: http://"}}
+[debug] [2022-06-09T18:49:06.075Z] localhost:8080
+If you are using a library that supports the FIRESTORE_EMULATOR_HOST environment variable, run:
+
+   export FIRESTORE_EMULATOR_HOST=localhost:8080
+
+Dev App Server is now running.
+
+ {"metadata":{"emulator":{"name":"firestore"},"message":"localhost:8080\nIf you are using a library that supports the FIRESTORE_EMULATOR_HOST environment variable, run:\n\n   export FIRESTORE_EMULATOR_HOST=localhost:8080\n\nDev App Server is now running.\n\n"}}
+[debug] [2022-06-09T18:49:06.182Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/drp22-c4cf7 [none]
+[debug] [2022-06-09T18:49:07.004Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/drp22-c4cf7 200
+[debug] [2022-06-09T18:49:07.005Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/drp22-c4cf7 {"projectId":"drp22-c4cf7","projectNumber":"641039613250","displayName":"DRP22","name":"projects/drp22-c4cf7","resources":{"hostingSite":"drp22-c4cf7","realtimeDatabaseInstance":"drp22-c4cf7-default-rtdb","storageBucket":"drp22-c4cf7.appspot.com","locationId":"europe-west"},"state":"ACTIVE"}
+[debug] [2022-06-09T18:49:07.006Z] database rules config:  [{"instance":"drp22-c4cf7-default-rtdb","rules":"/home/sihan/DRP22/database.rules.json"}]
+[info] i  database: downloading firebase-database-emulator-v4.8.0.jar... {"metadata":{"emulator":{"name":"database"},"message":"downloading firebase-database-emulator-v4.8.0.jar..."}}
+[debug] [2022-06-09T18:49:07.022Z] >>> [apiv2][query] GET https://storage.googleapis.com/firebase-preview-drop/emulator/firebase-database-emulator-v4.8.0.jar 
+[debug] [2022-06-09T18:49:07.452Z] <<< [apiv2][status] GET https://storage.googleapis.com/firebase-preview-drop/emulator/firebase-database-emulator-v4.8.0.jar 200
+[debug] [2022-06-09T18:49:07.453Z] <<< [apiv2][body] GET https://storage.googleapis.com/firebase-preview-drop/emulator/firebase-database-emulator-v4.8.0.jar [stream]
+[debug] [2022-06-09T18:49:13.753Z] Ignoring unsupported arg: projectId {"metadata":{"emulator":{"name":"database"},"message":"Ignoring unsupported arg: projectId"}}
+[debug] [2022-06-09T18:49:13.754Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"database"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2022-06-09T18:49:13.754Z] Ignoring unsupported arg: rules {"metadata":{"emulator":{"name":"database"},"message":"Ignoring unsupported arg: rules"}}
+[debug] [2022-06-09T18:49:13.754Z] Starting Database Emulator with command {"binary":"java","args":["-Duser.language=en","-jar","/home/sihan/.cache/firebase/emulators/firebase-database-emulator-v4.8.0.jar","--host","localhost","--port",9000,"--functions_emulator_host","localhost","--functions_emulator_port",5001],"optionalArgs":["port","host","functions_emulator_port","functions_emulator_host"],"joinArgs":false} {"metadata":{"emulator":{"name":"database"},"message":"Starting Database Emulator with command {\"binary\":\"java\",\"args\":[\"-Duser.language=en\",\"-jar\",\"/home/sihan/.cache/firebase/emulators/firebase-database-emulator-v4.8.0.jar\",\"--host\",\"localhost\",\"--port\",9000,\"--functions_emulator_host\",\"localhost\",\"--functions_emulator_port\",5001],\"optionalArgs\":[\"port\",\"host\",\"functions_emulator_port\",\"functions_emulator_host\"],\"joinArgs\":false}"}}
+[info] i  database: Database Emulator logging to database-debug.log {"metadata":{"emulator":{"name":"database"},"message":"Database Emulator logging to \u001b[1mdatabase-debug.log\u001b[22m"}}
+[debug] [2022-06-09T18:49:14.427Z] 19:49:14.426 [NamespaceSystem-akka.actor.default-dispatcher-5] INFO akka.event.slf4j.Slf4jLogger - Slf4jLogger started
+ {"metadata":{"emulator":{"name":"database"},"message":"19:49:14.426 [NamespaceSystem-akka.actor.default-dispatcher-5] INFO akka.event.slf4j.Slf4jLogger - Slf4jLogger started\n"}}
+[debug] [2022-06-09T18:49:14.538Z] 19:49:14.537 [main] INFO com.firebase.server.forge.App$ - Listening at localhost:9000
+ {"metadata":{"emulator":{"name":"database"},"message":"19:49:14.537 [main] INFO com.firebase.server.forge.App$ - Listening at localhost:9000\n"}}
+[info] i  pubsub: downloading pubsub-emulator-0.1.0.zip... {"metadata":{"emulator":{"name":"pubsub"},"message":"downloading pubsub-emulator-0.1.0.zip..."}}
+[debug] [2022-06-09T18:49:19.621Z] >>> [apiv2][query] GET https://storage.googleapis.com/firebase-preview-drop/emulator/pubsub-emulator-0.1.0.zip 
+[debug] [2022-06-09T18:49:19.863Z] <<< [apiv2][status] GET https://storage.googleapis.com/firebase-preview-drop/emulator/pubsub-emulator-0.1.0.zip 200
+[debug] [2022-06-09T18:49:19.864Z] <<< [apiv2][body] GET https://storage.googleapis.com/firebase-preview-drop/emulator/pubsub-emulator-0.1.0.zip [stream]
+[debug] [2022-06-09T18:49:22.929Z] Ignoring unsupported arg: projectId {"metadata":{"emulator":{"name":"pubsub"},"message":"Ignoring unsupported arg: projectId"}}
+[debug] [2022-06-09T18:49:22.929Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"pubsub"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2022-06-09T18:49:22.929Z] Starting Pub/Sub Emulator with command {"binary":"/home/sihan/.cache/firebase/emulators/pubsub-emulator-0.1.0/pubsub-emulator/bin/cloud-pubsub-emulator","args":["--host=localhost","--port=8085"],"optionalArgs":["port","host"],"joinArgs":true} {"metadata":{"emulator":{"name":"pubsub"},"message":"Starting Pub/Sub Emulator with command {\"binary\":\"/home/sihan/.cache/firebase/emulators/pubsub-emulator-0.1.0/pubsub-emulator/bin/cloud-pubsub-emulator\",\"args\":[\"--host=localhost\",\"--port=8085\"],\"optionalArgs\":[\"port\",\"host\"],\"joinArgs\":true}"}}
+[info] i  pubsub: Pub/Sub Emulator logging to pubsub-debug.log {"metadata":{"emulator":{"name":"pubsub"},"message":"Pub/Sub Emulator logging to \u001b[1mpubsub-debug.log\u001b[22m"}}
+[debug] [2022-06-09T18:49:23.003Z] This is the Google Pub/Sub fake.
+Implementation may be incomplete or differ from the real system.
+ {"metadata":{"emulator":{"name":"pubsub"},"message":"This is the Google Pub/Sub fake.\nImplementation may be incomplete or differ from the real system.\n"}}
+[debug] [2022-06-09T18:49:23.033Z] 6月 09, 2022 7:49:23 下午 com.google.cloud.pubsub.testing.v1.Main main
+信息: IAM integration is disabled. IAM policy methods and ACL checks are not supported
+ {"metadata":{"emulator":{"name":"pubsub"},"message":"6月 09, 2022 7:49:23 下午 com.google.cloud.pubsub.testing.v1.Main main\n信息: IAM integration is disabled. IAM policy methods and ACL checks are not supported\n"}}
+[debug] [2022-06-09T18:49:23.245Z] 6月 09, 2022 7:49:23 下午 io.gapi.emulators.netty.NettyUtil applyJava7LongHostnameWorkaround
+信息: Applied Java 7 long hostname workaround.
+ {"metadata":{"emulator":{"name":"pubsub"},"message":"6月 09, 2022 7:49:23 下午 io.gapi.emulators.netty.NettyUtil applyJava7LongHostnameWorkaround\n信息: Applied Java 7 long hostname workaround.\n"}}
+[debug] [2022-06-09T18:49:23.275Z] 6月 09, 2022 7:49:23 下午 com.google.cloud.pubsub.testing.v1.Main main
+信息: Server started, listening on 8085
+ {"metadata":{"emulator":{"name":"pubsub"},"message":"6月 09, 2022 7:49:23 下午 com.google.cloud.pubsub.testing.v1.Main main\n信息: Server started, listening on 8085\n"}}
+[info] i  storage: downloading cloud-storage-rules-runtime-v1.0.2.jar... {"metadata":{"emulator":{"name":"storage"},"message":"downloading cloud-storage-rules-runtime-v1.0.2.jar..."}}
+[debug] [2022-06-09T18:49:23.458Z] >>> [apiv2][query] GET https://storage.googleapis.com/firebase-preview-drop/emulator/cloud-storage-rules-runtime-v1.0.2.jar 
+[debug] [2022-06-09T18:49:23.536Z] 6月 09, 2022 7:49:23 下午 io.gapi.emulators.grpc.GrpcServer$3 operationComplete
+信息: Adding handler(s) to newly registered Channel.
+ {"metadata":{"emulator":{"name":"pubsub"},"message":"6月 09, 2022 7:49:23 下午 io.gapi.emulators.grpc.GrpcServer$3 operationComplete\n信息: Adding handler(s) to newly registered Channel.\n"}}
+[debug] [2022-06-09T18:49:23.905Z] <<< [apiv2][status] GET https://storage.googleapis.com/firebase-preview-drop/emulator/cloud-storage-rules-runtime-v1.0.2.jar 200
+[debug] [2022-06-09T18:49:23.905Z] <<< [apiv2][body] GET https://storage.googleapis.com/firebase-preview-drop/emulator/cloud-storage-rules-runtime-v1.0.2.jar [stream]
+[debug] [2022-06-09T18:49:29.637Z] Ignoring unsupported arg: port {"metadata":{"emulator":{"name":"storage"},"message":"Ignoring unsupported arg: port"}}
+[debug] [2022-06-09T18:49:30.127Z] Temp file directory for storage emulator: /tmp/firebase/storage/blobs {"metadata":{"emulator":{"name":"storage"},"message":"Temp file directory for storage emulator: /tmp/firebase/storage/blobs"}}
+[debug] [2022-06-09T18:49:30.132Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/drp22-c4cf7/sites 
+[debug] [2022-06-09T18:49:31.228Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/drp22-c4cf7/sites 200
+[debug] [2022-06-09T18:49:31.228Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/drp22-c4cf7/sites {"sites":[{"name":"projects/drp22-c4cf7/sites/drp22-c4cf7","defaultUrl":"https://drp22-c4cf7.web.app","type":"DEFAULT_SITE"}]}
+[debug] [2022-06-09T18:49:31.228Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/drp22-c4cf7/webApps/-/config [none]
+[debug] [2022-06-09T18:49:31.946Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/drp22-c4cf7/webApps/-/config 200
+[debug] [2022-06-09T18:49:31.946Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/drp22-c4cf7/webApps/-/config {"projectId":"drp22-c4cf7","appId":"1:641039613250:web:120f3ee1b49e0c4727dcdb","databaseURL":"https://drp22-c4cf7-default-rtdb.europe-west1.firebasedatabase.app","storageBucket":"drp22-c4cf7.appspot.com","locationId":"europe-west","apiKey":"AIzaSyDrHlxTMFpSJpK9wOwc00-0FgNmQWU4uFI","authDomain":"drp22-c4cf7.firebaseapp.com","messagingSenderId":"641039613250","measurementId":"G-RCTVFJVMC5"}
+[info] i  hosting: Serving hosting files from: public {"metadata":{"emulator":{"name":"hosting"},"message":"Serving hosting files from: \u001b[1mpublic\u001b[22m"}}
+[info] ✔  hosting: Local server: http://localhost:5000 {"metadata":{"emulator":{"name":"hosting"},"message":"Local server: \u001b[4m\u001b[1mhttp://localhost:5000\u001b[22m\u001b[24m"}}
+[info] i  ui: downloading ui-v1.7.0.zip... {"metadata":{"emulator":{"name":"ui"},"message":"downloading ui-v1.7.0.zip..."}}
+[debug] [2022-06-09T18:49:31.996Z] >>> [apiv2][query] GET https://storage.googleapis.com/firebase-preview-drop/emulator/ui-v1.7.0.zip 
+[debug] [2022-06-09T18:49:32.027Z] <<< [apiv2][status] GET https://storage.googleapis.com/firebase-preview-drop/emulator/ui-v1.7.0.zip 200
+[debug] [2022-06-09T18:49:32.027Z] <<< [apiv2][body] GET https://storage.googleapis.com/firebase-preview-drop/emulator/ui-v1.7.0.zip [stream]
+[debug] [2022-06-09T18:49:32.440Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2022-06-09T18:49:32.441Z] Ignoring unsupported arg: port {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: port"}}
+[debug] [2022-06-09T18:49:32.441Z] Starting Emulator UI with command {"binary":"node","args":["--dns-result-order=ipv4first","/home/sihan/.cache/firebase/emulators/ui-v1.7.0/server.bundle.js"],"optionalArgs":[],"joinArgs":false} {"metadata":{"emulator":{"name":"ui"},"message":"Starting Emulator UI with command {\"binary\":\"node\",\"args\":[\"--dns-result-order=ipv4first\",\"/home/sihan/.cache/firebase/emulators/ui-v1.7.0/server.bundle.js\"],\"optionalArgs\":[],\"joinArgs\":false}"}}
+[info] i  ui: Emulator UI logging to ui-debug.log {"metadata":{"emulator":{"name":"ui"},"message":"Emulator UI logging to \u001b[1mui-debug.log\u001b[22m"}}
+[debug] [2022-06-09T18:49:32.522Z] Web / API server started at localhost:4000
+ {"metadata":{"emulator":{"name":"ui"},"message":"Web / API server started at localhost:4000\n"}}
+[info] i  functions: Watching "/home/sihan/DRP22/functions" for Cloud Functions... {"metadata":{"emulator":{"name":"functions"},"message":"Watching \"/home/sihan/DRP22/functions\" for Cloud Functions..."}}
+[debug] [2022-06-09T18:49:32.703Z] Validating nodejs source
+[debug] [2022-06-09T18:49:33.435Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "16"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "firebase-admin": "^10.0.2",
+    "firebase-functions": "^3.18.0"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^0.2.0"
+  },
+  "private": true
+}
+[debug] [2022-06-09T18:49:33.435Z] Building nodejs source
+[debug] [2022-06-09T18:49:33.435Z] Analyzing nodejs backend spec
+[debug] [2022-06-09T18:49:33.436Z] Could not find functions.yaml. Must use http discovery
+[debug] [2022-06-09T18:49:33.519Z] Serving at port 9005
+
+[debug] [2022-06-09T18:49:33.553Z] Got response from /__/functions.yaml {"endpoints":{},"specVersion":"v1alpha1","requiredAPIs":[]}
+[debug] [2022-06-09T18:49:33.556Z] shutdown requested via /__/quitquitquit
+
+[debug] [2022-06-09T18:49:33.562Z] >>> [apiv2][query] PUT http://localhost:9000/.settings/rules.json ns=drp22-c4cf7-default-rtdb
+[debug] [2022-06-09T18:49:33.562Z] >>> [apiv2][body] PUT http://localhost:9000/.settings/rules.json "{\n  \"rules\": {\n    \".read\": true,\n    \".write\": true\n  }\n}\n"
+[debug] [2022-06-09T18:49:33.709Z] 19:49:33.708 [NamespaceSystem-akka.actor.default-dispatcher-6] INFO com.firebase.core.namespace.NamespaceActor - drp22-c4cf7-default-rtdb successfully activated FBKV (SurveyIdle(0)) wait: 72ms, init: 0ms
+ {"metadata":{"emulator":{"name":"database"},"message":"19:49:33.708 [NamespaceSystem-akka.actor.default-dispatcher-6] INFO com.firebase.core.namespace.NamespaceActor - drp22-c4cf7-default-rtdb successfully activated FBKV (SurveyIdle(0)) wait: 72ms, init: 0ms\n"}}
+[debug] [2022-06-09T18:49:33.743Z] 19:49:33.743 [NamespaceSystem-blocking-namespace-operation-dispatcher-8:drp22-c4cf7-default-rtdb$-961598256:] INFO com.firebase.core.namespace.StateManager - Namespace drp22-c4cf7-default-rtdb status Active to Active
+ {"metadata":{"emulator":{"name":"database"},"message":"19:49:33.743 [NamespaceSystem-blocking-namespace-operation-dispatcher-8:drp22-c4cf7-default-rtdb$-961598256:] INFO com.firebase.core.namespace.StateManager - Namespace drp22-c4cf7-default-rtdb status Active to Active\n"}}
+[debug] [2022-06-09T18:49:33.769Z] <<< [apiv2][status] PUT http://localhost:9000/.settings/rules.json 200
+[debug] [2022-06-09T18:49:33.769Z] <<< [apiv2][body] PUT http://localhost:9000/.settings/rules.json {"status":"ok"}
+[info] 
+┌─────────────────────────────────────────────────────────────┐
+│ ✔  All emulators ready! It is now safe to connect your app. │
+│ i  View Emulator UI at http://localhost:4000                │
+└─────────────────────────────────────────────────────────────┘
+
+┌────────────────┬────────────────┬─────────────────────────────────┐
+│ Emulator       │ Host:Port      │ View in Emulator UI             │
+├────────────────┼────────────────┼─────────────────────────────────┤
+│ Authentication │ localhost:9099 │ http://localhost:4000/auth      │
+├────────────────┼────────────────┼─────────────────────────────────┤
+│ Functions      │ localhost:5001 │ http://localhost:4000/functions │
+├────────────────┼────────────────┼─────────────────────────────────┤
+│ Firestore      │ localhost:8080 │ http://localhost:4000/firestore │
+├────────────────┼────────────────┼─────────────────────────────────┤
+│ Database       │ localhost:9000 │ http://localhost:4000/database  │
+├────────────────┼────────────────┼─────────────────────────────────┤
+│ Hosting        │ localhost:5000 │ n/a                             │
+├────────────────┼────────────────┼─────────────────────────────────┤
+│ Pub/Sub        │ localhost:8085 │ n/a                             │
+├────────────────┼────────────────┼─────────────────────────────────┤
+│ Storage        │ localhost:9199 │ http://localhost:4000/storage   │
+└────────────────┴────────────────┴─────────────────────────────────┘
+  Emulator Hub running at localhost:4400
+  Other reserved ports: 4500
+
+Issues? Report them at https://github.com/firebase/firebase-tools/issues and attach the *-debug.log files.
+ 
+[debug] [2022-06-09T18:49:43.360Z] Jun 09, 2022 7:49:43 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 09, 2022 7:49:43 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-06-09T18:49:43.423Z] Jun 09, 2022 7:49:43 PM com.google.cloud.datastore.emulator.firestore.websocket.WebSocketChannelHandler initChannel
+INFO: Connected to new websocket client
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 09, 2022 7:49:43 PM com.google.cloud.datastore.emulator.firestore.websocket.WebSocketChannelHandler initChannel\nINFO: Connected to new websocket client\n"}}
+[debug] [2022-06-09T18:49:43.456Z] 19:49:43.455 [NamespaceSystem-akka.actor.default-dispatcher-6] INFO com.firebase.core.namespace.NamespaceActor - drp22-c4cf7 successfully activated FBKV (SurveyIdle(0)) wait: 4ms, init: 0ms
+ {"metadata":{"emulator":{"name":"database"},"message":"19:49:43.455 [NamespaceSystem-akka.actor.default-dispatcher-6] INFO com.firebase.core.namespace.NamespaceActor - drp22-c4cf7 successfully activated FBKV (SurveyIdle(0)) wait: 4ms, init: 0ms\n"}}
+[debug] [2022-06-09T18:49:47.359Z] Jun 09, 2022 7:49:47 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 09, 2022 7:49:47 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
+[debug] [2022-06-09T18:49:49.398Z] Jun 09, 2022 7:49:49 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 09, 2022 7:49:49 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
