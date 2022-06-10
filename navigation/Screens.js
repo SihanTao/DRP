@@ -17,7 +17,7 @@ import React from "react";
 import Register from "../screens/Register";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import { createStackNavigator } from "@react-navigation/stack";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { initializeApp } from "firebase/app";
 import firebaseConfig from "../constants/firebaseConfig";
 import TagDemo from "../screens/Tag";
@@ -25,18 +25,16 @@ import SearchResult from "../screens/SearchResult"
 
 const { width } = Dimensions.get("screen");
 
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
 
 function ElementsStack(props) {
   return (
     <Stack.Navigator
-      screenOptions={{
-        mode: "card",
-        headerShown: false,
-      }}
-    >
+      navigationOptions={{
+        header:null,
+      }}>
       <Stack.Screen
         name="Elements"
         component={Elements}
@@ -56,7 +54,8 @@ function RegisterStack(props) {
     <Stack.Navigator
       screenOptions={{
         mode: "card",
-        headerShown: false,
+        headerShown: true,
+        header:null
       }}
     >
       <Stack.Screen
