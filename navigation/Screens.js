@@ -208,7 +208,7 @@ function SearchResultStack(props) {
         component={SearchResult}
         options={{
           header: ({ navigation, scene }) => (
-            <Header title="SearchResult" navigation={navigation} scene={scene} />
+            <Header back title="SearchResult" navigation={navigation} scene={scene} />
           ),
           cardStyle: { backgroundColor: "#F8F9FE" },
         }}
@@ -268,7 +268,7 @@ function AppStack(props) {
       <Drawer.Screen name="Account" component={RegisterStack} />
       <Drawer.Screen name="Elements" component={ElementsStack} options={{ headerShown: false }} />
       <Drawer.Screen name="Articles" component={ArticlesStack} options={{ headerShown: false }} />
-      <Drawer.Screen name="SearchResult" component={SearchResultStack} />
+      <Drawer.Screen name="SearchResult" component={SearchResultStack} options={{ headerShown: false }}/>
       <Drawer.Screen name="Tags" component={TagStack} options={{ headerShown: false }} />
     </Drawer.Navigator>
   );
