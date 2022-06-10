@@ -21,7 +21,7 @@ export default class DropDownSearchBar extends React.Component {
     this.arrayholder = [];
   }
   componentDidMount() {
-    return fetch('https://jsonplaceholder.typicode.com/posts')
+    return fetch('https://json.extendsclass.com/bin/f909d1a010a9')
       .then(response => response.json())
       .then(responseJson => {
         this.setState(
