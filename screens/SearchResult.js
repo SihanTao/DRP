@@ -17,6 +17,7 @@ export default function SearchResult() {
     { name: "#toilet", color: "#9C2", active: false },
     { name: "#microwave", color: "#673", active: false },
     { name: "#water_fountain", color: "#4CA", active: false },
+    { name: "#new_facility", color: "#4CA", active: false },
   ]);
 
   const [visible, setVisible] = useState(false);
