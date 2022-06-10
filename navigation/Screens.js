@@ -32,8 +32,9 @@ const Tab = createBottomTabNavigator();
 function ElementsStack(props) {
   return (
     <Stack.Navigator
-      navigationOptions={{
-        header:null,
+      screenOptions={{
+        mode: "card",
+        headerShown: "screen",
       }}>
       <Stack.Screen
         name="Elements"
@@ -54,8 +55,7 @@ function RegisterStack(props) {
     <Stack.Navigator
       screenOptions={{
         mode: "card",
-        headerShown: true,
-        header:null
+        headerShown: "screen",
       }}
     >
       <Stack.Screen
@@ -78,7 +78,7 @@ function ArticlesStack(props) {
     <Stack.Navigator
       screenOptions={{
         mode: "card",
-        headerShown: false,
+        headerShown: true,
       }}
     >
       <Stack.Screen
@@ -101,7 +101,7 @@ function ProfileStack(props) {
       initialRouteName="Profile"
       screenOptions={{
         mode: "card",
-        headerShown: false,
+        headerShown: true,
       }}
     >
       <Stack.Screen
@@ -110,14 +110,14 @@ function ProfileStack(props) {
         options={{
           header: ({ navigation, scene }) => (
             <Header
-              transparent
               white
               title="Profile"
               navigation={navigation}
-              scene={scene}
+              bgColor={argonTheme.COLORS.ACTIVE}
+              titleColor="white"
+              iconColor="white"
             />
           ),
-          cardStyle: { backgroundColor: "#FFFFFF" },
           headerTransparent: true,
         }}
       />
@@ -177,7 +177,7 @@ function TagStack(props) {
     <Stack.Navigator
       screenOptions={{
         mode: "card",
-        headerShown: false,
+        headerShown: true,
       }}
     >
       <Stack.Screen
@@ -200,7 +200,7 @@ function SearchResultStack(props) {
     <Stack.Navigator
       screenOptions={{
         mode: "card",
-        headerShown: false,
+        headerShown: true,
       }}
     >
       <Stack.Screen
@@ -263,13 +263,13 @@ function AppStack(props) {
       }}
       initialRouteName="Home"
     >
-      <Drawer.Screen name="Home" component={HomeStack} />
-      <Drawer.Screen name="Profile" component={ProfileStack} />
+      <Drawer.Screen name="Home" component={HomeStack} options={{ headerShown: false }} />
+      <Drawer.Screen name="Profile" component={ProfileStack} options={{ headerShown: false }} />
       <Drawer.Screen name="Account" component={RegisterStack} />
-      <Drawer.Screen name="Elements" component={ElementsStack} />
-      <Drawer.Screen name="Articles" component={ArticlesStack} />
+      <Drawer.Screen name="Elements" component={ElementsStack} options={{ headerShown: false }} />
+      <Drawer.Screen name="Articles" component={ArticlesStack} options={{ headerShown: false }} />
       <Drawer.Screen name="SearchResult" component={SearchResultStack} />
-      <Drawer.Screen name="Tags" component={TagStack} />
+      <Drawer.Screen name="Tags" component={TagStack} options={{ headerShown: false }} />
     </Drawer.Navigator>
   );
 }
