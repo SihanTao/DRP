@@ -13,9 +13,6 @@ build-job:
     - apt-get -y install git
     - apt-get -y install watchman
     - yarn install
-  artifacts:
-    paths:
-      - node_modules/
 
 test:
   stage: test
