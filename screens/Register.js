@@ -11,9 +11,7 @@ import { Block, Checkbox, Text, theme } from "galio-framework";
 import { Button, Icon, Input } from "../components";
 import { Images, argonTheme } from "../constants";
 import { writeUserData } from "../backend/databaseReadWrite";
-
-// Testing 
-import users from "../constants/users";
+import {createUserWithEmail} from '../backend/auth'
 
 const { width, height } = Dimensions.get("screen");
 
@@ -25,14 +23,6 @@ class Register extends React.Component {
       useremail: '',
       userpassword: '',
     }
-  }
-
-  onChangeName(text) {
-    this.setState({
-      username: text,
-    })
-
-    const username = this.state.username;
   }
 
   render() {
@@ -88,7 +78,7 @@ class Register extends React.Component {
                     behavior="padding"
                     enabled
                   >
-                    <Block width={width * 0.8} style={{ marginBottom: 15 }}>
+                    {/* <Block width={width * 0.8} style={{ marginBottom: 15 }}>
                       <Input
                         borderless
                         placeholder="Name"
@@ -103,7 +93,7 @@ class Register extends React.Component {
                           />
                         }
                       />
-                    </Block>
+                    </Block> */}
                     <Block width={width * 0.8} style={{ marginBottom: 15 }}>
                       <Input
                         borderless
@@ -168,7 +158,7 @@ class Register extends React.Component {
                     <Block middle>
                       <Button color="primary"
                         style={styles.createButton}
-                        onPress={() => writeUserData(this.state.username, this.state.useremail, this.state.userpassword)}
+                        onPress={() => createUserWithEmail(this.state.useremail, this.state.userpassword)}
                       >
                         <Text bold size={14} color={argonTheme.COLORS.WHITE}>
                           CREATE ACCOUNT

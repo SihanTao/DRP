@@ -36,8 +36,7 @@ function cacheImages(images) {
     }
   });
 }
-
-export default props => {
+const App = (props) => {
   const [isLoadingComplete, setLoading] = useState(false);
   let [fontsLoaded] = useFonts({
     'ArgonExtra': require('./assets/font/argon.ttf'),
@@ -56,7 +55,7 @@ export default props => {
  function _handleFinishLoading() {
     setLoading(true);
   };
-
+  
   if(!fontsLoaded && !isLoadingComplete) {
     return (
       <AppLoading
@@ -79,3 +78,5 @@ export default props => {
     return null
   }
 }
+
+export default App;
