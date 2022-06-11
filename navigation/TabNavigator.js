@@ -30,6 +30,16 @@ const BottomTabNavigator = () => {
                     ),
                 }}
             />
+            <Tab.Screen name="Share"
+                component={FavouriteScreen}
+                options={{
+                    tabBarShowLabel: false,
+                    headerShown: false,
+                    tabBarIcon: ({ color, size }) => (
+                        <MaterialCommunityIcons name="plus-box" color={color} size={size} />
+                    ),
+                }}
+            />
             <Tab.Screen name="Profile"
                 component={ProfileStackScreen}
                 options={{
