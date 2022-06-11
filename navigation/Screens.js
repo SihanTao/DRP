@@ -95,7 +95,7 @@ function RegisterStackScreen(props) {
 
 const ArticlesStack = createNativeStackNavigator();
 
-function ArticlesStackScreen(props) {
+export function ArticlesStackScreen(props) {
   return (
     <ArticlesStack.Navigator
       screenOptions={{
@@ -309,8 +309,8 @@ function AppStack(props) {
       <Drawer.Screen name="Home" component={BottomTabNavigator} options={{ headerShown: false }} />
       <Drawer.Screen name="Profile" component={ProfileStackScreen} options={{ headerShown: false }} />
       <Drawer.Screen name="Account" component={RegisterStackScreen} />
-      <Drawer.Screen name="Elements" component={ElementsStackScreen} options={{ headerShown: false }} />
-      <Drawer.Screen name="Articles" component={ArticlesStackScreen} options={{ headerShown: false }} />
+      {/* <Drawer.Screen name="Elements" component={ElementsStackScreen} options={{ headerShown: false }} /> */}
+      {/* <Drawer.Screen name="Articles" component={ArticlesStackScreen} options={{ headerShown: false }} /> */}
       <Drawer.Screen name="SearchResult" component={SearchResultStackScreen} options={{ headerShown: false }} />
       <Drawer.Screen name="Tags" component={TagStackScreen} options={{ headerShown: false }} />
     </Drawer.Navigator>
