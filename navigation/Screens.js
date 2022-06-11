@@ -22,6 +22,7 @@ import { initializeApp } from "firebase/app";
 import firebaseConfig from "../constants/firebaseConfig";
 import TagDemo from "../screens/Tag";
 import SearchResult from "../screens/SearchResult"
+import BottomTabNavigator from "./TabNavigator";
 
 const { width } = Dimensions.get("screen");
 
@@ -119,7 +120,7 @@ function ArticlesStackScreen(props) {
 
 const ProfileStack = createNativeStackNavigator();
 
-function ProfileStackScreen(props) {
+export function ProfileStackScreen(props) {
   return (
     <ProfileStack.Navigator
       initialRouteName="Profile"
@@ -169,7 +170,7 @@ function ProfileStackScreen(props) {
 
 const HomeStack = createNativeStackNavigator();
 
-function HomeStackScreen(props) {
+export function HomeStackScreen(props) {
   return (
     <HomeStack.Navigator
       screenOptions={{
@@ -248,6 +249,32 @@ function SearchResultStackScreen(props) {
   );
 }
 
+const favouriteStack = createNativeStackNavigator();
+
+// TODO: Write the favourite page
+export function FavouriteScreen(props) {
+  return (
+    <favouriteStack.Navigator
+      screenOptions={{
+        mode: "card",
+        headerShown: true,
+      }}
+    >
+      <favouriteStack.Screen
+        name="Favourite"
+        component={SearchResult}
+        options={{
+          header: ({ navigation, scene }) => (
+            <Header back title="SearchResult" navigation={navigation} scene={scene} />
+          ),
+          cardStyle: { backgroundColor: "#F8F9FE" },
+        }}
+      />
+
+    </favouriteStack.Navigator>
+  );
+}
+
 function AppStack(props) {
   return (
     <Drawer.Navigator
@@ -279,7 +306,7 @@ function AppStack(props) {
       }}
       initialRouteName="Home"
     >
-      <Drawer.Screen name="Home" component={HomeStackScreen} options={{ headerShown: false }} />
+      <Drawer.Screen name="Home" component={BottomTabNavigator} options={{ headerShown: false }} />
       <Drawer.Screen name="Profile" component={ProfileStackScreen} options={{ headerShown: false }} />
       <Drawer.Screen name="Account" component={RegisterStackScreen} />
       <Drawer.Screen name="Elements" component={ElementsStackScreen} options={{ headerShown: false }} />
