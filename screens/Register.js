@@ -10,10 +10,21 @@ import { Block, Checkbox, Text, theme } from "galio-framework";
 
 import { Button, Icon, Input } from "../components";
 import { Images, argonTheme } from "../constants";
+import { writeUserData } from "../backend/databaseReadWrite";
+import {createUserWithEmail} from '../backend/auth'
 
 const { width, height } = Dimensions.get("screen");
 
 class Register extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: '',
+      useremail: '',
+      userpassword: '',
+    }
+  }
+
   render() {
     return (
       <Block flex middle>
@@ -70,10 +81,11 @@ class Register extends React.Component {
                     behavior="padding"
                     enabled
                   >
-                    <Block width={width * 0.8} style={{ marginBottom: 15 }}>
+                    {/* <Block width={width * 0.8} style={{ marginBottom: 15 }}>
                       <Input
                         borderless
                         placeholder="Name"
+                        onChangeText={(username) => this.setState({username})}
                         iconContent={
                           <Icon
                             size={16}
@@ -84,11 +96,12 @@ class Register extends React.Component {
                           />
                         }
                       />
-                    </Block>
+                    </Block> */}
                     <Block width={width * 0.8} style={{ marginBottom: 15 }}>
                       <Input
                         borderless
                         placeholder="Email"
+                        onChangeText={(useremail) => this.setState({useremail})}
                         iconContent={
                           <Icon
                             size={16}
@@ -105,6 +118,7 @@ class Register extends React.Component {
                         password
                         borderless
                         placeholder="Password"
+                        onChangeText={(userpassword) => this.setState({userpassword})}
                         iconContent={
                           <Icon
                             size={16}
@@ -145,7 +159,10 @@ class Register extends React.Component {
                       </Button>
                     </Block>
                     <Block middle>
-                      <Button color="primary" style={styles.createButton}>
+                      <Button color="primary"
+                        style={styles.createButton}
+                        onPress={() => createUserWithEmail(this.state.useremail, this.state.userpassword)}
+                      >
                         <Text bold size={14} color={argonTheme.COLORS.WHITE}>
                           CREATE ACCOUNT
                         </Text>

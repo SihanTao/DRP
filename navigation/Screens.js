@@ -17,24 +17,44 @@ import React from "react";
 import Register from "../screens/Register";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import { createStackNavigator } from "@react-navigation/stack";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { initializeApp } from "firebase/app";
+import firebaseConfig from "../constants/firebaseConfig";
 import TagDemo from "../screens/Tag";
+import SearchResult from "../screens/SearchResult"
+import BottomTabNavigator from "./TabNavigator";
 
 const { width } = Dimensions.get("screen");
 
-const Stack = createStackNavigator();
-const Drawer = createDrawerNavigator();
-const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
 
-function ElementsStack(props) {
+export default function OnboardingStack(props) {
+  initializeApp(firebaseConfig);
   return (
     <Stack.Navigator
       screenOptions={{
         mode: "card",
-        headerShown: 'screen',
+        headerShown: false,
       }}
     >
-      <Stack.Screen
+      <Stack.Screen name="App" component={AppStack} />
+    </Stack.Navigator>
+  );
+}
+
+const Drawer = createDrawerNavigator();
+const Tab = createBottomTabNavigator();
+
+const ElementsStack = createNativeStackNavigator();
+
+function ElementsStackScreen(props) {
+  return (
+    <ElementsStack.Navigator
+      screenOptions={{
+        mode: "card",
+        headerShown: "screen",
+      }}>
+      <ElementsStack.Screen
         name="Elements"
         component={Elements}
         options={{
@@ -44,19 +64,22 @@ function ElementsStack(props) {
           cardStyle: { backgroundColor: "#F8F9FE" },
         }}
       />
-    </Stack.Navigator>
+    </ElementsStack.Navigator>
   );
 }
 
-function RegisterStack(props) {
+
+const RegisterStack = createNativeStackNavigator();
+
+function RegisterStackScreen(props) {
   return (
-    <Stack.Navigator
+    <RegisterStack.Navigator
       screenOptions={{
         mode: "card",
-        headerShown: 'screen',
+        headerShown: "screen",
       }}
     >
-      <Stack.Screen
+      <RegisterStack.Screen
         name="Account"
         component={Register}
         options={{
@@ -66,20 +89,21 @@ function RegisterStack(props) {
           cardStyle: { backgroundColor: "#F8F9FE" },
         }}
       />
-    </Stack.Navigator>
+    </RegisterStack.Navigator>
   );
 }
 
+const ArticlesStack = createNativeStackNavigator();
 
-function ArticlesStack(props) {
+export function ArticlesStackScreen(props) {
   return (
-    <Stack.Navigator
+    <ArticlesStack.Navigator
       screenOptions={{
         mode: "card",
-        headerShown: "screen",
+        headerShown: true,
       }}
     >
-      <Stack.Screen
+      <ArticlesStack.Screen
         name="Articles"
         component={Articles}
         options={{
@@ -89,38 +113,41 @@ function ArticlesStack(props) {
           cardStyle: { backgroundColor: "#F8F9FE" },
         }}
       />
-    </Stack.Navigator>
+    </ArticlesStack.Navigator>
   );
 }
 
-function ProfileStack(props) {
+
+const ProfileStack = createNativeStackNavigator();
+
+export function ProfileStackScreen(props) {
   return (
-    <Stack.Navigator
+    <ProfileStack.Navigator
       initialRouteName="Profile"
       screenOptions={{
         mode: "card",
-        headerShown: "screen",
+        headerShown: true,
       }}
     >
-      <Stack.Screen
+      <ProfileStack.Screen
         name="Profile"
         component={Profile}
         options={{
           header: ({ navigation, scene }) => (
             <Header
-              transparent
               white
               title="Profile"
               navigation={navigation}
-              scene={scene}
+              bgColor={argonTheme.COLORS.ACTIVE}
+              titleColor="white"
+              iconColor="white"
             />
           ),
-          cardStyle: { backgroundColor: "#FFFFFF" },
           headerTransparent: true,
         }}
       />
 
-      <Stack.Screen
+      <ProfileStack.Screen
         name="Pro"
         component={Pro}
         options={{
@@ -137,19 +164,21 @@ function ProfileStack(props) {
           headerTransparent: true,
         }}
       />
-    </Stack.Navigator>
+    </ProfileStack.Navigator>
   );
 }
 
-function HomeStack(props) {
+const HomeStack = createNativeStackNavigator();
+
+export function HomeStackScreen(props) {
   return (
-    <Stack.Navigator
+    <HomeStack.Navigator
       screenOptions={{
         mode: "card",
-        headerShown: "screen",
+        headerShown: "float",
       }}
     >
-      <Stack.Screen
+      <HomeStack.Screen
         name="Home"
         component={Home}
         options={{
@@ -158,6 +187,7 @@ function HomeStack(props) {
               title="Home"
               tabs={tabs.categories}
               search
+              // multiselect
               navigation={navigation}
               scene={scene}
             />
@@ -165,43 +195,83 @@ function HomeStack(props) {
           cardStyle: { backgroundColor: "#F8F9FE" },
         }}
       />
-    </Stack.Navigator>
+    </HomeStack.Navigator>
   );
 }
 
-function TagStack(props) {
+const TagStack = createNativeStackNavigator();
+
+function TagStackScreen(props) {
   return (
-    <Stack.Navigator
+    <TagStack.Navigator
       screenOptions={{
         mode: "card",
-        headerShown: "screen",
+        headerShown: true,
       }}
     >
-      <Stack.Screen
+      <TagStack.Screen
         name="Tags"
         component={TagDemo}
         options={{
           header: ({ navigation, scene }) => (
-            <Header title="Tag" navigation={navigation} scene={scene} />
+            <Header title="Tags" navigation={navigation} scene={scene} />
           ),
           cardStyle: { backgroundColor: "#F8F9FE" },
         }}
       />
 
-    </Stack.Navigator>
+    </TagStack.Navigator>
   );
 }
 
-export default function OnboardingStack(props) {
+const SearchResultStack = createNativeStackNavigator();
+
+function SearchResultStackScreen(props) {
   return (
-    <Stack.Navigator
+    <SearchResultStack.Navigator
       screenOptions={{
         mode: "card",
-        headerShown: false, // Todo: Delete before 
+        headerShown: true,
       }}
     >
-      <Stack.Screen name="App" component={AppStack} />
-    </Stack.Navigator>
+      <SearchResultStack.Screen
+        name="SearchResult"
+        component={SearchResult}
+        options={{
+          header: ({ navigation, scene }) => (
+            <Header back title="SearchResult" navigation={navigation} scene={scene} />
+          ),
+          cardStyle: { backgroundColor: "#F8F9FE" },
+        }}
+      />
+
+    </SearchResultStack.Navigator>
+  );
+}
+
+const favouriteStack = createNativeStackNavigator();
+
+// TODO: Write the favourite page
+export function FavouriteScreen(props) {
+  return (
+    <favouriteStack.Navigator
+      screenOptions={{
+        mode: "card",
+        headerShown: true,
+      }}
+    >
+      <favouriteStack.Screen
+        name="Favourite"
+        component={SearchResult}
+        options={{
+          header: ({ navigation, scene }) => (
+            <Header back title="SearchResult" navigation={navigation} scene={scene} />
+          ),
+          cardStyle: { backgroundColor: "#F8F9FE" },
+        }}
+      />
+
+    </favouriteStack.Navigator>
   );
 }
 
@@ -236,12 +306,13 @@ function AppStack(props) {
       }}
       initialRouteName="Home"
     >
-      <Drawer.Screen name="Home" component={HomeStack} />
-      <Drawer.Screen name="Profile" component={ProfileStack} />
-      <Drawer.Screen name="Account" component={RegisterStack} />
-      <Drawer.Screen name="Elements" component={ElementsStack} />
-      <Drawer.Screen name="Articles" component={ArticlesStack} />
-      <Drawer.Screen name="Tags" component={TagStack} />
+      <Drawer.Screen name="Home" component={BottomTabNavigator} options={{ headerShown: false }} />
+      <Drawer.Screen name="Profile" component={ProfileStackScreen} options={{ headerShown: false }} />
+      <Drawer.Screen name="Account" component={RegisterStackScreen} />
+      {/* <Drawer.Screen name="Elements" component={ElementsStackScreen} options={{ headerShown: false }} /> */}
+      {/* <Drawer.Screen name="Articles" component={ArticlesStackScreen} options={{ headerShown: false }} /> */}
+      <Drawer.Screen name="SearchResult" component={SearchResultStackScreen} options={{ headerShown: false }} />
+      <Drawer.Screen name="Tags" component={TagStackScreen} options={{ headerShown: false }} />
     </Drawer.Navigator>
   );
 }

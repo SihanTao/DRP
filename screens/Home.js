@@ -10,20 +10,37 @@ import Images from '../constants/Images';
 import { Card } from '../components';
 import articles from '../constants/articles';
 const { width } = Dimensions.get('screen');
+
+
+
 class Home extends React.Component {
-  renderArticles = () => {
+
+  renderRecommendationText = () => {
+    return (
+      <Text
+        h3
+        style={{ marginBottom: theme.SIZES.BASE / 2 }}
+        color={argonTheme.COLORS.DEFAULT}
+      >
+        Recommendation
+      </Text>
+    )
+  }
+
+  renderArticles = (noRecommendation) => {
     return (
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.articles}>
         <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
-          <Text
-            h1
+          {noRecommendation ? null : this.renderRecommendationText()}
+          {/* <Text
+            h3
             style={{ marginBottom: theme.SIZES.BASE / 2 }}
             color={argonTheme.COLORS.DEFAULT}
           >
-            Popular Recently
-          </Text>
+            Recommendation
+          </Text> */}
         </Block>
 
         <Block flex card style={styles.category}>
@@ -64,7 +81,7 @@ class Home extends React.Component {
   render() {
     return (
       <Block flex center style={styles.home}>
-        {this.renderArticles()}
+        {this.renderArticles(this.props.noRecommendation)}
       </Block>
     );
   }
