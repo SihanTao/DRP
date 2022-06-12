@@ -12,7 +12,6 @@ build-job:
     - apt-get -y update
     - apt-get -y install git
     - apt-get -y install watchman
-    - yarn install
 
 test:
   stage: test
@@ -27,7 +26,7 @@ deploy-prod:
   stage: deploy
   script:
     - echo "This job deploys something from the $CI_COMMIT_BRANCH branch."
-
+    - yarn install
     - npm install --global expo-cli
     - expo --version
     - expo install expo-updates
