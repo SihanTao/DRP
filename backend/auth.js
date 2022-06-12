@@ -3,37 +3,7 @@ import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     signOut,
-    GoogleAuthProvider,
-    signInWithRedirect
 } from "firebase/auth";
-
-
-// Google SignIn
-
-// export function googleSignIn() {
-//     const provider = new GoogleAuthProvider();
-//     const auth = getAuth();
-//     signInWithRedirect(auth, provider)
-//         .catch((error) => {
-//             // Handle Errors here.
-//             const errorCode = error.code;
-//             const errorMessage = error.message;
-//             // The email of the user's account used.
-//             const email = error.customData.email;
-//             // The AuthCredential type that was used.
-//             const credential = GoogleAuthProvider.credentialFromError(error);
-//             // ...
-//         });
-// }
-
-// export function googleSignOut() {
-//     const auth = getAuth();
-//     signOut(auth).then(() => {
-//         // Sign-out successful.
-//     }).catch((error) => {
-//         // An error happened.
-//     });
-// }
 
 // Traditional Email & Password sign in 
 export function createUserWithEmail(useremail, userpassword) {

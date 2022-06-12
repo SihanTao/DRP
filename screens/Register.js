@@ -11,7 +11,7 @@ import { Block, Checkbox, Text, theme } from "galio-framework";
 import { Button, Icon, Input } from "../components";
 import { Images, argonTheme } from "../constants";
 import { writeUserData } from "../backend/databaseReadWrite";
-import {createUserWithEmail} from '../backend/auth'
+import { createUserWithEmail } from '../backend/auth'
 
 const { width, height } = Dimensions.get("screen");
 
@@ -35,44 +35,10 @@ class Register extends React.Component {
         >
           <Block safe flex middle>
             <Block style={styles.registerContainer}>
-              <Block flex={0.25} middle style={styles.socialConnect}>
-                <Text color="#8898AA" size={12}>
-                  Sign up with
-                </Text>
-                <Block row style={{ marginTop: theme.SIZES.BASE }}>
-                  <Button style={{ ...styles.socialButtons, marginRight: 30 }}>
-                    <Block row>
-                      <Icon
-                        name="logo-github"
-                        family="Ionicon"
-                        size={14}
-                        color={"black"}
-                        style={{ marginTop: 2, marginRight: 5 }}
-                      />
-                      <Text style={styles.socialTextButtons}>GITHUB</Text>
-                    </Block>
-                  </Button>
-
-                  {/* TODO:  GOOGLE SIGN IN */}
-                  <Button style={styles.socialButtons}>
-                    <Block row>
-                      <Icon
-                        name="logo-google"
-                        family="Ionicon"
-                        size={14}
-                        color={"black"}
-                        style={{ marginTop: 2, marginRight: 5 }}
-                      />
-                      <Text style={styles.socialTextButtons}>GOOGLE</Text>
-                    </Block>
-                  </Button>
-
-                </Block>
-              </Block>
               <Block flex>
                 <Block flex={0.17} middle>
-                  <Text color="#8898AA" size={12}>
-                    Or sign up the classic way
+                  <Text color="#8898AA" size={20}>
+                    Sign Up
                   </Text>
                 </Block>
                 <Block flex center>
@@ -81,27 +47,11 @@ class Register extends React.Component {
                     behavior="padding"
                     enabled
                   >
-                    {/* <Block width={width * 0.8} style={{ marginBottom: 15 }}>
-                      <Input
-                        borderless
-                        placeholder="Name"
-                        onChangeText={(username) => this.setState({username})}
-                        iconContent={
-                          <Icon
-                            size={16}
-                            color={argonTheme.COLORS.ICON}
-                            name="hat-3"
-                            family="ArgonExtra"
-                            style={styles.inputIcons}
-                          />
-                        }
-                      />
-                    </Block> */}
                     <Block width={width * 0.8} style={{ marginBottom: 15 }}>
                       <Input
                         borderless
                         placeholder="Email"
-                        onChangeText={(useremail) => this.setState({useremail})}
+                        onChangeText={(useremail) => this.setState({ useremail })}
                         iconContent={
                           <Icon
                             size={16}
@@ -118,7 +68,7 @@ class Register extends React.Component {
                         password
                         borderless
                         placeholder="Password"
-                        onChangeText={(userpassword) => this.setState({userpassword})}
+                        onChangeText={(userpassword) => this.setState({ userpassword })}
                         iconContent={
                           <Icon
                             size={16}
