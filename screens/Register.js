@@ -11,7 +11,7 @@ import { Block, Checkbox, Text, theme } from "galio-framework";
 import { Button, Icon, Input } from "../components";
 import { Images, argonTheme } from "../constants";
 import { writeUserData } from "../backend/databaseReadWrite";
-import { createUserWithEmail } from '../backend/auth'
+import { createUserWithEmail, signInAnonymous } from '../backend/auth'
 
 const { width, height } = Dimensions.get("screen");
 
@@ -115,6 +115,16 @@ class Register extends React.Component {
                       >
                         <Text bold size={14} color={argonTheme.COLORS.WHITE}>
                           CREATE ACCOUNT
+                        </Text>
+                      </Button>
+                    </Block>
+                    <Block middle>
+                      <Button color="primary"
+                        style={styles.createButton}
+                        onPress={() => signInAnonymous()}
+                      >
+                        <Text bold size={14} color={argonTheme.COLORS.WHITE}>
+                          OR SIGN IN ANONYMOULY
                         </Text>
                       </Button>
                     </Block>

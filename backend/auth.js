@@ -3,7 +3,13 @@ import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     signOut,
+    signInAnonymously
 } from "firebase/auth";
+
+export const signInAnonymous = () => {
+    signInAnonymously(getAuth());
+    alert('You have signed in anonymously!');
+}
 
 // Traditional Email & Password sign in 
 export function createUserWithEmail(useremail, userpassword) {
