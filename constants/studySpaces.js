@@ -1,4 +1,4 @@
-export default [
+const studySpaces = [
     {
         name: 'Central Library Group Study',
         category: 'Group Study',
@@ -17,4 +17,4 @@ export default [
         description: 'Levels 2 and 3',
         rating: 5,
     }
-];
+]

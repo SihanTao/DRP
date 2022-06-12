@@ -1,7 +1,5 @@
 import { getDatabase, ref, set, onValue } from "firebase/database";
 import uuid from 'react-native-uuid';
-import { addDoc, collection, getFirestore } from "firebase/firestore";
-import { app } from "./firebase";
 export function writeUserData(name, email, password) {
     const db = getDatabase();
 
@@ -18,11 +16,20 @@ export function writeUserData(name, email, password) {
 //     var collection = db.collection('study_space');
 //     return collection.add(data);
 // }
-export const addStudySpace = () => {
+export const addStudySpace = (data) => {
     const db = getDatabase();
     var collection = ref(db, "study_space/" + uuid.v4());
     set(collection, data);
     alert('Successfully add a study space');
+}
+
+export const addStudySpaces = (datas) => {
+    const db = getDatabase();
+    var length = datas.length;
+    for (let i = 0; i < length; i++) {
+        var collection = ref(db, "study_space/" + i);
+        set(collection, datas[i]);
+    }
 }
 
 // This is a test function

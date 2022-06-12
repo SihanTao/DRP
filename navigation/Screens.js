@@ -1,7 +1,8 @@
 import { Animated, Dimensions, Easing } from "react-native";
 // header for screens
 import { Header, Icon } from "../components";
-import { argonTheme, tabs } from "../constants";
+import { argonTheme, tabs, articles } from "../constants";
+import studySpaces from "../constants/studySpaces"
 
 import Articles from "../screens/Articles";
 import { Block } from "galio-framework";
@@ -28,8 +29,11 @@ const { width } = Dimensions.get("screen");
 
 const Stack = createNativeStackNavigator();
 
+import { addStudySpaces } from "../backend/databaseReadWrite";
+
 export default function OnboardingStack(props) {
   initializeApp(firebaseConfig);
+  addStudySpaces(studySpaces);
   return (
     <Stack.Navigator
       screenOptions={{
