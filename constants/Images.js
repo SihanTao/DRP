@@ -8,6 +8,9 @@ const Pro = require("../assets/imgs/getPro-bg.png");
 const ArgonLogo = require("../assets/imgs/argonlogo.png");
 const iOSLogo = require("../assets/imgs/ios.png");
 const androidLogo = require("../assets/imgs/android.png");
+const upcomingEventsLogo = require("../assets/imgs/upcomingEvents.png");
+const Snooker = require("../assets/imgs/snooker.jpg")
+
 // internet imgs
 
 const ProfilePicture = 'https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?fit=crop&w=1650&q=80';
@@ -25,8 +28,6 @@ const Products = {
   'View article': 'https://images.unsplash.com/photo-1501601983405-7c7cabaa1581?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=840&q=840',
 };
 
-const Snooker = 'https://www.planetsport.com/image-library/land/700/s/snooker-2022-23-season-schedule.jpg';
-
 export default {
   Onboarding,
   Logo,
@@ -41,4 +42,5 @@ export default {
   iOSLogo,
   androidLogo,
   Snooker,
+  upcomingEventsLogo
 };
