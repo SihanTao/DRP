@@ -30,6 +30,7 @@ const { width } = Dimensions.get("screen");
 const Stack = createNativeStackNavigator();
 
 import { addStudySpaces } from "../backend/databaseReadWrite";
+import WebPage from "../screens/WebPage";
 
 export default function OnboardingStack(props) {
   initializeApp(firebaseConfig);
@@ -235,6 +236,27 @@ function TagStackScreen(props) {
   );
 }
 
+const WebPageStack = createNativeStackNavigator();
+
+function WebPageScreen(props) {
+  return (
+    <WebPageStack.Navigator
+      screenOptions={{
+        mode: "card",
+        headerShown: true,
+      }}
+    >
+      <WebPageStack.Screen
+        name=" "
+        component={WebPage}
+        options={{
+          cardStyle: { backgroundColor: "#F8F9FE" },
+        }}
+      />
+    </WebPageStack.Navigator>
+  );
+}
+
 const SearchResultStack = createNativeStackNavigator();
 
 function SearchResultStackScreen(props) {
@@ -323,6 +345,7 @@ function AppStack(props) {
       <Drawer.Screen name="Elements" component={ElementsStackScreen} options={{ headerShown: false }} />
       {/* <Drawer.Screen name="Articles" component={ArticlesStackScreen} options={{ headerShown: false }} /> */}
       <Drawer.Screen name="Tags" component={TagStackScreen} options={{ headerShown: false }} />
+      <Drawer.Screen name="ICOfficialSite" component={WebPageScreen} options={{ headerShown: false }} />
     </Drawer.Navigator>
   );
 }

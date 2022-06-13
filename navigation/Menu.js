@@ -22,7 +22,7 @@ function CustomDrawerContent({
     >
       <Block flex={0.06} style={styles.header}>
         <TouchableWithoutFeedback
-          onPress={() => navigation.navigate('Tags')}
+          onPress={() => navigation.navigate('ICOfficialSite')}
         >
           <Image
             styles={styles.logo}
