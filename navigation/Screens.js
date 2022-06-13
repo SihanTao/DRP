@@ -240,7 +240,10 @@ const WebPageStack = createNativeStackNavigator();
 
 function WebPageScreen({ navigation, route }) {
   return (
-      <WebPage url={route.params.url} />
+    <>
+      <Header back title="Imperial College London" navigation={navigation} />
+      <WebPage url={route.params.url} /></>
+
   );
 }
 
