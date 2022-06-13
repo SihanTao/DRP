@@ -4,6 +4,7 @@ import { Image, ScrollView, StyleSheet } from "react-native";
 import { DrawerItem as DrawerCustomItem } from "../components";
 import Images from "../constants/Images";
 import React from "react";
+import { TouchableOpacity, TouchableWithoutFeedback } from "react-native-gesture-handler";
 
 function CustomDrawerContent({
   drawerPosition,
@@ -20,7 +21,14 @@ function CustomDrawerContent({
       forceInset={{ top: "always", horizontal: "never" }}
     >
       <Block flex={0.06} style={styles.header}>
-        <Image styles={styles.logo} source={Images.Logo} />
+        <TouchableWithoutFeedback
+          onPress={() => navigation.navigate('Tags')}
+        >
+          <Image
+            styles={styles.logo}
+            source={Images.Logo}
+          />
+        </TouchableWithoutFeedback>
       </Block>
       <Block flex style={{ paddingLeft: 8, paddingRight: 14 }}>
         <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
