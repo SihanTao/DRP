@@ -16,13 +16,12 @@ const { width } = Dimensions.get('screen');
 
 export default function SearchResult() {
   let [tags, setTags] = useState([
-    { name: "#study space", color: "#f44", active: false },
-    { name: "#silent", color: "#484", active: false },
-    { name: "#group", color: "#E91", active: false },
-    { name: "#toilet", color: "#9C2", active: false },
-    { name: "#microwave", color: "#673", active: false },
-    { name: "#water_fountain", color: "#4CA", active: false },
-    { name: "#new_facility", color: "#4CA", active: false },
+    { name: "# study space", color: "#f44", active: true },
+    { name: "# silent", color: "#484", active: false },
+    { name: "# group", color: "#E91", active: false },
+    { name: "# toilet", color: "#9C2", active: false },
+    { name: "# microwave", color: "#673", active: false },
+    { name: "# water_fountain", color: "#4CA", active: false },
   ]);
 
   const [visible, setVisible] = useState(false);
