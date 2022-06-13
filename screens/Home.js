@@ -74,29 +74,32 @@ class Home extends React.Component {
             dataSource={goStudySpaceSlideShow}
           ></AutomatedSlideshow>
 
-          <ImageBackground
-            source={{ uri: Images.Snooker }}
-            style={[
-              styles.imageBlock,
-              { width: width - theme.SIZES.BASE * 2, height: 252 },
-            ]}
-            imageStyle={{
-              width: width - theme.SIZES.BASE * 2,
-              height: 252,
-            }}
+          <TouchableWithoutFeedback
+            onPress={() => navigation.navigate("webpage",
+              {
+                url: 'https://www.union.ic.ac.uk/rcc/snooker_billiards/home/about.php',
+                title: "Imperial Union Snooker"
+              })
+            }
           >
-            <Block style={styles.categoryTitle}>
-              <Text size={18} bold color={theme.COLORS.WHITE}
-                onPress={() => Linking.openURL('https://www.union.ic.ac.uk/rcc/snooker_billiards/home/about.php')
-                  .catch((err) => console.error('An error occurred', err))}>
-                Imperial Union Snooker
-              </Text>
-            </Block>
-          </ImageBackground>
-
-
-
-
+            <ImageBackground
+              source={{ uri: Images.Snooker }}
+              style={[
+                styles.imageBlock,
+                { width: width - theme.SIZES.BASE * 2, height: 252 },
+              ]}
+              imageStyle={{
+                width: width - theme.SIZES.BASE * 2,
+                height: 252,
+              }}
+            >
+              <Block style={styles.categoryTitle}>
+                <Text size={18} bold color={theme.COLORS.WHITE}>
+                  Imperial Union Snooker
+                </Text>
+              </Block>
+            </ImageBackground>
+          </TouchableWithoutFeedback>
         </Block>
 
       </ScrollView>
