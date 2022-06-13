@@ -3,9 +3,14 @@ import { Text } from 'galio-framework';
 import { View, TextInput, StyleSheet, ImageBackground, Dimensions, Linking } from "react-native";
 import { ColorPicker, ModalInput, Separator, Tag } from "react-native-btr";
 import DropDownSearchBar from "../components/DropDownSearchBar";
+import SearchBarWithTag from "../components/SearchBarWithTag";
 import Images from '../constants/Images';
 import { Block, theme } from 'galio-framework';
 import Home from '../screens/Home'
+import argonTheme from '../constants/Theme';
+import IconExtra from '../components/Icon';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+
 
 const { width } = Dimensions.get('screen');
 
@@ -53,11 +58,30 @@ export default function SearchResult() {
     
     <View style={styles.container}>
       <View style={styles.container2}>
-          <DropDownSearchBar style={{ }}> 
-          </DropDownSearchBar> 
+        {/* <SearchBarWithTag /> */}
+        <View 
+          style={{ flexDirection: "row", flexWrap: "wrap" }}
+          iconContent={<IconExtra size={16} color={theme.COLORS.MUTED} name="search-zoom-in" family="ArgonExtra" />}
+          >
+          {tags
+            .filter((tag) => tag.active)
+            .map((tag, index) => (
+              <View key={tag.name + index} style={{ margin: 2 }}>
+                <Tag
+                  name={tag.name}
+                  style={{
+                    backgroundColor: tag.color,
+                    color: "#fff",
+                    borderRadius: 50,
+                  }}
+                  onPress={() => {}}
+                />
+              </View>
+            ))}
+        </View>
       </View>
       <View style={styles.container5}>
-        <View style={styles.container}>
+        <View style={styles.container3}>
           <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
             {tags.map((tag, index) => {
               const backgroundColor = tag.active ? tag.color : "#0000";
@@ -134,13 +158,26 @@ const styles = StyleSheet.create({
     marginTop: 0,
     width: '100%',
     //backgroundColor: "#abdbe3",
+    backgroundColor: theme.COLORS.WHITE,
   },
   container2: {
-    flex: 2,
+    flex: 0.5,
+    //justifyContent: "center",
+    //alignItems: "center",
+    width: width - 32,
+    marginTop: 10,
+    marginHorizontal: 16,
+    borderWidth: 1,
+    borderRadius: 3,
+    borderColor: argonTheme.COLORS.BORDER,
+    //
+  },
+  container3: {
+    flex: 0.5,
     justifyContent: "center",
     alignItems: "center",
-    width: '100%',
-    marginTop: 0,
+    width: width - 32,
+    marginTop: 10,
   },
   container5: {
     flex: 5,

@@ -108,7 +108,7 @@ export default class DropDownSearchBar extends React.Component {
           // onFocus={() => navigation.navigate('Pro')}
           iconContent={<Icon size={16} color={theme.COLORS.MUTED} name="search-zoom-in" family="ArgonExtra" />}
         /> */}
-        <FlatList
+        {/* <FlatList
           data={this.state.dataSource}
           ItemSeparatorComponent={this.ListViewItemSeparator}
           //Item Separator View
@@ -119,7 +119,7 @@ export default class DropDownSearchBar extends React.Component {
           enableEmptySections={true}
           style={{ marginTop: 10 }}
           keyExtractor={(item, index) => index.toString()}
-        />
+        /> */}
       </View>
     );
   }
