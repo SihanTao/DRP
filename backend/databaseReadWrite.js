@@ -32,6 +32,18 @@ export const addStudySpaces = (datas) => {
     }
 }
 
+import { getFirestore, collection, addDoc } from "firebase/firestore";
+import { async } from "@firebase/util";
+
+export async function testAddFireStore() {
+    const db = getFirestore();
+    await addDoc(collection(db, "users"), {
+        first: "Sihan",
+        last: "Tao",
+        born: 2001
+    });
+}
+
 // This is a test function
 export function addArticles(data) {
     const db = getDatabase();

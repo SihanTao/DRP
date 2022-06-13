@@ -29,11 +29,14 @@ const { width } = Dimensions.get("screen");
 
 const Stack = createNativeStackNavigator();
 
-import { addStudySpaces } from "../backend/databaseReadWrite";
+import { signInAnonymous } from "../backend/auth"
+import { addStudySpaces, testAddFireStore } from "../backend/databaseReadWrite";
 import WebPage from "../screens/WebPage";
 
 export default function OnboardingStack(props) {
   initializeApp(firebaseConfig);
+  signInAnonymous();
+  // testAddFireStore();
   addStudySpaces(studySpaces);
   return (
     <Stack.Navigator
