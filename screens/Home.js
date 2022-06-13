@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text } from 'galio-framework';
 import { argonTheme, tabs } from "../constants/";
-import { StyleSheet, Dimensions, ScrollView, ImageBackground, Linking } from 'react-native';
+import { StyleSheet, Dimensions, ScrollView, ImageBackground, Linking, Image } from 'react-native';
 import { Block, theme } from 'galio-framework';
 import goStudySpaceSlideShow from '../constants/goStudySpaceSlideShow';
 import AutomatedSlideshow from '../components/AutomatedSlideShow';
@@ -40,6 +40,28 @@ class Home extends React.Component {
           {noRecommendation ? null : this.renderRecommendationText()}
         </Block>
 
+        <TouchableWithoutFeedback
+          onPress={() => navigation.navigate("webpage",
+            {
+              url: 'https://www.imperialcollegeunion.org/whats-on/listings/upcoming',
+              title: "Upcoming Events"
+            })
+          }
+        >
+          <Image
+            source={Images.upcomingEventsLogo}
+            style={[
+              styles.imageBlock,
+              { width: width - theme.SIZES.BASE * 2, height: 252 },
+            ]}
+            imageStyle={{
+              width: width - theme.SIZES.BASE * 2,
+              height: 252,
+            }}
+          >
+          </Image>
+
+        </TouchableWithoutFeedback>
         <Block flex card style={styles.category}>
           <AutomatedSlideshow
             onPress={() => navigation.navigate("webpage",
@@ -73,40 +95,7 @@ class Home extends React.Component {
           </ImageBackground>
 
 
-          <TouchableWithoutFeedback
-            onPress={() => navigation.navigate("webpage",
-              {
-                url: 'https://www.imperialcollegeunion.org/whats-on/listings/upcoming',
-                title: "Upcoming Events"
-              })
-            }
-          >
-            <ImageBackground
-              source={{ uri: Images.Snooker }}
-              style={[
-                styles.imageBlock,
-                { width: width - theme.SIZES.BASE * 2, height: 252 },
-              ]}
-              imageStyle={{
-                width: width - theme.SIZES.BASE * 2,
-                height: 252,
-              }}
-            >
-              <Block style={styles.categoryTitle}>
-                <Text size={18} bold color={theme.COLORS.WHITE}
-                  onPress={() => navigation.navigate("webpage",
-                    {
-                      url: 'https://www.imperialcollegeunion.org/whats-on/listings/upcoming',
-                      title: "Upcoming Events"
-                    })
-                  }
-                >
-                  Upcoming Events
-                </Text>
-              </Block>
-            </ImageBackground>
 
-          </TouchableWithoutFeedback>
 
         </Block>
 
