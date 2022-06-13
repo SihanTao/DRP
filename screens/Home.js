@@ -34,13 +34,6 @@ class Home extends React.Component {
         contentContainerStyle={styles.articles}>
         <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
           {noRecommendation ? null : this.renderRecommendationText()}
-          {/* <Text
-            h3
-            style={{ marginBottom: theme.SIZES.BASE / 2 }}
-            color={argonTheme.COLORS.DEFAULT}
-          >
-            Recommendation
-          </Text> */}
         </Block>
 
         <Block flex card style={styles.category}>
@@ -50,9 +43,7 @@ class Home extends React.Component {
             style={styles.goStudyTitle}
             dataSource={goStudySpaceSlideShow}
           ></AutomatedSlideshow>
-        </Block>
 
-        <Block flex card shadow style={styles.category}>
           <ImageBackground
             source={{ uri: Images.Snooker }}
             style={[

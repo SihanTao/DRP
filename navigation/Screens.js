@@ -199,6 +199,13 @@ export function HomeStackScreen(props) {
           cardStyle: { backgroundColor: "#F8F9FE" },
         }}
       />
+
+      <HomeStack.Screen
+        name="SearchResult"
+        component={SearchResultStackScreen}
+        options={{ headerShown: false }}
+      />
+
     </HomeStack.Navigator>
   );
 }
@@ -315,7 +322,6 @@ function AppStack(props) {
       <Drawer.Screen name="Account" component={RegisterStackScreen} />
       <Drawer.Screen name="Elements" component={ElementsStackScreen} options={{ headerShown: false }} />
       {/* <Drawer.Screen name="Articles" component={ArticlesStackScreen} options={{ headerShown: false }} /> */}
-      <Drawer.Screen name="SearchResult" component={SearchResultStackScreen} options={{ headerShown: false }} />
       <Drawer.Screen name="Tags" component={TagStackScreen} options={{ headerShown: false }} />
     </Drawer.Navigator>
   );
