@@ -83,7 +83,7 @@ class Home extends React.Component {
             }
           >
             <ImageBackground
-              source={{ uri: Images.Snooker }}
+              source={Images.Snooker}
               style={[
                 styles.imageBlock,
                 { width: width - theme.SIZES.BASE * 2, height: 252 },
