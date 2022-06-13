@@ -6,7 +6,6 @@ import { Block, theme } from 'galio-framework';
 import goStudySpaceSlideShow from '../constants/goStudySpaceSlideShow';
 import AutomatedSlideshow from '../components/AutomatedSlideShow';
 import Images from '../constants/Images';
-
 import { Card } from '../components';
 import articles from '../constants/articles';
 const { width } = Dimensions.get('screen');
@@ -14,6 +13,9 @@ const { width } = Dimensions.get('screen');
 
 
 class Home extends React.Component {
+  constructor({ route, navigation }) {
+    super({ route, navigation });
+  }
 
   renderRecommendationText = () => {
     return (
@@ -28,6 +30,7 @@ class Home extends React.Component {
   }
 
   renderArticles = (noRecommendation) => {
+    const { navigation } = this.props;
     return (
       <ScrollView
         showsVerticalScrollIndicator={false}
@@ -38,8 +41,12 @@ class Home extends React.Component {
 
         <Block flex card style={styles.category}>
           <AutomatedSlideshow
-            onPress={() => Linking.openURL('https://www.imperial.ac.uk/admin-services/library/use-the-library/our-libraries/gostudy/')
-              .catch((err) => console.error('An error occurred', err))}
+            onPress={() => navigation.navigate("GoStudy Space",
+              {
+                url: 'https://www.imperial.ac.uk/admin-services/library/use-the-library/our-libraries/gostudy/',
+                title: "Go Study Space"
+              })
+            }
             style={styles.goStudyTitle}
             dataSource={goStudySpaceSlideShow}
           ></AutomatedSlideshow>

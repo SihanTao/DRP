@@ -175,7 +175,7 @@ export function ProfileStackScreen(props) {
 
 const HomeStack = createNativeStackNavigator();
 
-export function HomeStackScreen(props) {
+export function HomeStackScreen({navigation}) {
   return (
     <HomeStack.Navigator
       screenOptions={{
@@ -204,6 +204,12 @@ export function HomeStackScreen(props) {
       <HomeStack.Screen
         name="SearchResult"
         component={SearchResultStackScreen}
+        options={{ headerShown: false }}
+      />
+
+      <HomeStack.Screen 
+        name="GoStudy Space"
+        component={WebPageScreen}
         options={{ headerShown: false }}
       />
 
@@ -241,7 +247,7 @@ const WebPageStack = createNativeStackNavigator();
 function WebPageScreen({ navigation, route }) {
   return (
     <>
-      <Header back title="Imperial College London" navigation={navigation} />
+      <Header back title={route.params.title} navigation={navigation} />
       <WebPage url={route.params.url} /></>
 
   );

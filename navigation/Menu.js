@@ -22,7 +22,10 @@ function CustomDrawerContent({
     >
       <Block flex={0.06} style={styles.header}>
         <TouchableWithoutFeedback
-          onPress={() => navigation.navigate('ICOfficialSite', {url: "https://www.imperial.ac.uk/"})}
+          onPress={() => navigation.navigate('ICOfficialSite', {
+            url: "https://www.imperial.ac.uk/",
+            title: "Imperial College London"
+          })}
         >
           <Image
             styles={styles.logo}
