@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity, StyleSheet, Platform, Dimensions, View } from 'react-native';
+import { TouchableOpacity, StyleSheet, Platform, Dimensions, View, Keyboard } from 'react-native';
 import { Button, Block, NavBar, Text, theme } from 'galio-framework';
 
 import IconExtra from './Icon';
@@ -139,7 +139,10 @@ class Header extends React.Component {
         style={styles.search}
         placeholder="What are you looking for?"
         placeholderTextColor={'#8898AA'}
-        onSubmitEditing={()=>navigation.navigate('SearchResult')}
+        onFocus={()=>{
+          Keyboard.dismiss();
+          navigation.navigate('SearchResult');
+        }}
         iconContent={<IconExtra size={16} color={theme.COLORS.MUTED} name="search-zoom-in" family="ArgonExtra" />}
       />
     );

@@ -13,7 +13,7 @@ function CustomDrawerContent({
   state,
   ...rest
 }) {
-  const screens = ["Home", "Profile", "Account", "Tags"];
+  const screens = ["Home", "Profile", "Account", "Tags", "Elements"];
   return (
     <Block
       style={styles.container}
