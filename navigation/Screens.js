@@ -175,7 +175,7 @@ export function ProfileStackScreen(props) {
 
 const HomeStack = createNativeStackNavigator();
 
-export function HomeStackScreen({navigation}) {
+export function HomeStackScreen({ navigation }) {
   return (
     <HomeStack.Navigator
       screenOptions={{
@@ -207,8 +207,8 @@ export function HomeStackScreen({navigation}) {
         options={{ headerShown: false }}
       />
 
-      <HomeStack.Screen 
-        name="GoStudy Space"
+      <HomeStack.Screen
+        name="webpage"
         component={WebPageScreen}
         options={{ headerShown: false }}
       />

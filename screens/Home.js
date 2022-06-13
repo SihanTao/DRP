@@ -8,6 +8,7 @@ import AutomatedSlideshow from '../components/AutomatedSlideShow';
 import Images from '../constants/Images';
 import { Card } from '../components';
 import articles from '../constants/articles';
+import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 const { width } = Dimensions.get('screen');
 
 
@@ -41,7 +42,7 @@ class Home extends React.Component {
 
         <Block flex card style={styles.category}>
           <AutomatedSlideshow
-            onPress={() => navigation.navigate("GoStudy Space",
+            onPress={() => navigation.navigate("webpage",
               {
                 url: 'https://www.imperial.ac.uk/admin-services/library/use-the-library/our-libraries/gostudy/',
                 title: "Go Study Space"
@@ -70,6 +71,43 @@ class Home extends React.Component {
               </Text>
             </Block>
           </ImageBackground>
+
+
+          <TouchableWithoutFeedback
+            onPress={() => navigation.navigate("webpage",
+              {
+                url: 'https://www.imperialcollegeunion.org/whats-on/listings/upcoming',
+                title: "Upcoming Events"
+              })
+            }
+          >
+            <ImageBackground
+              source={{ uri: Images.Snooker }}
+              style={[
+                styles.imageBlock,
+                { width: width - theme.SIZES.BASE * 2, height: 252 },
+              ]}
+              imageStyle={{
+                width: width - theme.SIZES.BASE * 2,
+                height: 252,
+              }}
+            >
+              <Block style={styles.categoryTitle}>
+                <Text size={18} bold color={theme.COLORS.WHITE}
+                  onPress={() => navigation.navigate("webpage",
+                    {
+                      url: 'https://www.imperialcollegeunion.org/whats-on/listings/upcoming',
+                      title: "Upcoming Events"
+                    })
+                  }
+                >
+                  Upcoming Events
+                </Text>
+              </Block>
+            </ImageBackground>
+
+          </TouchableWithoutFeedback>
+
         </Block>
 
       </ScrollView>
