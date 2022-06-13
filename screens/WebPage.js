@@ -16,7 +16,7 @@ class WebPage extends Component {
         return (
             <WebView bounces={false}
                 scalesPageToFit={true}
-                source={{ uri: "https://www.imperial.ac.uk/" }}
+                source={{ uri: this.props.url }}
                 style={{ width: deviceWidth, height: deviceHeight }}>
             </WebView>
         )

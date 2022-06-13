@@ -238,22 +238,9 @@ function TagStackScreen(props) {
 
 const WebPageStack = createNativeStackNavigator();
 
-function WebPageScreen(props) {
+function WebPageScreen({ navigation, route }) {
   return (
-    <WebPageStack.Navigator
-      screenOptions={{
-        mode: "card",
-        headerShown: true,
-      }}
-    >
-      <WebPageStack.Screen
-        name=" "
-        component={WebPage}
-        options={{
-          cardStyle: { backgroundColor: "#F8F9FE" },
-        }}
-      />
-    </WebPageStack.Navigator>
+      <WebPage url={route.params.url} />
   );
 }
 
