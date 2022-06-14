@@ -6,6 +6,8 @@ import DropDownSearchBar from "../components/DropDownSearchBar";
 import SearchBarWithTag from "../components/SearchBarWithTag";
 import { Block, theme } from 'galio-framework';
 import argonTheme from '../constants/Theme';
+import ListElement from "../components/ListElement";
+import goStudySpaceSlideShow from '../constants/goStudySpaceSlideShow';
 
 import { collection, doc, setDoc, getDoc, getFirestore, query, where, getDocs } from "firebase/firestore";
 import { async } from "@firebase/util";
@@ -54,7 +56,7 @@ export default function SearchResult() {
       // console.log("=========================================");
       // console.log(doc.id, " => ", doc.data());
       // console.log("=========================================");
-      if (list.includes(doc.data())===false) {
+      if (list.includes(doc.data()) === false) {
         list.push(doc.data());
       }
     });
@@ -131,13 +133,10 @@ export default function SearchResult() {
         })}
       </Block>
       <FlatList
-        data={tags}
-        renderItem={({ item }) => renderActiveTags(item)}
-      />
-      <FlatList
         data={data}
         renderItem={({ item }) => renderObject(item)}
       />
+      <ListElement list={goStudySpaceSlideShow}></ListElement>
     </Block>
   );
 }

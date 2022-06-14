@@ -11,69 +11,74 @@ import Images from '../constants/Images';
 const { height, width } = Dimensions.get('window');
 
 class ListElement extends React.Component {
-     
+  constructor(props) {
+    super(props);
+  }
 
-    renderProduct = (item, index) => {
-        const { navigation } = this.props;
-        const image = item.url
-        return (
-            <TouchableWithoutFeedback
-            onPress={() => navigation.navigate("webpage",
-              {
-                url: 'https://www.union.ic.ac.uk/rcc/snooker_billiards/home/about.php',
-                title: "Imperial Union Snooker"
-              })
-            }
+  renderProduct = (item, index) => {
+    const { navigation } = this.props;
+    const image = item.photo;
+    return (
+      <Block flex style={{ marginVertical: 10 }}>
+        <TouchableWithoutFeedback
+          onPress={() => navigation.navigate("webpage",
+            {
+              url: 'https://www.union.ic.ac.uk/rcc/snooker_billiards/home/about.php',
+              title: "Imperial Union Snooker"
+            })
+          }
+        >
+          <ImageBackground
+            //source={Images.Snooker}
+            source={{ uri: image }}
+            style={[
+              styles.imageBlock,
+              { width: width - theme.SIZES.BASE * 2, height: 150 },
+            ]}
+            imageStyle={{
+              width: width - theme.SIZES.BASE * 2,
+              height: 150,
+              opacity: 0.6,
+            }}
           >
-            <ImageBackground
-              //source={Images.Snooker}
-              source={{ uri: image }}
-              style={[
-                styles.imageBlock,
-                { width: width - theme.SIZES.BASE * 2, height: 252 },
-              ]}
-              imageStyle={{
-                width: width - theme.SIZES.BASE * 2,
-                height: 252,
-              }}
-            >
-              <Block style={styles.categoryTitle}>
-                <Text size={18} bold color={theme.COLORS.WHITE}>
-                  {item.title}
-                </Text>
-              </Block>
-            </ImageBackground>
-          </TouchableWithoutFeedback>
-        );
-      };
+            <Block style={styles.categoryTitle}>
+              <Text style={styles.listTitle} size={25} bold >
+                {item.name}
+              </Text>
+            </Block>
+          </ImageBackground>
+        </TouchableWithoutFeedback>
+      </Block>
+    );
+  };
 
   renderList = () => {
-        const categories = goStudySpaceSlideShow;
-      return (
-        <ScrollView
-              horizontal={false}
-              pagingEnabled={true}
-              decelerationRate={0}
-              scrollEventThrottle={16}
-              snapToAlignment="center"
-              showsHorizontalScrollIndicator={false}
-              //snapToInterval={cardWidth + theme.SIZES.BASE * 0.375}
-              contentContainerStyle={{
-                paddingVertical: theme.SIZES.BASE / 2,
-              }}
-            >
-              {categories &&
-                categories.map((item, index) =>
-                  this.renderProduct(item, index)
-                )}
-            </ScrollView>
-      );
+    const categories = this.props.list;
+    return (
+      <ScrollView
+        horizontal={false}
+        pagingEnabled={true}
+        decelerationRate={0}
+        scrollEventThrottle={16}
+        snapToAlignment="center"
+        showsHorizontalScrollIndicator={false}
+        snapToInterval={10}
+        contentContainerStyle={{
+          paddingVertical: theme.SIZES.BASE / 2,
+        }}
+      >
+        {categories &&
+          categories.map((item, index) =>
+            this.renderProduct(item, index)
+          )}
+      </ScrollView>
+    );
   }
 
   render() {
     const { back, title, white, transparent, bgColor, iconColor, titleColor, navigation, ...props } = this.props;
     return (
-        <Block flex center style={styles.home}>
+      <Block flex center style={styles.home}>
         {this.renderList()}
       </Block>
     );
@@ -81,9 +86,21 @@ class ListElement extends React.Component {
 }
 
 const styles = StyleSheet.create({
-    home: {
-        width: width,
-      },
+  home: {
+    width: width,
+  },
+  categoryTitle: {
+    height: "100%",
+    paddingHorizontal: theme.SIZES.BASE,
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  listTitle: {
+    textAlign: 'right',
+    color: theme.COLORS.WHITE,
+    textAlignVertical: 'center',
+  }
 });
 
 
