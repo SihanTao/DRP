@@ -2,7 +2,7 @@
 
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { HomeStackScreen, ProfileStackScreen, FavouriteScreen, ArticlesStackScreen } from "./Screens";
+import { HomeStackScreen, ProfileStackScreen, ShareScreen, ArticlesStackScreen } from "./Screens";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const Tab = createBottomTabNavigator();
@@ -31,7 +31,7 @@ const BottomTabNavigator = () => {
                 }}
             />
             <Tab.Screen name="Share"
-                component={FavouriteScreen}
+                component={ShareScreen}
                 options={{
                     tabBarShowLabel: false,
                     headerShown: false,

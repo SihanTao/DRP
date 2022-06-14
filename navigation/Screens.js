@@ -2,6 +2,7 @@ import { Animated, Dimensions, Easing } from "react-native";
 // header for screens
 import { Header, Icon } from "../components";
 import { argonTheme, tabs, articles } from "../constants";
+import DevStatus from "../constants/DevelopeStatus";
 import studySpaces from "../constants/studySpaces";
 
 import Articles from "../screens/Articles";
@@ -283,26 +284,27 @@ function SearchResultStackScreen(props) {
 const favouriteStack = createNativeStackNavigator();
 
 // TODO: Write the favourite page
-export function FavouriteScreen(props) {
+export function ShareScreen(props) {
   return (
-    <favouriteStack.Navigator
-      screenOptions={{
-        mode: "card",
-        headerShown: true,
-      }}
-    >
-      <favouriteStack.Screen
-        name="Favourite"
-        component={SearchResult}
-        options={{
-          header: ({ navigation, scene }) => (
-            <Header back title="SearchResult" navigation={navigation} scene={scene} />
-          ),
-          cardStyle: { backgroundColor: "#F8F9FE" },
+    <DevStatus status="developing">
+      <favouriteStack.Navigator
+        screenOptions={{
+          mode: "card",
+          headerShown: true,
         }}
-      />
-
-    </favouriteStack.Navigator>
+      >
+        <favouriteStack.Screen
+          name="Favourite"
+          component={SearchResult}
+          options={{
+            header: ({ navigation, scene }) => (
+              <Header back title="SearchResult" navigation={navigation} scene={scene} />
+            ),
+            cardStyle: { backgroundColor: "#F8F9FE" },
+          }}
+        />
+      </favouriteStack.Navigator>
+    </DevStatus>
   );
 }
 
