@@ -4,13 +4,11 @@ import { View, TextInput, StyleSheet, ImageBackground, Dimensions, Linking, Flat
 import { ColorPicker, ModalInput, Separator, Tag } from "react-native-btr";
 import DropDownSearchBar from "../components/DropDownSearchBar";
 import SearchBarWithTag from "../components/SearchBarWithTag";
-import Images from '../constants/Images';
 import { Block, theme } from 'galio-framework';
-import Home from '../screens/Home'
 import argonTheme from '../constants/Theme';
-import IconExtra from '../components/Icon';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
+import { collection, doc, setDoc, getDoc, getFirestore, query, where, getDocs } from "firebase/firestore";
+import { async } from "@firebase/util";
 
 const { width } = Dimensions.get('screen');
 
@@ -20,13 +18,12 @@ export default function SearchResult() {
     { name: "silent", color: "#484", active: false },
     { name: "group", color: "#E91", active: false },
     { name: "quiet", color: "#9C2", active: false },
-    // { name: "# microwave", color: "#673", active: false },
-    // { name: "# water_fountain", color: "#4CA", active: false },
   ]);
 
   const [visible, setVisible] = useState(false);
   const [color, setColor] = useState("");
   const [text, setText] = useState("");
+  const [data, setData] = useState([]);
 
   const toggleTag = (index) => {
     const tag = tags[index];
@@ -34,14 +31,26 @@ export default function SearchResult() {
     setTags([...tags]);
   };
 
+  async function getData() {
+    const list = [];
+    const citiesRef = collection(getFirestore(), "study_space");
+    const q = query(citiesRef, where("name", "==", "Central Library"));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      console.log(doc.id, " => ", doc.data());
+    });
+  }
+
   function renderActiveTags(tag) {
     if (tag.active) {
       return (
-        <Text>{tag.name}</Text>
+        <Text style={styles.item}>{tag.name}</Text>
       )
     }
   }
 
+  getData();
 
   return (
     <View style={styles.container}>
@@ -71,6 +80,10 @@ export default function SearchResult() {
         data={tags}
         renderItem={({ item }) => renderActiveTags(item)}
       />
+      <FlatList 
+        data={data}
+        renderItem={({ item }) => <Text>{item}</Text>}
+      />
     </View>
   );
 }
@@ -78,6 +91,11 @@ export default function SearchResult() {
 
 
 const styles = StyleSheet.create({
+  item: {
+    padding: 10,
+    fontSize: 18,
+    height: 44,
+  },
   container: {
     flex: 1,
     marginTop: 0,
