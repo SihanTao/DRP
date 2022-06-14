@@ -10,7 +10,8 @@ import argonTheme from '../constants/Theme';
 import MultiSelect from './MultiSelect';
 
 import { ColorPicker, ModalInput, Separator, Tag } from "react-native-btr";
-import {testAddFireStore} from '../backend/databaseReadWrite';
+import {testAddFireStore, addStudySpaces} from '../backend/databaseReadWrite';
+import studySpaces from "../constants/studySpaces";
 import SearchResult from "../screens/SearchResult"
 
 const { height, width } = Dimensions.get('window');
@@ -141,7 +142,8 @@ class Header extends React.Component {
         placeholderTextColor={'#8898AA'}
         onFocus={() => {
           Keyboard.dismiss();
-          testAddFireStore();
+          // testAddFireStore();
+          // addStudySpaces(studySpaces);
           navigation.navigate('SearchResult');
         }}
         iconContent={<IconExtra size={16} color={theme.COLORS.MUTED} name="search-zoom-in" family="ArgonExtra" />}

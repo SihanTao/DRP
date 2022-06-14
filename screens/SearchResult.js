@@ -16,9 +16,9 @@ const { width } = Dimensions.get('screen');
 
 export default function SearchResult() {
   let [tags, setTags] = useState([
-    { name: "# study space", color: "#f44", active: true },
-    { name: "# silent", color: "#484", active: false },
-    { name: "# group", color: "#E91", active: false },
+    { name: "study space", color: "#f43", active: false },
+    { name: "silent", color: "#484", active: false },
+    { name: "group", color: "#E91", active: false },
     { name: "# toilet", color: "#9C2", active: false },
     { name: "# microwave", color: "#673", active: false },
     { name: "# water_fountain", color: "#4CA", active: false },
@@ -29,7 +29,8 @@ export default function SearchResult() {
   const [text, setText] = useState("");
 
   const removeTag = (index) => {
-    tags.splice(index, 1);
+    const tag = tags[index];
+    tag.active = !tag.active;
     setTags([...tags]);
   };
 
@@ -54,14 +55,15 @@ export default function SearchResult() {
   };
 
   return (
-    
+
     <View style={styles.container}>
       <View style={styles.container2}>
+
         {/* <SearchBarWithTag /> */}
-        <View 
+        <View
           style={{ flexDirection: "row", flexWrap: "wrap" }}
           iconContent={<IconExtra size={16} color={theme.COLORS.MUTED} name="search-zoom-in" family="ArgonExtra" />}
-          >
+        >
           {tags
             .filter((tag) => tag.active)
             .map((tag, index) => (
@@ -73,7 +75,8 @@ export default function SearchResult() {
                     color: "#fff",
                     borderRadius: 50,
                   }}
-                  onPress={() => {}}
+                  iconRight="cancel"
+                  onPress={() => {removeTag(index)}}
                 />
               </View>
             ))}
@@ -119,30 +122,9 @@ export default function SearchResult() {
               />
             </ModalInput>
           )}
-        </View> 
+        </View>
         <View style={styles.container5}>
           <Home noRecommendation={true}></Home>
-        {/* <Block flex card shadow style={styles.category}>
-            <ImageBackground
-              source={{ uri: Images.Snooker }}
-              style={[
-                styles.imageBlock,
-                { width: width - theme.SIZES.BASE * 2, height: 252 },
-              ]}
-              imageStyle={{
-                width: width - theme.SIZES.BASE * 2,
-                height: 150,
-              }}
-            >
-              <Block style={styles.categoryTitle}>
-                <Text size={18} bold color={theme.COLORS.WHITE}
-                  onPress={() => Linking.openURL('https://www.union.ic.ac.uk/rcc/snooker_billiards/home/about.php')
-                    .catch((err) => console.error('An error occurred', err))}>
-                  Imperial Union Snooker
-                </Text>
-              </Block>
-            </ImageBackground>
-          </Block> */}
         </View>
       </View>
     </View>
