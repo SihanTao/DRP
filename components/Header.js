@@ -10,13 +10,13 @@ import argonTheme from '../constants/Theme';
 import MultiSelect from './MultiSelect';
 
 import { ColorPicker, ModalInput, Separator, Tag } from "react-native-btr";
-
+import {testAddFireStore} from '../backend/databaseReadWrite';
 import SearchResult from "../screens/SearchResult"
 
 const { height, width } = Dimensions.get('window');
 const iPhoneX = () => Platform.OS === 'ios' && (height === 812 || width === 812 || height === 896 || width === 896);
 
-const BasketButton = ({isWhite, style, navigation}) => (
+const BasketButton = ({ isWhite, style, navigation }) => (
   <TouchableOpacity style={[styles.button, style]} onPress={() => navigation.navigate('Profile')}>
     <Icon
       family="Galio"
@@ -27,7 +27,7 @@ const BasketButton = ({isWhite, style, navigation}) => (
   </TouchableOpacity>
 );
 
-const SearchButton = ({isWhite, style, navigation}) => (
+const SearchButton = ({ isWhite, style, navigation }) => (
   <TouchableOpacity style={[styles.button, style]} onPress={() => navigation.navigate('Pro')}>
     <Icon
       size={16}
@@ -91,41 +91,41 @@ class Header extends React.Component {
         return ([
           <BasketButton key='basket-home' navigation={navigation} isWhite={white} />
         ]);
-    //   case 'Deals':
-    //     return ([
-    //       <BellButton key='chat-categories' navigation={navigation} />,
-    //       <BasketButton key='basket-categories' navigation={navigation} />
-    //     ]);
-    //   case 'Categories':
-    //     return ([
-    //       <BellButton key='chat-categories' navigation={navigation} isWhite={white} />,
-    //       <BasketButton key='basket-categories' navigation={navigation} isWhite={white} />
-    //     ]);
-    //   case 'Category':
-    //     return ([
-    //       <BellButton key='chat-deals' navigation={navigation} isWhite={white} />,
-    //       <BasketButton key='basket-deals' navigation={navigation} isWhite={white} />
-    //     ]);
-    //   case 'Profile':
-    //     return ([
-    //       <BellButton key='chat-profile' navigation={navigation} isWhite={white} />,
-    //       <BasketButton key='basket-deals' navigation={navigation} isWhite={white} />
-    //     ]);
-    //   case 'Product':
-    //     return ([
-    //       <SearchButton key='search-product' navigation={navigation} isWhite={white} />,
-    //       <BasketButton key='basket-product' navigation={navigation} isWhite={white} />
-    //     ]);
-    //   case 'Search':
-    //     return ([
-    //       <BellButton key='chat-search' navigation={navigation} isWhite={white} />,
-    //       <BasketButton key='basket-search' navigation={navigation} isWhite={white} />
-    //     ]);
-    //   case 'Settings':
-    //     return ([
-    //       <BellButton key='chat-search' navigation={navigation} isWhite={white} />,
-    //       <BasketButton key='basket-search' navigation={navigation} isWhite={white} />
-    //     ]);
+      //   case 'Deals':
+      //     return ([
+      //       <BellButton key='chat-categories' navigation={navigation} />,
+      //       <BasketButton key='basket-categories' navigation={navigation} />
+      //     ]);
+      //   case 'Categories':
+      //     return ([
+      //       <BellButton key='chat-categories' navigation={navigation} isWhite={white} />,
+      //       <BasketButton key='basket-categories' navigation={navigation} isWhite={white} />
+      //     ]);
+      //   case 'Category':
+      //     return ([
+      //       <BellButton key='chat-deals' navigation={navigation} isWhite={white} />,
+      //       <BasketButton key='basket-deals' navigation={navigation} isWhite={white} />
+      //     ]);
+      //   case 'Profile':
+      //     return ([
+      //       <BellButton key='chat-profile' navigation={navigation} isWhite={white} />,
+      //       <BasketButton key='basket-deals' navigation={navigation} isWhite={white} />
+      //     ]);
+      //   case 'Product':
+      //     return ([
+      //       <SearchButton key='search-product' navigation={navigation} isWhite={white} />,
+      //       <BasketButton key='basket-product' navigation={navigation} isWhite={white} />
+      //     ]);
+      //   case 'Search':
+      //     return ([
+      //       <BellButton key='chat-search' navigation={navigation} isWhite={white} />,
+      //       <BasketButton key='basket-search' navigation={navigation} isWhite={white} />
+      //     ]);
+      //   case 'Settings':
+      //     return ([
+      //       <BellButton key='chat-search' navigation={navigation} isWhite={white} />,
+      //       <BasketButton key='basket-search' navigation={navigation} isWhite={white} />
+      //     ]);
       default:
         break;
     }
@@ -139,8 +139,9 @@ class Header extends React.Component {
         style={styles.search}
         placeholder="What are you looking for?"
         placeholderTextColor={'#8898AA'}
-        onFocus={()=>{
+        onFocus={() => {
           Keyboard.dismiss();
+          testAddFireStore();
           navigation.navigate('SearchResult');
         }}
         iconContent={<IconExtra size={16} color={theme.COLORS.MUTED} name="search-zoom-in" family="ArgonExtra" />}
@@ -163,7 +164,7 @@ class Header extends React.Component {
 
         <Button shadowless style={styles.tab} onPress={() => navigation.navigate('Pro')}>
           <Block row middle>
-            <Icon size={16} name="bag-17" family="ArgonExtra" style={{ paddingRight: 8 }} color={argonTheme.COLORS.ICON}/>
+            <Icon size={16} name="bag-17" family="ArgonExtra" style={{ paddingRight: 8 }} color={argonTheme.COLORS.ICON} />
             <Text size={16} style={styles.tabTitle}>{optionRight || 'Water Tab'}</Text>
           </Block>
         </Button>
@@ -175,7 +176,7 @@ class Header extends React.Component {
   renderTabs = () => {
     const { tabs, tabIndex, navigation } = this.props;
     const defaultTab = tabs && tabs[0] && tabs[0].id;
-    
+
     if (!tabs) return null;
 
     return (
@@ -191,24 +192,24 @@ class Header extends React.Component {
     const { tabs, tabIndex, navigation } = this.props;
     return (
       //<View style={multiSelectStyles.container}>
-        <MultiSelect
-          single
-          items={items}
-          uniqueKey="id"
-          onSelectedItemsChange={onSelectedItemsChange}
-          selectedItems={[]}
-          selectText="Pick Items"
-          searchInputPlaceholderText="Search Items..."
-          tagRemoveIconColor="#CCC"
-          tagBorderColor="#CCC"
-          tagTextColor="#CCC"
-          selectedItemTextColor="#CCC"
-          selectedItemIconColor="#CCC"
-          itemTextColor="#000"
-          searchInputStyle={{ color: '#CCC' }}
-          submitButtonColor="#CCC"
-          submitButtonText="Submit"
-        />
+      <MultiSelect
+        single
+        items={items}
+        uniqueKey="id"
+        onSelectedItemsChange={onSelectedItemsChange}
+        selectedItems={[]}
+        selectText="Pick Items"
+        searchInputPlaceholderText="Search Items..."
+        tagRemoveIconColor="#CCC"
+        tagBorderColor="#CCC"
+        tagTextColor="#CCC"
+        selectedItemTextColor="#CCC"
+        selectedItemIconColor="#CCC"
+        itemTextColor="#000"
+        searchInputStyle={{ color: '#CCC' }}
+        submitButtonColor="#CCC"
+        submitButtonText="Submit"
+      />
       //</View>
     );
   }
@@ -250,13 +251,13 @@ class Header extends React.Component {
           transparent={transparent}
           right={this.renderRight()}
           left={
-            <Icon 
-              name={back ? 'chevron-left' : "menu"} family="entypo" 
-              size={20} onPress={this.handleLeftPress} 
+            <Icon
+              name={back ? 'chevron-left' : "menu"} family="entypo"
+              size={20} onPress={this.handleLeftPress}
               color={iconColor || (white ? argonTheme.COLORS.WHITE : argonTheme.COLORS.ICON)}
               style={{ marginTop: 2 }}
             />
-              
+
           }
           leftStyle={{ paddingVertical: 12, flex: 0.2 }}
           titleStyle={[

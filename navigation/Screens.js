@@ -36,7 +36,6 @@ import WebPage from "../screens/WebPage";
 export default function OnboardingStack(props) {
   initializeApp(firebaseConfig);
   signInAnonymous();
-  // testAddFireStore();
   addStudySpaces(studySpaces);
   return (
     <Stack.Navigator
