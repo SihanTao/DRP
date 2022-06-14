@@ -17,6 +17,7 @@ class ListElement extends React.Component {
         const { navigation } = this.props;
         const image = item.url
         return (
+          <Block flex style = {{marginVertical: 10 }}>
             <TouchableWithoutFeedback
             onPress={() => navigation.navigate("webpage",
               {
@@ -30,20 +31,22 @@ class ListElement extends React.Component {
               source={{ uri: image }}
               style={[
                 styles.imageBlock,
-                { width: width - theme.SIZES.BASE * 2, height: 252 },
+                { width: width - theme.SIZES.BASE * 2, height: 150 },
               ]}
               imageStyle={{
                 width: width - theme.SIZES.BASE * 2,
-                height: 252,
+                height: 150,
+                opacity:0.6, 
               }}
             >
               <Block style={styles.categoryTitle}>
-                <Text size={18} bold color={theme.COLORS.WHITE}>
+                <Text style={styles.listTitle} size={25} bold >
                   {item.title}
                 </Text>
               </Block>
             </ImageBackground>
           </TouchableWithoutFeedback>
+          </Block>
         );
       };
 
@@ -57,7 +60,7 @@ class ListElement extends React.Component {
               scrollEventThrottle={16}
               snapToAlignment="center"
               showsHorizontalScrollIndicator={false}
-              //snapToInterval={cardWidth + theme.SIZES.BASE * 0.375}
+              snapToInterval = {10}
               contentContainerStyle={{
                 paddingVertical: theme.SIZES.BASE / 2,
               }}
@@ -84,6 +87,18 @@ const styles = StyleSheet.create({
     home: {
         width: width,
       },
+      categoryTitle: {
+        height: "100%",
+        paddingHorizontal: theme.SIZES.BASE,
+        backgroundColor: "rgba(0, 0, 0, 0.5)",
+        justifyContent: "center",
+        alignItems: "center",
+      },
+    listTitle: {
+      textAlign: 'right',
+      color: theme.COLORS.WHITE,
+      textAlignVertical: 'center',
+    }
 });
 
 
