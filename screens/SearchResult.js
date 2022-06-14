@@ -54,14 +54,13 @@ export default function SearchResult() {
   getData();
 
   return (
-    <View style={styles.container}>
-      <View style={styles.container3}>
-        <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+    <Block safe fluid style={styles.container}>
+        <Block style={{ flexDirection: "row", flexWrap: "wrap" }}>
           {tags.map((tag, index) => {
             const backgroundColor = tag.active ? tag.color : "#0000";
             const color = tag.active ? "#fff" : tag.color;
             return (
-              <View key={tag.name + index} style={{ margin: 2 }}>
+              <Block key={tag.name + index} style={{ margin: 2 }}>
                 <Tag
                   name={tag.name}
                   style={{
@@ -71,12 +70,10 @@ export default function SearchResult() {
                     borderRadius: 50,
                   }}
                   onPress={() => toggleTag(index)} />
-              </View>
+              </Block>
             );
           })}
-        </View>
-
-      </View>
+      </Block>
       <FlatList
         data={tags}
         renderItem={({ item }) => renderActiveTags(item)}
@@ -85,7 +82,7 @@ export default function SearchResult() {
         data={data}
         renderItem={({ item }) => <Text>{item}</Text>}
       />
-    </View>
+    </Block>
   );
 }
 
