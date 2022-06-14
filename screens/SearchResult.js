@@ -59,7 +59,6 @@ export default function SearchResult() {
       }
     });
     setData([...list]);
-    console.log(data);
   }
 
   function renderActiveTags(tag) {
@@ -95,10 +94,10 @@ export default function SearchResult() {
       newCategory.push('Quiet Study');
     }
 
-    console.log("******************");
-    console.log(tags);
-    console.log(newCategory);
-    console.log("******************");
+    // console.log("******************");
+    // console.log(tags);
+    // console.log(newCategory);
+    // console.log("******************");
 
     setFilters([...newCategory]);
   }
