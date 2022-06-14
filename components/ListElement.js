@@ -15,7 +15,7 @@ class ListElement extends React.Component {
 
     renderProduct = (item, index) => {
         const { navigation } = this.props;
-    
+        const image = item.url
         return (
             <TouchableWithoutFeedback
             onPress={() => navigation.navigate("webpage",
@@ -26,7 +26,8 @@ class ListElement extends React.Component {
             }
           >
             <ImageBackground
-              source={Images.Snooker}
+              //source={Images.Snooker}
+              source={{ uri: image }}
               style={[
                 styles.imageBlock,
                 { width: width - theme.SIZES.BASE * 2, height: 252 },
@@ -38,7 +39,7 @@ class ListElement extends React.Component {
             >
               <Block style={styles.categoryTitle}>
                 <Text size={18} bold color={theme.COLORS.WHITE}>
-                  Imperial Union Snooker
+                  {item.title}
                 </Text>
               </Block>
             </ImageBackground>
@@ -84,5 +85,6 @@ const styles = StyleSheet.create({
         width: width,
       },
 });
+
 
 export default ListElement;
