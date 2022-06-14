@@ -7,7 +7,7 @@ import SearchBarWithTag from "../components/SearchBarWithTag";
 import { Block, theme } from 'galio-framework';
 import argonTheme from '../constants/Theme';
 import ListElement from "../components/ListElement";
-import goStudySpaceSlideShow from '../constants/goStudySpaceSlideShow';
+import testListElement from '../constants/testListElement';
 
 import { collection, doc, setDoc, getDoc, getFirestore, query, where, getDocs } from "firebase/firestore";
 import { async } from "@firebase/util";
@@ -136,7 +136,7 @@ export default function SearchResult() {
         data={data}
         renderItem={({ item }) => renderObject(item)}
       />
-      <ListElement list={goStudySpaceSlideShow}></ListElement>
+      <ListElement list={testListElement}></ListElement>
     </Block>
   );
 }
