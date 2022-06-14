@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Text } from 'galio-framework';
 import { View, TextInput, StyleSheet, ImageBackground, Dimensions, Linking, FlatList } from "react-native";
 import { ColorPicker, ModalInput, Separator, Tag } from "react-native-btr";
@@ -20,10 +20,8 @@ export default function SearchResult() {
     { name: "quiet", color: "#9C2", active: false },
   ]);
 
-  const [visible, setVisible] = useState(false);
-  const [color, setColor] = useState("");
-  const [text, setText] = useState("");
   const [data, setData] = useState([]);
+  const [filters, setFilters] = useState([]);
 
   const toggleTag = (index) => {
     const tag = tags[index];
@@ -31,16 +29,37 @@ export default function SearchResult() {
     setTags([...tags]);
   };
 
-  async function getData() {
+  async function getData(filters) {
     const list = [];
-    const citiesRef = collection(getFirestore(), "study_space");
-    const q = query(citiesRef, where("category", 'array-contains-any', ['Silent Study']));
+    const studySpaceRef = collection(getFirestore(), "study_space");
+    const conditions = [];
+
+    if (filters.includes('Silent Study')) {
+      conditions.push(where('category.SILENTSTUDY', '==', true));
+    }
+
+    if (filters.includes('Group Study')) {
+      conditions.push(where('category.GROUPSTUDY', '==', true));
+    }
+
+    if (filters.includes('Quiet Study')) {
+      conditions.push(where('category.QUIETSTUDY', '==', true));
+    }
+
+    const q = query(studySpaceRef, ...conditions);
+
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
       // doc.data() is never undefined for query doc snapshots
-      console.log(doc.id, " => ", doc.data());
+      // console.log("=========================================");
+      // console.log(doc.id, " => ", doc.data());
+      // console.log("=========================================");
+      if (list.includes(doc.data())===false) {
+        list.push(doc.data());
+      }
     });
-    console.log("================================================")
+    setData([...list]);
+    console.log(data);
   }
 
   function renderActiveTags(tag) {
@@ -51,36 +70,74 @@ export default function SearchResult() {
     }
   }
 
-  getData();
+  function renderObject(item) {
+    return (
+      <Text style={styles.item}>{item.name}</Text>
+    );
+  }
+
+  function updateFilters() {
+    // Initial State of Filter
+    let name = filters.name;
+    let category = filters.category;
+    let sort = filters.sort;
+    const newCategory = [];
+
+    if (tags[1].active) {
+      newCategory.push('Silent Study');
+    }
+
+    if (tags[2].active) {
+      newCategory.push('Group Study');
+    }
+
+    if (tags[3].active) {
+      newCategory.push('Quiet Study');
+    }
+
+    console.log("******************");
+    console.log(tags);
+    console.log(newCategory);
+    console.log("******************");
+
+    setFilters([...newCategory]);
+  }
+
+  useEffect(() => {
+    getData(filters);
+  }, [filters])
 
   return (
     <Block safe fluid style={styles.container}>
-        <Block style={{ flexDirection: "row", flexWrap: "wrap" }}>
-          {tags.map((tag, index) => {
-            const backgroundColor = tag.active ? tag.color : "#0000";
-            const color = tag.active ? "#fff" : tag.color;
-            return (
-              <Block key={tag.name + index} style={{ margin: 2 }}>
-                <Tag
-                  name={tag.name}
-                  style={{
-                    backgroundColor,
-                    color,
-                    borderWidth: 1,
-                    borderRadius: 50,
-                  }}
-                  onPress={() => toggleTag(index)} />
-              </Block>
-            );
-          })}
+      <Block style={{ flexDirection: "row", flexWrap: "wrap" }}>
+        {tags.map((tag, index) => {
+          const backgroundColor = tag.active ? tag.color : "#0000";
+          const color = tag.active ? "#fff" : tag.color;
+          return (
+            <Block key={tag.name + index} style={{ margin: 2 }}>
+              <Tag
+                name={tag.name}
+                style={{
+                  backgroundColor,
+                  color,
+                  borderWidth: 1,
+                  borderRadius: 50,
+                }}
+                onPress={() => {
+                  toggleTag(index);
+                  updateFilters();
+                }} />
+            </Block>
+          );
+        })}
       </Block>
       <FlatList
         data={tags}
         renderItem={({ item }) => renderActiveTags(item)}
       />
-      <FlatList 
+      <FlatList
         data={data}
-        renderItem={({ item }) => <Text>{item}</Text>}
+        renderItem={({ item }) => renderObject(item)}
       />
     </Block>
   );

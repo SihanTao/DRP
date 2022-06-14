@@ -1,11 +1,11 @@
-const SILENTSTUDY = 'Silent Study';
-const GROUPSTUDY = 'Group Study';
-const QUIETSTUDY = 'Quiet Study';
-
 const studySpaces = [
     {
         name: 'Central Library',
-        category: [SILENTSTUDY, GROUPSTUDY, QUIETSTUDY],
+        category: {
+            SILENTSTUDY: true,
+            GROUPSTUDY: true, 
+            QUIETSTUDY: true
+        },
         description:
             'Silent study - levels 2 and 3\n' +
             'Quiet study - levels 1, 4 and 5\n' +
@@ -16,10 +16,11 @@ const studySpaces = [
         numRatings: 0,
     }, {
         name: 'GoStudy Space',
-        category: [
-            SILENTSTUDY,
-            GROUPSTUDY
-        ],
+        category: {
+            SILENTSTUDY: true,
+            GROUPSTUDY: true,
+            QUIETSTUDY: false,
+        },
         description:
             'Silent Study: Chemistry Building Rooms 460, 537\n' +
             'Group Study: Chemistry Building Rooms 430, 444, 538, 561',
@@ -27,7 +28,11 @@ const studySpaces = [
         rating: 5,
     }, {
         name: "Computing Lab",
-        category: [GROUPSTUDY],
+        category: {
+            GROUPSTUDY: true,
+            SILENTSTUDY: false,
+            QUIETSTUDY: false
+        },
         description: "Huxluy Building 219...",
         rating: 0,
         numRatings: 0,
