@@ -7,6 +7,7 @@ import Input from './Input';
 
 import goStudySpaceSlideShow from '../constants/goStudySpaceSlideShow';
 import Images from '../constants/Images';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const { height, width } = Dimensions.get('window');
 
@@ -20,11 +21,11 @@ class ListElement extends React.Component {
     const image = item.photo;
     return (
       <Block flex style={{ marginVertical: 10 }}>
-        <TouchableWithoutFeedback
+        <TouchableOpacity
           onPress={() => navigation.navigate("webpage",
             {
-              url: 'https://www.union.ic.ac.uk/rcc/snooker_billiards/home/about.php',
-              title: "Imperial Union Snooker"
+              url: item.url,
+              title: item.name
             })
           }
         >
@@ -47,7 +48,7 @@ class ListElement extends React.Component {
               </Text>
             </Block>
           </ImageBackground>
-        </TouchableWithoutFeedback>
+        </TouchableOpacity>
       </Block>
     );
   };

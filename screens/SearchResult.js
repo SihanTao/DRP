@@ -11,10 +11,11 @@ import testListElement from '../constants/testListElement';
 
 import { collection, doc, setDoc, getDoc, getFirestore, query, where, getDocs } from "firebase/firestore";
 import { async } from "@firebase/util";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const { width } = Dimensions.get('screen');
 
-export default function SearchResult() {
+export default function SearchResult(props) {
   let [tags, setTags] = useState([
     { name: "study space", color: "#f43", active: true },
     { name: "silent", color: "#484", active: false },
@@ -61,20 +62,6 @@ export default function SearchResult() {
       }
     });
     setData([...list]);
-  }
-
-  function renderActiveTags(tag) {
-    if (tag.active) {
-      return (
-        <Text style={styles.item}>{tag.name}</Text>
-      )
-    }
-  }
-
-  function renderObject(item) {
-    return (
-      <Text style={styles.item}>{item.name}</Text>
-    );
   }
 
   function updateFilters() {
@@ -132,16 +119,13 @@ export default function SearchResult() {
           );
         })}
       </Block>
-      <FlatList
-        data={data}
-        renderItem={({ item }) => renderObject(item)}
+      <ListElement
+        list={data}
+        navigation={props.navigation}
       />
-      <ListElement list={testListElement}></ListElement>
     </Block>
   );
 }
-
-
 
 const styles = StyleSheet.create({
   item: {

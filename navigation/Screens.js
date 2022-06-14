@@ -208,7 +208,7 @@ export function HomeStackScreen({ navigation }) {
         name="Search"
         component={SearchStackScreen}
         options={{ headerShown: false }}
-      />  
+      />
 
       <HomeStack.Screen
         name="SearchResult"
@@ -257,14 +257,14 @@ function WebPageScreen({ navigation, route }) {
   return (
     <>
       <Header back title={route.params.title} navigation={navigation} />
-      <WebPage url={route.params.url} /></>
-
+      <WebPage url={route.params.url} />
+    </>
   );
 }
 
 const SearchResultStack = createNativeStackNavigator();
 
-function SearchResultStackScreen(props) {
+function SearchResultStackScreen({ navigation }) {
   return (
     <SearchResultStack.Navigator
       screenOptions={{
@@ -281,6 +281,12 @@ function SearchResultStackScreen(props) {
           ),
           cardStyle: { backgroundColor: "#F8F9FE" },
         }}
+      />
+
+      <SearchResultStack.Screen
+        name="webpage"
+        component={WebPageScreen}
+        options={{ headerShown: false }}
       />
 
     </SearchResultStack.Navigator>
@@ -306,6 +312,11 @@ function SearchStackScreen(props) {
           ),
           cardStyle: { backgroundColor: "#F8F9FE" },
         }}
+      />
+      <SearchStack.Screen
+        name="webpage"
+        component={WebPageScreen}
+        options={{ headerShown: false }}
       />
 
     </SearchStack.Navigator>

@@ -14,8 +14,8 @@ const { width } = Dimensions.get('screen');
 
 
 class Home extends React.Component {
-  constructor({ route, navigation }) {
-    super({ route, navigation });
+  constructor(props) {
+    super(props);
   }
 
   renderRecommendationText = () => {
