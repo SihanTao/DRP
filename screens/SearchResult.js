@@ -10,6 +10,7 @@ import Home from '../screens/Home'
 import argonTheme from '../constants/Theme';
 import IconExtra from '../components/Icon';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import ListElement from "../components/ListElement";
 
 
 const { width } = Dimensions.get('screen');
@@ -126,7 +127,8 @@ export default function SearchResult() {
           )}
         </View> 
         <View style={styles.container5}>
-          <Home noRecommendation={true}></Home>
+          <ListElement></ListElement>
+          {/* <Home noRecommendation={true}></Home> */}
         {/* <Block flex card shadow style={styles.category}>
             <ImageBackground
               source={{ uri: Images.Snooker }}
