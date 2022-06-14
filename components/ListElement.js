@@ -7,6 +7,7 @@ import Input from './Input';
 
 import goStudySpaceSlideShow from '../constants/goStudySpaceSlideShow';
 import Images from '../constants/Images';
+import Information from '../screens/Information'
 
 const { height, width } = Dimensions.get('window');
 
@@ -14,17 +15,11 @@ class ListElement extends React.Component {
      
 
     renderProduct = (item, index) => {
-        const { navigation } = this.props;
         const image = item.url
         return (
-          <Block flex style = {{marginVertical: 10 }}>
+          <Block flex style = {{marginVertical: 10 }} onPress={() => console.log("information")}>
             <TouchableWithoutFeedback
-            onPress={() => navigation.navigate("webpage",
-              {
-                url: 'https://www.union.ic.ac.uk/rcc/snooker_billiards/home/about.php',
-                title: "Imperial Union Snooker"
-              })
-            }
+            onPress={() => navigation.navigate('Information')}
           >
             <ImageBackground
               //source={Images.Snooker}

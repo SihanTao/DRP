@@ -16,6 +16,7 @@ import ListElement from "../components/ListElement";
 const { width } = Dimensions.get('screen');
 
 export default function SearchResult() {
+  //const {navigation} = this.props;
   let [tags, setTags] = useState([
     { name: "# study space", color: "#f44", active: true },
     { name: "# silent", color: "#484", active: false },
