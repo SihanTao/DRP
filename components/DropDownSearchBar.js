@@ -9,32 +9,25 @@ import {
   Platform,
 } from 'react-native';
 import { SearchBar } from 'react-native-elements';
-import SearchResult from '../screens/SearchResult';
+import { tabs } from '../constants';
 
 export default class DropDownSearchBar extends React.Component {
   constructor(props) {
     super(props);
     //setting default state
-    this.state = { isLoading: true, search: '' };
-    this.arrayholder = [];
+    this.state = { isLoading: false, search: '' };
+    this.arrayholder = tabs.categories;
   }
   componentDidMount() {
-    return fetch('https://json.extendsclass.com/bin/f909d1a010a9')
-      .then(response => response.json())
-      .then(responseJson => {
         this.setState(
           {
             isLoading: false,
-            dataSource: responseJson,
+            dataSource: tabs.categories,
           },
           function() {
-            this.arrayholder = responseJson;
+            this.arrayholder = tabs.categories;
           }
         );
-      })
-      .catch(error => {
-        console.error(error);
-      });
   }
 
   search = text => {
@@ -97,6 +90,7 @@ export default class DropDownSearchBar extends React.Component {
           onClear={text => this.SearchFilterFunction('')}
           placeholder="What are you Looking for?"
           value={this.state.search}
+          autoFocus
         />
         <FlatList
           data={this.state.dataSource}
@@ -109,7 +103,7 @@ export default class DropDownSearchBar extends React.Component {
           )}
           enableEmptySections={true}
           style={{ marginTop: 10 }}
-          keyExtractor={(item, index) => index.toString()}
+          keyExtractor={(item) => item.id}
         />
       </View>
     );
