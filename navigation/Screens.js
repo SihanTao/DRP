@@ -24,6 +24,7 @@ import { initializeApp } from "firebase/app";
 import firebaseConfig from "../constants/firebaseConfig";
 import TagDemo from "../screens/Tag";
 import SearchResult from "../screens/SearchResult"
+import Search from "../screens/Search";
 import BottomTabNavigator from "./TabNavigator";
 
 const { width } = Dimensions.get("screen");
@@ -205,6 +206,12 @@ export function HomeStackScreen({ navigation }) {
       />
 
       <HomeStack.Screen
+        name="Search"
+        component={SearchStackScreen}
+        options={{ headerShown: false }}
+      />
+
+      <HomeStack.Screen
         name="SearchResult"
         component={SearchResultStackScreen}
         options={{ headerShown: false }}
@@ -251,14 +258,14 @@ function WebPageScreen({ navigation, route }) {
   return (
     <>
       <Header back title={route.params.title} navigation={navigation} />
-      <WebPage url={route.params.url} /></>
-
+      <WebPage url={route.params.url} />
+    </>
   );
 }
 
 const SearchResultStack = createNativeStackNavigator();
 
-function SearchResultStackScreen(props) {
+function SearchResultStackScreen({ navigation }) {
   return (
     <SearchResultStack.Navigator
       screenOptions={{
@@ -277,7 +284,43 @@ function SearchResultStackScreen(props) {
         }}
       />
 
+      <SearchResultStack.Screen
+        name="webpage"
+        component={WebPageScreen}
+        options={{ headerShown: false }}
+      />
+
     </SearchResultStack.Navigator>
+  );
+}
+
+const SearchStack = createNativeStackNavigator();
+
+function SearchStackScreen(props) {
+  return (
+    <SearchStack.Navigator
+      screenOptions={{
+        mode: "card",
+        headerShown: true,
+      }}
+    >
+      <SearchStack.Screen
+        name="Search"
+        component={Search}
+        options={{
+          header: ({ navigation, scene }) => (
+            <Header back title="Search" navigation={navigation} scene={scene} />
+          ),
+          cardStyle: { backgroundColor: "#F8F9FE" },
+        }}
+      />
+      <SearchStack.Screen
+        name="webpage"
+        component={WebPageScreen}
+        options={{ headerShown: false }}
+      />
+
+    </SearchStack.Navigator>
   );
 }
 

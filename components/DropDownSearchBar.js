@@ -1,111 +1,124 @@
-// Searching using Search Bar Filter in React Native List View
-// https://aboutreact.com/react-native-search-bar-filter-on-listview/
-
-// import React in our code
-import React, { useState, useEffect } from 'react';
-
-// import all the components we are going to use
-import { SafeAreaView, Text, StyleSheet, View, FlatList } from 'react-native';
+/*This is an Example of SearchBar in React Native*/
+import * as React from 'react';
+import {
+  Text,
+  View,
+  StyleSheet,
+  FlatList,
+  ActivityIndicator,
+  Platform,
+} from 'react-native';
 import { SearchBar } from 'react-native-elements';
+import { tabs } from '../constants';
 
-const DropDownSearchBar = () => {
-  const [search, setSearch] = useState('');
-  const [filteredDataSource, setFilteredDataSource] = useState([]);
-  const [masterDataSource, setMasterDataSource] = useState([]);
+export default class DropDownSearchBar extends React.Component {
+  constructor(props) {
+    super(props);
+    //setting default state
+    this.state = { isLoading: false, search: '' };
+    this.arrayholder = tabs.categories;
+  }
+  componentDidMount() {
+        this.setState(
+          {
+            isLoading: false,
+            dataSource: tabs.categories,
+          },
+          function() {
+            this.arrayholder = tabs.categories;
+          }
+        );
+  }
 
-  useEffect(() => {
-    fetch('https://jsonplaceholder.typicode.com/posts')
-      .then((response) => response.json())
-      .then((responseJson) => {
-        setFilteredDataSource(responseJson);
-        setMasterDataSource(responseJson);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, []);
-
-  const searchFilterFunction = (text) => {
-    // Check if searched text is not blank
-    if (text) {
-      // Inserted text is not blank
-      // Filter the masterDataSource
-      // Update FilteredDataSource
-      const newData = masterDataSource.filter(function (item) {
-        const itemData = item.title
-          ? item.title.toUpperCase()
-          : ''.toUpperCase();
-        const textData = text.toUpperCase();
-        return itemData.indexOf(textData) > -1;
-      });
-      setFilteredDataSource(newData);
-      setSearch(text);
-    } else {
-      // Inserted text is blank
-      // Update FilteredDataSource with masterDataSource
-      setFilteredDataSource(masterDataSource);
-      setSearch(text);
-    }
+  search = text => {
+    console.log(text);
+  };
+  clear = () => {
+    this.search.clear();
   };
 
-  const ItemView = ({ item }) => {
-    return (
-      // Flat List Item
-      <Text style={styles.itemStyle} onPress={() => getItem(item)}>
-        {item.id}
-        {'.'}
-        {item.title.toUpperCase()}
-      </Text>
-    );
-  };
+  SearchFilterFunction(text) {
+    //passing the inserted text in textinput
+    const newData = this.arrayholder.filter(function(item) {
+      //applying filter for the inserted text in search bar
+      const itemData = item.title ? item.title.toUpperCase() : ''.toUpperCase();
+      const textData = text.toUpperCase();
+      return itemData.indexOf(textData) > -1;
+    });
 
-  const ItemSeparatorView = () => {
+    this.setState({
+      //setting the filtered newData on datasource
+      //After setting the data it will automatically re-render the view
+      dataSource: newData,
+      search: text,
+    });
+  }
+
+  ListViewItemSeparator = () => {
+    //Item sparator view
     return (
-      // Flat List Item Separator
       <View
         style={{
-          height: 0.5,
-          width: '100%',
-          backgroundColor: '#C8C8C8',
+          height: 0.3,
+          width: '90%',
+          backgroundColor: '#080808',
         }}
       />
     );
   };
 
-  const getItem = (item) => {
-    // Function for click on an item
-    alert('Id : ' + item.id + ' Title : ' + item.title);
-  };
-
-  return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <View style={styles.container}>
+  render() {
+    const { navigation } = this.props;
+    if (this.state.isLoading) {
+      // Loading View while data is loading
+      return (
+        <View style={{ flex: 1, paddingTop: 20 }}>
+          <ActivityIndicator />
+        </View>
+      );
+    }
+    return (
+      // <Block center>
+      //ListView to show with textinput used as search bar
+      <View style={styles.viewStyle}>
         <SearchBar
           round
+          lightTheme
+          inputStyle={{margin: 1}}
           searchIcon={{ size: 24 }}
-          onChangeText={(text) => searchFilterFunction(text)}
-          onClear={(text) => searchFilterFunction('')}
-          placeholder="Type Here..."
-          value={search}
+          onChangeText={text => this.SearchFilterFunction(text)}
+          onClear={text => this.SearchFilterFunction('')}
+          placeholder="What are you Looking for?"
+          value={this.state.search}
+          autoFocus
         />
         <FlatList
-          data={filteredDataSource}
-          keyExtractor={(item, index) => index.toString()}
-          ItemSeparatorComponent={ItemSeparatorView}
-          renderItem={ItemView}
+          data={this.state.dataSource}
+          ItemSeparatorComponent={this.ListViewItemSeparator}
+          //Item Separator View
+          renderItem={({ item }) => (
+            // Single Comes here which will be repeatative for the FlatListItems
+            <Text style={styles.textStyle} onPress = {() => navigation.navigate('SearchResult')}
+            >{item.title}</Text>
+          )}
+          enableEmptySections={true}
+          style={{ marginTop: 10 }}
+          keyExtractor={(item) => item.id}
         />
       </View>
-    </SafeAreaView>
-  );
-};
+    );
+  }
+}
 
 const styles = StyleSheet.create({
-  container: {
+  viewStyle: {
+    justifyContent: 'center',
+    flex: 1,
     backgroundColor: 'white',
+    width:'100%',
+    marginTop: 0,
   },
-  itemStyle: {
+  textStyle: {
     padding: 10,
   },
 });
-
-export default DropDownSearchBar;

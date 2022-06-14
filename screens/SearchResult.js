@@ -6,13 +6,16 @@ import DropDownSearchBar from "../components/DropDownSearchBar";
 import SearchBarWithTag from "../components/SearchBarWithTag";
 import { Block, theme } from 'galio-framework';
 import argonTheme from '../constants/Theme';
+import ListElement from "../components/ListElement";
+import testListElement from '../constants/testListElement';
 
 import { collection, doc, setDoc, getDoc, getFirestore, query, where, getDocs } from "firebase/firestore";
 import { async } from "@firebase/util";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const { width } = Dimensions.get('screen');
 
-export default function SearchResult() {
+export default function SearchResult(props) {
   let [tags, setTags] = useState([
     { name: "study space", color: "#f43", active: true },
     { name: "silent", color: "#484", active: false },
@@ -54,26 +57,11 @@ export default function SearchResult() {
       // console.log("=========================================");
       // console.log(doc.id, " => ", doc.data());
       // console.log("=========================================");
-      if (list.includes(doc.data())===false) {
+      if (list.includes(doc.data()) === false) {
         list.push(doc.data());
       }
     });
     setData([...list]);
-    console.log(data);
-  }
-
-  function renderActiveTags(tag) {
-    if (tag.active) {
-      return (
-        <Text style={styles.item}>{tag.name}</Text>
-      )
-    }
-  }
-
-  function renderObject(item) {
-    return (
-      <Text style={styles.item}>{item.name}</Text>
-    );
   }
 
   function updateFilters() {
@@ -95,10 +83,10 @@ export default function SearchResult() {
       newCategory.push('Quiet Study');
     }
 
-    console.log("******************");
-    console.log(tags);
-    console.log(newCategory);
-    console.log("******************");
+    // console.log("******************");
+    // console.log(tags);
+    // console.log(newCategory);
+    // console.log("******************");
 
     setFilters([...newCategory]);
   }
@@ -131,19 +119,13 @@ export default function SearchResult() {
           );
         })}
       </Block>
-      <FlatList
-        data={tags}
-        renderItem={({ item }) => renderActiveTags(item)}
-      />
-      <FlatList
-        data={data}
-        renderItem={({ item }) => renderObject(item)}
+      <ListElement
+        list={data}
+        navigation={props.navigation}
       />
     </Block>
   );
 }
-
-
 
 const styles = StyleSheet.create({
   item: {
