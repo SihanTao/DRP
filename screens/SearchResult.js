@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Text } from 'galio-framework';
-import { View, TextInput, StyleSheet, ImageBackground, Dimensions, Linking } from "react-native";
+import { View, TextInput, StyleSheet, ImageBackground, Dimensions, Linking, Image } from "react-native";
 import { ColorPicker, ModalInput, Separator, Tag } from "react-native-btr";
 import DropDownSearchBar from "../components/DropDownSearchBar";
 import SearchBarWithTag from "../components/SearchBarWithTag";
@@ -58,10 +58,14 @@ export default function SearchResult() {
     <View style={styles.container}>
       <View style={styles.container2}>
         {/* <SearchBarWithTag /> */}
-        <View 
+        <View
           style={{ flexDirection: "row", flexWrap: "wrap" }}
-          iconContent={<IconExtra size={16} color={theme.COLORS.MUTED} name="search-zoom-in" family="ArgonExtra" />}
           >
+          <Image
+            style={styles.tinyLogo}
+            source={require('../assets/imgs/searchIcon.png')}
+          />
+          <View style={{flexDirection: "row", flexWrap: "wrap", width: width - 80, paddingRight: 0}}>
           {tags
             .filter((tag) => tag.active)
             .map((tag, index) => (
@@ -77,6 +81,7 @@ export default function SearchResult() {
                 />
               </View>
             ))}
+          </View>
         </View>
       </View>
       <View style={styles.container5}>

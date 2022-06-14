@@ -23,6 +23,7 @@ import { initializeApp } from "firebase/app";
 import firebaseConfig from "../constants/firebaseConfig";
 import TagDemo from "../screens/Tag";
 import SearchResult from "../screens/SearchResult"
+import Search from "../screens/Search";
 import BottomTabNavigator from "./TabNavigator";
 
 const { width } = Dimensions.get("screen");
@@ -202,6 +203,12 @@ export function HomeStackScreen({ navigation }) {
       />
 
       <HomeStack.Screen
+        name="Search"
+        component={SearchStackScreen}
+        options={{ headerShown: false }}
+      />  
+
+      <HomeStack.Screen
         name="SearchResult"
         component={SearchResultStackScreen}
         options={{ headerShown: false }}
@@ -275,6 +282,31 @@ function SearchResultStackScreen(props) {
       />
 
     </SearchResultStack.Navigator>
+  );
+}
+
+const SearchStack = createNativeStackNavigator();
+
+function SearchStackScreen(props) {
+  return (
+    <SearchStack.Navigator
+      screenOptions={{
+        mode: "card",
+        headerShown: true,
+      }}
+    >
+      <SearchStack.Screen
+        name="Search"
+        component={Search}
+        options={{
+          header: ({ navigation, scene }) => (
+            <Header back title="Search" navigation={navigation} scene={scene} />
+          ),
+          cardStyle: { backgroundColor: "#F8F9FE" },
+        }}
+      />
+
+    </SearchStack.Navigator>
   );
 }
 

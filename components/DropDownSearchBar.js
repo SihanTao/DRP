@@ -9,9 +9,7 @@ import {
   Platform,
 } from 'react-native';
 import { SearchBar } from 'react-native-elements';
-import { Block, theme } from 'galio-framework';
-import Input from '../components/Input';
-import Icon from '../components/Icon';
+import SearchResult from '../screens/SearchResult';
 
 export default class DropDownSearchBar extends React.Component {
   constructor(props) {
@@ -77,6 +75,7 @@ export default class DropDownSearchBar extends React.Component {
   };
 
   render() {
+    const { navigation } = this.props;
     if (this.state.isLoading) {
       // Loading View while data is loading
       return (
@@ -99,27 +98,19 @@ export default class DropDownSearchBar extends React.Component {
           placeholder="What are you Looking for?"
           value={this.state.search}
         />
-        {/* <Input
-          right
-          color="black"
-          style={styles.search}
-          placeholder="What are you looking for?"
-          placeholderTextColor={'#8898AA'}
-          // onFocus={() => navigation.navigate('Pro')}
-          iconContent={<Icon size={16} color={theme.COLORS.MUTED} name="search-zoom-in" family="ArgonExtra" />}
-        /> */}
-        {/* <FlatList
+        <FlatList
           data={this.state.dataSource}
           ItemSeparatorComponent={this.ListViewItemSeparator}
           //Item Separator View
           renderItem={({ item }) => (
             // Single Comes here which will be repeatative for the FlatListItems
-            <Text style={styles.textStyle}>{item.title}</Text>
+            <Text style={styles.textStyle} onPress = {() => navigation.navigate('SearchResult')}
+            >{item.title}</Text>
           )}
           enableEmptySections={true}
           style={{ marginTop: 10 }}
           keyExtractor={(item, index) => index.toString()}
-        /> */}
+        />
       </View>
     );
   }

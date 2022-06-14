@@ -9,7 +9,7 @@ const ArgonLogo = require("../assets/imgs/argonlogo.png");
 const iOSLogo = require("../assets/imgs/ios.png");
 const androidLogo = require("../assets/imgs/android.png");
 const upcomingEventsLogo = require("../assets/imgs/upcomingEvents.png");
-const Snooker = require("../assets/imgs/snooker.jpg")
+const Snooker = require("../assets/imgs/snooker.jpg");
 
 // internet imgs
 
