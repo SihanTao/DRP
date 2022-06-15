@@ -19,7 +19,6 @@ const { width } = Dimensions.get('screen');
 export default function Information(props) {
   const { navigation } = props;
   const item = props.route.params.passeditem;
-  console.log(item);
   const displayImages = [
     {
       url: item.photo,
@@ -27,9 +26,15 @@ export default function Information(props) {
   ]
   const currentTags = []
 
-  // Create customised tags for study
-  console.log(item.study);
+  console.log(item);
+  // Create customised tags for study & toilet
   if (item.study) {
+    generateStudyPlaceTags(item);
+  } else if (item.toilet) {
+    generateToiletTags(item);
+  }
+
+  function generateStudyPlaceTags(item) {
     if (item.STUDY.GROUP) {
       currentTags.push({
         id: 'group', title: '#group'
@@ -45,6 +50,26 @@ export default function Information(props) {
     if (item.STUDY.SILENT) {
       currentTags.push({
         id: 'silent', title: '#silent'
+      });
+    }
+  }
+
+  function generateToiletTags(item) {
+    if (item.TOILET.ACCESSIBLE) {
+      currentTags.push({
+        id: 'accessible', title: '#accessible'
+      });
+    }
+
+    if (item.TOILET.FEMALE) {
+      currentTags.push({
+        id: 'male', title: '#male'
+      });
+    }
+
+    if (item.TOILET.MALE) {
+      currentTags.push({
+        id: 'female', title: '#female'
       });
     }
   }
