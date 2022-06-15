@@ -12,16 +12,11 @@ import testListElement from '../constants/testListElement';
 import { collection, doc, setDoc, getDoc, getFirestore, query, where, getDocs } from "firebase/firestore";
 import { async } from "@firebase/util";
 import { TouchableOpacity } from "react-native-gesture-handler";
-
+import { STUDY_PLACE_TAGS } from "../constants/tags";
 const { width } = Dimensions.get('screen');
 
 export default function SearchResult(props) {
-  let [tags, setTags] = useState([
-    { name: "study space", color: "#f43", active: true },
-    { name: "silent", color: "#484", active: false },
-    { name: "group", color: "#E91", active: false },
-    { name: "quiet", color: "#9C2", active: false },
-  ]);
+  let [tags, setTags] = useState(STUDY_PLACE_TAGS);
 
   const [data, setData] = useState([]);
   const [filters, setFilters] = useState([]);
