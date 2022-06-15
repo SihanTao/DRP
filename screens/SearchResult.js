@@ -38,22 +38,22 @@ export default function SearchResult(props) {
 
   async function getData(filters) {
     const list = [];
-    const studySpaceRef = collection(getFirestore(), "facilities");
+    const placeRef = collection(getFirestore(), "facilities");
     const conditions = [];
 
     if (filters.includes('Silent Study')) {
-      conditions.push(where('category.SILENTSTUDY', '==', true));
+      conditions.push(where('STUDY.SILENT', '==', true));
     }
 
     if (filters.includes('Group Study')) {
-      conditions.push(where('category.GROUPSTUDY', '==', true));
+      conditions.push(where('STUDY.GROUP', '==', true));
     }
 
     if (filters.includes('Quiet Study')) {
-      conditions.push(where('category.QUIETSTUDY', '==', true));
+      conditions.push(where('STUDY.QUIET', '==', true));
     }
 
-    const q = query(studySpaceRef, ...conditions);
+    const q = query(placeRef, ...conditions);
 
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {

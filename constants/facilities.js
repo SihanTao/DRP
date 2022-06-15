@@ -1,10 +1,28 @@
+// {
+//     name: '',
+//     STUDY: {
+//         GROUP: false,
+//         SILENT: false,
+//         QUIET: false
+//     },
+//     TOILET: {
+
+//     },
+//     description: '',
+//     rating: 0,
+//     numRatings: 0,
+//     photo: 'https://img.freepik.com/free-vector/hand-painted-watercolor-abstract-watercolor-background_23-2149009911.jpg?t=st=1655295086~exp=1655295686~hmac=90db0776302b140ac19514cea8b2da216eb8367ab5b602c20e9b288eecb2c55a&w=1380',
+//     location: '',
+//     openingHour: '',
+//     url: '',
+// }
+
 const facilities = [
     {
         name: 'Central Library',
-        category: {
-            STUDY: true,
-            SILENT: true,
+        STUDY: {
             GROUP: true,
+            SILENT: true,
             QUIET: true
         },
         description:
@@ -20,11 +38,10 @@ const facilities = [
         numRatings: 0,
     }, {
         name: 'GoStudy Space',
-        category: {
-            STUDY: true,
-            SILENT: true,
+        STUDY: {
             GROUP: true,
-            QUIET: false,
+            SILENT: true,
+            QUIET: false
         },
         description:
             'Silent Study: Chemistry Building Rooms 460, 537\n' +
@@ -37,8 +54,7 @@ const facilities = [
         rating: 5,
     }, {
         name: "Computing Lab",
-        category: {
-            STUDY: true,
+        STUDY: {
             GROUP: true,
             SILENT: false,
             QUIET: false
@@ -50,7 +66,17 @@ const facilities = [
         location: '',
         openingHour: '',
         url: 'https://www.imperial.ac.uk/computing/csg/facilities/lab/'
-    },
+    }, {
+        name: 'Toilet Huxley 227',
+        TOILET: true,
+        description: "Huxluy Building 219...",
+        rating: 0,
+        numRatings: 0,
+        photo: 'https://img.freepik.com/free-vector/hand-painted-watercolor-abstract-watercolor-background_23-2149009911.jpg?t=st=1655295086~exp=1655295686~hmac=90db0776302b140ac19514cea8b2da216eb8367ab5b602c20e9b288eecb2c55a&w=1380',
+        location: '',
+        openingHour: '',
+        url: ''
+    }, 
 ];
 
 export default facilities;
