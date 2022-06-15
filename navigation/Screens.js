@@ -59,22 +59,22 @@ const ElementsStack = createNativeStackNavigator();
 
 function ElementsStackScreen(props) {
   return (
-    <ElementsStack.Navigator
-      screenOptions={{
-        mode: "card",
-        headerShown: "screen",
-      }}>
-      <ElementsStack.Screen
-        name="Elements"
-        component={Elements}
-        options={{
-          header: ({ navigation, scene }) => (
-            <Header title="Elements" navigation={navigation} scene={scene} />
-          ),
-          cardStyle: { backgroundColor: "#F8F9FE" },
-        }}
-      />
-    </ElementsStack.Navigator>
+      <ElementsStack.Navigator
+        screenOptions={{
+          mode: "card",
+          headerShown: "screen",
+        }}>
+        <ElementsStack.Screen
+          name="Elements"
+          component={Elements}
+          options={{
+            header: ({ navigation, scene }) => (
+              <Header title="Elements" navigation={navigation} scene={scene} />
+            ),
+            cardStyle: { backgroundColor: "#F8F9FE" },
+          }}
+        />
+      </ElementsStack.Navigator>
   );
 }
 
