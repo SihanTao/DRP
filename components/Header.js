@@ -217,7 +217,7 @@ class Header extends React.Component {
           title={title}
           style={navbarStyles}
           transparent={transparent}
-          // right={this.renderRight()}
+          right={this.renderRight()}
           left={
             <Icon
               name={back ? 'chevron-left' : "menu"} family="entypo"
