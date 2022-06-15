@@ -322,7 +322,6 @@ function SearchStackScreen(props) {
 const InformationStack = createNativeStackNavigator();
 
 function InformationStackScreen({ route, navigation }) {
-  const { passeditem } = route.params;
   return (
     <>
     <Header back title={route.params.passeditem.name}  navigation={navigation} />
