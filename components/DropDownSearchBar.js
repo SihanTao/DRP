@@ -19,15 +19,15 @@ export default class DropDownSearchBar extends React.Component {
     this.arrayholder = tabs.categories;
   }
   componentDidMount() {
-        this.setState(
-          {
-            isLoading: false,
-            dataSource: tabs.categories,
-          },
-          function() {
-            this.arrayholder = tabs.categories;
-          }
-        );
+    this.setState(
+      {
+        isLoading: false,
+        dataSource: tabs.categories,
+      },
+      function () {
+        this.arrayholder = tabs.categories;
+      }
+    );
   }
 
   search = text => {
@@ -39,7 +39,7 @@ export default class DropDownSearchBar extends React.Component {
 
   SearchFilterFunction(text) {
     //passing the inserted text in textinput
-    const newData = this.arrayholder.filter(function(item) {
+    const newData = this.arrayholder.filter(function (item) {
       //applying filter for the inserted text in search bar
       const itemData = item.title ? item.title.toUpperCase() : ''.toUpperCase();
       const textData = text.toUpperCase();
@@ -67,6 +67,39 @@ export default class DropDownSearchBar extends React.Component {
     );
   };
 
+  renderItem = (item) => {
+    const { navigation } = this.props;
+    // console.log(item.title);
+
+    let idObject;
+
+    switch (item.id) {
+      case 'study_space': 
+        idObject = {
+          studySpace: true,
+        };
+        break;
+      case 'toilet':
+        idObject = {
+          toilet: true,
+        };
+        break;
+      default:
+        idObject = {
+          studySpace: true,
+        }
+    }
+  
+    // Single Comes here which will be repeatative for the FlatListItems
+    return (
+      <Text style={styles.textStyle}
+        onPress={
+          () => navigation.navigate('SearchResult', idObject)
+        }
+      >{item.title}</Text>
+    );
+  }
+
   render() {
     const { navigation } = this.props;
     if (this.state.isLoading) {
@@ -84,7 +117,7 @@ export default class DropDownSearchBar extends React.Component {
         <SearchBar
           round
           lightTheme
-          inputStyle={{margin: 1}}
+          inputStyle={{ margin: 1 }}
           searchIcon={{ size: 24 }}
           onChangeText={text => this.SearchFilterFunction(text)}
           onClear={text => this.SearchFilterFunction('')}
@@ -96,11 +129,7 @@ export default class DropDownSearchBar extends React.Component {
           data={this.state.dataSource}
           ItemSeparatorComponent={this.ListViewItemSeparator}
           //Item Separator View
-          renderItem={({ item }) => (
-            // Single Comes here which will be repeatative for the FlatListItems
-            <Text style={styles.textStyle} onPress = {() => navigation.navigate('SearchResult')}
-            >{item.title}</Text>
-          )}
+          renderItem={({ item }) => this.renderItem(item)}
           enableEmptySections={true}
           style={{ marginTop: 10 }}
           keyExtractor={(item) => item.id}
@@ -115,7 +144,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flex: 1,
     backgroundColor: 'white',
-    width:'100%',
+    width: '100%',
     marginTop: 0,
   },
   textStyle: {
