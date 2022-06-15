@@ -12,16 +12,20 @@ import testListElement from '../constants/testListElement';
 import { collection, doc, setDoc, getDoc, getFirestore, query, where, getDocs } from "firebase/firestore";
 import { async } from "@firebase/util";
 import { TouchableOpacity } from "react-native-gesture-handler";
-
+import { STUDY_PLACE_TAGS } from "../constants/tags";
 const { width } = Dimensions.get('screen');
 
 export default function SearchResult(props) {
-  let [tags, setTags] = useState([
-    { name: "study space", color: "#f43", active: true },
-    { name: "silent", color: "#484", active: false },
-    { name: "group", color: "#E91", active: false },
-    { name: "quiet", color: "#9C2", active: false },
-  ]);
+  // console.log(props.route.params.studySpace);
+
+  // Here we could switch between different tags 
+  // according to params
+  let TAGS = [];
+  if (props.route.params.studySpace) {
+    TAGS = STUDY_PLACE_TAGS;
+  }
+
+  let [tags, setTags] = useState(TAGS);
 
   const [data, setData] = useState([]);
   const [filters, setFilters] = useState([]);
@@ -34,7 +38,7 @@ export default function SearchResult(props) {
 
   async function getData(filters) {
     const list = [];
-    const studySpaceRef = collection(getFirestore(), "study_space");
+    const studySpaceRef = collection(getFirestore(), "facilities");
     const conditions = [];
 
     if (filters.includes('Silent Study')) {

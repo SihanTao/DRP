@@ -2,7 +2,7 @@ import { Animated, Dimensions, Easing } from "react-native";
 // header for screens
 import { Header, Icon } from "../components";
 import { argonTheme, tabs, articles } from "../constants";
-import studySpaces from "../constants/studySpaces";
+import facilities from "../constants/facilities";
 
 import Articles from "../screens/Articles";
 import { Block } from "galio-framework";
@@ -32,13 +32,13 @@ const { width } = Dimensions.get("screen");
 const Stack = createNativeStackNavigator();
 
 import { signInAnonymous } from "../backend/auth"
-import { addStudySpaces, testAddFireStore } from "../backend/databaseReadWrite";
+import { addDataToFireStore, testAddFireStore } from "../backend/databaseReadWrite";
 import WebPage from "../screens/WebPage";
 
 export default function OnboardingStack(props) {
   initializeApp(firebaseConfig);
   signInAnonymous();
-  // addStudySpaces(studySpaces);
+  // addDataToFireStore(studySpaces);
   return (
     <Stack.Navigator
       screenOptions={{
@@ -271,32 +271,13 @@ function WebPageScreen({ navigation, route }) {
 
 const SearchResultStack = createNativeStackNavigator();
 
-function SearchResultStackScreen({ navigation }) {
+function SearchResultStackScreen({ route, navigation }) {
+  const { studySpace } = route.params;
   return (
-    <SearchResultStack.Navigator
-      screenOptions={{
-        mode: "card",
-        headerShown: true,
-      }}
-    >
-      <SearchResultStack.Screen
-        name="SearchResult"
-        component={SearchResult}
-        options={{
-          header: ({ navigation, scene }) => (
-            <Header back title="SearchResult" navigation={navigation} scene={scene} />
-          ),
-          cardStyle: { backgroundColor: "#F8F9FE" },
-        }}
-      />
-
-      <SearchResultStack.Screen
-        name="webpage"
-        component={WebPageScreen}
-        options={{ headerShown: false }}
-      />
-
-    </SearchResultStack.Navigator>
+    <>
+      <Header back title="SearchResult" navigation={navigation} />
+      <SearchResult navigation={navigation} route={route}/>
+    </>
   );
 }
 
