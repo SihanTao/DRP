@@ -87,6 +87,39 @@ const facilities = [
         openingHour: '',
         url: 'https://www.imperial.ac.uk/computing/csg/facilities/lab/'
     }, {
+        name: "Huxley 341&342",
+        study: true,
+        STUDY: {
+            GROUP: true,
+            SILENT: false,
+            QUIET: false
+        },
+        description: "Huxley Building 341&342...",
+        rating: 0,
+        numRatings: 0,
+        photo: 'https://i.ibb.co/HTjWccS/341-342.jpg',
+        location: '',
+        openingHour: '',
+        url: ''
+    }, {
+        name: "Huxley 212",
+        study: true,
+        STUDY: {
+            GROUP: true,
+            SILENT: false,
+            QUIET: false
+        },
+        description: "Huxley Building 212...",
+        rating: 0,
+        numRatings: 0,
+        photo: 'https://i.ibb.co/M2F716f/212.jpg',
+        location: '',
+        openingHour: '',
+        url: ''
+    },
+    
+    // Toilets
+    {
         name: 'Toilet Huxley 227',
         toilet: true,
         TOILET: {
