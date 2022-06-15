@@ -8,6 +8,7 @@ import Input from './Input';
 import goStudySpaceSlideShow from '../constants/goStudySpaceSlideShow';
 import Images from '../constants/Images';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import Information from '../screens/Information';
 
 const { height, width } = Dimensions.get('window');
 
@@ -22,11 +23,9 @@ class ListElement extends React.Component {
     return (
       <Block flex style={{ marginVertical: 10 }}>
         <TouchableOpacity
-          onPress={() => navigation.navigate("webpage",
-            {
-              url: item.url,
-              title: item.name
-            })
+          onPress={() => navigation.navigate("Information", {
+            passeditem: item,
+          })
           }
         >
           <ImageBackground

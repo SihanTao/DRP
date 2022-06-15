@@ -3,7 +3,7 @@ import { Animated, Dimensions, Easing } from "react-native";
 import { Header, Icon } from "../components";
 import { argonTheme, tabs, articles } from "../constants";
 import DevStatus from "../constants/DevelopeStatus";
-import studySpaces from "../constants/studySpaces";
+import facilities from "../constants/facilities";
 
 import Articles from "../screens/Articles";
 import { Block } from "galio-framework";
@@ -26,19 +26,20 @@ import TagDemo from "../screens/Tag";
 import SearchResult from "../screens/SearchResult"
 import Search from "../screens/Search";
 import BottomTabNavigator from "./TabNavigator";
+import Information from "../screens/Information";
 
 const { width } = Dimensions.get("screen");
 
 const Stack = createNativeStackNavigator();
 
 import { signInAnonymous } from "../backend/auth"
-import { addStudySpaces, testAddFireStore } from "../backend/databaseReadWrite";
+import { addDataToFireStore, testAddFireStore } from "../backend/databaseReadWrite";
 import WebPage from "../screens/WebPage";
 
 export default function OnboardingStack(props) {
   initializeApp(firebaseConfig);
   signInAnonymous();
-  // addStudySpaces(studySpaces);
+  // addDataToFireStore(studySpaces);
   return (
     <Stack.Navigator
       screenOptions={{
@@ -223,6 +224,12 @@ export function HomeStackScreen({ navigation }) {
         options={{ headerShown: false }}
       />
 
+      <HomeStack.Screen
+        name="Information"
+        component={InformationStackScreen}
+        options={{ headerShown: false }}
+      /> 
+
     </HomeStack.Navigator>
   );
 }
@@ -265,32 +272,13 @@ function WebPageScreen({ navigation, route }) {
 
 const SearchResultStack = createNativeStackNavigator();
 
-function SearchResultStackScreen({ navigation }) {
+function SearchResultStackScreen({ route, navigation }) {
+  const { studySpace } = route.params;
   return (
-    <SearchResultStack.Navigator
-      screenOptions={{
-        mode: "card",
-        headerShown: true,
-      }}
-    >
-      <SearchResultStack.Screen
-        name="SearchResult"
-        component={SearchResult}
-        options={{
-          header: ({ navigation, scene }) => (
-            <Header back title="SearchResult" navigation={navigation} scene={scene} />
-          ),
-          cardStyle: { backgroundColor: "#F8F9FE" },
-        }}
-      />
-
-      <SearchResultStack.Screen
-        name="webpage"
-        component={WebPageScreen}
-        options={{ headerShown: false }}
-      />
-
-    </SearchResultStack.Navigator>
+    <>
+      <Header back title="SearchResult" navigation={navigation} />
+      <SearchResult navigation={navigation} route={route}/>
+    </>
   );
 }
 
@@ -321,6 +309,36 @@ function SearchStackScreen(props) {
       />
 
     </SearchStack.Navigator>
+  );
+}
+
+const InformationStack = createNativeStackNavigator();
+
+function InformationStackScreen({ route, navigation }) {
+  const { passeditem } = route.params;
+  return (
+    <>
+    <Header back title={route.params.passeditem.name}  navigation={navigation} />
+    <Information navigation={navigation} route={route}/>
+  </>
+    // <InformationStack.Navigator
+    //   screenOptions={{
+    //     mode: "card",
+    //     headerShown: true,
+    //   }}
+    // >
+    //   <InformationStack.Screen
+    //     name="Information"
+    //     component={Information}
+    //     options={{
+    //       header: ({ navigation, scene }) => (
+    //         <Header back title="Information" navigation={navigation} scene={scene} />
+    //       ),
+    //       cardStyle: { backgroundColor: "#F8F9FE" },
+    //     }}
+    //   />
+
+    // </InformationStack.Navigator>
   );
 }
 

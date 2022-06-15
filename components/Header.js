@@ -10,20 +10,28 @@ import argonTheme from '../constants/Theme';
 import MultiSelect from './MultiSelect';
 
 import { ColorPicker, ModalInput, Separator, Tag } from "react-native-btr";
-import {testAddFireStore, addStudySpaces} from '../backend/databaseReadWrite';
-import studySpaces from "../constants/studySpaces";
+import { testAddFireStore, addStudySpaces, addDataToFireStore } from '../backend/databaseReadWrite';
+import facilities from "../constants/facilities";
 import SearchResult from "../screens/SearchResult"
 import Search from '../screens/Search';
+
 
 const { height, width } = Dimensions.get('window');
 const iPhoneX = () => Platform.OS === 'ios' && (height === 812 || width === 812 || height === 896 || width === 896);
 
-const BasketButton = ({ isWhite, style, navigation }) => (
-  <TouchableOpacity style={[styles.button, style]} onPress={() => navigation.navigate('Profile')}>
+const AddDataButton = ({ isWhite, style, navigation }) => (
+  <TouchableOpacity style={[styles.button, style]}
+    onPress={
+      () => {
+        addDataToFireStore(facilities);
+        alert('Data added!')
+      }
+    }
+  >
     <Icon
       family="Galio"
       size={20}
-      name="account"
+      name="plus"
       color={argonTheme.COLORS[isWhite ? 'WHITE' : 'ICON']}
     />
   </TouchableOpacity>
@@ -84,7 +92,7 @@ class Header extends React.Component {
     switch (title) {
       case 'Home':
         return ([
-          <BasketButton key='basket-home' navigation={navigation} isWhite={white} />
+          <AddDataButton key='basket-home' navigation={navigation} isWhite={white} />
         ]);
       default:
         break;

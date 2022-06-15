@@ -62,7 +62,35 @@ export default class Tabs extends React.Component {
 
     this.animate();
     this.props.onChange && this.props.onChange(id);
-    navigation.navigate('SearchResult');
+
+    // Here navigation
+    // console.log(id);
+    let idObject;
+    
+    if (id === 'study_space') {
+      idObject = {
+        studySpace: true,
+      }
+    } 
+
+    switch (id) {
+      case 'study_space': 
+        idObject = {
+          studySpace: true,
+        };
+        break;
+      case 'toilet':
+        idObject = {
+          toilet: true,
+        };
+        break;
+      default:
+        idObject = {
+          studySpace: true,
+        }
+    }
+    
+    navigation.navigate('SearchResult', idObject);
   }
 
   renderItem = (item) => {
@@ -74,7 +102,7 @@ export default class Tabs extends React.Component {
       outputRange: [argonTheme.COLORS.BLACK, isActive ? argonTheme.COLORS.WHITE : argonTheme.COLORS.BLACK],
       extrapolate: 'clamp',
     });
-    
+
     const containerStyles = [
       styles.titleContainer,
       !isActive && { backgroundColor: argonTheme.COLORS.SECONDARY },

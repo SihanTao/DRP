@@ -26,10 +26,10 @@ export const addStudySpace = (data) => {
     alert('Successfully add a study space');
 }
 
-export async function addStudySpaces(datas) {
+export async function addDataToFireStore(datas) {
     const db = getFirestore();
     for (let i = 0; i < datas.length; i++) {
-        await addDoc(collection(db, "study_space"), datas[i]);
+        await addDoc(collection(db, "facilities"), datas[i]);
     }
 }
 

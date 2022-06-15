@@ -10,7 +10,7 @@ import { Card } from '../components';
 import articles from '../constants/articles';
 import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 const { width } = Dimensions.get('screen');
-
+import ListElement from '../components/ListElement';
 
 
 class Home extends React.Component {
@@ -29,6 +29,15 @@ class Home extends React.Component {
       </Text>
     )
   }
+
+// renderRecommendations = () => {
+//   return (
+//     <ListElement
+//         list={data}
+//         navigation={props.navigation}
+//       />
+//   )
+// }
 
   renderArticles = (noRecommendation) => {
     const { navigation } = this.props;
@@ -109,6 +118,7 @@ class Home extends React.Component {
   render() {
     return (
       <Block flex center style={styles.home}>
+        {/* {this.renderRecommendations()} */}
         {this.renderArticles(this.props.noRecommendation)}
       </Block>
     );
