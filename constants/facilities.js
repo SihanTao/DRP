@@ -94,7 +94,7 @@ const facilities = [
             MALE: true,
             FEMALE: false,     
         },
-        description: "Huxluy Building 219...",
+        description: "Huxluy Building 227...",
         rating: 0,
         numRatings: 0,
         photo: 'https://img.freepik.com/free-vector/hand-painted-watercolor-abstract-watercolor-background_23-2149009911.jpg?t=st=1655295086~exp=1655295686~hmac=90db0776302b140ac19514cea8b2da216eb8367ab5b602c20e9b288eecb2c55a&w=1380',
@@ -109,13 +109,23 @@ const facilities = [
             MALE: false,
             FEMALE: true, 
         },
-        description: "Huxluy Building 219...",
+        description: "Huxluy Building 224...",
         rating: 0,
         numRatings: 0,
         photo: 'https://img.freepik.com/free-vector/hand-painted-watercolor-abstract-watercolor-background_23-2149009911.jpg?t=st=1655295086~exp=1655295686~hmac=90db0776302b140ac19514cea8b2da216eb8367ab5b602c20e9b288eecb2c55a&w=1380',
         location: '',
         openingHour: '',
         url: ''
+    }, {
+        name: 'Library Cafe Accesible Toilet',
+        toilet: true,
+        TOILET: {
+            ACCESSIBLE: true,
+            MALE: true,
+            FEMALE: true, 
+        },
+        photo: 'https://img.freepik.com/free-vector/hand-painted-watercolor-abstract-watercolor-background_23-2149009911.jpg?t=st=1655295086~exp=1655295686~hmac=90db0776302b140ac19514cea8b2da216eb8367ab5b602c20e9b288eecb2c55a&w=1380',
+        description: "Library Cafe",
     }
 ];
 

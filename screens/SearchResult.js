@@ -124,11 +124,6 @@ export default function SearchResult(props) {
       }
     }
 
-    // console.log("******************");
-    // console.log(tags);
-    // console.log(newCategory);
-    // console.log("******************");
-
     setFilters([...newCategory]);
   }
 
