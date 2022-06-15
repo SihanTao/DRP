@@ -66,12 +66,6 @@ export default class Tabs extends React.Component {
     // Here navigation
     // console.log(id);
     let idObject;
-    
-    if (id === 'study_space') {
-      idObject = {
-        studySpace: true,
-      }
-    } 
 
     switch (id) {
       case 'study_space': 

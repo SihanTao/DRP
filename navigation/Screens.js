@@ -35,6 +35,7 @@ const Stack = createNativeStackNavigator();
 import { signInAnonymous } from "../backend/auth"
 import { addDataToFireStore, testAddFireStore } from "../backend/databaseReadWrite";
 import WebPage from "../screens/WebPage";
+import ImageZoomer from "../components/ImageZoomer";
 
 export default function OnboardingStack(props) {
   initializeApp(firebaseConfig);
@@ -230,6 +231,12 @@ export function HomeStackScreen({ navigation }) {
         options={{ headerShown: false }}
       /> 
 
+      <HomeStack.Screen
+        name="ImageZoomer"
+        component={ImageZoomerStackScreen}
+        options={{ headerShown: false }}
+      /> 
+
     </HomeStack.Navigator>
   );
 }
@@ -321,24 +328,15 @@ function InformationStackScreen({ route, navigation }) {
     <Header back title={route.params.passeditem.name}  navigation={navigation} />
     <Information navigation={navigation} route={route}/>
   </>
-    // <InformationStack.Navigator
-    //   screenOptions={{
-    //     mode: "card",
-    //     headerShown: true,
-    //   }}
-    // >
-    //   <InformationStack.Screen
-    //     name="Information"
-    //     component={Information}
-    //     options={{
-    //       header: ({ navigation, scene }) => (
-    //         <Header back title="Information" navigation={navigation} scene={scene} />
-    //       ),
-    //       cardStyle: { backgroundColor: "#F8F9FE" },
-    //     }}
-    //   />
+  );
+}
 
-    // </InformationStack.Navigator>
+function ImageZoomerStackScreen({ route, navigation }) {
+  return (
+    <>
+    <Header back title="back" navigation={navigation} />
+    <ImageZoomer navigation={navigation} route={route}/>
+  </>
   );
 }
 

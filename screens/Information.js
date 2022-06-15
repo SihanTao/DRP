@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, Dimensions, ScrollView, ImageBackground, Image, Modal} from "react-native";
+import { View, StyleSheet, Dimensions, ScrollView, ImageBackground, Image, Modal, TouchableWithoutFeedback} from "react-native";
 import DropDownSearchBar from "../components/DropDownSearchBar";
 import { Block, theme } from 'galio-framework';
 import goStudySpaceSlideShow from "../constants/goStudySpaceSlideShow";
@@ -9,6 +9,7 @@ import { Text, Button } from 'galio-framework';
 import IconExtra from "../components/Icon";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import ImageViewer from 'react-native-image-zoom-viewer';
+import ImageZoomer from "../components/ImageZoomer";
 
 const toiletMap = require("../assets/imgs/huxley_floor2.jpeg");
 
@@ -16,6 +17,7 @@ const toiletMap = require("../assets/imgs/huxley_floor2.jpeg");
 const { width } = Dimensions.get('screen');
 
 export default function Information(props) {
+    const {navigation} = props;
     const passeditem = props.route.params.passeditem;
     const displayImages = [
         {
@@ -32,18 +34,6 @@ export default function Information(props) {
 
 
       const images = [{
-        // Simplest usage.
-        url: 'https://avatars2.githubusercontent.com/u/7970947?v=3&s=460',
-     
-        // width: number
-        // height: number
-        // Optional, if you know the image size, you can set the optimization performance
-     
-        // You can pass props to <Image />.
-        props: {
-            // headers: ...
-        }
-    }, {
         url: '',
         props: {
             // Or you can set source directory.
@@ -146,11 +136,12 @@ export default function Information(props) {
                 <Text style={styles.description}>24/7, close on holidays </Text>
                 <Text bold size = {25} style={styles.heading}>Map</Text>
                 <Block flex style={styles.imageContainer}>
-                    {/* <Modal visible={true} transparent={true}>
-                        <ImageViewer imageUrls={images}/>
-                    </Modal> */}
-                    <Image source={toiletMap} style={styles.fullImage} />
+                    <TouchableWithoutFeedback
+                        onPress={() => navigation.navigate("ImageZoomer")}
+                    >
+                        <Image source={toiletMap} style={styles.fullImage}/>
                     {/* <Image source={{ uri: 'https://www.washroom.co.uk/wp-content/uploads/2018/10/DSCF7940-1.jpg' }} style={styles.fullImage} /> */}
+                    </ TouchableWithoutFeedback>
                 </Block>
             </ ScrollView>
         </ Block>
