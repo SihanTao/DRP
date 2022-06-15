@@ -174,6 +174,32 @@ const facilities = [
             "For lunch, why not try one of our trademark delicious hand carved roast sandwiches, made with a freshly prepared meat or fish filling and accompanied with a homemade dressing. " +
             "College Café also boasts a juice bar where you can order healthy juice concoctions and smoothies bursting with delicious, fresh flavours. Try one of the tried and tested favourites or create your own blend. Look out for the smoothie and juice of the day.",
         photo: "https://pxl-imperialacuk.terminalfour.net/prod01/channel_2/media/migration/administration-and-support-services/College_Cafe004--tojpeg_1440508268653_x4.jpg",
+    }, {
+        name: 'Library Cafe',
+        cafe: true,
+        CAFE: {
+            BREAKFAST: true,
+            LUNCH: true,
+            AFTERNOON: true,
+            SUPPER: true,
+        },
+        openingHour: '8:00-23:00',
+        location: "The Library Café is located on the ground floor of the Imperial College Library Building, which faces onto the Queen's Lawn",
+        description: "Whether you are looking for a quick pastry for breakfast, a filling baked potato for lunch, or simply a warm beverage and a space to study, the Library Café is a great choice morning, afternoon or night. With longer opening hours than many of our other outlets, the Library Café is there whenever you need to refuel after a hard day's work. Boasting comfortable booths and PCs connected to the College network it also makes an ideal place to study.",
+        photo: "https://pxl-imperialacuk.terminalfour.net/prod01/channel_2/media/migration/administration-and-support-services/img-1493_1643298046507_x4.jpg",
+    }, {
+        name: 'Neo Pizza & Pasta',
+        cafe: true,
+        CAFE: {
+            BREAKFAST: false,
+            LUNCH: true,
+            AFTERNOON: false,
+            SUPPER: false,
+        },
+        openingHour: '11:30-14:30',
+        location: "Neo Pizza and Pasta can be found in the JCR.",
+        description: "Try one of our freshly prepared pizzas using only the very best ingredients.",
+        photo: "https://pxl-imperialacuk.terminalfour.net/prod01/channel_2/media/migration/administration-and-support-services/vecteezy-four-pizza-on-a-dark-wooden-background-807105_1620134120021_x4.jpg",
     }
 ];
 
