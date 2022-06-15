@@ -20,6 +20,7 @@
 const facilities = [
     {
         name: 'Central Library',
+        study: true,
         STUDY: {
             GROUP: true,
             SILENT: true,
@@ -38,6 +39,7 @@ const facilities = [
         numRatings: 0,
     }, {
         name: 'GoStudy Space',
+        study: true,
         STUDY: {
             GROUP: true,
             SILENT: true,
@@ -54,6 +56,7 @@ const facilities = [
         rating: 5,
     }, {
         name: "Computing Lab",
+        study: true,
         STUDY: {
             GROUP: true,
             SILENT: false,
@@ -68,7 +71,12 @@ const facilities = [
         url: 'https://www.imperial.ac.uk/computing/csg/facilities/lab/'
     }, {
         name: 'Toilet Huxley 227',
-        TOILET: true,
+        toilet: true,
+        TOILET: {
+            ACCESSIBLE: false,
+            MALE: true,
+            FEMALE: false,     
+        },
         description: "Huxluy Building 219...",
         rating: 0,
         numRatings: 0,
@@ -76,7 +84,22 @@ const facilities = [
         location: '',
         openingHour: '',
         url: ''
-    }, 
+    }, {
+        name: 'Toilet Huxley 224',
+        toilet: true,
+        TOILET: {
+            ACCESSIBLE: false,
+            MALE: false,
+            FEMALE: true, 
+        },
+        description: "Huxluy Building 219...",
+        rating: 0,
+        numRatings: 0,
+        photo: 'https://img.freepik.com/free-vector/hand-painted-watercolor-abstract-watercolor-background_23-2149009911.jpg?t=st=1655295086~exp=1655295686~hmac=90db0776302b140ac19514cea8b2da216eb8367ab5b602c20e9b288eecb2c55a&w=1380',
+        location: '',
+        openingHour: '',
+        url: ''
+    }
 ];
 
 export default facilities;
