@@ -137,7 +137,37 @@ const facilities = [
         },
         photo: 'https://i.ibb.co/FzVmGZG/20220615221920.jpg',
         description: "Huxley Building 236C..." 
-    },
+    }, {
+        name: 'Secret Luxurious Male toilet',
+        toilet: true,
+        TOILET: {
+            ACCESSIBLE: false,
+            MALE: true,
+            FEMALE: false, 
+        },
+        photo: 'https://i.ibb.co/Fg3B122/secret-male.jpg',
+        description: "Between Huxley labs and Blackett" 
+    }, {
+        name: 'Secret Luxurious Female toilet',
+        toilet: true,
+        TOILET: {
+            ACCESSIBLE: false,
+            MALE: false,
+            FEMALE: true, 
+        },
+        photo: 'https://i.ibb.co/fqwDRMJ/secret-female.jpg',
+        description: "Between Huxley labs and Blackett" 
+    }, {
+        name: 'Secret Luxurious Accessible toilet',
+        toilet: true,
+        TOILET: {
+            ACCESSIBLE: true,
+            MALE: true,
+            FEMALE: true, 
+        },
+        photo: 'https://i.ibb.co/TTRtNw1/secret-accessible.jpg',
+        description: "Between Huxley labs and Blackett" 
+    },   
     // Cafe
     {
         name: 'SCR Restaurant',
