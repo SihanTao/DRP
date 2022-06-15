@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
   categoryTitle: {
     height: "100%",
     paddingHorizontal: theme.SIZES.BASE,
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    backgroundColor: "rgba(0, 0, 0, 0.3)",
     justifyContent: "center",
     alignItems: "center",
   },
