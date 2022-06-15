@@ -264,32 +264,13 @@ function WebPageScreen({ navigation, route }) {
 
 const SearchResultStack = createNativeStackNavigator();
 
-function SearchResultStackScreen({ navigation }) {
+function SearchResultStackScreen({ route, navigation }) {
+  const { studySpace } = route.params;
   return (
-    <SearchResultStack.Navigator
-      screenOptions={{
-        mode: "card",
-        headerShown: true,
-      }}
-    >
-      <SearchResultStack.Screen
-        name="SearchResult"
-        component={SearchResult}
-        options={{
-          header: ({ navigation, scene }) => (
-            <Header back title="SearchResult" navigation={navigation} scene={scene} />
-          ),
-          cardStyle: { backgroundColor: "#F8F9FE" },
-        }}
-      />
-
-      <SearchResultStack.Screen
-        name="webpage"
-        component={WebPageScreen}
-        options={{ headerShown: false }}
-      />
-
-    </SearchResultStack.Navigator>
+    <>
+      <Header back title="SearchResult" navigation={navigation} />
+      <SearchResult navigation={navigation} route={route}/>
+    </>
   );
 }
 

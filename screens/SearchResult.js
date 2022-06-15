@@ -16,6 +16,7 @@ import { STUDY_PLACE_TAGS } from "../constants/tags";
 const { width } = Dimensions.get('screen');
 
 export default function SearchResult(props) {
+  console.log(props.route.params.studySpace);
   let [tags, setTags] = useState(STUDY_PLACE_TAGS);
 
   const [data, setData] = useState([]);
