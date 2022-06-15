@@ -11,6 +11,6 @@ const TOILET_TAGS = [
     { name: 'female', color: "#E91", active: false},
 ]
 
-const ALL_TAGS = [...STUDY_PLACE_TAGS];
+const ALL_TAGS = [...STUDY_PLACE_TAGS, ...TOILET_TAGS];
 
 export { STUDY_PLACE_TAGS, ALL_TAGS, TOILET_TAGS };

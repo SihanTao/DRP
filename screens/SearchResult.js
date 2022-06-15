@@ -40,8 +40,6 @@ export default function SearchResult(props) {
   const [data, setData] = useState([]);
   const [filters, setFilters] = useState([]);
 
-
-
   async function getData(filters) {
     const list = [];
     const placeRef = collection(getFirestore(), "facilities");

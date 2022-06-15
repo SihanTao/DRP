@@ -18,20 +18,36 @@ const { width } = Dimensions.get('screen');
 
 export default function Information(props) {
   const { navigation } = props;
-  const passeditem = props.route.params.passeditem;
+  const item = props.route.params.passeditem;
+  console.log(item);
   const displayImages = [
     {
-      url: passeditem.photo,
+      url: item.photo,
     },
   ]
-  const currentTags = [
-    { id: 'toilet', title: '#toilet' },
-    { id: 'accessable', title: '#accessable' },
-    { id: 'male', title: '#male' },
-    { id: 'huxley', title: '#huxley' },
-    { id: '2_floor', title: '#2_floor' }
-  ]
+  const currentTags = []
 
+  // Create customised tags for study
+  console.log(item.study);
+  if (item.study) {
+    if (item.STUDY.GROUP) {
+      currentTags.push({
+        id: 'group', title: '#group'
+      });
+    } 
+
+    if (item.STUDY.QUIET) {
+      currentTags.push({
+        id: 'quiet', title: '#quiet'
+      });
+    }
+
+    if (item.STUDY.SILENT) {
+      currentTags.push({
+        id: 'silent', title: '#silent'
+      });
+    }
+  }
 
   const images = [{
     url: '',
@@ -129,7 +145,7 @@ export default function Information(props) {
           }}
         >
           <Text bold size={25} style={styles.heading}>Description</Text>
-          <Text style={styles.description}>{passeditem.description}</Text>
+          <Text style={styles.description}>{item.description}</Text>
           <Text bold size={25} style={styles.heading}>Location</Text>
           <Text style={styles.description}>Imperial College London, South Kensington Campus, London SW7 2AZ</Text>
           <Text bold size={25} style={styles.heading}>Opening Hours</Text>
