@@ -133,9 +133,12 @@ const facilities = [
         name: 'SCR Restaurant',
         cafe: true,
         CAFE: {
-            OPEN: 11.45,
-            CLOSE: 14.30
+            BREAKFAST: false,
+            LUNCH: true,
+            AFTERNOON: false,
+            SUPPER: false,
         },
+        openingHour:'11:45-14:30',
         location: "The Senior Common Room is located on level 2 of the Sherfield Building.",
         description: 'The SCR Restaurant offers a complete menu of fresh hot and cold lunches every weekday. Our chefs prepare a variety of freshly-made hot meals including street food, vegan and vegetarian options, a salad bar, fresh soups, carvery roasts and a delicious selection of desserts. ',
         photo: 'https://pxl-imperialacuk.terminalfour.net/prod01/channel_2/media/migration/administration-and-support-services/IMG_20191001_112216-2--tojpeg_1578322000843_x4.jpg',
@@ -143,9 +146,12 @@ const facilities = [
         name: 'The Loud Bird',
         cafe: true,
         CAFE: {
-            OPEN: 8.00,
-            CLOSE: 16.00,
+            BREAKFAST: true,
+            LUNCH: true,
+            AFTERNOON: true,
+            SUPPER: false,
         },
+        openingHour:'8:00-16:00',
         location: "The outlet is located on the ground floor of the Sir Alexander Fleming Building.",
         description:
             "The Loud Bird offers a selection of grilled chicken, burgers, wraps, vegan options, tasty sides and signature sauces." +
@@ -155,9 +161,12 @@ const facilities = [
         name: 'College Cafe',
         cafe: true,
         CAFE: {
-            OPEN: 8.00,
-            CLOSE: 18.00,
+            BREAKFAST: true,
+            LUNCH: true,
+            AFTERNOON: true,
+            SUPPER: false,
         },
+        openingHour:'8:00-18:00',
         location: "College Cafe can be found next door to the Alumni Visitor Centre, in the College's main entrance",
         description:
             "Situated next to the Alumni Centre near the main entrance, College Café offers a wide range of hot and cold options for breakfast, lunch and everything inbetween." +

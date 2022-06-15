@@ -6,11 +6,18 @@ const STUDY_PLACE_TAGS = [
 ];
 
 const TOILET_TAGS = [
-    { name: "accessible", color: "#f43", active: false},
-    { name: 'male', color: "#484", active: false},
-    { name: 'female', color: "#E91", active: false},
-]
+    { name: "accessible", color: "#f43", active: false },
+    { name: 'male', color: "#484", active: false },
+    { name: 'female', color: "#E91", active: false },
+];
 
-const ALL_TAGS = [...STUDY_PLACE_TAGS, ...TOILET_TAGS];
+const CAFE_TAGS = [
+    { name: "breakfast", color: '#f43', active: false },
+    { name: 'lunch', color: '#484', active: false },
+    { name: 'afternoon tea', color: '#E91', active: false },
+    { name: 'supper', color: '#9C2', active: false }
+];
 
-export { STUDY_PLACE_TAGS, ALL_TAGS, TOILET_TAGS };
+const ALL_TAGS = [...STUDY_PLACE_TAGS, ...TOILET_TAGS, ...CAFE_TAGS];
+
+export { STUDY_PLACE_TAGS, ALL_TAGS, TOILET_TAGS, CAFE_TAGS };
