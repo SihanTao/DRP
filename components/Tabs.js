@@ -64,9 +64,33 @@ export default class Tabs extends React.Component {
     this.props.onChange && this.props.onChange(id);
 
     // Here navigation
-    navigation.navigate('SearchResult', {
-      studySpace: true,
-    });
+    // console.log(id);
+    let idObject;
+    
+    if (id === 'study_space') {
+      idObject = {
+        studySpace: true,
+      }
+    } 
+
+    switch (id) {
+      case 'study_space': 
+        idObject = {
+          studySpace: true,
+        };
+        break;
+      case 'toilet':
+        idObject = {
+          toilet: true,
+        };
+        break;
+      default:
+        idObject = {
+          studySpace: true,
+        }
+    }
+    
+    navigation.navigate('SearchResult', idObject);
   }
 
   renderItem = (item) => {

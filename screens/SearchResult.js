@@ -12,7 +12,7 @@ import testListElement from '../constants/testListElement';
 import { collection, doc, setDoc, getDoc, getFirestore, query, where, getDocs } from "firebase/firestore";
 import { async } from "@firebase/util";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { STUDY_PLACE_TAGS } from "../constants/tags";
+import { ALL_TAGS, STUDY_PLACE_TAGS, TOILET_TAGS } from "../constants/tags";
 const { width } = Dimensions.get('screen');
 
 export default function SearchResult(props) {
@@ -20,9 +20,19 @@ export default function SearchResult(props) {
 
   // Here we could switch between different tags 
   // according to params
+  function toggleTag(index) {
+    const tag = tags[index];
+    tag.active = !tag.active;
+    setTags([...tags]);
+  };
+
   let TAGS = [];
   if (props.route.params.studySpace) {
     TAGS = STUDY_PLACE_TAGS;
+  } else if (props.route.params.toilet) {
+    TAGS = TOILET_TAGS;
+  } else {
+    TAGS = ALL_TAGS;
   }
 
   let [tags, setTags] = useState(TAGS);
@@ -30,30 +40,45 @@ export default function SearchResult(props) {
   const [data, setData] = useState([]);
   const [filters, setFilters] = useState([]);
 
-  const toggleTag = (index) => {
-    const tag = tags[index];
-    tag.active = !tag.active;
-    setTags([...tags]);
-  };
+
 
   async function getData(filters) {
     const list = [];
-    const studySpaceRef = collection(getFirestore(), "facilities");
+    const placeRef = collection(getFirestore(), "facilities");
     const conditions = [];
+    const params = props.route.params;
 
-    if (filters.includes('Silent Study')) {
-      conditions.push(where('category.SILENTSTUDY', '==', true));
+    if (params.studySpace) {
+      conditions.push(where('study', '==', true));
+      if (filters.includes('Silent Study')) {
+        conditions.push(where('STUDY.SILENT', '==', true));
+      }
+  
+      if (filters.includes('Group Study')) {
+        conditions.push(where('STUDY.GROUP', '==', true));
+      }
+  
+      if (filters.includes('Quiet Study')) {
+        conditions.push(where('STUDY.QUIET', '==', true));
+      }
+    } 
+
+    if (params.toilet) {
+      conditions.push(where('toilet', '==', true));
+      if (filters.includes('accessible')) {
+        conditions.push(where('TOILET.ACCESSIBLE', '==', true));
+      }
+
+      if (filters.includes('male')) {
+        conditions.push(where('TOILET.MALE', '==', true));
+      }
+
+      if (filters.includes('female')) {
+        conditions.push(where('TOILET.FEMALE', '==', true));
+      }
     }
 
-    if (filters.includes('Group Study')) {
-      conditions.push(where('category.GROUPSTUDY', '==', true));
-    }
-
-    if (filters.includes('Quiet Study')) {
-      conditions.push(where('category.QUIETSTUDY', '==', true));
-    }
-
-    const q = query(studySpaceRef, ...conditions);
+    const q = query(placeRef, ...conditions);
 
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
@@ -70,21 +95,33 @@ export default function SearchResult(props) {
 
   function updateFilters() {
     // Initial State of Filter
-    let name = filters.name;
-    let category = filters.category;
-    let sort = filters.sort;
     const newCategory = [];
+    const params = props.route.params;
 
-    if (tags[1].active) {
-      newCategory.push('Silent Study');
-    }
+    if (params.studySpace) {
+      if (TAGS[1].active) {
+        newCategory.push('Silent Study');
+      }
 
-    if (tags[2].active) {
-      newCategory.push('Group Study');
-    }
+      if (TAGS[2].active) {
+        newCategory.push('Group Study');
+      }
 
-    if (tags[3].active) {
-      newCategory.push('Quiet Study');
+      if (TAGS[3].active) {
+        newCategory.push('Quiet Study');
+      }
+    } else if (params.toilet) {
+      if (TAGS[0].active) {
+        newCategory.push('accessible');
+      }
+
+      if (TAGS[1].active) {
+        newCategory.push('male');
+      }
+
+      if (TAGS[2].active) {
+        newCategory.push('female');
+      }
     }
 
     // console.log("******************");
