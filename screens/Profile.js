@@ -11,6 +11,7 @@ import { Block, Text, theme } from "galio-framework";
 
 import { Button } from "../components";
 import { Images, argonTheme } from "../constants";
+import { NotImplementedAlert } from "../constants/PredefinedAlerts";
 import { HeaderHeight } from "../constants/utils";
 
 const { width, height } = Dimensions.get("screen");
@@ -48,12 +49,14 @@ class Profile extends React.Component {
                     <Button
                       small
                       style={{ backgroundColor: argonTheme.COLORS.INFO }}
+                      onPress={() => NotImplementedAlert()}
                     >
                       CONNECT
                     </Button>
                     <Button
                       small
                       style={{ backgroundColor: argonTheme.COLORS.DEFAULT }}
+                      onPress={() => NotImplementedAlert()}
                     >
                       MESSAGE
                     </Button>
@@ -122,6 +125,7 @@ class Profile extends React.Component {
                         fontWeight: "500",
                         fontSize: 16
                       }}
+                      onPress={() => NotImplementedAlert()}
                     >
                       Show more
                     </Button>
@@ -137,6 +141,7 @@ class Profile extends React.Component {
                       small
                       color="transparent"
                       textStyle={{ color: "#5E72E4", fontSize: 12, marginLeft: 24 }}
+                      onPress={() => NotImplementedAlert()}
                     >
                       View all
                     </Button>

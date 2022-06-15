@@ -2,6 +2,7 @@ import { Animated, Dimensions, Easing } from "react-native";
 // header for screens
 import { Header, Icon } from "../components";
 import { argonTheme, tabs, articles } from "../constants";
+import DevStatus from "../constants/DevelopeStatus";
 import facilities from "../constants/facilities";
 
 import Articles from "../screens/Articles";
@@ -59,22 +60,22 @@ const ElementsStack = createNativeStackNavigator();
 
 function ElementsStackScreen(props) {
   return (
-    <ElementsStack.Navigator
-      screenOptions={{
-        mode: "card",
-        headerShown: "screen",
-      }}>
-      <ElementsStack.Screen
-        name="Elements"
-        component={Elements}
-        options={{
-          header: ({ navigation, scene }) => (
-            <Header title="Elements" navigation={navigation} scene={scene} />
-          ),
-          cardStyle: { backgroundColor: "#F8F9FE" },
-        }}
-      />
-    </ElementsStack.Navigator>
+      <ElementsStack.Navigator
+        screenOptions={{
+          mode: "card",
+          headerShown: "screen",
+        }}>
+        <ElementsStack.Screen
+          name="Elements"
+          component={Elements}
+          options={{
+            header: ({ navigation, scene }) => (
+              <Header title="Elements" navigation={navigation} scene={scene} />
+            ),
+            cardStyle: { backgroundColor: "#F8F9FE" },
+          }}
+        />
+      </ElementsStack.Navigator>
   );
 }
 
@@ -321,7 +322,6 @@ function SearchStackScreen(props) {
 const InformationStack = createNativeStackNavigator();
 
 function InformationStackScreen({ route, navigation }) {
-  const { passeditem } = route.params;
   return (
     <>
     <Header back title={route.params.passeditem.name}  navigation={navigation} />
@@ -342,26 +342,27 @@ function ImageZoomerStackScreen({ route, navigation }) {
 const favouriteStack = createNativeStackNavigator();
 
 // TODO: Write the favourite page
-export function FavouriteScreen(props) {
+export function ShareScreen(props) {
   return (
-    <favouriteStack.Navigator
-      screenOptions={{
-        mode: "card",
-        headerShown: true,
-      }}
-    >
-      <favouriteStack.Screen
-        name="Favourite"
-        component={SearchResult}
-        options={{
-          header: ({ navigation, scene }) => (
-            <Header back title="SearchResult" navigation={navigation} scene={scene} />
-          ),
-          cardStyle: { backgroundColor: "#F8F9FE" },
+    <DevStatus status="developing">
+      <favouriteStack.Navigator
+        screenOptions={{
+          mode: "card",
+          headerShown: true,
         }}
-      />
-
-    </favouriteStack.Navigator>
+      >
+        <favouriteStack.Screen
+          name="Favourite"
+          component={SearchResult}
+          options={{
+            header: ({ navigation, scene }) => (
+              <Header back title="SearchResult" navigation={navigation} scene={scene} />
+            ),
+            cardStyle: { backgroundColor: "#F8F9FE" },
+          }}
+        />
+      </favouriteStack.Navigator>
+    </DevStatus>
   );
 }
 
