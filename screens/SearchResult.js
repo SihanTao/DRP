@@ -31,7 +31,7 @@ export default function SearchResult(props) {
     TAGS = STUDY_PLACE_TAGS;
   } else if (props.route.params.toilet) {
     TAGS = TOILET_TAGS;
-  } else if (props.route.params.cafe){
+  } else if (props.route.params.cafe) {
     TAGS = CAFE_TAGS;
   } else {
     TAGS = ALL_TAGS;
@@ -53,15 +53,15 @@ export default function SearchResult(props) {
       if (filters.includes('Silent Study')) {
         conditions.push(where('STUDY.SILENT', '==', true));
       }
-  
+
       if (filters.includes('Group Study')) {
         conditions.push(where('STUDY.GROUP', '==', true));
       }
-  
+
       if (filters.includes('Quiet Study')) {
         conditions.push(where('STUDY.QUIET', '==', true));
       }
-    } 
+    }
 
     if (params.toilet) {
       conditions.push(where('toilet', '==', true));
@@ -83,7 +83,7 @@ export default function SearchResult(props) {
       if (filters.includes('breakfast')) {
         conditions.push(where("CAFE.BREAKFAST", '==', true))
       }
-      if (filters.includes('lunch')) { 
+      if (filters.includes('lunch')) {
         conditions.push(where("CAFE.LUNCH", '==', true))
       }
       if (filters.includes('afternoon')) {
