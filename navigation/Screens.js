@@ -25,6 +25,7 @@ import TagDemo from "../screens/Tag";
 import SearchResult from "../screens/SearchResult"
 import Search from "../screens/Search";
 import BottomTabNavigator from "./TabNavigator";
+import Information from "../screens/Information";
 
 const { width } = Dimensions.get("screen");
 
@@ -222,6 +223,12 @@ export function HomeStackScreen({ navigation }) {
         options={{ headerShown: false }}
       />
 
+      <HomeStack.Screen
+        name="Information"
+        component={InformationStackScreen}
+        options={{ headerShown: false }}
+      /> 
+
     </HomeStack.Navigator>
   );
 }
@@ -301,6 +308,31 @@ function SearchStackScreen(props) {
       />
 
     </SearchStack.Navigator>
+  );
+}
+
+const InformationStack = createNativeStackNavigator();
+
+function InformationStackScreen({ navigation }) {
+  return (
+    <InformationStack.Navigator
+      screenOptions={{
+        mode: "card",
+        headerShown: true,
+      }}
+    >
+      <InformationStack.Screen
+        name="Information"
+        component={Information}
+        options={{
+          header: ({ navigation, scene }) => (
+            <Header back title="Information" navigation={navigation} scene={scene} />
+          ),
+          cardStyle: { backgroundColor: "#F8F9FE" },
+        }}
+      />
+
+    </InformationStack.Navigator>
   );
 }
 
