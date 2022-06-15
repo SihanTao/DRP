@@ -79,7 +79,7 @@ const facilities = [
             SILENT: false,
             QUIET: false
         },
-        description: "Huxluy Building 219...",
+        description: "Huxley Building 219...",
         rating: 0,
         numRatings: 0,
         photo: 'https://www.imperial.ac.uk/ImageCropToolT4/imageTool/uploaded-images/IMG_20151110_122250365--tojpeg_1447160413584_x2.jpg',
@@ -94,10 +94,10 @@ const facilities = [
             MALE: true,
             FEMALE: false,     
         },
-        description: "Huxluy Building 227...",
+        description: "Huxley Building 227...",
         rating: 0,
         numRatings: 0,
-        photo: 'https://img.freepik.com/free-vector/hand-painted-watercolor-abstract-watercolor-background_23-2149009911.jpg?t=st=1655295086~exp=1655295686~hmac=90db0776302b140ac19514cea8b2da216eb8367ab5b602c20e9b288eecb2c55a&w=1380',
+        photo: 'https://i.ibb.co/MnY9Fx3/227.jpg',
         location: '',
         openingHour: '',
         url: ''
@@ -109,23 +109,33 @@ const facilities = [
             MALE: false,
             FEMALE: true, 
         },
-        description: "Huxluy Building 224...",
+        description: "Huxley Building 224...",
         rating: 0,
         numRatings: 0,
-        photo: 'https://img.freepik.com/free-vector/hand-painted-watercolor-abstract-watercolor-background_23-2149009911.jpg?t=st=1655295086~exp=1655295686~hmac=90db0776302b140ac19514cea8b2da216eb8367ab5b602c20e9b288eecb2c55a&w=1380',
+        photo: 'https://i.ibb.co/SPxzrdj/224.jpg',
         location: '',
         openingHour: '',
         url: ''
     }, {
-        name: 'Library Cafe Accesible Toilet',
+        name: 'Library Cafe Accessible Toilet',
         toilet: true,
         TOILET: {
             ACCESSIBLE: true,
             MALE: true,
             FEMALE: true, 
         },
-        photo: 'https://img.freepik.com/free-vector/hand-painted-watercolor-abstract-watercolor-background_23-2149009911.jpg?t=st=1655295086~exp=1655295686~hmac=90db0776302b140ac19514cea8b2da216eb8367ab5b602c20e9b288eecb2c55a&w=1380',
+        photo: 'https://w7.pngwing.com/pngs/310/99/png-transparent-unisex-public-toilet-bathroom-fee-s-text-bathroom-logo.png',
         description: "Library Cafe",
+    }, {
+        name: 'Accessible Toilet Huxley 236C',
+        toilet: true,
+        TOILET: {
+            ACCESSIBLE: true,
+            MALE: true,
+            FEMALE: true, 
+        },
+        photo: 'https://i.ibb.co/FzVmGZG/20220615221920.jpg',
+        description: "Huxley Building 236C...",
     }
 ];
 
