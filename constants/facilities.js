@@ -18,7 +18,24 @@
 // }
 
 const facilities = [
+    
     {
+        name: 'Computing Lab water fountain',
+        waterfountain: true,
+        STUDY: {
+            Huxley: true,
+            floor: 2
+        },
+        description:
+            'Huxley ground floor, inside computing lab, need to access lab\n' + 
+            'Go straight for 20 meters' ,
+        photo: 'https://www.watercoolersdirect.com/media/catalog/product/cache/image/700x560/e9c3970ab036de70892d86c6d221abfe/c/o/cosmetal-river-no-fridge-stainless-steel-drinking-water-fountain.jpeg',
+        url:'',
+        location: 'Huxley ground-floor computing lab',
+        openingHour: '',
+        rating: 4,
+        numRatings: 0,
+    }, {
         name: 'Central Library',
         study: true,
         STUDY: {
@@ -77,7 +94,7 @@ const facilities = [
             MALE: true,
             FEMALE: false,     
         },
-        description: "Huxluy Building 219...",
+        description: "Huxluy Building 227...",
         rating: 0,
         numRatings: 0,
         photo: 'https://img.freepik.com/free-vector/hand-painted-watercolor-abstract-watercolor-background_23-2149009911.jpg?t=st=1655295086~exp=1655295686~hmac=90db0776302b140ac19514cea8b2da216eb8367ab5b602c20e9b288eecb2c55a&w=1380',
@@ -92,13 +109,23 @@ const facilities = [
             MALE: false,
             FEMALE: true, 
         },
-        description: "Huxluy Building 219...",
+        description: "Huxluy Building 224...",
         rating: 0,
         numRatings: 0,
         photo: 'https://img.freepik.com/free-vector/hand-painted-watercolor-abstract-watercolor-background_23-2149009911.jpg?t=st=1655295086~exp=1655295686~hmac=90db0776302b140ac19514cea8b2da216eb8367ab5b602c20e9b288eecb2c55a&w=1380',
         location: '',
         openingHour: '',
         url: ''
+    }, {
+        name: 'Library Cafe Accesible Toilet',
+        toilet: true,
+        TOILET: {
+            ACCESSIBLE: true,
+            MALE: true,
+            FEMALE: true, 
+        },
+        photo: 'https://img.freepik.com/free-vector/hand-painted-watercolor-abstract-watercolor-background_23-2149009911.jpg?t=st=1655295086~exp=1655295686~hmac=90db0776302b140ac19514cea8b2da216eb8367ab5b602c20e9b288eecb2c55a&w=1380',
+        description: "Library Cafe",
     }
 ];
 
