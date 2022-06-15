@@ -105,11 +105,11 @@ export default function Information(props) {
                   this.renderProduct(item, index)
                 )}
             </ScrollView>
-            <Tabs 
+            {/* <Tabs 
             data={currentTags || []}
-            // initialIndex={tabIndex || defaultTab}
-            // onChange={id => navigation.setParams({ tabId: id })}
-            />
+            initialIndex={tabIndex || defaultTab}
+            onChange={id => navigation.setParams({ tabId: id })}
+            /> */}
             {/* <Block center>
                 {this.renderOptions()}
             </Block> */}
