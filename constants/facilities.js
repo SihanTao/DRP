@@ -19,6 +19,7 @@
 
 const facilities = [
 
+    // Water-fountain
     {
         name: 'Computing Lab water fountain',
         waterfountain: true,
@@ -29,13 +30,51 @@ const facilities = [
         description:
             'Huxley ground floor, inside computing lab, need to access lab\n' +
             'Go straight for 20 meters',
-        photo: 'https://www.watercoolersdirect.com/media/catalog/product/cache/image/700x560/e9c3970ab036de70892d86c6d221abfe/c/o/cosmetal-river-no-fridge-stainless-steel-drinking-water-fountain.jpeg',
+        photo: 'https://i.ibb.co/LQtJYJM/computing-lab-water.jpg',
         url: '',
         location: 'Huxley ground-floor computing lab',
         openingHour: '',
         rating: 4,
         numRatings: 0,
     }, {
+        name: 'SCR water fountain',
+        waterfountain: true,
+        STUDY: {
+            Huxley: false,
+            Sherfield: true,
+            floor: 2
+        },
+        description:
+            'Inside Senior common room, next to the food-selling place\n',
+        photo: 'https://upload.wikimedia.org/wikipedia/commons/6/64/Poster_not_available.jpg',
+        // TODO: photo is not available now
+        url: '',
+        location: 'Senior common room',
+        openingHour: '',
+        rating: 4,
+        numRatings: 0,
+    }, {
+        name: 'Sherfield 2nd floor water fountain',
+        waterfountain: true,
+        STUDY: {
+            Huxley: false,
+            Sherfield: true,
+            floor: 2
+        },
+        description:
+            'Sherfield 2nd floor, next to the accessible toilets\n' +
+            'There are 2 of them both next to accessible toilets',
+        photo: 'https://upload.wikimedia.org/wikipedia/commons/6/64/Poster_not_available.jpg',
+        // TODO: photo is not available now
+        url: '',
+        location: 'Sherfield 2nd floor',
+        openingHour: '',
+        rating: 4,
+        numRatings: 0,
+    }, 
+    
+    // Study space
+    {
         name: 'Central Library',
         study: true,
         STUDY: {
@@ -201,6 +240,7 @@ const facilities = [
         photo: 'https://i.ibb.co/TTRtNw1/secret-accessible.jpg',
         description: "Between Huxley labs and Blackett" 
     },   
+
     // Cafe
     {
         name: 'SCR Restaurant',
