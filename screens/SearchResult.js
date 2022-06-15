@@ -16,7 +16,7 @@ import { STUDY_PLACE_TAGS } from "../constants/tags";
 const { width } = Dimensions.get('screen');
 
 export default function SearchResult(props) {
-  console.log(props.route.params.studySpace);
+  // console.log(props.route.params.studySpace);
 
   // Here we could switch between different tags 
   // according to params
@@ -38,7 +38,7 @@ export default function SearchResult(props) {
 
   async function getData(filters) {
     const list = [];
-    const studySpaceRef = collection(getFirestore(), "study_space");
+    const studySpaceRef = collection(getFirestore(), "facilities");
     const conditions = [];
 
     if (filters.includes('Silent Study')) {

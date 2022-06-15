@@ -1,10 +1,11 @@
-const studySpaces = [
+const facilities = [
     {
         name: 'Central Library',
         category: {
-            SILENTSTUDY: true,
-            GROUPSTUDY: true,
-            QUIETSTUDY: true
+            STUDY: true,
+            SILENT: true,
+            GROUP: true,
+            QUIET: true
         },
         description:
             'Silent study - levels 2 and 3\n' +
@@ -20,9 +21,10 @@ const studySpaces = [
     }, {
         name: 'GoStudy Space',
         category: {
-            SILENTSTUDY: true,
-            GROUPSTUDY: true,
-            QUIETSTUDY: false,
+            STUDY: true,
+            SILENT: true,
+            GROUP: true,
+            QUIET: false,
         },
         description:
             'Silent Study: Chemistry Building Rooms 460, 537\n' +
@@ -36,18 +38,19 @@ const studySpaces = [
     }, {
         name: "Computing Lab",
         category: {
-            GROUPSTUDY: true,
-            SILENTSTUDY: false,
-            QUIETSTUDY: false
+            STUDY: true,
+            GROUP: true,
+            SILENT: false,
+            QUIET: false
         },
         description: "Huxluy Building 219...",
         rating: 0,
         numRatings: 0,
-        photo: '',
+        photo: 'https://www.imperial.ac.uk/ImageCropToolT4/imageTool/uploaded-images/IMG_20151110_122250365--tojpeg_1447160413584_x2.jpg',
         location: '',
         openingHour: '',
         url: 'https://www.imperial.ac.uk/computing/csg/facilities/lab/'
     },
 ];
 
-export default studySpaces;
+export default facilities;
