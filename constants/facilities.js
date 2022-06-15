@@ -24,7 +24,7 @@ const facilities = [
         waterfountain: true,
         STUDY: {
             Huxley: true,
-            Groundfloor: true
+            floor: 2
         },
         description:
             'Huxley ground floor, inside computing lab, need to access lab\n' + 
