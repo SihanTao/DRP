@@ -18,7 +18,24 @@
 // }
 
 const facilities = [
+    
     {
+        name: 'Computing Lab water fountain',
+        waterfountain: true,
+        STUDY: {
+            Huxley: true,
+            Groundfloor: true
+        },
+        description:
+            'Huxley ground floor, inside computing lab, need to access lab\n' + 
+            'Go straight for 20 meters' ,
+        photo: 'https://www.watercoolersdirect.com/media/catalog/product/cache/image/700x560/e9c3970ab036de70892d86c6d221abfe/c/o/cosmetal-river-no-fridge-stainless-steel-drinking-water-fountain.jpeg',
+        url:'',
+        location: 'Huxley ground-floor computing lab',
+        openingHour: '',
+        rating: 4,
+        numRatings: 0,
+    }, {
         name: 'Central Library',
         study: true,
         STUDY: {
