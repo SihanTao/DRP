@@ -22,13 +22,19 @@ function YetToBeImplementedScreen () {
 /**
  * Used to control whether components are shown when project is in different
  * states. In "publishing" state, all "developing" features will be hidden.
- * @param {*} status should be either "developing" or "done". "developing"
- *                   content will not be shown if constants.DevStatus is
- *                   publishing. Otherwise, whatever that the function wraps
- *                   is simply displayed.
+ * @param {*} status
+ *    should be either "developing" or "done". "developing" content will not be
+ *    shown if constants.DevStatus is "publishing". Otherwise, whatever that the
+ *    function wraps is simply displayed. This value defaults to "done".
+ * @param {*} pubHide
+ *    A boolean value. When set to true, developing components will be hidden
+ *    if constants.DevStatus is "publishing". This value defaults to false.
  */
-export default function DevStatus ({status, children}) {
-  if (status=="developing" && DEV_STATUS=="publishing") {
+export default function DevStatus ({status="done", children, pubHide=false}) {
+  if (status!="developing" && DEV_STATUS=="publishing" && pubHide) {
+    return (<></>)
+  }
+  if (status=="developing" && DEV_STATUS=="publishing" && !pubHide) {
     return (<>
       <YetToBeImplementedScreen />
     </>)
