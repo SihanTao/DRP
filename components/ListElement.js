@@ -23,7 +23,9 @@ class ListElement extends React.Component {
     return (
       <Block flex style={{ marginVertical: 10 }}>
         <TouchableOpacity
-          onPress={() => navigation.navigate("Information")
+          onPress={() => navigation.navigate("Information", {
+            passeditem: item,
+          })
           }
         >
           <ImageBackground

@@ -313,26 +313,31 @@ function SearchStackScreen(props) {
 
 const InformationStack = createNativeStackNavigator();
 
-function InformationStackScreen({ navigation }) {
+function InformationStackScreen({ route, navigation }) {
+  const { passeditem } = route.params;
   return (
-    <InformationStack.Navigator
-      screenOptions={{
-        mode: "card",
-        headerShown: true,
-      }}
-    >
-      <InformationStack.Screen
-        name="Information"
-        component={Information}
-        options={{
-          header: ({ navigation, scene }) => (
-            <Header back title="Information" navigation={navigation} scene={scene} />
-          ),
-          cardStyle: { backgroundColor: "#F8F9FE" },
-        }}
-      />
+    <>
+    <Header back title={route.params.passeditem.name}  navigation={navigation} />
+    <Information navigation={navigation} route={route}/>
+  </>
+    // <InformationStack.Navigator
+    //   screenOptions={{
+    //     mode: "card",
+    //     headerShown: true,
+    //   }}
+    // >
+    //   <InformationStack.Screen
+    //     name="Information"
+    //     component={Information}
+    //     options={{
+    //       header: ({ navigation, scene }) => (
+    //         <Header back title="Information" navigation={navigation} scene={scene} />
+    //       ),
+    //       cardStyle: { backgroundColor: "#F8F9FE" },
+    //     }}
+    //   />
 
-    </InformationStack.Navigator>
+    // </InformationStack.Navigator>
   );
 }
 

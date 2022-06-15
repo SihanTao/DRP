@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, Dimensions, ScrollView, ImageBackground, Image} from "react-native";
+import { View, StyleSheet, Dimensions, ScrollView, ImageBackground, Image, Modal} from "react-native";
 import DropDownSearchBar from "../components/DropDownSearchBar";
 import { Block, theme } from 'galio-framework';
 import goStudySpaceSlideShow from "../constants/goStudySpaceSlideShow";
@@ -8,19 +8,18 @@ import { tabs, argonTheme } from "../constants";
 import { Text, Button } from 'galio-framework';
 import IconExtra from "../components/Icon";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import ImageViewer from 'react-native-image-zoom-viewer';
+
 const toiletMap = require("../assets/imgs/huxley_floor2.jpeg");
 
 
 const { width } = Dimensions.get('screen');
 
 export default function Information(props) {
+    const passeditem = props.route.params.passeditem;
     const displayImages = [
         {
-            url: 'https://www.washroom.co.uk/wp-content/uploads/2018/10/DSCF7940-1.jpg',
-        }, {
-            url: 'https://pxl-imperialacuk.terminalfour.net/fit-in/959x430/prod01/channel_2/media/migration/administration-and-support-services/211029-gostudy-spaces-rm447-014_1635779592783_x4.jpg',
-        }, {
-            url: 'https://pxl-imperialacuk.terminalfour.net/fit-in/959x430/prod01/channel_2/media/migration/administration-and-support-services/211029-gostudy-spaces-rm465-002_1635779712923_x4.jpg',
+            url: passeditem.photo,
         }, 
     ]
     const currentTags = [
@@ -31,6 +30,26 @@ export default function Information(props) {
         {id: '2_floor', title: '#2_floor'}
       ]
 
+
+      const images = [{
+        // Simplest usage.
+        url: 'https://avatars2.githubusercontent.com/u/7970947?v=3&s=460',
+     
+        // width: number
+        // height: number
+        // Optional, if you know the image size, you can set the optimization performance
+     
+        // You can pass props to <Image />.
+        props: {
+            // headers: ...
+        }
+    }, {
+        url: '',
+        props: {
+            // Or you can set source directory.
+            source: toiletMap
+        }
+    }]
 
     renderOptions = () => {
         const { navigation } = props;
@@ -104,7 +123,7 @@ export default function Information(props) {
             {/* <Block center>
                 {this.renderOptions()}
             </Block> */}
-            <Text bold size = {30} style={styles.title}>Toilet 227 in Huxley</Text>
+            {/* <Text bold size = {30} style={styles.title}>{passeditem.name}</Text> */}
         </Block>
         <Block flex center style={styles.home}>
             <ScrollView
@@ -119,12 +138,17 @@ export default function Information(props) {
                 paddingVertical: theme.SIZES.BASE / 2,
                 }}
             > 
+                <Text bold size = {25} style={styles.heading}>Description</Text>
+                <Text style={styles.description}>{passeditem.description}</Text>
                 <Text bold size = {25} style={styles.heading}>Location</Text>
                 <Text style={styles.description}>Imperial College London, South Kensington Campus, London SW7 2AZ</Text>
                 <Text bold size = {25} style={styles.heading}>Opening Hours</Text>
                 <Text style={styles.description}>24/7, close on holidays </Text>
                 <Text bold size = {25} style={styles.heading}>Map</Text>
                 <Block flex style={styles.imageContainer}>
+                    {/* <Modal visible={true} transparent={true}>
+                        <ImageViewer imageUrls={images}/>
+                    </Modal> */}
                     <Image source={toiletMap} style={styles.fullImage} />
                     {/* <Image source={{ uri: 'https://www.washroom.co.uk/wp-content/uploads/2018/10/DSCF7940-1.jpg' }} style={styles.fullImage} /> */}
                 </Block>
@@ -141,7 +165,6 @@ const styles = StyleSheet.create({
       imageContainer: {
           width: width - 30,
         borderRadius: 3,
-        elevation: 1,
         overflow: 'hidden',
         marginHorizontal: 15,
         marginTop: 0,
