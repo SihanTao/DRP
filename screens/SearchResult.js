@@ -17,7 +17,15 @@ const { width } = Dimensions.get('screen');
 
 export default function SearchResult(props) {
   console.log(props.route.params.studySpace);
-  let [tags, setTags] = useState(STUDY_PLACE_TAGS);
+
+  // Here we could switch between different tags 
+  // according to params
+  let TAGS = [];
+  if (props.route.params.studySpace) {
+    TAGS = STUDY_PLACE_TAGS;
+  }
+
+  let [tags, setTags] = useState(TAGS);
 
   const [data, setData] = useState([]);
   const [filters, setFilters] = useState([]);
