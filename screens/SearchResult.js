@@ -12,7 +12,7 @@ import testListElement from '../constants/testListElement';
 import { collection, doc, setDoc, getDoc, getFirestore, query, where, getDocs } from "firebase/firestore";
 import { async } from "@firebase/util";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { ALL_TAGS, STUDY_PLACE_TAGS, TOILET_TAGS } from "../constants/tags";
+import { ALL_TAGS, CAFE_TAGS, STUDY_PLACE_TAGS, TOILET_TAGS } from "../constants/tags";
 const { width } = Dimensions.get('screen');
 
 export default function SearchResult(props) {
@@ -31,6 +31,8 @@ export default function SearchResult(props) {
     TAGS = STUDY_PLACE_TAGS;
   } else if (props.route.params.toilet) {
     TAGS = TOILET_TAGS;
+  } else if (props.route.params.cafe){
+    TAGS = CAFE_TAGS;
   } else {
     TAGS = ALL_TAGS;
   }
@@ -76,6 +78,22 @@ export default function SearchResult(props) {
       }
     }
 
+    if (params.cafe) {
+      conditions.push(where('cafe', '==', true));
+      if (filters.includes('breakfast')) {
+        conditions.push(where("CAFE.BREAKFAST", '==', true))
+      }
+      if (filters.includes('lunch')) { 
+        conditions.push(where("CAFE.LUNCH", '==', true))
+      }
+      if (filters.includes('afternoon')) {
+        conditions.push(where("CAFE.AFTERNOON", '==', true))
+      }
+      if (filters.includes('supper')) {
+        conditions.push(where("CAFE.SUPPER", '==', true))
+      }
+    }
+
     const q = query(placeRef, ...conditions);
 
     const querySnapshot = await getDocs(q);
@@ -95,6 +113,7 @@ export default function SearchResult(props) {
     // Initial State of Filter
     const newCategory = [];
     const params = props.route.params;
+    console.log(params);
 
     if (params.studySpace) {
       if (TAGS[1].active) {
@@ -119,6 +138,22 @@ export default function SearchResult(props) {
 
       if (TAGS[2].active) {
         newCategory.push('female');
+      }
+    } else if (params.cafe) {
+      if (TAGS[0].active) {
+        newCategory.push('breakfast');
+      }
+
+      if (TAGS[1].active) {
+        newCategory.push('lunch');
+      }
+
+      if (TAGS[2].active) {
+        newCategory.push('afternoon tea');
+      }
+
+      if (TAGS[3].active) {
+        newCategory.push('supper');
       }
     }
 

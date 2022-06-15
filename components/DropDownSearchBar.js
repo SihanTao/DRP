@@ -74,7 +74,7 @@ export default class DropDownSearchBar extends React.Component {
     let idObject;
 
     switch (item.id) {
-      case 'study_space': 
+      case 'study_space':
         idObject = {
           studySpace: true,
         };
@@ -84,12 +84,17 @@ export default class DropDownSearchBar extends React.Component {
           toilet: true,
         };
         break;
+      case 'cafe':
+        idObject = {
+          cafe: true,
+        };
+        break;
       default:
         idObject = {
           studySpace: true,
         }
     }
-  
+
     // Single Comes here which will be repeatative for the FlatListItems
     return (
       <Text style={styles.textStyle}

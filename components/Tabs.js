@@ -66,6 +66,11 @@ export default class Tabs extends React.Component {
           toilet: true,
         };
         break;
+      case 'cafe':
+        idObject = {
+          cafe: true,
+        };
+        break;
       default:
         idObject = {};
         break;
