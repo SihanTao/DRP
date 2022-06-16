@@ -6,7 +6,13 @@ import TagDemo from "../screens/Tag";
 
 const { width } = Dimensions.get('screen');
 import argonTheme from '../constants/Theme';
+import { NotImplementedAlert } from '../constants/PredefinedAlerts';
 
+/**
+ * @param isInfo
+ *   If not defined, clicking the tab will move to the search page.
+ *   If it is assigned as true, nothing happens if you click the tab.
+ */
 export default class Tabs extends React.Component {
   state = {
     active: null,
@@ -80,7 +86,13 @@ export default class Tabs extends React.Component {
             styles.menuTitle,
             { color: textColor }
           ]}
-          onPress={() => this.selectMenu(item.id)}>
+          onPress={() => {
+            if (this.props.isInfo) {
+              // NotImplementedAlert()
+            } else {
+              this.selectMenu(item.id)
+            }
+          }}>
           {item.title}
         </Animated.Text>
       </Block>

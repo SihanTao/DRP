@@ -175,6 +175,7 @@ export default function Information(props) {
         <Tabs
           data={currentTags}
           navigation={navigation}
+          isInfo={true}
         />
       </Block>
       <Block flex center style={styles.home}>
