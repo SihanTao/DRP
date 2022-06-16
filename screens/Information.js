@@ -80,40 +80,6 @@ export default function Information(props) {
   }, 
 ]
 
-  renderMap = (item) => {
-    const image = item.url
-    return (
-      <Block flex>
-      <Image source={image} style={styles.fullImage} />
-      </Block>
-    )
-  }
-
-  function renderOptions() {
-    const { navigation } = props;
-    const optionLeft = "Information";
-    const optionRight = "Map";
-    return (
-      <Block row style={styles.options}>
-
-        <Button style={[styles.tab]} onPress={() => {}}>
-          <Block row middle style={{ backgroundColor: 'black' }}>
-            <Icon name="information" family="ArgonExtra" style={{ paddingRight: 8 }} color={argonTheme.COLORS.ICON} />
-            <Text size={16} style={styles.tabTitle}>{optionLeft}</Text>
-          </Block>
-        </Button>
-
-        <Button style={styles.tab} onPress={() => {}}>
-          <Block row middle>
-            <Icon size={16} name="map" family="ArgonExtra" style={{ paddingRight: 8 }} color={argonTheme.COLORS.ICON} />
-            <Text size={16} style={styles.tabTitle}>{optionRight}</Text>
-          </Block>
-        </Button>
-
-      </Block>
-    );
-  }
-
   function renderProduct(item, index) {
     const image = item.url
     return (
