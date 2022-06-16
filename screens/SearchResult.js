@@ -218,6 +218,7 @@ export default function SearchResult(props) {
       <ListElement
         list={data}
         navigation={props.navigation}
+        route = {props.route}
       />
     </Block>
   );

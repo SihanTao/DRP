@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, TouchableWithoutFeedback, Dimensions, ScrollView, Image, ImageBackground } from 'react-native';
 import { Button, Block, NavBar, Text, theme } from 'galio-framework';
+import { Tag } from "react-native-btr";
 
 import IconExtra from './Icon';
 import Input from './Input';
@@ -18,8 +19,46 @@ class ListElement extends React.Component {
   }
 
   renderProduct = (item, index) => {
-    const { navigation } = this.props;
+    const { navigation, route } = this.props;
     const image = item.photo;
+    const params = route.params;
+    const currentTags = [];
+    if (params.studySpace) {
+      if (item.STUDY.GROUP === true) {
+        currentTags.push('group');
+      } 
+      if (item.STUDY.SILENT === true) {
+        currentTags.push('silent');
+      } 
+      if (item.STUDY.QUIET === true) {
+        currentTags.push('quiet');
+      } 
+    }
+    if (params.toilet) {
+      if (item.TOILET.ACCESSIBLE === true) {
+        currentTags.push('accessible');
+      } 
+      if (item.TOILET.MALE === true) {
+        currentTags.push('male');
+      } 
+      if (item.TOILET.FEMALE === true) {
+        currentTags.push('female');
+      } 
+    }
+    if (params.cafe) {
+      if (item.CAFE.BREAKFAST === true) {
+        currentTags.push('breakfast');
+      } 
+      if (item.CAFE.LUNCH === true) {
+        currentTags.push('lunch');
+      } 
+      if (item.CAFE.AFTERNOON === true) {
+        currentTags.push('afternoon');
+      } 
+      if (item.CAFE.SUPPER === true) {
+        currentTags.push('supper');
+      } 
+    }
     return (
       <Block flex style={{ marginVertical: 10 }}>
         <TouchableOpacity
@@ -45,6 +84,29 @@ class ListElement extends React.Component {
               <Text style={styles.listTitle} size={25} bold >
                 {item.name}
               </Text>
+              {/* <Text style={styles.listTitle} size={25} bold >
+                {currentTags[0]}
+              </Text> */}
+              
+               <Block style={{ flexDirection: "row", flexWrap: "wrap" }}>
+                {currentTags.map((tag, index) => {
+                  const backgroundColor = "#0000";
+                  const color = "#fff";
+                  return (
+                    <Block key={tag + index} style={{ margin: 2 }}>
+                      <Tag
+                        name={tag}
+                        style={{
+                          backgroundColor,
+                          color,
+                          borderWidth: 1,
+                          borderRadius: 50,
+                        }}
+                      />
+                    </Block>
+                  );
+                })}
+              </Block>
             </Block>
           </ImageBackground>
         </TouchableOpacity>
