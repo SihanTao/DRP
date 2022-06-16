@@ -1,7 +1,7 @@
 import { getDatabase, ref, set, onValue } from "firebase/database";
 import uuid from 'react-native-uuid';
 import { async } from "@firebase/util";
-import { getFirestore, collection, addDoc, setDoc, doc, runTransaction, updateDoc } from "firebase/firestore";
+import { getFirestore, collection, addDoc, setDoc, doc, getDoc, updateDoc } from "firebase/firestore";
 
 export function writeUserData(name, email, password) {
     const db = getDatabase();
@@ -95,9 +95,24 @@ export async function addRating(id, rating) {
     // });
     console.log('In addRating function ' + id);
     const db = getFirestore();
-    const document = doc(db, 'facilities', id);
+    const docRef = doc(db, 'facilities', id);
+    const docSnap = await getDoc(docRef);
+    let avgRating, numRatings;
+    if (docSnap.exists()) {
+        const data = docSnap.data();
+        console.log("Document data:", data);
+        let total = data.avgRating * data.numRatings + rating;
+        numRatings = data.numRatings + 1;
+        avgRating = total / numRatings;
+      } else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
+    }
 
-    await updateDoc(document, {
-        rating: {rating},
+    await updateDoc(docRef, {
+        numRatings: numRatings,
+        avgRating: avgRating
     });
+
+    alert("Thank you for rating the facility!");
 };
