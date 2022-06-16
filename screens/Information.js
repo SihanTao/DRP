@@ -163,7 +163,7 @@ export default function Information(props) {
             </ TouchableWithoutFeedback>
           </Block>
           <Text bold size={25} style={styles.heading}>Rate the facility!</Text>
-          <Text style={styles.description}>Current Rating: {rating}</Text>
+          <Text style={styles.description}>Current Rating: {rating.toFixed(2)}</Text>
           <Rating
             type='star'
             ratingCount={5}
