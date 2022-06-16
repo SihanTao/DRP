@@ -1,6 +1,8 @@
 import React from "react";
 import { StyleSheet, TouchableOpacity, Linking } from "react-native";
 import { Block, Text, theme } from "galio-framework";
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+
 
 import Icon from "./Icon";
 import argonTheme from "../constants/Theme";
@@ -64,13 +66,19 @@ class DrawerItem extends React.Component {
         />);
       case "Log out":
         return <Icon />;
-      case "Tags": 
+      case "Tags":
         return (<Icon
           name="spaceship"
           family="ArgonExtra"
           size={14}
           color={focused ? "white" : "rgba(0,0,0,0.5)"}
         />);
+      case "Search":
+        return (<MaterialCommunityIcons
+          name='magnify'
+          size={14}
+          color={focused ? "white" : "rgba(0,0,0,0.5)"}
+        />)
       default:
         return null;
     }
@@ -90,8 +98,8 @@ class DrawerItem extends React.Component {
         onPress={() =>
           title == "Getting Started"
             ? Linking.openURL(
-                "https://demos.creative-tim.com/argon-pro-react-native/docs/"
-              ).catch(err => console.error("An error occurred", err))
+              "https://demos.creative-tim.com/argon-pro-react-native/docs/"
+            ).catch(err => console.error("An error occurred", err))
             : navigation.navigate(title)
         }
       >

@@ -293,7 +293,7 @@ function SearchResultStackScreen({ route, navigation }) {
 
 const SearchStack = createNativeStackNavigator();
 
-function SearchStackScreen(props) {
+export function SearchStackScreen(props) {
   return (
     <SearchStack.Navigator
       screenOptions={{
@@ -404,6 +404,11 @@ function AppStack(props) {
       <Drawer.Screen name="Account" component={RegisterStackScreen} />
       <Drawer.Screen name="Elements" component={ElementsStackScreen} options={{ headerShown: false }} />
       {/* <Drawer.Screen name="Articles" component={ArticlesStackScreen} options={{ headerShown: false }} /> */}
+      <Drawer.Screen
+        name="Search"
+        component={SearchStackScreen}
+        options={{ headerShown: false }}
+      />
       <Drawer.Screen name="Tags" component={TagStackScreen} options={{ headerShown: false }} />
       <Drawer.Screen name="ICOfficialSite" component={WebPageScreen} options={{ headerShown: false }} />
     </Drawer.Navigator>

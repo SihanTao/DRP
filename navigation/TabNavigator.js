@@ -2,7 +2,7 @@
 
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { HomeStackScreen, ProfileStackScreen, ShareScreen, ArticlesStackScreen } from "./Screens";
+import { HomeStackScreen, SearchStackScreen, ShareScreen, ArticlesStackScreen } from "./Screens";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const Tab = createBottomTabNavigator();
@@ -20,7 +20,18 @@ const BottomTabNavigator = () => {
                     ),
                 }}
             />
-            <Tab.Screen name="Favourite"
+
+            <Tab.Screen name="Search"
+                component={SearchStackScreen}
+                options={{
+                    headerShown: false,
+                    tabBarShowLabel: false,
+                    tabBarIcon: ({ color, size }) => (
+                        <MaterialCommunityIcons name="magnify" color={color} size={size} />
+                    ),
+                }}
+            />
+            {/* <Tab.Screen name="Favourite"
                 component={ArticlesStackScreen}
                 options={{
                     tabBarShowLabel: false,
@@ -29,8 +40,8 @@ const BottomTabNavigator = () => {
                         <MaterialCommunityIcons name="heart" color={color} size={size} />
                     ),
                 }}
-            />
-            <Tab.Screen name="Share"
+            /> */}
+            {/* <Tab.Screen name="Share"
                 component={ShareScreen}
                 options={{
                     tabBarShowLabel: false,
@@ -39,8 +50,8 @@ const BottomTabNavigator = () => {
                         <MaterialCommunityIcons name="plus-box" color={color} size={size} />
                     ),
                 }}
-            />
-            <Tab.Screen name="Profile"
+            /> */}
+            {/* <Tab.Screen name="Profile"
                 component={ProfileStackScreen}
                 options={{
                     tabBarShowLabel: false,
@@ -49,7 +60,7 @@ const BottomTabNavigator = () => {
                         <MaterialCommunityIcons name="account" color={color} size={size} />
                     ),
                 }}
-            />
+            /> */}
         </Tab.Navigator>
     );
 };

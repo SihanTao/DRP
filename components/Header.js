@@ -115,7 +115,7 @@ class Header extends React.Component {
           navigation.navigate('Search');
         }}
         navigation={navigation}
-        iconContent={<IconExtra size={16} color={theme.COLORS.MUTED} name="search-zoom-in" family="ArgonExtra" />}
+        iconContent={<Icon size={16} color={theme.COLORS.MUTED} name="magnify" family="ArgonExtra" />}
       />
     );
   }
