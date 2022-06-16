@@ -9,7 +9,7 @@ import argonTheme from '../constants/Theme';
 import ListElement from "../components/ListElement";
 import testListElement from '../constants/testListElement';
 
-import { collection, doc, setDoc, getDoc, getFirestore, query, where, getDocs } from "firebase/firestore";
+import { collection, doc, setDoc, getDoc, getFirestore, query, where, getDocs, orderBy } from "firebase/firestore";
 import { async } from "@firebase/util";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { ALL_TAGS, CAFE_TAGS, STUDY_PLACE_TAGS, TOILET_TAGS, WATER_FOUNTAIN_TAGS, MICROWAVE_TAGS } from "../constants/tags";
@@ -114,7 +114,9 @@ export default function SearchResult(props) {
       conditions.push(where('microwave', '==', true))
     }
 
-    const q = query(placeRef, ...conditions);
+    // conditions.push(orderBy("avgRating", "desc"));
+
+    const q = query(placeRef, ...conditions, orderBy("avgRating", "desc"));
 
     const querySnapshot = await getDocs(q);
     const idlist = []
