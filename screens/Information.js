@@ -39,7 +39,7 @@ export default function Information(props) {
       currentTags.push({
         id: 'group', title: '#group'
       });
-    } 
+    }
 
     if (item.STUDY.QUIET) {
       currentTags.push({
@@ -82,21 +82,21 @@ export default function Information(props) {
     }
   }]
 
-  renderOptions = () => {
+  function renderOptions() {
     const { navigation } = props;
     const optionLeft = "Information";
     const optionRight = "Map";
     return (
       <Block row style={styles.options}>
 
-        <Button style={[styles.tab]} onPress={() => navigation.navigate('Pro')}>
+        <Button style={[styles.tab]} onPress={() => {}}>
           <Block row middle style={{ backgroundColor: 'black' }}>
             <Icon name="information" family="ArgonExtra" style={{ paddingRight: 8 }} color={argonTheme.COLORS.ICON} />
             <Text size={16} style={styles.tabTitle}>{optionLeft}</Text>
           </Block>
         </Button>
 
-        <Button style={styles.tab} onPress={() => navigation.navigate('Pro')}>
+        <Button style={styles.tab} onPress={() => {}}>
           <Block row middle>
             <Icon size={16} name="map" family="ArgonExtra" style={{ paddingRight: 8 }} color={argonTheme.COLORS.ICON} />
             <Text size={16} style={styles.tabTitle}>{optionRight}</Text>
@@ -152,8 +152,8 @@ export default function Information(props) {
           navigation={navigation}
         />
         {/* <Block center>
-                {this.renderOptions()}
-            </Block> */}
+          {renderOptions()}
+        </Block> */}
         {/* <Text bold size = {30} style={styles.title}>{passeditem.name}</Text> */}
       </Block>
       <Block flex center style={styles.home}>
