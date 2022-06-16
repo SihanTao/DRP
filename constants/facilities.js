@@ -27,8 +27,7 @@ const facilities = [
         },
         description:
             'Inside Senior common room, next to the food-selling place\n',
-        photo: 'https://upload.wikimedia.org/wikipedia/commons/6/64/Poster_not_available.jpg',
-        // TODO: photo is not available now
+        photo: 'https://i.ibb.co/dLk9zCj/Cafe-water.jpg',
         url: '',
         location: 'Senior common room',
         openingHour: '',
@@ -45,8 +44,7 @@ const facilities = [
         description:
             'Sherfield 2nd floor, next to the accessible toilets\n' +
             'There are 2 of them both next to accessible toilets',
-        photo: 'https://upload.wikimedia.org/wikipedia/commons/6/64/Poster_not_available.jpg',
-        // TODO: photo is not available now
+        photo: 'https://i.ibb.co/Kznwhmb/sherfield-2-water.jpg',
         url: '',
         location: 'Sherfield 2nd floor',
         openingHour: '',
