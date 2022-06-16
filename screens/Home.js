@@ -45,10 +45,11 @@ class Home extends React.Component {
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.articles}>
-        <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
-          {noRecommendation ? null : this.renderRecommendationText()}
-        </Block>
-
+        {noRecommendation ? null : this.renderRecommendationText()}
+        <Text bold size={16} style={styles.title}>
+        Explore new events:
+        </Text>
+        <Block flex card style={styles.category}>
         <TouchableWithoutFeedback
           onPress={() => navigation.navigate("webpage",
             {
@@ -60,8 +61,8 @@ class Home extends React.Component {
           <Image
             source={Images.upcomingEventsLogo}
             style={[
-              styles.imageBlock,
-              { width: width - theme.SIZES.BASE * 2, height: 252 },
+              styles.eventImageBlock,
+              { width: width - theme.SIZES.BASE * 2, height: 160 },
             ]}
             imageStyle={{
               width: width - theme.SIZES.BASE * 2,
@@ -71,6 +72,10 @@ class Home extends React.Component {
           </Image>
 
         </TouchableWithoutFeedback>
+        </ Block>
+        <Text bold size={16} style={styles.title}>
+        Explore facilities:
+        </Text>
         <Block flex card style={styles.category}>
           <AutomatedSlideshow
             onPress={() => navigation.navigate("webpage",
@@ -82,8 +87,13 @@ class Home extends React.Component {
             style={styles.goStudyTitle}
             dataSource={goStudySpaceSlideShow}
           ></AutomatedSlideshow>
-
-          <TouchableWithoutFeedback
+          {/* <Block > 
+            <>
+            </>
+          </ Block> */}
+        </Block>
+        <Block flex card style={styles.category}>
+        <TouchableWithoutFeedback
             onPress={() => navigation.navigate("webpage",
               {
                 url: 'https://www.union.ic.ac.uk/rcc/snooker_billiards/home/about.php',
@@ -93,17 +103,16 @@ class Home extends React.Component {
           >
             <ImageBackground
               source={Images.Snooker}
-              style={[
-                styles.imageBlock,
-                { width: width - theme.SIZES.BASE * 2, height: 252 },
-              ]}
+              
+              style={styles.imageBlock}
               imageStyle={{
                 width: width - theme.SIZES.BASE * 2,
-                height: 252,
+                height: 160,
+                //marginVertical: 20, 
               }}
             >
               <Block style={styles.categoryTitle}>
-                <Text size={18} bold color={theme.COLORS.WHITE}>
+                <Text size={20} bold color={theme.COLORS.WHITE}>
                   Imperial Union Snooker
                 </Text>
               </Block>
@@ -138,6 +147,10 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
   },
+  pad: {
+    height: 50,
+    backgroundColor: "transparent",
+  },
   category: {
     backgroundColor: theme.COLORS.WHITE,
     marginVertical: theme.SIZES.BASE / 2,
@@ -150,6 +163,19 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  title: {
+    paddingHorizontal: 10,
+    marginTop: 20,
+    color: argonTheme.COLORS.HEADER,
+  },
+  eventImageBlock: {
+    width: width - theme.SIZES.BASE * 2, 
+    height: 160, 
+  },
+  imageBlock: {
+    width: width - theme.SIZES.BASE * 2, 
+    height: 160, 
+  }
 });
 
 export default Home;
