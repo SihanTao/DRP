@@ -12,7 +12,7 @@ import testListElement from '../constants/testListElement';
 import { collection, doc, setDoc, getDoc, getFirestore, query, where, getDocs } from "firebase/firestore";
 import { async } from "@firebase/util";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { ALL_TAGS, CAFE_TAGS, STUDY_PLACE_TAGS, TOILET_TAGS, WATER_FOUNTAIN_TAGS } from "../constants/tags";
+import { ALL_TAGS, CAFE_TAGS, STUDY_PLACE_TAGS, TOILET_TAGS, WATER_FOUNTAIN_TAGS, MICROWAVE_TAGS } from "../constants/tags";
 const { width } = Dimensions.get('screen');
 
 export default function SearchResult(props) {
@@ -35,6 +35,8 @@ export default function SearchResult(props) {
     TAGS = CAFE_TAGS;
   } else if (props.route.params.waterfountain) {
     TAGS = WATER_FOUNTAIN_TAGS
+  } else if (props.route.params.microwave) {
+    TAGS = MICROWAVE_TAGS;
   }
   else {
     TAGS = ALL_TAGS;
@@ -105,6 +107,10 @@ export default function SearchResult(props) {
       if (filters.includes('Sherfield')) {
         conditions.push(where('STUDY.Sherfield', '==', true))
       }
+    }
+
+    if (params.microwave) {
+      conditions.push(where('microwave', '==', true))
     }
 
     const q = query(placeRef, ...conditions);

@@ -294,6 +294,20 @@ const facilities = [
         location: "Neo Pizza and Pasta can be found in the JCR.",
         description: "Try one of our freshly prepared pizzas using only the very best ingredients.",
         photo: "https://pxl-imperialacuk.terminalfour.net/prod01/channel_2/media/migration/administration-and-support-services/vecteezy-four-pizza-on-a-dark-wooden-background-807105_1620134120021_x4.jpg",
+    }, 
+    // microwave 
+    {
+        name: 'Department of Computing Studnent Tea Point',
+        microwave: true,
+        location: "Huxley 223. Inside DoC Lab Area",
+        description: "Fridge, Coffee machine & microwave!",
+        photo: "https://i.ibb.co/H2sxYnp/Do-CStudent-Tea-Point.jpg",
+    }, {
+        name: 'GoStudy Space Kitchen', 
+        microwave: true,
+        location: "Chemistry Building 448.",
+        description: "GoStudy is open to all students and offers a variety of study environments to suit your needs including Silent Study, Group Study and Breakout Spaces where you can eat and drink.",
+        photo: "https://pxl-imperialacuk.terminalfour.net/fit-in/959x430/prod01/channel_2/media/migration/administration-and-support-services/gostudy8_1635780402942_x4.jpg",
     }
 ];
 

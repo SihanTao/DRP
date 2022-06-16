@@ -22,6 +22,11 @@ function updateIdObject(id) {
                 waterfountain: true,
             };
             break;
+        case 'microwave': 
+            idObject = {
+                microwave: true,
+            }
+            break;
         default:
             idObject = {};
             break;
