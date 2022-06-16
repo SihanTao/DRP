@@ -48,6 +48,8 @@ export default function SearchResult(props) {
   const [data, setData] = useState([]);
   const [filters, setFilters] = useState([]);
 
+
+
   async function getData(filters) {
     const list = [];
     const placeRef = collection(getFirestore(), "facilities");
@@ -194,6 +196,15 @@ export default function SearchResult(props) {
   useEffect(() => {
     getData(filters);
   }, [filters])
+
+  useEffect(() => {
+    getData(filters);
+    const willFocusSubscription = props.navigation.addListener('focus', () => {
+      getData(filters);
+    });
+
+    return willFocusSubscription;
+  }, []);
 
   return (
     <Block safe fluid style={styles.container}>

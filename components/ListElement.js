@@ -113,7 +113,7 @@ class ListElement extends React.Component {
                 <Text bold style={{
                     fontSize: 16,
                     color: "white"
-                  }}>{item.avgRating}</Text>
+                  }}>{item.avgRating.toFixed(2)}</Text>
               </View>
                   </Block>
               <Text style={styles.listTitle} size={25} bold >
