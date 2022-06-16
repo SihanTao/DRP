@@ -18,6 +18,11 @@ const CAFE_TAGS = [
     { name: 'supper', color: '#9C2', active: false }
 ];
 
-const ALL_TAGS = [...STUDY_PLACE_TAGS, ...TOILET_TAGS, ...CAFE_TAGS];
+const WATER_FOUNTAIN_TAGS = [
+    {name: "Huxley", color: '#f43', active: false},
+    {name: "Sherfield", color: '#484', active: false},
+];
 
-export { STUDY_PLACE_TAGS, ALL_TAGS, TOILET_TAGS, CAFE_TAGS };
+const ALL_TAGS = [...STUDY_PLACE_TAGS, ...TOILET_TAGS, ...CAFE_TAGS, ...WATER_FOUNTAIN_TAGS];
+
+export { STUDY_PLACE_TAGS, ALL_TAGS, TOILET_TAGS, CAFE_TAGS, WATER_FOUNTAIN_TAGS };

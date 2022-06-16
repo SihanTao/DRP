@@ -12,7 +12,7 @@ import testListElement from '../constants/testListElement';
 import { collection, doc, setDoc, getDoc, getFirestore, query, where, getDocs } from "firebase/firestore";
 import { async } from "@firebase/util";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { ALL_TAGS, CAFE_TAGS, STUDY_PLACE_TAGS, TOILET_TAGS } from "../constants/tags";
+import { ALL_TAGS, CAFE_TAGS, STUDY_PLACE_TAGS, TOILET_TAGS, WATER_FOUNTAIN_TAGS } from "../constants/tags";
 const { width } = Dimensions.get('screen');
 
 export default function SearchResult(props) {
@@ -33,7 +33,10 @@ export default function SearchResult(props) {
     TAGS = TOILET_TAGS;
   } else if (props.route.params.cafe) {
     TAGS = CAFE_TAGS;
-  } else {
+  } else if (props.route.params.waterfountain) {
+    TAGS = WATER_FOUNTAIN_TAGS
+  }
+  else {
     TAGS = ALL_TAGS;
   }
 
@@ -91,6 +94,16 @@ export default function SearchResult(props) {
       }
       if (filters.includes('supper')) {
         conditions.push(where("CAFE.SUPPER", '==', true))
+      }
+    }
+
+    if (params.waterfountain) {
+      conditions.push(where('waterfountain', '==', true))
+      if (filters.includes('Huxley')) {
+        conditions.push(where('STUDY.Huxley', '==', true))
+      }
+      if (filters.includes('Sherfield')) {
+        conditions.push(where('STUDY.Sherfield', '==', true))
       }
     }
 
@@ -154,6 +167,14 @@ export default function SearchResult(props) {
 
       if (TAGS[3].active) {
         newCategory.push('supper');
+      }
+    } else if (params.waterfountain) {
+      if (TAGS[0].active) {
+        newCategory.push('Huxley');
+      }
+
+      if (TAGS[1].active) {
+        newCategory.push('Sherfield')
       }
     }
 

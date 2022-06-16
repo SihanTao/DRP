@@ -89,6 +89,11 @@ export default class DropDownSearchBar extends React.Component {
           cafe: true,
         };
         break;
+      case 'water_fountain':
+        idObject = {
+          waterfountain: true,
+        };
+        break;
       default:
         idObject = {
           studySpace: true,
