@@ -45,6 +45,20 @@ class ListElement extends React.Component {
         currentTags.push('female');
       } 
     }
+    if (params.cafe) {
+      if (item.CAFE.BREAKFAST === true) {
+        currentTags.push('breakfast');
+      } 
+      if (item.CAFE.LUNCH === true) {
+        currentTags.push('lunch');
+      } 
+      if (item.CAFE.AFTERNOON === true) {
+        currentTags.push('afternoon');
+      } 
+      if (item.CAFE.SUPPER === true) {
+        currentTags.push('supper');
+      } 
+    }
     return (
       <Block flex style={{ marginVertical: 10 }}>
         <TouchableOpacity
