@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, TouchableWithoutFeedback, Dimensions, ScrollView, Image, ImageBackground } from 'react-native';
+import { StyleSheet, TouchableWithoutFeedback, Dimensions, ScrollView, Image, View, ImageBackground } from 'react-native';
 import { Button, Block, NavBar, Text, theme } from 'galio-framework';
 import { Tag } from "react-native-btr";
 import IconExtra from './Icon';
@@ -91,20 +91,28 @@ class ListElement extends React.Component {
             }}
           >
             <Block style={styles.categoryTitle}>
-            <Icon
-                name="star-box"
-                family="ArgonExtra"
-                size={28}
-                color='#fcba03'
-                style={{
-                  position: 'absolute',
-                  left: 5,
-                  top: 5,
-                }} 
-              />
-               <Text style={styles.listTitle} size={17} bold >
-                4.3
-              </Text>
+              <Block style = {{position: 'absolute',
+                left: 5,
+                top: 5,}}>
+                <View style={{
+                      paddingHorizontal: 10,
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                      alignItems: "center"
+                  }}>
+                <Icon
+                  name="star-box"
+                  family="ArgonExtra"
+                  size={28}
+                  color='#fcba03'
+                />
+
+                <Text bold style={{
+                    fontSize: 16,
+                    color: "white"
+                  }}>4.3</Text>
+              </View>
+                  </Block>
               <Text style={styles.listTitle} size={25} bold >
                 {item.name}
               </Text>
