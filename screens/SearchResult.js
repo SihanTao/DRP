@@ -44,6 +44,7 @@ export default function SearchResult(props) {
 
   let [tags, setTags] = useState(TAGS);
 
+  const [ids, setIds] = useState([]);
   const [data, setData] = useState([]);
   const [filters, setFilters] = useState([]);
 
@@ -116,16 +117,17 @@ export default function SearchResult(props) {
     const q = query(placeRef, ...conditions);
 
     const querySnapshot = await getDocs(q);
+    const idlist = []
     querySnapshot.forEach((doc) => {
       // doc.data() is never undefined for query doc snapshots
       // console.log("=========================================");
       // console.log(doc.id, " => ", doc.data());
       // console.log("=========================================");
-      if (list.includes(doc.data()) === false) {
-        list.push(doc.data());
-      }
+      list.push(doc.data());
+      idlist.push(doc.id);
     });
     setData([...list]);
+    setIds([...idlist]);
   }
 
   function updateFilters() {
@@ -217,8 +219,9 @@ export default function SearchResult(props) {
       </Block>
       <ListElement
         list={data}
+        idList={ids}
         navigation={props.navigation}
-        route = {props.route}
+        route={props.route}
       />
     </Block>
   );

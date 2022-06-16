@@ -1,7 +1,7 @@
 import { getDatabase, ref, set, onValue } from "firebase/database";
 import uuid from 'react-native-uuid';
 import { async } from "@firebase/util";
-import { getFirestore, collection, addDoc, setDoc, doc } from "firebase/firestore";
+import { getFirestore, collection, addDoc, setDoc, doc, runTransaction } from "firebase/firestore";
 
 export function writeUserData(name, email, password) {
     const db = getDatabase();
@@ -72,3 +72,35 @@ export function addArticles(data) {
     set(collection, data);
     alert('Pressed!');
 }
+
+export async function addRating(id, rating) {
+    // var collection = firebase.firestore().collection('restaurants');
+    // var document = collection.doc(id);
+    // var newRatingDocument = document.collection('ratings').doc();
+
+    // return firebase.firestore().runTransaction(function (transaction) {
+    //     return transaction.get(document).then(function (doc) {
+    //         var data = doc.data();
+
+    //         var newAverage =
+    //             (data.numRatings * data.avgRating + rating.rating) /
+    //             (data.numRatings + 1);
+
+    //         transaction.update(document, {
+    //             numRatings: data.numRatings + 1,
+    //             avgRating: newAverage
+    //         });
+    //         return transaction.set(newRatingDocument, rating);
+    //     });
+    // });
+    const db = getFirestore();
+    const facilityRef = collection(db, 'facilities');
+    const document = doc(facilityRef, id);
+    const newRatingDocument = doc(db, 'facilities', id, 'rating');
+
+    await runTransaction(db, async (transaction) => {
+        const d = await transaction.get(document);
+
+        console.log(d);
+    })
+};

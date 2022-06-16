@@ -19,52 +19,56 @@ class ListElement extends React.Component {
   }
 
   renderProduct = (item, index) => {
-    const { navigation, route } = this.props;
+    const { navigation, route, idList } = this.props;
     const image = item.photo;
     const params = route.params;
     const currentTags = [];
     if (params.studySpace) {
       if (item.STUDY.GROUP === true) {
         currentTags.push('group');
-      } 
+      }
       if (item.STUDY.SILENT === true) {
         currentTags.push('silent');
-      } 
+      }
       if (item.STUDY.QUIET === true) {
         currentTags.push('quiet');
-      } 
+      }
     }
     if (params.toilet) {
       if (item.TOILET.ACCESSIBLE === true) {
         currentTags.push('accessible');
-      } 
+      }
       if (item.TOILET.MALE === true) {
         currentTags.push('male');
-      } 
+      }
       if (item.TOILET.FEMALE === true) {
         currentTags.push('female');
-      } 
+      }
     }
     if (params.cafe) {
       if (item.CAFE.BREAKFAST === true) {
         currentTags.push('breakfast');
-      } 
+      }
       if (item.CAFE.LUNCH === true) {
         currentTags.push('lunch');
-      } 
+      }
       if (item.CAFE.AFTERNOON === true) {
         currentTags.push('afternoon');
-      } 
+      }
       if (item.CAFE.SUPPER === true) {
         currentTags.push('supper');
-      } 
+      }
     }
     return (
       <Block flex style={{ marginVertical: 10 }}>
         <TouchableOpacity
-          onPress={() => navigation.navigate("Information", {
-            passeditem: item,
-          })
+          onPress={
+            () => {
+              console.log(idList[index]);
+              navigation.navigate("Information", {
+                passeditem: item,
+              })
+            }
           }
         >
           <ImageBackground
@@ -87,8 +91,8 @@ class ListElement extends React.Component {
               {/* <Text style={styles.listTitle} size={25} bold >
                 {currentTags[0]}
               </Text> */}
-              
-               <Block style={{ flexDirection: "row", flexWrap: "wrap" }}>
+
+              <Block style={{ flexDirection: "row", flexWrap: "wrap" }}>
                 {currentTags.map((tag, index) => {
                   const backgroundColor = "#0000";
                   const color = "#fff";

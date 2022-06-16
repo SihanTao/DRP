@@ -10,6 +10,7 @@ import IconExtra from "../components/Icon";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import ImageViewer from 'react-native-image-zoom-viewer';
 import ImageZoomer from "../components/ImageZoomer";
+import { addRating } from "../backend/databaseReadWrite";
 
 const toiletMap = require("../assets/imgs/huxley_floor2.jpeg");
 
@@ -19,6 +20,7 @@ const { width } = Dimensions.get('screen');
 export default function Information(props) {
   const { navigation } = props;
   const item = props.route.params.passeditem;
+  // console.log(item);
   const displayImages = [
     {
       url: item.photo,
@@ -130,6 +132,8 @@ export default function Information(props) {
 
   function ratingCompleted(rating) {
     console.log("Rating is: " + rating);
+    console.log(item)
+    addRating(item.id, rating);
   }
 
   return (
