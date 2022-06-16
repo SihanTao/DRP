@@ -108,23 +108,25 @@ const ArticlesStack = createNativeStackNavigator();
 
 export function ArticlesStackScreen(props) {
   return (
-    <ArticlesStack.Navigator
-      screenOptions={{
-        mode: "card",
-        headerShown: true,
-      }}
-    >
-      <ArticlesStack.Screen
-        name="Articles"
-        component={Articles}
-        options={{
-          header: ({ navigation, scene }) => (
-            <Header title="Articles" navigation={navigation} scene={scene} />
-          ),
-          cardStyle: { backgroundColor: "#F8F9FE" },
+    <DevStatus status="developing">
+      <ArticlesStack.Navigator
+        screenOptions={{
+          mode: "card",
+          headerShown: true,
         }}
-      />
-    </ArticlesStack.Navigator>
+      >
+        <ArticlesStack.Screen
+          name="Articles"
+          component={Articles}
+          options={{
+            header: ({ navigation, scene }) => (
+              <Header title="Articles" navigation={navigation} scene={scene} />
+            ),
+            cardStyle: { backgroundColor: "#F8F9FE" },
+          }}
+        />
+      </ArticlesStack.Navigator>
+    </DevStatus>
   );
 }
 
