@@ -47,10 +47,11 @@ class Home extends React.Component {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.articles}>
           {/* <Tabs
-          data={tabs || []}
+          data={[]}
           //initialIndex={tabIndex || defaultTab}
-          onChange={id => navigation.setParams({ tabId: id })}
-          navigation={navigation} /> */}
+          //onChange={id => navigation.setParams({ tabId: id })}
+          //navigation={navigation} 
+          /> */}
         {noRecommendation ? null : this.renderRecommendationText()}
         {/* <Text bold size={16} style={styles.title}>
         Explore new events:

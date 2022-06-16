@@ -140,7 +140,6 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     marginRight: 9,
     // marginVertical:20,
-    height:80,
   },
   containerShadow: {
     shadowColor: 'white',
