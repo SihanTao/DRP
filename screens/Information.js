@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, StyleSheet, Dimensions, ScrollView, ImageBackground, Image, Modal, TouchableWithoutFeedback } from "react-native";
 import { Rating, AirbnbRating } from 'react-native-ratings';
 import { Block, theme } from 'galio-framework';
@@ -10,7 +10,7 @@ import IconExtra from "../components/Icon";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import ImageViewer from 'react-native-image-zoom-viewer';
 import ImageZoomer from "../components/ImageZoomer";
-import { addRating } from "../backend/databaseReadWrite";
+import { addRating, getCurrentRating } from "../backend/databaseReadWrite";
 
 const toiletMap = require("../assets/imgs/huxley_floor2.jpeg");
 
@@ -22,7 +22,16 @@ export default function Information(props) {
   const { navigation } = props;
   const item = props.route.params.passeditem;
   const id = props.route.params.id;
-  console.log("Here in Information " + id);
+  // console.log("Here in Information " + id);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const fetched = await getCurrentRating(props.route.params.id);
+      setRating(fetched);
+    }
+
+    fetchData(id).catch(console.error);
+  }, [])
 
   // console.log(item);
   const displayImages = [
@@ -159,7 +168,7 @@ export default function Information(props) {
                 imagesList: item.maps,
               })}
             >
-              <Image source={{uri: item.maps[0].url}} style={styles.fullImage} />
+              <Image source={{ uri: item.maps[0].url }} style={styles.fullImage} />
             </ TouchableWithoutFeedback>
           </Block>
           <Text bold size={25} style={styles.heading}>Rate the facility!</Text>

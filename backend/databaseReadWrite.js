@@ -74,37 +74,18 @@ export function addArticles(data) {
 }
 
 export async function addRating(id, rating) {
-    // var collection = firebase.firestore().collection('restaurants');
-    // var document = collection.doc(id);
-    // var newRatingDocument = document.collection('ratings').doc();
-
-    // return firebase.firestore().runTransaction(function (transaction) {
-    //     return transaction.get(document).then(function (doc) {
-    //         var data = doc.data();
-
-    //         var newAverage =
-    //             (data.numRatings * data.avgRating + rating.rating) /
-    //             (data.numRatings + 1);
-
-    //         transaction.update(document, {
-    //             numRatings: data.numRatings + 1,
-    //             avgRating: newAverage
-    //         });
-    //         return transaction.set(newRatingDocument, rating);
-    //     });
-    // });
-    console.log('In addRating function ' + id);
+    // console.log('In addRating function ' + id);
     const db = getFirestore();
     const docRef = doc(db, 'facilities', id);
     const docSnap = await getDoc(docRef);
     let avgRating, numRatings;
     if (docSnap.exists()) {
         const data = docSnap.data();
-        console.log("Document data:", data);
+        // console.log("Document data:", data);
         let total = data.avgRating * data.numRatings + rating;
         numRatings = data.numRatings + 1;
         avgRating = total / numRatings;
-      } else {
+    } else {
         // doc.data() will be undefined in this case
         console.log("No such document!");
     }
@@ -116,3 +97,20 @@ export async function addRating(id, rating) {
 
     return avgRating;
 };
+
+export async function getCurrentRating(id) {
+    const db = getFirestore();
+    const docRef = doc(db, 'facilities', id);
+    const docSnap = await getDoc(docRef);
+    let rating = 0;
+    if (docSnap.exists()) {
+        const data = docSnap.data();
+        rating = data.avgRating;
+    } else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
+    }
+    
+    // console.log("In getCurrentRating: " + rating)
+    return rating;
+}

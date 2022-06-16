@@ -73,7 +73,6 @@ class ListElement extends React.Component {
         <TouchableOpacity
           onPress={
             () => {
-              // console.log(idList[index]);
               navigation.navigate("Information", {
                 passeditem: item,
                 id: idList[index],
