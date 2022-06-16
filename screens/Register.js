@@ -12,6 +12,7 @@ import { Button, Icon, Input } from "../components";
 import { Images, argonTheme } from "../constants";
 import { writeUserData } from "../backend/databaseReadWrite";
 import { createUserWithEmail, signInAnonymous } from '../backend/auth'
+import DevStatus from "../constants/DevelopeStatus";
 
 const { width, height } = Dimensions.get("screen");
 
@@ -27,114 +28,116 @@ class Register extends React.Component {
 
   render() {
     return (
-      <Block flex middle>
-        <StatusBar hidden />
-        <ImageBackground
-          source={Images.RegisterBackground}
-          style={{ width, height, zIndex: 1 }}
-        >
-          <Block safe flex middle>
-            <Block style={styles.registerContainer}>
-              <Block flex>
-                <Block flex={0.17} middle>
-                  <Text color="#8898AA" size={20}>
-                    Sign Up
-                  </Text>
-                </Block>
-                <Block flex center>
-                  <KeyboardAvoidingView
-                    style={{ flex: 1 }}
-                    behavior="padding"
-                    enabled
-                  >
-                    <Block width={width * 0.8} style={{ marginBottom: 15 }}>
-                      <Input
-                        borderless
-                        placeholder="Email"
-                        onChangeText={(useremail) => this.setState({ useremail })}
-                        iconContent={
-                          <Icon
-                            size={16}
-                            color={argonTheme.COLORS.ICON}
-                            name="ic_mail_24px"
-                            family="ArgonExtra"
-                            style={styles.inputIcons}
-                          />
-                        }
-                      />
-                    </Block>
-                    <Block width={width * 0.8}>
-                      <Input
-                        password
-                        borderless
-                        placeholder="Password"
-                        onChangeText={(userpassword) => this.setState({ userpassword })}
-                        iconContent={
-                          <Icon
-                            size={16}
-                            color={argonTheme.COLORS.ICON}
-                            name="padlock-unlocked"
-                            family="ArgonExtra"
-                            style={styles.inputIcons}
-                          />
-                        }
-                      />
-                      <Block row style={styles.passwordCheck}>
-                        <Text size={12} color={argonTheme.COLORS.MUTED}>
-                          password strength:
-                        </Text>
-                        <Text bold size={12} color={argonTheme.COLORS.SUCCESS}>
-                          {" "}
-                          strong
-                        </Text>
+      <DevStatus status="developing">
+        <Block flex middle>
+          <StatusBar hidden />
+          <ImageBackground
+            source={Images.RegisterBackground}
+            style={{ width, height, zIndex: 1 }}
+          >
+            <Block safe flex middle>
+              <Block style={styles.registerContainer}>
+                <Block flex>
+                  <Block flex={0.17} middle>
+                    <Text color="#8898AA" size={20}>
+                      Sign Up
+                    </Text>
+                  </Block>
+                  <Block flex center>
+                    <KeyboardAvoidingView
+                      style={{ flex: 1 }}
+                      behavior="padding"
+                      enabled
+                    >
+                      <Block width={width * 0.8} style={{ marginBottom: 15 }}>
+                        <Input
+                          borderless
+                          placeholder="Email"
+                          onChangeText={(useremail) => this.setState({ useremail })}
+                          iconContent={
+                            <Icon
+                              size={16}
+                              color={argonTheme.COLORS.ICON}
+                              name="ic_mail_24px"
+                              family="ArgonExtra"
+                              style={styles.inputIcons}
+                            />
+                          }
+                        />
                       </Block>
-                    </Block>
-                    <Block row width={width * 0.75}>
-                      <Checkbox
-                        checkboxStyle={{
-                          borderWidth: 3
-                        }}
-                        color={argonTheme.COLORS.PRIMARY}
-                        label="I agree with the"
-                      />
-                      <Button
-                        style={{ width: 100 }}
-                        color="transparent"
-                        textStyle={{
-                          color: argonTheme.COLORS.PRIMARY,
-                          fontSize: 14
-                        }}
-                      >
-                        Privacy Policy
-                      </Button>
-                    </Block>
-                    <Block middle>
-                      <Button color="primary"
-                        style={styles.createButton}
-                        onPress={() => createUserWithEmail(this.state.useremail, this.state.userpassword)}
-                      >
-                        <Text bold size={14} color={argonTheme.COLORS.WHITE}>
-                          CREATE ACCOUNT
-                        </Text>
-                      </Button>
-                    </Block>
-                    <Block middle>
-                      <Button color="primary"
-                        style={styles.createButton}
-                        onPress={() => signInAnonymous()}
-                      >
-                        <Text bold size={14} color={argonTheme.COLORS.WHITE}>
-                          OR SIGN IN ANONYMOULY
-                        </Text>
-                      </Button>
-                    </Block>
-                  </KeyboardAvoidingView>
+                      <Block width={width * 0.8}>
+                        <Input
+                          password
+                          borderless
+                          placeholder="Password"
+                          onChangeText={(userpassword) => this.setState({ userpassword })}
+                          iconContent={
+                            <Icon
+                              size={16}
+                              color={argonTheme.COLORS.ICON}
+                              name="padlock-unlocked"
+                              family="ArgonExtra"
+                              style={styles.inputIcons}
+                            />
+                          }
+                        />
+                        <Block row style={styles.passwordCheck}>
+                          <Text size={12} color={argonTheme.COLORS.MUTED}>
+                            password strength:
+                          </Text>
+                          <Text bold size={12} color={argonTheme.COLORS.SUCCESS}>
+                            {" "}
+                            strong
+                          </Text>
+                        </Block>
+                      </Block>
+                      <Block row width={width * 0.75}>
+                        <Checkbox
+                          checkboxStyle={{
+                            borderWidth: 3
+                          }}
+                          color={argonTheme.COLORS.PRIMARY}
+                          label="I agree with the"
+                        />
+                        <Button
+                          style={{ width: 100 }}
+                          color="transparent"
+                          textStyle={{
+                            color: argonTheme.COLORS.PRIMARY,
+                            fontSize: 14
+                          }}
+                        >
+                          Privacy Policy
+                        </Button>
+                      </Block>
+                      <Block middle>
+                        <Button color="primary"
+                          style={styles.createButton}
+                          onPress={() => createUserWithEmail(this.state.useremail, this.state.userpassword)}
+                        >
+                          <Text bold size={14} color={argonTheme.COLORS.WHITE}>
+                            CREATE ACCOUNT
+                          </Text>
+                        </Button>
+                      </Block>
+                      <Block middle>
+                        <Button color="primary"
+                          style={styles.createButton}
+                          onPress={() => signInAnonymous()}
+                        >
+                          <Text bold size={14} color={argonTheme.COLORS.WHITE}>
+                            OR SIGN IN ANONYMOULY
+                          </Text>
+                        </Button>
+                      </Block>
+                    </KeyboardAvoidingView>
+                  </Block>
                 </Block>
               </Block>
             </Block>
-          </Block>
-        </ImageBackground>
-      </Block>
+          </ImageBackground>
+        </Block>
+      </DevStatus>
     );
   }
 }
