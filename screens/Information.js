@@ -79,13 +79,20 @@ export default function Information(props) {
     }
   }
 
-  const images = [{
-    url: '',
-    props: {
-      // Or you can set source directory.
-      source: toiletMap
-    }
-  }]
+  // const imagesList = [{
+  //   url: 'https://aboutreact.com/wp-content/uploads/2018/08/react_nativeset_opacity_of_image.png',
+
+  // }, 
+// ]
+
+  const renderMap = (item) => {
+    const image = item.url
+    return (
+      <Block flex>
+      <Image source={image} style={styles.fullImage} />
+      </Block>
+    )
+  }
 
   function renderOptions() {
     const { navigation } = props;
@@ -162,10 +169,6 @@ export default function Information(props) {
           data={currentTags}
           navigation={navigation}
         />
-        {/* <Block center>
-          {renderOptions()}
-        </Block> */}
-        {/* <Text bold size = {30} style={styles.title}>{passeditem.name}</Text> */}
       </Block>
       <Block flex center style={styles.home}>
         <ScrollView
@@ -189,9 +192,27 @@ export default function Information(props) {
           <Text bold size={25} style={styles.heading}>Map</Text>
           <Block flex style={styles.imageContainer}>
             <TouchableWithoutFeedback
-              onPress={() => navigation.navigate("ImageZoomer")}
+              onPress={() => navigation.navigate("ImageZoomer", {
+                imagesList: item.maps,
+              })}
             >
-              <Image source={toiletMap} style={styles.fullImage} />
+              {/* <ScrollView
+                horizontal={true}
+                pagingEnabled={true}
+                decelerationRate={0}
+                scrollEventThrottle={16}
+                snapToAlignment="center"
+                showsHorizontalScrollIndicator={false}
+                contentContainerStyle={{
+                  paddingVertical: theme.SIZES.BASE / 2,
+                }}
+              >
+                {imagesList &&
+                  imagesList.map((item, index) =>
+                    renderProduct(item, index)
+                  )}
+              </ScrollView> */}
+              <Image source={{uri: item.maps[0].url}} style={styles.fullImage} />
             </ TouchableWithoutFeedback>
           </Block>
           <Text bold size={25} style={styles.heading}>Rate the facility!</Text>
