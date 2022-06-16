@@ -168,7 +168,7 @@ export default function SearchResult(props) {
       }
 
       if (TAGS[2].active) {
-        newCategory.push('afternoon tea');
+        newCategory.push('afternoon');
       }
 
       if (TAGS[3].active) {

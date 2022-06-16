@@ -59,6 +59,15 @@ class ListElement extends React.Component {
         currentTags.push('supper');
       } 
     }
+    if (params.waterfountain) {
+      if (item.STUDY.Huxley === true) {
+        currentTags.push('huxley');
+      } 
+      if (item.STUDY.Sherfield === true) {
+        currentTags.push('sherfield');
+      } 
+     
+    }
     return (
       <Block flex style={{ marginVertical: 10 }}>
         <TouchableOpacity

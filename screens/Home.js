@@ -11,6 +11,7 @@ import articles from '../constants/articles';
 import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 const { width } = Dimensions.get('screen');
 import ListElement from '../components/ListElement';
+import Tabs from '../components/Tabs';
 
 
 class Home extends React.Component {
@@ -45,10 +46,15 @@ class Home extends React.Component {
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.articles}>
+          {/* <Tabs
+          data={tabs || []}
+          //initialIndex={tabIndex || defaultTab}
+          onChange={id => navigation.setParams({ tabId: id })}
+          navigation={navigation} /> */}
         {noRecommendation ? null : this.renderRecommendationText()}
-        <Text bold size={16} style={styles.title}>
+        {/* <Text bold size={16} style={styles.title}>
         Explore new events:
-        </Text>
+        </Text> */}
         <Block flex card style={styles.category}>
         <TouchableWithoutFeedback
           onPress={() => navigation.navigate("webpage",
@@ -73,9 +79,9 @@ class Home extends React.Component {
 
         </TouchableWithoutFeedback>
         </ Block>
-        <Text bold size={16} style={styles.title}>
+        {/* <Text bold size={16} style={styles.title}>
         Explore facilities:
-        </Text>
+        </Text> */}
         <Block flex card style={styles.category}>
           <AutomatedSlideshow
             onPress={() => navigation.navigate("webpage",
@@ -125,6 +131,7 @@ class Home extends React.Component {
   }
 
   render() {
+    const { navigation } = this.props;
     return (
       <Block flex center style={styles.home}>
         {/* {this.renderRecommendations()} */}

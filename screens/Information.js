@@ -74,13 +74,13 @@ export default function Information(props) {
     }
   }
 
-  const imagesList = [{
-    url: 'https://aboutreact.com/wp-content/uploads/2018/08/react_nativeset_opacity_of_image.png',
+  // const imagesList = [{
+  //   url: 'https://aboutreact.com/wp-content/uploads/2018/08/react_nativeset_opacity_of_image.png',
 
-  }, 
-]
+  // }, 
+// ]
 
-  renderMap = (item) => {
+  const renderMap = (item) => {
     const image = item.url
     return (
       <Block flex>
@@ -182,7 +182,7 @@ export default function Information(props) {
           <Block flex style={styles.imageContainer}>
             <TouchableWithoutFeedback
               onPress={() => navigation.navigate("ImageZoomer", {
-                imagesList: imagesList,
+                imagesList: item.maps,
               })}
             >
               {/* <ScrollView
@@ -201,7 +201,7 @@ export default function Information(props) {
                     renderProduct(item, index)
                   )}
               </ScrollView> */}
-              <Image source={{uri: imagesList[0].url}} style={styles.fullImage} />
+              <Image source={{uri: item.maps[0].url}} style={styles.fullImage} />
             </ TouchableWithoutFeedback>
           </Block>
         </ ScrollView>

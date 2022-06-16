@@ -63,13 +63,13 @@ export default class Tabs extends React.Component {
 
     const textColor = this.animatedValue.interpolate({
       inputRange: [0, 1],
-      outputRange: [argonTheme.COLORS.BLACK, isActive ? argonTheme.COLORS.WHITE : argonTheme.COLORS.BLACK],
+      outputRange: [argonTheme.COLORS.WHITE, isActive ? argonTheme.COLORS.WHITE : argonTheme.COLORS.WHITE],
       extrapolate: 'clamp',
     });
 
     const containerStyles = [
       styles.titleContainer,
-      !isActive && { backgroundColor: argonTheme.COLORS.SECONDARY },
+      !isActive && styles.containerShadow,
       isActive && styles.containerShadow
     ];
 
@@ -135,12 +135,15 @@ const styles = StyleSheet.create({
   },
   titleContainer: {
     alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor: argonTheme.COLORS.ACTIVE,
     borderRadius: 4,
-    marginRight: 9
+    marginRight: 9,
+    // marginVertical:20,
+    height:80,
   },
   containerShadow: {
-    shadowColor: 'black',
+    shadowColor: 'white',
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 4,
     shadowOpacity: 0.1,
