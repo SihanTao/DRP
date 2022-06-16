@@ -5,6 +5,6 @@ export default tabs = {
     {id: 'water_fountain', title: '#water_fountain'},
     {id: 'cafe', title: '#cafe'},
     {id: 'microwave', title: '#microwave'},
-    {id: 'new_facility', title: '#new_facility'}
+    // {id: 'new_facility', title: '#new_facility'}
   ]
 }
