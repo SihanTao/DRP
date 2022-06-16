@@ -14,27 +14,30 @@ import { testAddFireStore, addStudySpaces, addDataToFireStore } from '../backend
 import facilities from "../constants/facilities";
 import SearchResult from "../screens/SearchResult"
 import Search from '../screens/Search';
+import DevStatus from '../constants/DevelopeStatus';
 
 
 const { height, width } = Dimensions.get('window');
 const iPhoneX = () => Platform.OS === 'ios' && (height === 812 || width === 812 || height === 896 || width === 896);
 
 const AddDataButton = ({ isWhite, style, navigation }) => (
-  <TouchableOpacity style={[styles.button, style]}
-    onPress={
-      () => {
-        addDataToFireStore(facilities);
-        alert('Data added!')
+  <DevStatus status="done" pubHide={true} >
+    <TouchableOpacity style={[styles.button, style]}
+      onPress={
+        () => {
+          addDataToFireStore(facilities);
+          alert('Data added!')
+        }
       }
-    }
-  >
-    <Icon
-      family="Galio"
-      size={20}
-      name="plus"
-      color={argonTheme.COLORS[isWhite ? 'WHITE' : 'ICON']}
-    />
-  </TouchableOpacity>
+    >
+      <Icon
+        family="Galio"
+        size={20}
+        name="plus"
+        color={argonTheme.COLORS[isWhite ? 'WHITE' : 'ICON']}
+      />
+    </TouchableOpacity>
+  </DevStatus>
 );
 
 const SearchButton = ({ isWhite, style, navigation }) => (
