@@ -8,7 +8,7 @@ import {
 
 export const signInAnonymous = () => {
     signInAnonymously(getAuth());
-    alert('You have signed in anonymously!');
+    // alert('You have signed in anonymously!');
 }
 
 // Traditional Email & Password sign in 

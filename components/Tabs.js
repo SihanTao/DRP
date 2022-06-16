@@ -1,25 +1,19 @@
 import React from 'react';
 import { StyleSheet, Dimensions, FlatList, Animated } from 'react-native';
 import { Block, theme } from 'galio-framework';
-
+import { updateIdObject } from './utils'
 import TagDemo from "../screens/Tag";
 
 const { width } = Dimensions.get('screen');
 import argonTheme from '../constants/Theme';
+import { NotImplementedAlert } from '../constants/PredefinedAlerts';
 
-const defaultMenu = [
-  { id: 'popular', title: 'Popular', },
-  { id: 'beauty', title: 'Beauty', },
-  { id: 'cars', title: 'Cars', },
-  { id: 'motocycles', title: 'Motocycles', },
-];
-
+/**
+ * @param isInfo
+ *   If not defined, clicking the tab will move to the search page.
+ *   If it is assigned as true, nothing happens if you click the tab.
+ */
 export default class Tabs extends React.Component {
-  static defaultProps = {
-    data: defaultMenu,
-    initialIndex: null,
-  }
-
   state = {
     active: null,
   }
@@ -62,7 +56,11 @@ export default class Tabs extends React.Component {
 
     this.animate();
     this.props.onChange && this.props.onChange(id);
-    navigation.navigate('SearchResult');
+
+    // Here navigation
+    // console.log(id);
+    let idObject = updateIdObject(id);
+    navigation.navigate('SearchResult', idObject);
   }
 
   renderItem = (item) => {
@@ -71,13 +69,13 @@ export default class Tabs extends React.Component {
 
     const textColor = this.animatedValue.interpolate({
       inputRange: [0, 1],
-      outputRange: [argonTheme.COLORS.BLACK, isActive ? argonTheme.COLORS.WHITE : argonTheme.COLORS.BLACK],
+      outputRange: [argonTheme.COLORS.WHITE, isActive ? argonTheme.COLORS.WHITE : argonTheme.COLORS.WHITE],
       extrapolate: 'clamp',
     });
-    
+
     const containerStyles = [
       styles.titleContainer,
-      !isActive && { backgroundColor: argonTheme.COLORS.SECONDARY },
+      !isActive && styles.containerShadow,
       isActive && styles.containerShadow
     ];
 
@@ -88,7 +86,13 @@ export default class Tabs extends React.Component {
             styles.menuTitle,
             { color: textColor }
           ]}
-          onPress={() => this.selectMenu(item.id)}>
+          onPress={() => {
+            if (this.props.isInfo) {
+              // NotImplementedAlert()
+            } else {
+              this.selectMenu(item.id)
+            }
+          }}>
           {item.title}
         </Animated.Text>
       </Block>
@@ -143,12 +147,14 @@ const styles = StyleSheet.create({
   },
   titleContainer: {
     alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor: argonTheme.COLORS.ACTIVE,
     borderRadius: 4,
-    marginRight: 9
+    marginRight: 9,
+    // marginVertical:20,
   },
   containerShadow: {
-    shadowColor: 'black',
+    shadowColor: 'white',
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 4,
     shadowOpacity: 0.1,

@@ -2,7 +2,8 @@ import { Animated, Dimensions, Easing } from "react-native";
 // header for screens
 import { Header, Icon } from "../components";
 import { argonTheme, tabs, articles } from "../constants";
-import studySpaces from "../constants/studySpaces"
+import DevStatus from "../constants/DevelopeStatus";
+import facilities from "../constants/facilities";
 
 import Articles from "../screens/Articles";
 import { Block } from "galio-framework";
@@ -23,18 +24,23 @@ import { initializeApp } from "firebase/app";
 import firebaseConfig from "../constants/firebaseConfig";
 import TagDemo from "../screens/Tag";
 import SearchResult from "../screens/SearchResult"
+import Search from "../screens/Search";
 import BottomTabNavigator from "./TabNavigator";
+import Information from "../screens/Information";
 
 const { width } = Dimensions.get("screen");
 
 const Stack = createNativeStackNavigator();
 
-import { addStudySpaces } from "../backend/databaseReadWrite";
+import { signInAnonymous } from "../backend/auth"
+import { addDataToFireStore, testAddFireStore } from "../backend/databaseReadWrite";
 import WebPage from "../screens/WebPage";
+import ImageZoomer from "../components/ImageZoomer";
 
 export default function OnboardingStack(props) {
   initializeApp(firebaseConfig);
-  addStudySpaces(studySpaces);
+  signInAnonymous();
+  // addDataToFireStore(studySpaces);
   return (
     <Stack.Navigator
       screenOptions={{
@@ -54,22 +60,22 @@ const ElementsStack = createNativeStackNavigator();
 
 function ElementsStackScreen(props) {
   return (
-    <ElementsStack.Navigator
-      screenOptions={{
-        mode: "card",
-        headerShown: "screen",
-      }}>
-      <ElementsStack.Screen
-        name="Elements"
-        component={Elements}
-        options={{
-          header: ({ navigation, scene }) => (
-            <Header title="Elements" navigation={navigation} scene={scene} />
-          ),
-          cardStyle: { backgroundColor: "#F8F9FE" },
-        }}
-      />
-    </ElementsStack.Navigator>
+      <ElementsStack.Navigator
+        screenOptions={{
+          mode: "card",
+          headerShown: "screen",
+        }}>
+        <ElementsStack.Screen
+          name="Elements"
+          component={Elements}
+          options={{
+            header: ({ navigation, scene }) => (
+              <Header title="Elements" navigation={navigation} scene={scene} />
+            ),
+            cardStyle: { backgroundColor: "#F8F9FE" },
+          }}
+        />
+      </ElementsStack.Navigator>
   );
 }
 
@@ -102,23 +108,25 @@ const ArticlesStack = createNativeStackNavigator();
 
 export function ArticlesStackScreen(props) {
   return (
-    <ArticlesStack.Navigator
-      screenOptions={{
-        mode: "card",
-        headerShown: true,
-      }}
-    >
-      <ArticlesStack.Screen
-        name="Articles"
-        component={Articles}
-        options={{
-          header: ({ navigation, scene }) => (
-            <Header title="Articles" navigation={navigation} scene={scene} />
-          ),
-          cardStyle: { backgroundColor: "#F8F9FE" },
+    <DevStatus status="developing">
+      <ArticlesStack.Navigator
+        screenOptions={{
+          mode: "card",
+          headerShown: true,
         }}
-      />
-    </ArticlesStack.Navigator>
+      >
+        <ArticlesStack.Screen
+          name="Articles"
+          component={Articles}
+          options={{
+            header: ({ navigation, scene }) => (
+              <Header title="Articles" navigation={navigation} scene={scene} />
+            ),
+            cardStyle: { backgroundColor: "#F8F9FE" },
+          }}
+        />
+      </ArticlesStack.Navigator>
+    </DevStatus>
   );
 }
 
@@ -175,7 +183,7 @@ export function ProfileStackScreen(props) {
 
 const HomeStack = createNativeStackNavigator();
 
-export function HomeStackScreen({navigation}) {
+export function HomeStackScreen({ navigation }) {
   return (
     <HomeStack.Navigator
       screenOptions={{
@@ -202,16 +210,34 @@ export function HomeStackScreen({navigation}) {
       />
 
       <HomeStack.Screen
+        name="Search"
+        component={SearchStackScreen}
+        options={{ headerShown: false }}
+      />
+
+      <HomeStack.Screen
         name="SearchResult"
         component={SearchResultStackScreen}
         options={{ headerShown: false }}
       />
 
-      <HomeStack.Screen 
-        name="GoStudy Space"
+      <HomeStack.Screen
+        name="webpage"
         component={WebPageScreen}
         options={{ headerShown: false }}
       />
+
+      <HomeStack.Screen
+        name="Information"
+        component={InformationStackScreen}
+        options={{ headerShown: false }}
+      /> 
+
+      <HomeStack.Screen
+        name="ImageZoomer"
+        component={ImageZoomerStackScreen}
+        options={{ headerShown: false }}
+      /> 
 
     </HomeStack.Navigator>
   );
@@ -248,59 +274,97 @@ function WebPageScreen({ navigation, route }) {
   return (
     <>
       <Header back title={route.params.title} navigation={navigation} />
-      <WebPage url={route.params.url} /></>
-
+      <WebPage url={route.params.url} />
+    </>
   );
 }
 
 const SearchResultStack = createNativeStackNavigator();
 
-function SearchResultStackScreen(props) {
+function SearchResultStackScreen({ route, navigation }) {
+  const { studySpace } = route.params;
   return (
-    <SearchResultStack.Navigator
+    <>
+      <Header back title="SearchResult" navigation={navigation} />
+      <SearchResult navigation={navigation} route={route}/>
+    </>
+  );
+}
+
+const SearchStack = createNativeStackNavigator();
+
+function SearchStackScreen(props) {
+  return (
+    <SearchStack.Navigator
       screenOptions={{
         mode: "card",
         headerShown: true,
       }}
     >
-      <SearchResultStack.Screen
-        name="SearchResult"
-        component={SearchResult}
+      <SearchStack.Screen
+        name="Search"
+        component={Search}
         options={{
           header: ({ navigation, scene }) => (
-            <Header back title="SearchResult" navigation={navigation} scene={scene} />
+            <Header back title="Search" navigation={navigation} scene={scene} />
           ),
           cardStyle: { backgroundColor: "#F8F9FE" },
         }}
       />
+      <SearchStack.Screen
+        name="webpage"
+        component={WebPageScreen}
+        options={{ headerShown: false }}
+      />
 
-    </SearchResultStack.Navigator>
+    </SearchStack.Navigator>
+  );
+}
+
+const InformationStack = createNativeStackNavigator();
+
+function InformationStackScreen({ route, navigation }) {
+  return (
+    <>
+    <Header back title={route.params.passeditem.name}  navigation={navigation} />
+    <Information navigation={navigation} route={route}/>
+  </>
+  );
+}
+
+function ImageZoomerStackScreen({ route, navigation }) {
+  return (
+    <>
+    <Header back title="back" navigation={navigation} />
+    <ImageZoomer navigation={navigation} route={route}/>
+  </>
   );
 }
 
 const favouriteStack = createNativeStackNavigator();
 
 // TODO: Write the favourite page
-export function FavouriteScreen(props) {
+export function ShareScreen(props) {
   return (
-    <favouriteStack.Navigator
-      screenOptions={{
-        mode: "card",
-        headerShown: true,
-      }}
-    >
-      <favouriteStack.Screen
-        name="Favourite"
-        component={SearchResult}
-        options={{
-          header: ({ navigation, scene }) => (
-            <Header back title="SearchResult" navigation={navigation} scene={scene} />
-          ),
-          cardStyle: { backgroundColor: "#F8F9FE" },
+    <DevStatus status="developing">
+      <favouriteStack.Navigator
+        screenOptions={{
+          mode: "card",
+          headerShown: true,
         }}
-      />
-
-    </favouriteStack.Navigator>
+      >
+        <favouriteStack.Screen
+          name="Favourite"
+          component={SearchResult}
+          options={{
+            header: ({ navigation, scene }) => (
+              <Header back title="SearchResult" navigation={navigation} scene={scene} />
+            ),
+            cardStyle: { backgroundColor: "#F8F9FE" },
+          }}
+        />
+      </favouriteStack.Navigator>
+    </DevStatus>
   );
 }
 

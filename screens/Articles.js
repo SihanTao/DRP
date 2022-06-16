@@ -45,7 +45,7 @@ class Articles extends React.Component {
       <TouchableWithoutFeedback
         style={{ zIndex: 3 }}
         key={`product-${item.title}`}
-        onPress={() => navigation.navigate("Pro", { product: item })}
+        onPress={() => {}}
       >
         <Block center style={styles.productItem}>
           <Image
@@ -82,6 +82,9 @@ class Articles extends React.Component {
   renderCards = () => {
     return (
       <Block flex style={styles.group}>
+        <Text bold size={26} style={styles.title}>
+          This page is just an example of the style. Contents are not relevant to our app.
+        </Text>
         <Text bold size={16} style={styles.title}>
           Cards
         </Text>

@@ -12,6 +12,7 @@ import {
 import { argonTheme, tabs } from "../constants/";
 
 import React from "react";
+import DevStatus from "../constants/DevelopeStatus";
 
 const { width } = Dimensions.get("screen");
 
@@ -411,20 +412,22 @@ class Elements extends React.Component {
 
   render() {
     return (
-      <Block flex center>
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ paddingBottom: 30, width }}
-        >
-          {this.renderButtons()}
-          {this.renderText()}
-          {this.renderInputs()}
-          {this.renderSocial()}
-          {this.renderSwitches()}
-          {this.renderNavigation()}
-          {this.renderTableCell()}
-        </ScrollView>
-      </Block>
+      <DevStatus status="developing">
+        <Block flex center>
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{ paddingBottom: 30, width }}
+          >
+            {this.renderButtons()}
+            {this.renderText()}
+            {this.renderInputs()}
+            {this.renderSocial()}
+            {this.renderSwitches()}
+            {this.renderNavigation()}
+            {this.renderTableCell()}
+          </ScrollView>
+        </Block>
+      </DevStatus>
     );
   }
 }

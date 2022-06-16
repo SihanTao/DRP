@@ -9,38 +9,30 @@ import {
   Platform,
 } from 'react-native';
 import { SearchBar } from 'react-native-elements';
-import { Block, theme } from 'galio-framework';
-import Input from '../components/Input';
-import Icon from '../components/Icon';
+import { tabs } from '../constants';
+import { updateIdObject } from './utils';
 
 export default class DropDownSearchBar extends React.Component {
   constructor(props) {
     super(props);
     //setting default state
-    this.state = { isLoading: true, search: '' };
-    this.arrayholder = [];
+    this.state = { isLoading: false, search: '' };
+    this.arrayholder = tabs.categories;
   }
   componentDidMount() {
-    return fetch('https://json.extendsclass.com/bin/f909d1a010a9')
-      .then(response => response.json())
-      .then(responseJson => {
-        this.setState(
-          {
-            isLoading: false,
-            dataSource: responseJson,
-          },
-          function() {
-            this.arrayholder = responseJson;
-          }
-        );
-      })
-      .catch(error => {
-        console.error(error);
-      });
+    this.setState(
+      {
+        isLoading: false,
+        dataSource: tabs.categories,
+      },
+      function () {
+        this.arrayholder = tabs.categories;
+      }
+    );
   }
 
   search = text => {
-    console.log(text);
+    // console.log(text);
   };
   clear = () => {
     this.search.clear();
@@ -48,7 +40,7 @@ export default class DropDownSearchBar extends React.Component {
 
   SearchFilterFunction(text) {
     //passing the inserted text in textinput
-    const newData = this.arrayholder.filter(function(item) {
+    const newData = this.arrayholder.filter(function (item) {
       //applying filter for the inserted text in search bar
       const itemData = item.title ? item.title.toUpperCase() : ''.toUpperCase();
       const textData = text.toUpperCase();
@@ -76,7 +68,22 @@ export default class DropDownSearchBar extends React.Component {
     );
   };
 
+  renderItem = (item) => {
+    const { navigation } = this.props;
+    // console.log(item.title);
+    let idObject=updateIdObject(item.id);
+    // Single Comes here which will be repeatative for the FlatListItems
+    return (
+      <Text style={styles.textStyle}
+        onPress={
+          () => navigation.navigate('SearchResult', idObject)
+        }
+      >{item.title}</Text>
+    );
+  }
+
   render() {
+    const { navigation } = this.props;
     if (this.state.isLoading) {
       // Loading View while data is loading
       return (
@@ -92,33 +99,22 @@ export default class DropDownSearchBar extends React.Component {
         <SearchBar
           round
           lightTheme
-          inputStyle={{margin: 1}}
+          inputStyle={{ margin: 1 }}
           searchIcon={{ size: 24 }}
           onChangeText={text => this.SearchFilterFunction(text)}
           onClear={text => this.SearchFilterFunction('')}
           placeholder="What are you Looking for?"
           value={this.state.search}
+          autoFocus
         />
-        {/* <Input
-          right
-          color="black"
-          style={styles.search}
-          placeholder="What are you looking for?"
-          placeholderTextColor={'#8898AA'}
-          // onFocus={() => navigation.navigate('Pro')}
-          iconContent={<Icon size={16} color={theme.COLORS.MUTED} name="search-zoom-in" family="ArgonExtra" />}
-        /> */}
         <FlatList
           data={this.state.dataSource}
           ItemSeparatorComponent={this.ListViewItemSeparator}
           //Item Separator View
-          renderItem={({ item }) => (
-            // Single Comes here which will be repeatative for the FlatListItems
-            <Text style={styles.textStyle}>{item.title}</Text>
-          )}
+          renderItem={({ item }) => this.renderItem(item)}
           enableEmptySections={true}
           style={{ marginTop: 10 }}
-          keyExtractor={(item, index) => index.toString()}
+          keyExtractor={(item) => item.id}
         />
       </View>
     );
@@ -130,7 +126,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flex: 1,
     backgroundColor: 'white',
-    width:'100%',
+    width: '100%',
     marginTop: 0,
   },
   textStyle: {
