@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { SearchBar } from 'react-native-elements';
 import { tabs } from '../constants';
+import { updateIdObject } from './utils';
 
 export default class DropDownSearchBar extends React.Component {
   constructor(props) {
@@ -31,7 +32,7 @@ export default class DropDownSearchBar extends React.Component {
   }
 
   search = text => {
-    console.log(text);
+    // console.log(text);
   };
   clear = () => {
     this.search.clear();
@@ -70,36 +71,7 @@ export default class DropDownSearchBar extends React.Component {
   renderItem = (item) => {
     const { navigation } = this.props;
     // console.log(item.title);
-
-    let idObject;
-
-    switch (item.id) {
-      case 'study_space':
-        idObject = {
-          studySpace: true,
-        };
-        break;
-      case 'toilet':
-        idObject = {
-          toilet: true,
-        };
-        break;
-      case 'cafe':
-        idObject = {
-          cafe: true,
-        };
-        break;
-      case 'water_fountain':
-        idObject = {
-          waterfountain: true,
-        };
-        break;
-      default:
-        idObject = {
-          studySpace: true,
-        }
-    }
-
+    let idObject=updateIdObject(item.id);
     // Single Comes here which will be repeatative for the FlatListItems
     return (
       <Text style={styles.textStyle}

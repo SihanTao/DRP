@@ -49,7 +49,7 @@ const SearchButton = ({ isWhite, style, navigation }) => (
 
 const onSelectedItemsChange = (selectedItems) => {
   // do something with selectedItems
-  console.log('Selected Items: ', selectedItems);
+  // console.log('Selected Items: ', selectedItems);
 };
 
 const items = [{

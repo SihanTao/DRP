@@ -68,7 +68,6 @@ export default class SearchBarWithTag extends React.Component {
 	}
 
 	handleScrollLeft() {
-		console.log()
 		let scrollLeft = this.inputWrapperRef.current.scrollLeft
 		if (scrollLeft !== 0) {
 			this.inputWrapperRef.current.scrollLeft = Math.max(0, scrollLeft - 8);

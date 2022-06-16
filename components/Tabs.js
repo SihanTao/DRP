@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Dimensions, FlatList, Animated } from 'react-native';
 import { Block, theme } from 'galio-framework';
-
+import { updateIdObject } from './utils'
 import TagDemo from "../screens/Tag";
 
 const { width } = Dimensions.get('screen');
@@ -53,34 +53,7 @@ export default class Tabs extends React.Component {
 
     // Here navigation
     // console.log(id);
-    let idObject;
-
-    switch (id) {
-      case 'study_space': 
-        idObject = {
-          studySpace: true,
-        };
-        break;
-      case 'toilet':
-        idObject = {
-          toilet: true,
-        };
-        break;
-      case 'cafe':
-        idObject = {
-          cafe: true,
-        };
-        break;
-      case 'water_fountain':
-        idObject = {
-          waterfountain: true,
-        };
-        break;
-      default:
-        idObject = {};
-        break;
-    }
-    
+    let idObject = updateIdObject(id);
     navigation.navigate('SearchResult', idObject);
   }
 

@@ -26,7 +26,7 @@ export default function Information(props) {
   ]
   const currentTags = []
 
-  console.log(item);
+  // console.log(item);
   // Create customised tags for study & toilet
   if (item.study) {
     generateStudyPlaceTags(item);
