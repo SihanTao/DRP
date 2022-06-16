@@ -195,16 +195,12 @@ export default function SearchResult(props) {
 
   useEffect(() => {
     getData(filters);
-  }, [filters])
-
-  useEffect(() => {
-    getData(filters);
     const willFocusSubscription = props.navigation.addListener('focus', () => {
       getData(filters);
     });
 
     return willFocusSubscription;
-  }, []);
+  }, [filters]);
 
   return (
     <Block safe fluid style={styles.container}>
