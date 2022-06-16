@@ -89,6 +89,64 @@ export default function Information(props) {
     }
   }
 
+  // const imagesList = [{
+  //   url: 'https://aboutreact.com/wp-content/uploads/2018/08/react_nativeset_opacity_of_image.png',
+
+  // }, 
+// ]
+
+  const renderMap = (item) => {
+    const image = item.url
+    return (
+      <Block flex>
+      <Image source={image} style={styles.fullImage} />
+      </Block>
+    )
+  }
+
+  const renderUrl = () => {
+    return (
+      <>
+      <Text bold size={25} style={styles.heading}>Externel Website</Text>
+      <TouchableWithoutFeedback
+              onPress={() => navigation.navigate("webpage",
+                  {
+                    url: item.url,
+                    title: item.name,
+                  })
+                }
+              >
+              <Text style={styles.url}>{item.url}</Text>
+            </ TouchableWithoutFeedback>
+      </>
+    )
+  }
+
+  function renderOptions() {
+    const { navigation } = props;
+    const optionLeft = "Information";
+    const optionRight = "Map";
+    return (
+      <Block row style={styles.options}>
+
+        <Button style={[styles.tab]} onPress={() => {}}>
+          <Block row middle style={{ backgroundColor: 'black' }}>
+            <Icon name="information" family="ArgonExtra" style={{ paddingRight: 8 }} color={argonTheme.COLORS.ICON} />
+            <Text size={16} style={styles.tabTitle}>{optionLeft}</Text>
+          </Block>
+        </Button>
+
+        <Button style={styles.tab} onPress={() => {}}>
+          <Block row middle>
+            <Icon size={16} name="map" family="ArgonExtra" style={{ paddingRight: 8 }} color={argonTheme.COLORS.ICON} />
+            <Text size={16} style={styles.tabTitle}>{optionRight}</Text>
+          </Block>
+        </Button>
+
+      </Block>
+    );
+  }
+
   function renderProduct(item, index) {
     const image = item.url
     return (
@@ -140,6 +198,7 @@ export default function Information(props) {
         <Tabs
           data={currentTags}
           navigation={navigation}
+          isInfo={true}
         />
       </Block>
       <Block flex center style={styles.home}>
@@ -181,6 +240,7 @@ export default function Information(props) {
             style={{ padding: 10 }}
           />
 
+          {(item.url === '' || item.url === undefined) ? null : renderUrl()}
         </ ScrollView>
       </ Block>
     </Block>
@@ -220,7 +280,12 @@ const styles = StyleSheet.create({
     marginHorizontal: 15,
     marginTop: 0,
     marginBottom: 20,
-
+  },
+  url: {
+    marginHorizontal: 15,
+    marginTop: 0,
+    marginBottom: 20,
+    color: 'blue',
   },
   container: {
     flex: 1,

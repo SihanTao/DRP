@@ -12,10 +12,9 @@ const facilities = [
           "Electrical and Electronic Engineering Building 2nd floor? Cozy and" +
           "nice. A wonderful place to enjoy your holiday.",
         photo: 'https://i.ibb.co/6shJ6fZ/EEE-Water-Fountain-1.jpg',
-        maps: [  // TODO: Add corrent map
+        maps: [
             {
-                url: 'https://ih1.redbubble.net/image.959951874.3860/pp,840x' +
-                     '830-pad,1000x1000,f8f8f8.jpg'
+                url: "https://i.ibb.co/bHZkqHx/EEE-Building.png"
             }
         ],
         url: '',
@@ -34,10 +33,9 @@ const facilities = [
             'Huxley ground floor, inside computing lab, need to access lab\n' +
             'Go straight for 20 meters',
         photo: 'https://i.ibb.co/LQtJYJM/computing-lab-water.jpg',
-        maps: [  // TODO: Add corrent map
+        maps: [
             {
-                url: 'https://ih1.redbubble.net/image.959951874.3860/pp,840x' +
-                     '830-pad,1000x1000,f8f8f8.jpg'
+                url: "https://i.ibb.co/Qv6RchB/Huxley-L2-Water-Fountain.png"
             }
         ],
         url: '',
@@ -56,10 +54,9 @@ const facilities = [
         description:
             'Inside Senior common room, next to the food-selling place\n',
         photo: 'https://i.ibb.co/dLk9zCj/Cafe-water.jpg',
-        maps: [  // TODO: Add corrent map
+        maps: [
             {
-                url: 'https://ih1.redbubble.net/image.959951874.3860/pp,840x' +
-                     '830-pad,1000x1000,f8f8f8.jpg'
+                url: "https://i.ibb.co/BKfFcBx/SCR.png"
             }
         ],
         url: '',
@@ -79,10 +76,9 @@ const facilities = [
             'Sherfield 2nd floor, next to the accessible toilets\n' +
             'There are 2 of them both next to accessible toilets',
         photo: 'https://i.ibb.co/Kznwhmb/sherfield-2-water.jpg',
-        maps: [  // TODO: Add corrent map
+        maps: [
             {
-                url: 'https://ih1.redbubble.net/image.959951874.3860/pp,840x' +
-                     '830-pad,1000x1000,f8f8f8.jpg'
+                url: "https://i.ibb.co/9pcMtvh/Sherfield-Water-Fountain.png"
             }
         ],
         url: '',
@@ -107,10 +103,9 @@ const facilities = [
             'Group study - level 1\n' +
             'Height adjustable desks - levels 2 and 3\n',
         photo: 'https://www.imperial.ac.uk/media/migration/administration-and-support-services/0000-191111-autumn-library-queens-lawn-018_1635242587445_x2.jpg',
-        maps: [  // TODO: Add corrent map
+        maps: [
             {
-                url: 'https://ih1.redbubble.net/image.959951874.3860/pp,840x' +
-                     '830-pad,1000x1000,f8f8f8.jpg'
+                url: 'https://i.ibb.co/2s8PsJr/Central-Lib.png'
             }
         ],
         url: 'https://www.imperial.ac.uk/admin-services/library/use-the-library/our-libraries/central-library/',
@@ -130,10 +125,9 @@ const facilities = [
             'Silent Study: Chemistry Building Rooms 460, 537\n' +
             'Group Study: Chemistry Building Rooms 430, 444, 538, 561',
         photo: 'https://pxl-imperialacuk.terminalfour.net/fit-in/959x430/prod01/channel_2/media/migration/administration-and-support-services/211029-gostudy-spaces-rm537-001_1635779844596_x4.jpg',
-        maps: [  // TODO: Add corrent map
+        maps: [
             {
-                url: 'https://ih1.redbubble.net/image.959951874.3860/pp,840x' +
-                     '830-pad,1000x1000,f8f8f8.jpg'
+                url: "https://i.ibb.co/G5dpT3q/Chemistry-Building.png"
             }
         ],
         url: 'https://www.imperial.ac.uk/admin-services/library/use-the-library/our-libraries/gostudy/',
@@ -253,10 +247,9 @@ const facilities = [
             FEMALE: true,
         },
         photo: 'https://w7.pngwing.com/pngs/310/99/png-transparent-unisex-public-toilet-bathroom-fee-s-text-bathroom-logo.png',
-        maps: [  // TODO: Add corrent map
+        maps: [
             {
-                url: 'https://ih1.redbubble.net/image.959951874.3860/pp,840x' +
-                     '830-pad,1000x1000,f8f8f8.jpg'
+                url: "https://i.ibb.co/2s8PsJr/Central-Lib.png"
             }
         ],
         description: "Library Cafe",
@@ -351,8 +344,7 @@ const facilities = [
         numRatings: 0,
         maps: [  // TODO: Add corrent map
             {
-                url: 'https://ih1.redbubble.net/image.959951874.3860/pp,840x' +
-                     '830-pad,1000x1000,f8f8f8.jpg'
+                url: "https://i.ibb.co/BKfFcBx/SCR.png"
             }
         ],
     }, {
@@ -418,10 +410,9 @@ const facilities = [
         location: "The Library Café is located on the ground floor of the Imperial College Library Building, which faces onto the Queen's Lawn",
         description: "Whether you are looking for a quick pastry for breakfast, a filling baked potato for lunch, or simply a warm beverage and a space to study, the Library Café is a great choice morning, afternoon or night. With longer opening hours than many of our other outlets, the Library Café is there whenever you need to refuel after a hard day's work. Boasting comfortable booths and PCs connected to the College network it also makes an ideal place to study.",
         photo: "https://pxl-imperialacuk.terminalfour.net/prod01/channel_2/media/migration/administration-and-support-services/img-1493_1643298046507_x4.jpg",
-        maps: [  // TODO: Add corrent map
+        maps: [
             {
-                url: 'https://ih1.redbubble.net/image.959951874.3860/pp,840x' +
-                     '830-pad,1000x1000,f8f8f8.jpg'
+                url: "https://i.ibb.co/2s8PsJr/Central-Lib.png"
             }
         ],
     }, {
@@ -439,10 +430,9 @@ const facilities = [
         location: "Neo Pizza and Pasta can be found in the JCR.",
         description: "Try one of our freshly prepared pizzas using only the very best ingredients.",
         photo: "https://pxl-imperialacuk.terminalfour.net/prod01/channel_2/media/migration/administration-and-support-services/vecteezy-four-pizza-on-a-dark-wooden-background-807105_1620134120021_x4.jpg",
-        maps: [  // TODO: Add corrent map
+        maps: [
             {
-                url: 'https://ih1.redbubble.net/image.959951874.3860/pp,840x' +
-                     '830-pad,1000x1000,f8f8f8.jpg'
+                url: "https://i.ibb.co/BKfFcBx/SCR.png"
             }
         ],
     }, 
@@ -456,10 +446,9 @@ const facilities = [
           "don't no that it is planning to fight for the liberty of all" +
           "microwave ovens.",
         photo: "https://i.ibb.co/RBFq25S/EEE-Microwave-Oven-1.jpg",
-        maps: [  // TODO: Add corrent map
+        maps: [
             {
-                url: 'https://ih1.redbubble.net/image.959951874.3860/pp,840x' +
-                     '830-pad,1000x1000,f8f8f8.jpg'
+                url: "https://i.ibb.co/bHZkqHx/EEE-Building.png"
             }
         ],
     }, {
@@ -470,10 +459,9 @@ const facilities = [
         location: "Huxley 223. Inside DoC Lab Area",
         description: "Fridge, Coffee machine & microwave!",
         photo: "https://i.ibb.co/H2sxYnp/Do-CStudent-Tea-Point.jpg",
-        maps: [  // TODO: Add corrent map
+        maps: [
             {
-                url: 'https://ih1.redbubble.net/image.959951874.3860/pp,840x' +
-                     '830-pad,1000x1000,f8f8f8.jpg'
+                url: "https://i.ibb.co/bHZkqHx/EEE-Building.png"
             }
         ],
     }, {
@@ -484,10 +472,9 @@ const facilities = [
         location: "Chemistry Building 448.",
         description: "GoStudy is open to all students and offers a variety of study environments to suit your needs including Silent Study, Group Study and Breakout Spaces where you can eat and drink.",
         photo: "https://pxl-imperialacuk.terminalfour.net/fit-in/959x430/prod01/channel_2/media/migration/administration-and-support-services/gostudy8_1635780402942_x4.jpg",
-        maps: [  // TODO: Add corrent map
+        maps: [
             {
-                url: 'https://ih1.redbubble.net/image.959951874.3860/pp,840x' +
-                     '830-pad,1000x1000,f8f8f8.jpg'
+                url: "https://i.ibb.co/G5dpT3q/Chemistry-Building.png"
             }
         ],
     }
