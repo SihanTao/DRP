@@ -1,6 +1,6 @@
 import React from "react";
 import { View, StyleSheet, Dimensions, ScrollView, ImageBackground, Image, Modal, TouchableWithoutFeedback } from "react-native";
-import DropDownSearchBar from "../components/DropDownSearchBar";
+import { Rating, AirbnbRating } from 'react-native-ratings';
 import { Block, theme } from 'galio-framework';
 import goStudySpaceSlideShow from "../constants/goStudySpaceSlideShow";
 import Tabs from "../components/Tabs";
@@ -89,14 +89,14 @@ export default function Information(props) {
     return (
       <Block row style={styles.options}>
 
-        <Button style={[styles.tab]} onPress={() => {}}>
+        <Button style={[styles.tab]} onPress={() => { }}>
           <Block row middle style={{ backgroundColor: 'black' }}>
             <Icon name="information" family="ArgonExtra" style={{ paddingRight: 8 }} color={argonTheme.COLORS.ICON} />
             <Text size={16} style={styles.tabTitle}>{optionLeft}</Text>
           </Block>
         </Button>
 
-        <Button style={styles.tab} onPress={() => {}}>
+        <Button style={styles.tab} onPress={() => { }}>
           <Block row middle>
             <Icon size={16} name="map" family="ArgonExtra" style={{ paddingRight: 8 }} color={argonTheme.COLORS.ICON} />
             <Text size={16} style={styles.tabTitle}>{optionRight}</Text>
@@ -127,6 +127,10 @@ export default function Information(props) {
       </Block>
     );
   };
+
+  function ratingCompleted(rating) {
+    console.log("Rating is: " + rating);
+  }
 
   return (
     <Block safe fluid style={styles.container}>
@@ -183,10 +187,20 @@ export default function Information(props) {
               <Image source={toiletMap} style={styles.fullImage} />
             </ TouchableWithoutFeedback>
           </Block>
+          <Text bold size={25} style={styles.heading}>Rate the facility!</Text>
+          <Rating
+            type='star'
+            ratingCount={5}
+            imageSize={60}
+            onFinishRating={ratingCompleted}
+            style={{ padding: 10 }}
+          />
+
         </ ScrollView>
       </ Block>
     </Block>
   );
+
 }
 
 const styles = StyleSheet.create({
