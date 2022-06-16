@@ -27,11 +27,11 @@ function YetToBeImplementedScreen () {
  *    shown if constants.DevStatus is "publishing". Otherwise, whatever that the
  *    function wraps is simply displayed. This value defaults to "done".
  * @param {*} pubHide
- *    A boolean value. When set to true, developing components will be hidden
+ *    A boolean value. When set to true, the component will be hidden
  *    if constants.DevStatus is "publishing". This value defaults to false.
  */
 export default function DevStatus ({status="done", children, pubHide=false}) {
-  if (status!="developing" && DEV_STATUS=="publishing" && pubHide) {
+  if (DEV_STATUS=="publishing" && pubHide) {
     return (<></>)
   }
   if (status=="developing" && DEV_STATUS=="publishing" && !pubHide) {
