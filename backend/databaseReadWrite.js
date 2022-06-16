@@ -114,5 +114,5 @@ export async function addRating(id, rating) {
         avgRating: avgRating
     });
 
-    alert("Thank you for rating the facility!");
+    return avgRating;
 };

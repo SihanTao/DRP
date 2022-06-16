@@ -21,7 +21,7 @@ const facilities = [
         url: '',
         location: 'EEE 2nd-floor cafe',
         openingHour: '',
-        rating: 4,
+        avgRating: 0,
         numRatings: 0,
     }, {
         name: 'Computing Lab Water Fountain',
@@ -150,8 +150,6 @@ const facilities = [
             QUIET: false
         },
         description: "Huxley Building 219...",
-        rating: 0,
-        numRatings: 0,
         photo: 'https://www.imperial.ac.uk/ImageCropToolT4/imageTool/uploaded-images/IMG_20151110_122250365--tojpeg_1447160413584_x2.jpg',
         maps: [
             {
@@ -172,8 +170,6 @@ const facilities = [
             QUIET: false
         },
         description: "Huxley Building 341&342...",
-        rating: 0,
-        numRatings: 0,
         photo: 'https://i.ibb.co/HTjWccS/341-342.jpg',
         maps: [
             {
@@ -194,8 +190,6 @@ const facilities = [
             QUIET: false
         },
         description: "Huxley Building 212...",
-        rating: 0,
-        numRatings: 0,
         photo: 'https://i.ibb.co/M2F716f/212.jpg',
         maps: [
             {
@@ -219,8 +213,6 @@ const facilities = [
             FEMALE: false,
         },
         description: "Huxley Building 227...",
-        rating: 0,
-        numRatings: 0,
         photo: 'https://i.ibb.co/MnY9Fx3/227.jpg',
         maps: [
             {
@@ -241,8 +233,6 @@ const facilities = [
             FEMALE: true,
         },
         description: "Huxley Building 224...",
-        rating: 0,
-        numRatings: 0,
         photo: 'https://i.ibb.co/SPxzrdj/224.jpg',
         maps: [
             {

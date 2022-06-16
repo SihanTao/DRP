@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, StyleSheet, Dimensions, ScrollView, ImageBackground, Image, Modal, TouchableWithoutFeedback } from "react-native";
 import { Rating, AirbnbRating } from 'react-native-ratings';
 import { Block, theme } from 'galio-framework';
@@ -18,6 +18,7 @@ const toiletMap = require("../assets/imgs/huxley_floor2.jpeg");
 const { width } = Dimensions.get('screen');
 
 export default function Information(props) {
+  const [rating, setRating] = useState(0);
   const { navigation } = props;
   const item = props.route.params.passeditem;
   const id = props.route.params.id;
@@ -79,46 +80,6 @@ export default function Information(props) {
     }
   }
 
-  // const imagesList = [{
-  //   url: 'https://aboutreact.com/wp-content/uploads/2018/08/react_nativeset_opacity_of_image.png',
-
-  // }, 
-// ]
-
-  const renderMap = (item) => {
-    const image = item.url
-    return (
-      <Block flex>
-      <Image source={image} style={styles.fullImage} />
-      </Block>
-    )
-  }
-
-  function renderOptions() {
-    const { navigation } = props;
-    const optionLeft = "Information";
-    const optionRight = "Map";
-    return (
-      <Block row style={styles.options}>
-
-        <Button style={[styles.tab]} onPress={() => { }}>
-          <Block row middle style={{ backgroundColor: 'black' }}>
-            <Icon name="information" family="ArgonExtra" style={{ paddingRight: 8 }} color={argonTheme.COLORS.ICON} />
-            <Text size={16} style={styles.tabTitle}>{optionLeft}</Text>
-          </Block>
-        </Button>
-
-        <Button style={styles.tab} onPress={() => { }}>
-          <Block row middle>
-            <Icon size={16} name="map" family="ArgonExtra" style={{ paddingRight: 8 }} color={argonTheme.COLORS.ICON} />
-            <Text size={16} style={styles.tabTitle}>{optionRight}</Text>
-          </Block>
-        </Button>
-
-      </Block>
-    );
-  }
-
   function renderProduct(item, index) {
     const image = item.url
     return (
@@ -140,10 +101,12 @@ export default function Information(props) {
     );
   };
 
-  function ratingCompleted(rating) {
+  async function ratingCompleted(rating) {
     // console.log("Rating is: " + rating);
     // console.log("In ratingCompleted function " + id);
-    addRating(id, rating);
+    const avgRating = await addRating(id, rating);
+    setRating(avgRating);
+    alert("Thank you for rating the facility!");
   }
 
   return (
@@ -196,26 +159,11 @@ export default function Information(props) {
                 imagesList: item.maps,
               })}
             >
-              {/* <ScrollView
-                horizontal={true}
-                pagingEnabled={true}
-                decelerationRate={0}
-                scrollEventThrottle={16}
-                snapToAlignment="center"
-                showsHorizontalScrollIndicator={false}
-                contentContainerStyle={{
-                  paddingVertical: theme.SIZES.BASE / 2,
-                }}
-              >
-                {imagesList &&
-                  imagesList.map((item, index) =>
-                    renderProduct(item, index)
-                  )}
-              </ScrollView> */}
               <Image source={{uri: item.maps[0].url}} style={styles.fullImage} />
             </ TouchableWithoutFeedback>
           </Block>
           <Text bold size={25} style={styles.heading}>Rate the facility!</Text>
+          <Text style={styles.description}>Current Rating: {rating}</Text>
           <Rating
             type='star'
             ratingCount={5}

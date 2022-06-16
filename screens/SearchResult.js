@@ -134,7 +134,7 @@ export default function SearchResult(props) {
     // Initial State of Filter
     const newCategory = [];
     const params = props.route.params;
-    console.log(params);
+    // console.log(params);
 
     if (params.studySpace) {
       if (TAGS[1].active) {
