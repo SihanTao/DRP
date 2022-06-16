@@ -89,6 +89,24 @@ export default function Information(props) {
     )
   }
 
+  const renderUrl = () => {
+    return (
+      <>
+      <Text bold size={25} style={styles.heading}>Externel Website</Text>
+      <TouchableWithoutFeedback
+              onPress={() => navigation.navigate("webpage",
+                  {
+                    url: item.url,
+                    title: item.name,
+                  })
+                }
+              >
+              <Text style={styles.url}>{item.url}</Text>
+            </ TouchableWithoutFeedback>
+      </>
+    )
+  }
+
   function renderOptions() {
     const { navigation } = props;
     const optionLeft = "Information";
@@ -204,6 +222,7 @@ export default function Information(props) {
               <Image source={{uri: item.maps[0].url}} style={styles.fullImage} />
             </ TouchableWithoutFeedback>
           </Block>
+          {(item.url === '' || item.url === undefined) ? null : renderUrl()}
         </ ScrollView>
       </ Block>
     </Block>
@@ -242,7 +261,12 @@ const styles = StyleSheet.create({
     marginHorizontal: 15,
     marginTop: 0,
     marginBottom: 20,
-
+  },
+  url: {
+    marginHorizontal: 15,
+    marginTop: 0,
+    marginBottom: 20,
+    color: 'blue',
   },
   container: {
     flex: 1,
