@@ -20,6 +20,9 @@ const { width } = Dimensions.get('screen');
 export default function Information(props) {
   const { navigation } = props;
   const item = props.route.params.passeditem;
+  const id = props.route.params.id;
+  console.log("Here in Information " + id);
+
   // console.log(item);
   const displayImages = [
     {
@@ -131,9 +134,9 @@ export default function Information(props) {
   };
 
   function ratingCompleted(rating) {
-    console.log("Rating is: " + rating);
-    console.log(item)
-    addRating(item.id, rating);
+    // console.log("Rating is: " + rating);
+    // console.log("In ratingCompleted function " + id);
+    addRating(id, rating);
   }
 
   return (

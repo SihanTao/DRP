@@ -64,15 +64,15 @@ class ListElement extends React.Component {
         <TouchableOpacity
           onPress={
             () => {
-              console.log(idList[index]);
+              // console.log(idList[index]);
               navigation.navigate("Information", {
                 passeditem: item,
+                id: idList[index],
               })
             }
           }
         >
           <ImageBackground
-            //source={Images.Snooker}
             source={{ uri: image }}
             style={[
               styles.imageBlock,
@@ -88,9 +88,6 @@ class ListElement extends React.Component {
               <Text style={styles.listTitle} size={25} bold >
                 {item.name}
               </Text>
-              {/* <Text style={styles.listTitle} size={25} bold >
-                {currentTags[0]}
-              </Text> */}
 
               <Block style={{ flexDirection: "row", flexWrap: "wrap" }}>
                 {currentTags.map((tag, index) => {

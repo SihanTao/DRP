@@ -1,7 +1,7 @@
 import { getDatabase, ref, set, onValue } from "firebase/database";
 import uuid from 'react-native-uuid';
 import { async } from "@firebase/util";
-import { getFirestore, collection, addDoc, setDoc, doc, runTransaction } from "firebase/firestore";
+import { getFirestore, collection, addDoc, setDoc, doc, runTransaction, updateDoc } from "firebase/firestore";
 
 export function writeUserData(name, email, password) {
     const db = getDatabase();
@@ -93,14 +93,11 @@ export async function addRating(id, rating) {
     //         return transaction.set(newRatingDocument, rating);
     //     });
     // });
+    console.log('In addRating function ' + id);
     const db = getFirestore();
-    const facilityRef = collection(db, 'facilities');
-    const document = doc(facilityRef, id);
-    const newRatingDocument = doc(db, 'facilities', id, 'rating');
+    const document = doc(db, 'facilities', id);
 
-    await runTransaction(db, async (transaction) => {
-        const d = await transaction.get(document);
-
-        console.log(d);
-    })
+    await updateDoc(document, {
+        rating: {rating},
+    });
 };
