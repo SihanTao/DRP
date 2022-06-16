@@ -48,8 +48,6 @@ export default function SearchResult(props) {
   const [data, setData] = useState([]);
   const [filters, setFilters] = useState([]);
 
-
-
   async function getData(filters) {
     const list = [];
     const placeRef = collection(getFirestore(), "facilities");
@@ -141,15 +139,15 @@ export default function SearchResult(props) {
     // console.log(params);
 
     if (params.studySpace) {
-      if (TAGS[1].active) {
+      if (TAGS[0].active) {
         newCategory.push('Silent Study');
       }
 
-      if (TAGS[2].active) {
+      if (TAGS[1].active) {
         newCategory.push('Group Study');
       }
 
-      if (TAGS[3].active) {
+      if (TAGS[2].active) {
         newCategory.push('Quiet Study');
       }
     } else if (params.toilet) {
