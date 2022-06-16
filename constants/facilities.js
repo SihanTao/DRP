@@ -2,7 +2,29 @@ const facilities = [
 
     // Water-fountain
     {
-        name: 'Computing Lab water fountain',
+        name: 'EEE Cafe Water Fountain',
+        waterfountain: true,
+        STUDY: {
+            EEE: true,
+            floor: 2
+        },
+        description:
+          "Electrical and Electronic Engineering Building 2nd floor? Cozy and" +
+          "nice. A wonderful place to enjoy your holiday.",
+        photo: 'https://i.ibb.co/6shJ6fZ/EEE-Water-Fountain-1.jpg',
+        maps: [  // TODO: Add corrent map
+            {
+                url: 'https://ih1.redbubble.net/image.959951874.3860/pp,840x' +
+                     '830-pad,1000x1000,f8f8f8.jpg'
+            }
+        ],
+        url: '',
+        location: 'EEE 2nd-floor cafe',
+        openingHour: '',
+        rating: 4,
+        numRatings: 0,
+    }, {
+        name: 'Computing Lab Water Fountain',
         waterfountain: true,
         STUDY: {
             Huxley: true,
@@ -406,6 +428,21 @@ const facilities = [
     }, 
     // microwave 
     {
+        name: 'EEE Cafe Microwave Oven',
+        microwave: true,
+        location: "EEE 2nd-floor cafe",
+        description:
+          "A microwave oven which normally sits there quietly. But most people" +
+          "don't no that it is planning to fight for the liberty of all" +
+          "microwave ovens.",
+        photo: "https://i.ibb.co/RBFq25S/EEE-Microwave-Oven-1.jpg",
+        maps: [  // TODO: Add corrent map
+            {
+                url: 'https://ih1.redbubble.net/image.959951874.3860/pp,840x' +
+                     '830-pad,1000x1000,f8f8f8.jpg'
+            }
+        ],
+    }, {
         name: 'Department of Computing Studnent Tea Point',
         microwave: true,
         location: "Huxley 223. Inside DoC Lab Area",
