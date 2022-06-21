@@ -32,7 +32,7 @@ export default function SearchResult(props) {
     title: "Central Library",
     latlng: { latitude: 51.49834075416967, longitude: -0.1782269478696598 }
   }, {
-    id: CHEM, 
+    id: CHEM,
     title: "Chemistry Building (Sir Ernst Chain Building)",
     latlng: { latitude: 51.49768989822215, longitude: -0.17812193650712865 }
   }, {
@@ -157,9 +157,11 @@ export default function SearchResult(props) {
       conditions.push(where('microwave', '==', true))
     }
 
+    conditions.push(where("building", "==", pressedLocation));
+
     // conditions.push(orderBy("avgRating", "desc"));
 
-    const q = query(placeRef, ...conditions, orderBy("avgRating", "desc"));
+    const q = query(placeRef, ...conditions);
 
     const querySnapshot = await getDocs(q);
     const idlist = []
@@ -235,11 +237,7 @@ export default function SearchResult(props) {
   }
 
   // START OF LOCATION FILTER 
-
-  function updateLocation() {
-    const filterWithLocation = [...filters];
-
-  }
+  const [pressedLocation, setPressedLocation] = useState("");
 
   useEffect(() => {
     getData(filters);
@@ -248,7 +246,7 @@ export default function SearchResult(props) {
     });
 
     return willFocusSubscription;
-  }, [filters]);
+  }, [filters, pressedLocation]);
 
   // Get user location
   const [location, setLocation] = useState(null);
@@ -289,6 +287,7 @@ export default function SearchResult(props) {
     text = "";
   }
 
+  // END OF MAP LOADING AND LOCATION
   return (
     <Block safe fluid style={styles.container}>
       <Block style={{ flexDirection: "row", flexWrap: "nowrap" }}>
@@ -308,7 +307,9 @@ export default function SearchResult(props) {
                 onPress={() => {
                   toggleTag(index);
                   updateFilters();
-                }} />
+                  console.log(filters);
+                }}
+              />
             </Block>
           );
         })}
@@ -324,7 +325,11 @@ export default function SearchResult(props) {
               key={index}
               coordinate={marker.latlng}
               title={marker.title}
-              onPress={e => console.log(e.nativeEvent)}
+              onPress={e => {
+                setPressedLocation(e.nativeEvent.id);
+                // console.log(pressedLocation);
+                // console.log(e.nativeEvent);
+              }}
               identifier={marker.id}
             />
           ))}
