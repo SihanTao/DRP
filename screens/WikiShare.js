@@ -29,10 +29,6 @@ function HookFormImplementation(props) {
   const { control, handleSubmit } = useForm();
   const onSubmit = (data) => {
     addSingleDataToFireStore(data, {coll_name: "tmp", doc_name: data.name})
-    // Alert.alert(
-    //   "Submitted Successfully",
-    //   JSON.stringify(data),
-    // )
   };
 
   const Heading = ({title="Title"}) => (<>
@@ -98,7 +94,7 @@ function HookFormImplementation(props) {
             title="submit"
             onPress={handleSubmit(onSubmit)}
           />
-          <DevStatus status="developing" pubHide={true}>
+          <DevStatus forceHide={true} status="developing" pubHide={true}>
             <View style={[{height: 1000}]} />
             <Button
               title="SyncDataBase" 

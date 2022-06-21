@@ -3,6 +3,7 @@ import uuid from 'react-native-uuid';
 import { async } from "@firebase/util";
 import { getFirestore, collection, addDoc, setDoc, doc, getDoc, updateDoc } from "firebase/firestore";
 import { Alert } from "react-native";
+import { DEV_STATUS } from "../constants/DevStatus"
 
 export function writeUserData(name, email, password) {
     const db = getDatabase();
@@ -50,7 +51,12 @@ export async function addSingleDataToFireStore(data, {coll_name, doc_name}) {
     const db = getFirestore();
     const coll = collection(db, coll_name);
     await setDoc(doc(coll, doc_name), data)
-    Alert.alert("Data submitted to database")
+    if (DEV_STATUS != "publishing") {
+        Alert.alert(
+            "Successfully added to database",
+            JSON.stringify(data)
+        )
+    }
 }
 
 export async function testAddFireStore() {
