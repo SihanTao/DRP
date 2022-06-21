@@ -43,13 +43,30 @@ export async function addDataToFireStoreCustom(datas, {coll_name}) {
 }
 
 /**
- * This function uploads a piece of data to the fireStore database.
+ * Uploads and overwrites a piece of data to the fireStore database.
  * @param coll_name  collection name
  * @param doc_name   document name
  */
 export async function addSingleDataToFireStore(data, {coll_name, doc_name}) {
     const db = getFirestore();
     await setDoc(doc(db, coll_name, doc_name), data)
+    if (DEV_STATUS != "publishing") {
+        Alert.alert(
+            "Successfully added to database",
+            JSON.stringify(data)
+        )
+    }
+}
+
+/**
+ * Uploads and merges a piece of data to the fireStore database.
+ * @param coll_name  collection name
+ * @param doc_name   document name
+ */
+export async function mergeSingleDataToFireStore(data, {coll_name, doc_name}) {
+    const db = getFirestore();
+    const dataRef = doc(db, coll_name, doc_name);
+    await setDoc(dataRef, data, { merge: true });
     if (DEV_STATUS != "publishing") {
         Alert.alert(
             "Successfully added to database",
