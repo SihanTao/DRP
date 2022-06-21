@@ -63,7 +63,7 @@ export default [
         photo: 'https://i.ibb.co/zs9DwdZ/IMG-8541.jpg',
         maps: [
             {
-                url: "https://i.ibb.co/h9QW4RS/skepmton208c.jpg"
+                url: "https://i.ibb.co/7j5fQzw/Untitled-32.png"
             }
         ],
         url: '',
