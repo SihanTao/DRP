@@ -13,6 +13,7 @@ import { View } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import { addSingleDataToFireStore } from "../backend/databaseReadWrite";
 import sampleData from "../constants/sampleData"
+import { alertTrue, dataAddTag, dataHasTag } from "../backend/tagManager";
 
 const { height, width } = Dimensions.get('window');
 
@@ -100,14 +101,26 @@ function HookFormImplementation(props) {
             onPress={handleSubmit(onSubmit)}
           />
           <DevStatus forceHide={true} status="developing" pubHide={true}>
-            <View style={[{height: 1000}]} />
-            <Button
-              title="SyncDataBase" 
-              onPress={() => {
-                addDataToFireStoreCustom(sampleData, {dbName: "tmp"})
-                alert('Data added!')
-              }}
-            />
+            <View style={[{height: 100}]} />
+            <View style={[{flexDirection: "row"}]}>
+              <Button style={[{fles: 1}]}
+                title="dataHasTag" 
+                onPress={() => {
+                  const a = {
+                    name: "yes"
+                  }
+                  dataAddTag(a, { tag: "foo" })
+                  dataAddTag(a, { tag: "doo" })
+                  const x = dataHasTag(a, { tag: "doo" })
+                  alertTrue({ x })
+                }}
+              />
+              <Button style={[{flex: 1}]}
+                title="Foo" 
+                onPress={() => {
+                }}
+              />
+            </View>
           </DevStatus>
         </ScrollView>
       </Block>
