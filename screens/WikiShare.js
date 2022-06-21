@@ -13,11 +13,10 @@ import { View } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import { addSingleDataToFireStore } from "../backend/databaseReadWrite";
 import sampleData from "../constants/sampleData"
-import { alertTrue, dataAddTag, dataHasTag, dataRmvTag } from "../backend/tagManager";
+import { addDocUnderTag, alertTrue, dataAddTag, dataHasTag, dataRmvTag } from "../backend/tagManager";
+import { share_coll_name } from "../constants/ShareCons";
 
 const { height, width } = Dimensions.get('window');
-
-const collection_name = "tmp"
 
 /** A share page which allows users to upload wiki pages to database */
 export default function WikiShare(props) {
@@ -32,7 +31,7 @@ function HookFormImplementation(props) {
   const { control, handleSubmit } = useForm();
   const onSubmit = (data) => {
     addSingleDataToFireStore(data, {
-      coll_name: collection_name,
+      coll_name: share_coll_name,
       doc_name: data.name,
     })
   };
@@ -107,14 +106,14 @@ function HookFormImplementation(props) {
                 title="dataHasTag" 
                 onPress={() => {
                   const a = {
-                    name: "yes"
+                    name: "tmpp"
                   }
                   dataAddTag(a, { tag: "foo" })
                   dataAddTag(a, { tag: "doo" })
                   dataRmvTag(a, { tag: "foo" })
                   // const x = dataHasTag(a, { tag: "foo" })
-                  // alertTrue({ x })
-                  Alert.alert(JSON.stringify(a))
+                  alertTrue({ x: addDocUnderTag(a, { tag: "fooo" }) })
+                  // Alert.alert(JSON.stringify(a))
                 }}
               />
               <Button style={[{flex: 1}]}

@@ -1,9 +1,26 @@
 import React from "react";
 import { Alert } from "react-native";
+import { share_coll_name, share_tags_coll_name } from "../constants/ShareCons";
+import { mergeSingleDataToFireStore } from "./databaseReadWrite";
 
 // TODO
-export function addDocUnderTag() {
-
+export function addDocUnderTag(data, { tag }) {
+  if (!data.name) {
+    return false
+  }
+  const newTagInfo = {}
+  newTagInfo[data.name] = {
+    coll_name: share_coll_name,
+    doc_name: data.name,
+  }
+  mergeSingleDataToFireStore(
+    newTagInfo,
+    {
+      coll_name: share_tags_coll_name,
+      doc_name: tag,
+    }
+  )
+  return true
 }
 
 // TODO
@@ -30,7 +47,6 @@ export function filterDocsUnderTags() {
 export function dataHasTag(data, { tag }) {
   return data.tags[tag]
 }
-
 
 function tagsAddTag(tags, { tag }) {
   tags[tag] = true
