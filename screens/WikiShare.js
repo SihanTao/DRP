@@ -11,7 +11,7 @@ import { useState, useRef } from "react";
 import { useForm, useController } from 'react-hook-form';
 import { View } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
-import { addSingleDataToFireStore } from "../backend/databaseReadWrite";
+import { addSingleDataToFireStore, deleteFieldInFireStore } from "../backend/databaseReadWrite";
 import sampleData from "../constants/sampleData"
 import { addDocUnderTag, alertTrue, dataAddTag, dataHasTag, dataRmvTag } from "../backend/tagManager";
 import { share_coll_name } from "../constants/ShareCons";
@@ -99,11 +99,11 @@ function HookFormImplementation(props) {
             title="submit"
             onPress={handleSubmit(onSubmit)}
           />
-          <DevStatus forceHide={true} status="developing" pubHide={true}>
+          <DevStatus forceHide={false} status="developing" pubHide={true}>
             <View style={[{height: 100}]} />
             <View style={[{flexDirection: "row"}]}>
               <Button style={[{fles: 1}]}
-                title="dataHasTag" 
+                title="Button_A" 
                 onPress={() => {
                   const a = {
                     name: "tmpp"
@@ -111,14 +111,18 @@ function HookFormImplementation(props) {
                   dataAddTag(a, { tag: "foo" })
                   dataAddTag(a, { tag: "doo" })
                   dataRmvTag(a, { tag: "foo" })
-                  // const x = dataHasTag(a, { tag: "foo" })
-                  alertTrue({ x: addDocUnderTag(a, { tag: "fooo" }) })
+                  addDocUnderTag(a, { tag: "fooo" })
                   // Alert.alert(JSON.stringify(a))
                 }}
               />
               <Button style={[{flex: 1}]}
-                title="Foo" 
+                title="Button_B" 
                 onPress={() => {
+                  deleteFieldInFireStore({
+                    coll_name: "shared_tags",
+                    doc_name: "fooo",
+                    field_name: "tmpp",
+                  })
                 }}
               />
             </View>

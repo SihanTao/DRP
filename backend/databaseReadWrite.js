@@ -1,7 +1,7 @@
 import { getDatabase, ref, set, onValue } from "firebase/database";
 import uuid from 'react-native-uuid';
 import { async } from "@firebase/util";
-import { getFirestore, collection, addDoc, setDoc, doc, getDoc, updateDoc } from "firebase/firestore";
+import { getFirestore, collection, addDoc, setDoc, doc, getDoc, updateDoc, deleteField } from "firebase/firestore";
 import { Alert } from "react-native";
 import { DEV_STATUS } from "../constants/DevStatus"
 
@@ -49,7 +49,8 @@ export async function addDataToFireStoreCustom(datas, {coll_name}) {
  */
 export async function addSingleDataToFireStore(data, {coll_name, doc_name}) {
     const db = getFirestore();
-    await setDoc(doc(db, coll_name, doc_name), data)
+    const dataRef = doc(db, coll_name, doc_name);
+    await setDoc(dataRef, data)
     if (DEV_STATUS != "publishing") {
         Alert.alert(
             "Successfully added to database",
@@ -69,10 +70,30 @@ export async function mergeSingleDataToFireStore(data, {coll_name, doc_name}) {
     await setDoc(dataRef, data, { merge: true });
     if (DEV_STATUS != "publishing") {
         Alert.alert(
-            "Successfully added to database",
+            "Successfully merged to database",
             JSON.stringify(data)
         )
     }
+}
+
+/**
+ * Deletes a field from a document in the fireStore database.
+ * @param coll_name  collection name
+ * @param doc_name   document name
+ * @param field_name field name
+ */
+export async function deleteFieldInFireStore({coll_name, doc_name, field_name}) {
+    const db = getFirestore();
+    const dataRef = doc(db, coll_name, doc_name);
+    const data = {};
+    data[field_name] = deleteField();
+    await updateDoc(dataRef, data);
+    if (DEV_STATUS != "publishing") {
+        Alert.alert(
+            "Successfully deleted from database",
+            JSON.stringify(data)
+        )
+    };
 }
 
 export async function testAddFireStore() {
