@@ -28,7 +28,8 @@ export default class AutomatedSlideshow extends Component {
     render() {
         return (
             <Slideshow
-                onPress={this.props.onPress}
+                onPress={()=>this.props.showUrl(this.state.position)}
+                // onPress={this.props.onPress}
                 titleStyle={this.props.style}
                 dataSource={this.props.dataSource}
                 position={this.state.position}

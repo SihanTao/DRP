@@ -217,9 +217,9 @@ export default function Information(props) {
           <Text bold size={25} style={styles.heading}>Description</Text>
           <Text style={styles.description}>{item.description}</Text>
           <Text bold size={25} style={styles.heading}>Location</Text>
-          <Text style={styles.description}>Imperial College London, South Kensington Campus, London SW7 2AZ</Text>
+          <Text style={styles.description}>{(item.location === '' || item.location === undefined) ? "Imperial College London, South Kensington Campus, London SW7 2AZ" : item.location}</Text>
           <Text bold size={25} style={styles.heading}>Opening Hours</Text>
-          <Text style={styles.description}>24/7, close on holidays </Text>
+          <Text style={styles.description}>{(item.openingHour === '' || item.openingHour === undefined) ? "24/7 close on holidays" : item.openingHour}</Text>
           <Text bold size={25} style={styles.heading}>Map</Text>
           <Block flex style={styles.imageContainer}>
             <TouchableWithoutFeedback

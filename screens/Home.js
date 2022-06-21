@@ -40,6 +40,19 @@ class Home extends React.Component {
 //   )
 // }
 
+  showUrl = (position) => {
+    const { navigation } = this.props;
+    // navigation.navigate("webpage",
+    //   {
+    //     url: goStudySpaceSlideShow[position - 1].link,
+    //     title: goStudySpaceSlideShow[position - 1].title
+    //   })
+      navigation.navigate("Information", {
+        passeditem: goStudySpaceSlideShow[position],
+        url: goStudySpaceSlideShow[position].photo,
+        title: goStudySpaceSlideShow[position].name
+      })
+  }
   renderArticles = (noRecommendation) => {
     const { navigation } = this.props;
     return (
@@ -85,12 +98,13 @@ class Home extends React.Component {
         </Text> */}
         <Block flex card style={styles.category}>
           <AutomatedSlideshow
-            onPress={() => navigation.navigate("webpage",
-              {
-                url: 'https://www.imperial.ac.uk/admin-services/library/use-the-library/our-libraries/gostudy/',
-                title: "Go Study Space"
-              })
-            }
+            showUrl = {this.showUrl}
+            // {() => navigation.navigate("webpage",
+            //   {
+            //     url: 'https://www.imperial.ac.uk/admin-services/library/use-the-library/our-libraries/gostudy/',
+            //     title: "Go Study Space"
+            //   })
+            // }
             style={styles.goStudyTitle}
             dataSource={goStudySpaceSlideShow}
           ></AutomatedSlideshow>
@@ -99,7 +113,7 @@ class Home extends React.Component {
             </>
           </ Block> */}
         </Block>
-        <Block flex card style={styles.category}>
+        {/* <Block flex card style={styles.category}>
         <TouchableWithoutFeedback
             onPress={() => navigation.navigate("webpage",
               {
@@ -125,7 +139,7 @@ class Home extends React.Component {
               </Block>
             </ImageBackground>
           </TouchableWithoutFeedback>
-        </Block>
+        </Block> */}
 
       </ScrollView>
     )
