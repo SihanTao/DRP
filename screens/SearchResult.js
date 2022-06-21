@@ -61,6 +61,8 @@ export default function SearchResult(props) {
     latlng: { latitude: 51.49909979949402, longitude: -0.17636334514753066 }
   }])
 
+  const [showMap, setShowMap] = useState(true);
+
   // Here we could switch between different tags 
   // according to params
   function toggleTag(index) {
@@ -245,6 +247,7 @@ export default function SearchResult(props) {
     const willFocusSubscription = props.navigation.addListener('focus', () => {
       getData(filters);
     });
+    console.log(data)
 
     return willFocusSubscription;
   }, [filters, pressedLocation]);
@@ -291,6 +294,50 @@ export default function SearchResult(props) {
   // END OF MAP LOADING AND LOCATION
   return (
     <Block safe fluid style={styles.container}>
+      {!showMap && <Button title="Show Map" onPress={() => setShowMap(true)} />}
+
+      {showMap && <Block style={styles.container2}>
+        <Text p>Select a building to filter result.</Text>
+        <Block style={styles.mapContainer}>
+          {<MapView
+            style={styles.map}
+            initialRegion={region}
+            showsUserLocation={true}
+          >
+            {marker.map((marker, index) => (
+              <Marker
+                key={index}
+                coordinate={marker.latlng}
+                title={marker.title}
+                onPress={e => {
+                  setPressedLocation(e.nativeEvent.id);
+                  // console.log(pressedLocation);
+                  // console.log(e.nativeEvent);
+                }}
+                identifier={marker.id}
+              />
+            ))}
+
+          </MapView>}
+          {!location && <View style={styles.circles}>
+            <Progress.CircleSnail
+              style={styles.progress}
+              color={['#F44336', '#2196F3', '#009688']}
+            />
+          </View>}
+
+        </Block>
+        {(pressedLocation !== "") &&
+          <Button
+            title='Reset location or Press another pin'
+            onPress={() => {
+              setPressedLocation("");
+            }}
+          />
+        }
+        {showMap && <Button title="Hide Map" onPress={() => setShowMap(false)} />}
+
+      </Block>}
       <Block style={{ flexDirection: "row", flexWrap: "nowrap" }}>
         {tags.map((tag, index) => {
           const backgroundColor = tag.active ? tag.color : "#0000";
@@ -314,47 +361,16 @@ export default function SearchResult(props) {
           );
         })}
       </Block>
-      <Block style={styles.mapContainer}>
-        {<MapView
-          style={styles.map}
-          initialRegion={region}
-          showsUserLocation={true}
-        >
-          {marker.map((marker, index) => (
-            <Marker
-              key={index}
-              coordinate={marker.latlng}
-              title={marker.title}
-              onPress={e => {
-                setPressedLocation(e.nativeEvent.id);
-                // console.log(pressedLocation);
-                // console.log(e.nativeEvent);
-              }}
-              identifier={marker.id}
-            />
-          ))}
 
-        </MapView>}
-        {!location && <View style={styles.circles}>
-          <Progress.CircleSnail
-            style={styles.progress}
-            color={['#F44336', '#2196F3', '#009688']}
-          />
-        </View>}
 
-      </Block>
-      {(pressedLocation !== "") &&
-        <Button
-          title='Reset location or Press another pin'
-          onPress={() => setPressedLocation("")}
-        />
-      }
-      <ListElement
+      {data.length != 0 && <ListElement
         list={data}
         idList={ids}
         navigation={props.navigation}
         route={props.route}
-      />
+      />}
+      {data.length == 0 &&
+        <Text h1 center>No result found.</Text>}
     </Block>
   );
 }
@@ -374,7 +390,7 @@ const styles = StyleSheet.create({
     backgroundColor: theme.COLORS.WHITE,
   },
   container2: {
-    flex: 0.5,
+    flex: 3,
     //justifyContent: "center",
     //alignItems: "center",
     width: width - 32,
@@ -383,7 +399,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 3,
     borderColor: argonTheme.COLORS.BORDER,
-    //
   },
   container3: {
     flex: 0.5,
@@ -408,7 +423,7 @@ const styles = StyleSheet.create({
   },
   mapContainer: {
     height: 200,
-    flex: 0.5,
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
