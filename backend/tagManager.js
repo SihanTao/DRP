@@ -3,7 +3,11 @@ import { Alert } from "react-native";
 import { share_coll_name, share_tags_coll_name } from "../constants/ShareCons";
 import { mergeSingleDataToFireStore } from "./databaseReadWrite";
 
-// TODO
+/**
+ * Register the document with the tag in database. Note that data.name is the key
+ * @param data  the document (or piece of data)
+ * @param tag   the tag
+ */
 export function addDocUnderTag(data, { tag }) {
   if (!data.name) {
     return false
