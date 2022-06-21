@@ -33,10 +33,10 @@ export async function addDataToFireStore(datas) {
     }
 }
 
-export async function addDataToFireStoreCustom(datas) {
+export async function addDataToFireStoreCustom(datas, {dbName}) {
     const db = getFirestore();
     for (let i = 0; i < datas.length; i++) {
-        await addDoc(collection(db, "facilities"), datas[i]);
+        await addDoc(collection(db, dbName), datas[i]);
     }
 }
 

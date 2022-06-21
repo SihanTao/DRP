@@ -11,6 +11,8 @@ import { useState, useRef } from "react";
 import { useForm, useController } from 'react-hook-form';
 import { View } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
+import { addDataToFireStoreCustom } from "../backend/databaseReadWrite";
+import sampleData from "../constants/sampleData"
 
 const { height, width } = Dimensions.get('window');
 
@@ -38,6 +40,13 @@ function HookFormImplementation(props) {
     </Text>
   </>)
 
+  /** 
+   * An InputBox which will be controlled.
+   * @param name
+   *   The name of the entry of data that will be stored in database
+   * @param control
+   *   Should be the control from `react-hook-form` library
+   */
   const InputBox = ({
     name,
     placeholder=name,
@@ -89,7 +98,10 @@ function HookFormImplementation(props) {
             <View style={[{height: 1000}]} />
             <Button
               title="SyncDataBase" 
-              onPress={() => Alert.alert("FREEZE")}
+              onPress={() => {
+                addDataToFireStoreCustom(sampleData, {dbName: "tmp"})
+                alert('Data added!')
+              }}
             />
           </DevStatus>
         </ScrollView>
