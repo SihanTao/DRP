@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Text } from 'galio-framework';
 import { View, TextInput, StyleSheet, ImageBackground, Dimensions, Linking, FlatList } from "react-native";
 import { ColorPicker, ModalInput, Separator, Tag } from "react-native-btr";
-import DropDownSearchBar from "../components/DropDownSearchBar";
-import MapView from 'react-native-maps';
+import * as Location from 'expo-location';
+import MapView, { Marker } from 'react-native-maps';
 import { Block, theme } from 'galio-framework';
 import argonTheme from '../constants/Theme';
 import ListElement from "../components/ListElement";
-import testListElement from '../constants/testListElement';
+import * as Progress from 'react-native-progress';
 
 import { collection, doc, setDoc, getDoc, getFirestore, query, where, getDocs, orderBy } from "firebase/firestore";
 import { async } from "@firebase/util";
@@ -18,12 +18,35 @@ const { width } = Dimensions.get('screen');
 export default function SearchResult(props) {
   // console.log(props.route.params.studySpace);
 
-  const [region, setRegion] = useState({
-    latitude: 51.49834451516762,
-    longitude: -0.176200373123,
-    latitudeDelta: 0.0026,
-    longitudeDelta: 0.0084,
-  });
+  const [region, setRegion] = useState(null);
+  const [marker, setMarker] = useState([{
+    title: "Huxley Building",
+    latlng: { latitude: 51.49906736802353, longitude: -0.17900103307703977 },
+  }, {
+    title: "Blackett Laboratory",
+    latlng: { latitude: 51.4996723106143, longitude: -0.17933089625534746 },
+  }, {
+    title: "Central Library",
+    latlng: { latitude: 51.49834075416967, longitude: -0.1782269478696598 }
+  }, {
+    title: "Chemistry Building (Sir Ernst Chain Building)",
+    latlng: { latitude: 51.49768989822215, longitude: -0.17812193650712865 }
+  }, {
+    title: "Sherfield Building",
+    latlng: { latitude: 51.49867744304856, longitude: -0.1781532142436012 }
+  }, {
+    title: 'Skempton Building',
+    latlng: { latitude: 51.498198888050005, longitude: -0.1760628815329859 }
+  }, {
+    title: "City & Guilds Building",
+    latlng: { latitude: 51.49850121465218, longitude: -0.17477856029385513 }
+  }, {
+    title: "Imperial College Business School",
+    latlng: { latitude: 51.49937335617922, longitude: -0.1747500660898253 }
+  }, {
+    title: "Dyson Building of Design Engineering",
+    latlng: { latitude: 51.497919, longitude: -0.174563 }
+  }])
 
   // Here we could switch between different tags 
   // according to params
@@ -207,6 +230,45 @@ export default function SearchResult(props) {
     return willFocusSubscription;
   }, [filters]);
 
+  // Get user location
+  const [location, setLocation] = useState(null);
+  const [errorMsg, setErrorMsg] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      /* @hide */
+      if (Platform.OS === 'android' && !Device.isDevice) {
+        setErrorMsg(
+          'Oops, this will not work on Snack in an Android Emulator. Try it on your device!'
+        );
+        return;
+      }
+      /* @end */
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        setErrorMsg('Permission to access location was denied');
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      setLocation(location);
+      let region = {
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+        latitudeDelta: 0.0026,
+        longitudeDelta: 0.0084,
+      };
+      setRegion(region);
+    })();
+  }, []);
+
+  let text = 'Loading...';
+  if (errorMsg) {
+    text = errorMsg;
+  } else if (location) {
+    text = "";
+  }
+
   return (
     <Block safe fluid style={styles.container}>
       <Block style={{ flexDirection: "row", flexWrap: "nowrap" }}>
@@ -232,15 +294,26 @@ export default function SearchResult(props) {
         })}
       </Block>
       <Block style={styles.mapContainer}>
-        <MapView
+        {<MapView
           style={styles.map}
           initialRegion={region}
-          onRegionChangeComplete={(region) => setRegion(region)}
-        />
-        {/* <Text style={styles.text}>Current latitude: {region.latitude}</Text>
-        <Text style={styles.text}>Current longitude: {region.longitude}</Text>
-        <Text style={styles.text}>Current longitude: {region.latitudeDelta}</Text>
-        <Text style={styles.text}>Current longitude: {region.longitudeDelta}</Text> */}
+          showsUserLocation={true}
+        >
+          {marker.map((marker, index) => (
+            <Marker
+              key={index}
+              coordinate={marker.latlng}
+              title={marker.title}
+            />
+          ))}
+
+        </MapView>}
+        {!location && <View style={styles.circles}>
+          <Progress.CircleSnail
+            style={styles.progress}
+            color={['#F44336', '#2196F3', '#009688']}
+          />
+        </View>}
 
       </Block>
       <ListElement
@@ -302,11 +375,24 @@ const styles = StyleSheet.create({
   },
   mapContainer: {
     height: 200,
-    width: 400,
-    justifyContent: 'flex-end',
+    flex: 0.5,
+    justifyContent: 'center',
     alignItems: 'center',
   },
   map: {
     ...StyleSheet.absoluteFillObject,
+  },
+  loading: {
+    textAlign: "center",
+    textAlignVertical: "center",
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  circles: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  progress: {
+    margin: 10,
   },
 });
