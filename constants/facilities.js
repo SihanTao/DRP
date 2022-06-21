@@ -485,6 +485,8 @@ const facilities = [
             }
         ],
         building: EEE,
+        avgRating: 0,
+        numRatings: 0,
     }, {
         name: 'Department of Computing Studnent Tea Point',
         microwave: true,
