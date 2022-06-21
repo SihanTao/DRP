@@ -33,6 +33,13 @@ export async function addDataToFireStore(datas) {
     }
 }
 
+export async function addDataToFireStoreCustom(datas) {
+    const db = getFirestore();
+    for (let i = 0; i < datas.length; i++) {
+        await addDoc(collection(db, "facilities"), datas[i]);
+    }
+}
+
 export async function testAddFireStore() {
     const db = getFirestore();
     const citiesRef = collection(db, "cities");

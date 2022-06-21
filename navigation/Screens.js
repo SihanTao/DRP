@@ -348,7 +348,7 @@ const wikiShareStack = createNativeStackNavigator();
 // TODO: Write the favourite page
 export function ShareScreen(props) {
   return (
-    <DevStatus status="developing">
+    <DevStatus status="done">
       <wikiShareStack.Navigator
         screenOptions={{
           mode: "card",

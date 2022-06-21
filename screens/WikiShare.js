@@ -85,6 +85,13 @@ function HookFormImplementation(props) {
             title="submit"
             onPress={handleSubmit(onSubmit)}
           />
+          <DevStatus status="developing" pubHide={true}>
+            <View style={[{height: 1000}]} />
+            <Button
+              title="SyncDataBase" 
+              onPress={() => Alert.alert("FREEZE")}
+            />
+          </DevStatus>
         </ScrollView>
       </Block>
     </DevStatus>
