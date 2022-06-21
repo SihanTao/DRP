@@ -13,7 +13,7 @@ import { View } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import { addSingleDataToFireStore, deleteFieldInFireStore } from "../backend/databaseReadWrite";
 import sampleData from "../constants/sampleData"
-import { addDocUnderTag, alertTrue, dataAddTag, dataHasTag, dataRmvTag } from "../backend/tagManager";
+import { addDocUnderTag, alertTrue, dataAddTag, dataHasTag, dataRmvTag, deleteDocUnderTag } from "../backend/tagManager";
 import { share_coll_name } from "../constants/ShareCons";
 
 const { height, width } = Dimensions.get('window');
@@ -118,10 +118,9 @@ function HookFormImplementation(props) {
               <Button style={[{flex: 1}]}
                 title="Button_B" 
                 onPress={() => {
-                  deleteFieldInFireStore({
-                    coll_name: "shared_tags",
-                    doc_name: "fooo",
-                    field_name: "tmpp",
+                  deleteDocUnderTag({
+                    doc_name: "tmpp",
+                    tag: "fooo",
                   })
                 }}
               />

@@ -1,7 +1,7 @@
 import React from "react";
 import { Alert } from "react-native";
 import { share_coll_name, share_tags_coll_name } from "../constants/ShareCons";
-import { mergeSingleDataToFireStore } from "./databaseReadWrite";
+import { deleteFieldInFireStore, mergeSingleDataToFireStore } from "./databaseReadWrite";
 
 /**
  * Register the document with the tag in database. Note that data.name is the key
@@ -23,9 +23,17 @@ export function addDocUnderTag({ doc_name, tag }) {
   )
 }
 
-// TODO
-export function deleteDocUnderTag(data) {
-
+/**
+ * Deletes the document from the tag's collection in database.
+ * @param doc_name document name
+ * @param tag      tag name
+ */
+export function deleteDocUnderTag({ doc_name, tag }) {
+  deleteFieldInFireStore({
+    coll_name: share_tags_coll_name,
+    doc_name: tag,
+    field_name: doc_name,
+  })
 }
 
 // TODO
