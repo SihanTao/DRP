@@ -41,7 +41,7 @@ const BottomTabNavigator = () => {
                     ),
                 }}
             /> */}
-            {/* <Tab.Screen name="Share"
+            <Tab.Screen name="Share"
                 component={ShareScreen}
                 options={{
                     tabBarShowLabel: false,
@@ -50,7 +50,7 @@ const BottomTabNavigator = () => {
                         <MaterialCommunityIcons name="plus-box" color={color} size={size} />
                     ),
                 }}
-            /> */}
+            />
             {/* <Tab.Screen name="Profile"
                 component={ProfileStackScreen}
                 options={{
