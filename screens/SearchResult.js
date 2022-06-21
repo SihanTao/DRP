@@ -3,7 +3,7 @@ import { Text } from 'galio-framework';
 import { View, TextInput, StyleSheet, ImageBackground, Dimensions, Linking, FlatList } from "react-native";
 import { ColorPicker, ModalInput, Separator, Tag } from "react-native-btr";
 import DropDownSearchBar from "../components/DropDownSearchBar";
-import SearchBarWithTag from "../components/SearchBarWithTag";
+import MapView from 'react-native-maps';
 import { Block, theme } from 'galio-framework';
 import argonTheme from '../constants/Theme';
 import ListElement from "../components/ListElement";
@@ -17,6 +17,13 @@ const { width } = Dimensions.get('screen');
 
 export default function SearchResult(props) {
   // console.log(props.route.params.studySpace);
+
+  const [region, setRegion] = useState({
+    latitude: 51.49834451516762,
+    longitude: -0.176200373123,
+    latitudeDelta: 0.0026,
+    longitudeDelta: 0.0084,
+  });
 
   // Here we could switch between different tags 
   // according to params
@@ -202,7 +209,7 @@ export default function SearchResult(props) {
 
   return (
     <Block safe fluid style={styles.container}>
-      <Block style={{ flexDirection: "row", flexWrap: "wrap" }}>
+      <Block style={{ flexDirection: "row", flexWrap: "nowrap" }}>
         {tags.map((tag, index) => {
           const backgroundColor = tag.active ? tag.color : "#0000";
           const color = tag.active ? "#fff" : tag.color;
@@ -224,6 +231,18 @@ export default function SearchResult(props) {
           );
         })}
       </Block>
+      <Block style={styles.mapContainer}>
+        <MapView
+          style={styles.map}
+          initialRegion={region}
+          onRegionChangeComplete={(region) => setRegion(region)}
+        />
+        {/* <Text style={styles.text}>Current latitude: {region.latitude}</Text>
+        <Text style={styles.text}>Current longitude: {region.longitude}</Text>
+        <Text style={styles.text}>Current longitude: {region.latitudeDelta}</Text>
+        <Text style={styles.text}>Current longitude: {region.longitudeDelta}</Text> */}
+
+      </Block>
       <ListElement
         list={data}
         idList={ids}
@@ -242,6 +261,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
+    flexDirection: 'column',
     marginTop: 0,
     width: '100%',
     //backgroundColor: "#abdbe3",
@@ -279,5 +299,14 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginVertical: 15,
     paddingHorizontal: 10,
+  },
+  mapContainer: {
+    height: 200,
+    width: 400,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+  map: {
+    ...StyleSheet.absoluteFillObject,
   },
 });
