@@ -2,6 +2,7 @@ import { getDatabase, ref, set, onValue } from "firebase/database";
 import uuid from 'react-native-uuid';
 import { async } from "@firebase/util";
 import { getFirestore, collection, addDoc, setDoc, doc, getDoc, updateDoc } from "firebase/firestore";
+import { Alert } from "react-native";
 
 export function writeUserData(name, email, password) {
     const db = getDatabase();
@@ -33,11 +34,23 @@ export async function addDataToFireStore(datas) {
     }
 }
 
-export async function addDataToFireStoreCustom(datas, {dbName}) {
+export async function addDataToFireStoreCustom(datas, {coll_name}) {
     const db = getFirestore();
     for (let i = 0; i < datas.length; i++) {
-        await addDoc(collection(db, dbName), datas[i]);
+        await addDoc(collection(db, coll_name), datas[i]);
     }
+}
+
+/**
+ * This function uploads a piece of data to the fireStore database.
+ * @param coll_name  collection name
+ * @param doc_name   document name
+ */
+export async function addSingleDataToFireStore(data, {coll_name, doc_name}) {
+    const db = getFirestore();
+    const coll = collection(db, coll_name);
+    await setDoc(doc(coll, doc_name), data)
+    Alert.alert("Data submitted to database")
 }
 
 export async function testAddFireStore() {

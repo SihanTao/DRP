@@ -11,7 +11,7 @@ import { useState, useRef } from "react";
 import { useForm, useController } from 'react-hook-form';
 import { View } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
-import { addDataToFireStoreCustom } from "../backend/databaseReadWrite";
+import { addSingleDataToFireStore } from "../backend/databaseReadWrite";
 import sampleData from "../constants/sampleData"
 
 const { height, width } = Dimensions.get('window');
@@ -28,10 +28,11 @@ export default function WikiShare(props) {
 function HookFormImplementation(props) {
   const { control, handleSubmit } = useForm();
   const onSubmit = (data) => {
-    Alert.alert(
-      "Submitted Successfully",
-      JSON.stringify(data),
-    )
+    addSingleDataToFireStore(data, {coll_name: "tmp", doc_name: data.name})
+    // Alert.alert(
+    //   "Submitted Successfully",
+    //   JSON.stringify(data),
+    // )
   };
 
   const Heading = ({title="Title"}) => (<>
@@ -78,6 +79,8 @@ function HookFormImplementation(props) {
     <DevStatus status="developing">
       <Block>
         <ScrollView>
+          <Heading title="Name of Wiki*" />
+          <InputBox name="name" control={control} />  {/* TODO: make it a must */}
           <Heading title="Thumbnail" />
           <InputBox name="photo" placeholder="URL of the picture" control={control} />
           <Heading title="Description" />
