@@ -22,7 +22,7 @@ export default function Information(props) {
   const { navigation } = props;
   const item = props.route.params.passeditem;
   const id = props.route.params.id;
-  // console.log("Here in Information " + id);
+  console.log("Here in Information " + id);
 
   useEffect(() => {
     const fetchData = async () => {

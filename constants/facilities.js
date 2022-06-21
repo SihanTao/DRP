@@ -1,3 +1,11 @@
+// Building constants
+const HUXLEY = "Huxley Building";
+const SHERFIELD = 'Sherfield Building';
+const CENTRAL_LIBRARY = "Central Library";
+const EEE = "Electrical and Electronic Engineering Building";
+const CHEM = 'Chemistry Building';
+const IB = "Imperial College Business School";
+
 const facilities = [
 
     // Water-fountain
@@ -22,6 +30,7 @@ const facilities = [
         openingHour: '',
         avgRating: 0,
         numRatings: 0,
+        building: EEE,
     }, {
         name: 'Computing Lab Water Fountain',
         waterfountain: true,
@@ -43,6 +52,7 @@ const facilities = [
         openingHour: '',
         avgRating: 0,
         numRatings: 0,
+        building: HUXLEY,
     }, {
         name: 'SCR water fountain',
         waterfountain: true,
@@ -64,6 +74,7 @@ const facilities = [
         openingHour: '',
         avgRating: 0,
         numRatings: 0,
+        building: SHERFIELD,
     }, {
         name: 'Sherfield 2nd floor water fountain',
         waterfountain: true,
@@ -86,6 +97,7 @@ const facilities = [
         openingHour: '',
         avgRating: 0,
         numRatings: 0,
+        building: SHERFIELD,
     },
 
     // Study space
@@ -113,6 +125,7 @@ const facilities = [
         openingHour: '',
         avgRating: 0,
         numRatings: 0,
+        building: CENTRAL_LIBRARY,
     }, {
         name: 'GoStudy Space',
         study: true,
@@ -135,6 +148,7 @@ const facilities = [
         openingHour: '',
         avgRating: 0,
         numRatings: 0,
+        building: CHEM,
     }, {
         name: "Computing Lab",
         study: true,
@@ -155,6 +169,7 @@ const facilities = [
         url: 'https://www.imperial.ac.uk/computing/csg/facilities/lab/',
         avgRating: 0,
         numRatings: 0,
+        building: HUXLEY,
     }, {
         name: "Huxley 341&342",
         study: true,
@@ -175,6 +190,7 @@ const facilities = [
         url: '',
         avgRating: 0,
         numRatings: 0,
+        building: HUXLEY,
     }, {
         name: "Huxley 212",
         study: true,
@@ -195,6 +211,7 @@ const facilities = [
         url: '',
         avgRating: 0,
         numRatings: 0,
+        building: HUXLEY
     },
 
     // Toilets
@@ -218,6 +235,7 @@ const facilities = [
         url: '',
         avgRating: 0,
         numRatings: 0,
+        building: {HUXLEY}
     }, {
         name: 'Toilet Huxley 224',
         toilet: true,
@@ -238,6 +256,7 @@ const facilities = [
         url: '',
         avgRating: 0,
         numRatings: 0,
+        building: HUXLEY
     }, {
         name: 'Library Cafe Accessible Toilet',
         toilet: true,
@@ -256,6 +275,7 @@ const facilities = [
         location: 'Library Cafe',
         avgRating: 0,
         numRatings: 0,
+        building: CENTRAL_LIBRARY,
     }, {
         name: 'Accessible Toilet Huxley 236C',
         toilet: true,
@@ -273,6 +293,7 @@ const facilities = [
                 url: 'https://i.ibb.co/GczsmMm/Huxley-L2-236-C.png'
             }
         ],
+        building: HUXLEY,
     }, {
         name: 'Secret Luxurious Male Toilet',
         toilet: true,
@@ -289,6 +310,7 @@ const facilities = [
                 url: 'https://i.ibb.co/Tmz1vhL/Huxley-L2-Unamed-Toilets.png'
             }
         ],
+        building: HUXLEY,
         description: "Between Huxley labs and Blackett" 
     }, {
         name: 'Secret Luxurious Female Toilet',
@@ -306,7 +328,8 @@ const facilities = [
                 url: 'https://i.ibb.co/Tmz1vhL/Huxley-L2-Unamed-Toilets.png'
             }
         ],
-        description: "Between Huxley labs and Blackett" 
+        description: "Between Huxley labs and Blackett",
+        building: HUXLEY,
     }, {
         name: 'Secret Luxurious Accessible Toilet',
         toilet: true,
@@ -324,6 +347,7 @@ const facilities = [
                 url: 'https://i.ibb.co/Tmz1vhL/Huxley-L2-Unamed-Toilets.png'
             }
         ],
+        building: HUXLEY,
     },   
 
     // Cafe
@@ -347,6 +371,7 @@ const facilities = [
                 url: "https://i.ibb.co/BKfFcBx/SCR.png"
             }
         ],
+        building: SHERFIELD,
     }, {
         name: 'The Loud Bird',
         cafe: true,
@@ -370,6 +395,7 @@ const facilities = [
                      '830-pad,1000x1000,f8f8f8.jpg'
             }
         ],
+        building: CHEM,
     }, {
         name: 'College Cafe',
         cafe: true,
@@ -395,6 +421,7 @@ const facilities = [
                      '830-pad,1000x1000,f8f8f8.jpg'
             }
         ],
+        building: IB,
     }, {
         name: 'Library Cafe',
         cafe: true,
@@ -415,6 +442,7 @@ const facilities = [
                 url: "https://i.ibb.co/2s8PsJr/Central-Lib.png"
             }
         ],
+        building: CENTRAL_LIBRARY,
     }, {
         name: 'Neo Pizza & Pasta',
         cafe: true,
@@ -435,6 +463,7 @@ const facilities = [
                 url: "https://i.ibb.co/BKfFcBx/SCR.png"
             }
         ],
+        building: SHERFIELD,
     }, 
     // microwave 
     {
@@ -451,6 +480,7 @@ const facilities = [
                 url: "https://i.ibb.co/bHZkqHx/EEE-Building.png"
             }
         ],
+        building: EEE,
     }, {
         name: 'Department of Computing Studnent Tea Point',
         microwave: true,
@@ -464,6 +494,7 @@ const facilities = [
                 url: "https://i.ibb.co/bHZkqHx/EEE-Building.png"
             }
         ],
+        building: HUXLEY,
     }, {
         name: 'GoStudy Space Kitchen',
         microwave: true,
@@ -477,6 +508,7 @@ const facilities = [
                 url: "https://i.ibb.co/G5dpT3q/Chemistry-Building.png"
             }
         ],
+        building: CHEM,
     }
 ];
 

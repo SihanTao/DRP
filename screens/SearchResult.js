@@ -46,6 +46,9 @@ export default function SearchResult(props) {
   }, {
     title: "Dyson Building of Design Engineering",
     latlng: { latitude: 51.497919, longitude: -0.174563 }
+  }, {
+    title: "Electrical and Electronic Engineering Building",
+    latlng: { latitude: 51.49909979949402, longitude: -0.17636334514753066 }
   }])
 
   // Here we could switch between different tags 
