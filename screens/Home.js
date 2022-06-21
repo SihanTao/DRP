@@ -31,26 +31,14 @@ class Home extends React.Component {
     )
   }
 
-// renderRecommendations = () => {
-//   return (
-//     <ListElement
-//         list={data}
-//         navigation={props.navigation}
-//       />
-//   )
-// }
-
   showUrl = (position) => {
     const { navigation } = this.props;
-    // navigation.navigate("webpage",
-    //   {
-    //     url: goStudySpaceSlideShow[position - 1].link,
-    //     title: goStudySpaceSlideShow[position - 1].title
-    //   })
       navigation.navigate("Information", {
         passeditem: goStudySpaceSlideShow[position],
         url: goStudySpaceSlideShow[position].photo,
-        title: goStudySpaceSlideShow[position].name
+        title: goStudySpaceSlideShow[position].name,
+        showRating: false,
+        id: 1,
       })
   }
   renderArticles = (noRecommendation) => {
@@ -59,12 +47,6 @@ class Home extends React.Component {
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.articles}>
-          {/* <Tabs
-          data={[]}
-          //initialIndex={tabIndex || defaultTab}
-          //onChange={id => navigation.setParams({ tabId: id })}
-          //navigation={navigation} 
-          /> */}
         {noRecommendation ? null : this.renderRecommendationText()}
         {/* <Text bold size={16} style={styles.title}>
         Explore new events:
@@ -99,19 +81,9 @@ class Home extends React.Component {
         <Block flex card style={styles.category}>
           <AutomatedSlideshow
             showUrl = {this.showUrl}
-            // {() => navigation.navigate("webpage",
-            //   {
-            //     url: 'https://www.imperial.ac.uk/admin-services/library/use-the-library/our-libraries/gostudy/',
-            //     title: "Go Study Space"
-            //   })
-            // }
             style={styles.goStudyTitle}
             dataSource={goStudySpaceSlideShow}
           ></AutomatedSlideshow>
-          {/* <Block > 
-            <>
-            </>
-          </ Block> */}
         </Block>
         {/* <Block flex card style={styles.category}>
         <TouchableWithoutFeedback

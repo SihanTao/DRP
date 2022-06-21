@@ -22,6 +22,7 @@ export default function Information(props) {
   const { navigation } = props;
   const item = props.route.params.passeditem;
   const id = props.route.params.id;
+  const showRating = props.route.params.showRating;
   // console.log("Here in Information " + id);
 
   useEffect(() => {
@@ -29,8 +30,7 @@ export default function Information(props) {
       const fetched = await getCurrentRating(props.route.params.id);
       setRating(fetched);
     }
-
-    fetchData(id).catch(console.error);
+    showRating ? fetchData(id).catch(console.error) : null;
   }, [])
 
   // console.log(item);
@@ -101,6 +101,21 @@ export default function Information(props) {
       <Block flex>
       <Image source={image} style={styles.fullImage} />
       </Block>
+    )
+  }
+
+
+  const renderRating = () => {
+    return (
+      <><Text bold size={25} style={styles.heading}>Rate the facility!</Text>
+          <Text style={styles.description}>Current Rating: {rating.toFixed(2)}</Text><Rating
+            type='star'
+            ratingCount={5}
+            imageSize={60}
+            onFinishRating={ratingCompleted}
+            style={{ padding: 10 }}
+          /> 
+        </>
     )
   }
 
@@ -230,16 +245,7 @@ export default function Information(props) {
               <Image source={{ uri: item.maps[0].url }} style={styles.fullImage} />
             </ TouchableWithoutFeedback>
           </Block>
-          <Text bold size={25} style={styles.heading}>Rate the facility!</Text>
-          <Text style={styles.description}>Current Rating: {rating.toFixed(2)}</Text>
-          <Rating
-            type='star'
-            ratingCount={5}
-            imageSize={60}
-            onFinishRating={ratingCompleted}
-            style={{ padding: 10 }}
-          />
-
+          {showRating ? renderRating() : null}
           {(item.url === '' || item.url === undefined) ? null : renderUrl()}
         </ ScrollView>
       </ Block>

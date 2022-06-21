@@ -77,6 +77,7 @@ class ListElement extends React.Component {
               navigation.navigate("Information", {
                 passeditem: item,
                 id: idList[index],
+                showRating: true,
               })
             }
           }
