@@ -11,7 +11,7 @@ import MultiSelect from './MultiSelect';
 
 import { ColorPicker, ModalInput, Separator, Tag } from "react-native-btr";
 import { testAddFireStore, addStudySpaces, addDataToFireStore } from '../backend/databaseReadWrite';
-import facilities from "../constants/facilities";
+import { facilities } from "../constants/facilities";
 import SearchResult from "../screens/SearchResult"
 import Search from '../screens/Search';
 import DevStatus from '../constants/DevelopeStatus';
