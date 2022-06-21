@@ -26,6 +26,7 @@ export function filterDocsUnderTags() {
 
 }
 
+/** Determines if data.tags.tag exists */
 export function dataHasTag(data, { tag }) {
   return data.tags[tag]
 }
@@ -39,6 +40,7 @@ function tagsRmvTag(tags, { tag }) {
   tags[tag] = undefined
 }
 
+/** Make sure data.tags.tag exists */
 export function dataAddTag(data, { tag }) {
   if (data.tags) {
     tagsAddTag(data.tags, { tag })
@@ -49,6 +51,7 @@ export function dataAddTag(data, { tag }) {
   }
 }
 
+/** Make sure data.tags.tag doesn't exist */
 export function dataRmvTag(data, { tag }) {
   if (data.tags) {
     tagsRmvTag(data.tags, { tag })
@@ -59,6 +62,7 @@ export function dataRmvTag(data, { tag }) {
   }
 }
 
+/** Just for debug purpose */
 export function alertTrue({x}) {
   if (x) {
     Alert.alert("exists")

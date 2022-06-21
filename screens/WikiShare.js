@@ -111,9 +111,10 @@ function HookFormImplementation(props) {
                   }
                   dataAddTag(a, { tag: "foo" })
                   dataAddTag(a, { tag: "doo" })
-                  dataRmvTag(a, { tag: "doo" })
-                  const x = dataHasTag(a, { tag: "foo" })
-                  alertTrue({ x })
+                  dataRmvTag(a, { tag: "foo" })
+                  // const x = dataHasTag(a, { tag: "foo" })
+                  // alertTrue({ x })
+                  Alert.alert(JSON.stringify(a))
                 }}
               />
               <Button style={[{flex: 1}]}
