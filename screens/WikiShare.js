@@ -13,7 +13,7 @@ import { View } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import { addSingleDataToFireStore } from "../backend/databaseReadWrite";
 import sampleData from "../constants/sampleData"
-import { alertTrue, dataAddTag, dataHasTag } from "../backend/tagManager";
+import { alertTrue, dataAddTag, dataHasTag, dataRmvTag } from "../backend/tagManager";
 
 const { height, width } = Dimensions.get('window');
 
@@ -111,7 +111,8 @@ function HookFormImplementation(props) {
                   }
                   dataAddTag(a, { tag: "foo" })
                   dataAddTag(a, { tag: "doo" })
-                  const x = dataHasTag(a, { tag: "doo" })
+                  dataRmvTag(a, { tag: "doo" })
+                  const x = dataHasTag(a, { tag: "foo" })
                   alertTrue({ x })
                 }}
               />

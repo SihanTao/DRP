@@ -30,7 +30,15 @@ export function dataHasTag(data, { tag }) {
   return data.tags[tag]
 }
 
-// TODO
+
+function tagsAddTag(tags, { tag }) {
+  tags[tag] = true
+}
+
+function tagsRmvTag(tags, { tag }) {
+  tags[tag] = undefined
+}
+
 export function dataAddTag(data, { tag }) {
   if (data.tags) {
     tagsAddTag(data.tags, { tag })
@@ -41,13 +49,14 @@ export function dataAddTag(data, { tag }) {
   }
 }
 
-function tagsAddTag(tags, { tag }) {
-  tags[tag] = true
-}
-
-// TODO
-export function dataDeleteTag() {
-
+export function dataRmvTag(data, { tag }) {
+  if (data.tags) {
+    tagsRmvTag(data.tags, { tag })
+  } else {
+    const tags = {}
+    tagsRmvTag(tags, { tag })
+    data["tags"] = tags
+  }
 }
 
 export function alertTrue({x}) {
