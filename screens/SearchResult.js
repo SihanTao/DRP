@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Text } from 'galio-framework';
-import { View, TextInput, StyleSheet, ImageBackground, Dimensions, Linking, FlatList } from "react-native";
+import { View, StyleSheet, Dimensions, Button } from "react-native";
 import { ColorPicker, ModalInput, Separator, Tag } from "react-native-btr";
 import * as Location from 'expo-location';
 import MapView, { Marker } from 'react-native-maps';
@@ -157,8 +157,9 @@ export default function SearchResult(props) {
       conditions.push(where('microwave', '==', true))
     }
 
-    conditions.push(where("building", "==", pressedLocation));
-
+    if (pressedLocation !== '') {
+      conditions.push(where("building", "==", pressedLocation));
+    }
     // conditions.push(orderBy("avgRating", "desc"));
 
     const q = query(placeRef, ...conditions);
@@ -307,7 +308,6 @@ export default function SearchResult(props) {
                 onPress={() => {
                   toggleTag(index);
                   updateFilters();
-                  console.log(filters);
                 }}
               />
             </Block>
@@ -343,6 +343,12 @@ export default function SearchResult(props) {
         </View>}
 
       </Block>
+      {(pressedLocation !== "") &&
+        <Button
+          title='Reset location or Press another pin'
+          onPress={() => setPressedLocation("")}
+        />
+      }
       <ListElement
         list={data}
         idList={ids}
