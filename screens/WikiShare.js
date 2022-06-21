@@ -111,7 +111,7 @@ function HookFormImplementation(props) {
                   dataAddTag(a, { tag: "foo" })
                   dataAddTag(a, { tag: "doo" })
                   dataRmvTag(a, { tag: "foo" })
-                  addDocUnderTag(a, { tag: "fooo" })
+                  addDocUnderTag( { doc_name: a.name, tag: "fooo" })
                   // Alert.alert(JSON.stringify(a))
                 }}
               />

@@ -5,17 +5,14 @@ import { mergeSingleDataToFireStore } from "./databaseReadWrite";
 
 /**
  * Register the document with the tag in database. Note that data.name is the key
- * @param data  the document (or piece of data)
- * @param tag   the tag
+ * @param doc_name  the document (or piece of data)
+ * @param tag       the tag
  */
-export function addDocUnderTag(data, { tag }) {
-  if (!data.name) {
-    return false
-  }
+export function addDocUnderTag({ doc_name, tag }) {
   const newTagInfo = {}
-  newTagInfo[data.name] = {
+  newTagInfo[doc_name] = {
     coll_name: share_coll_name,
-    doc_name: data.name,
+    doc_name: doc_name,
   }
   mergeSingleDataToFireStore(
     newTagInfo,
@@ -24,11 +21,10 @@ export function addDocUnderTag(data, { tag }) {
       doc_name: tag,
     }
   )
-  return true
 }
 
 // TODO
-export function deleteDocUnderTag() {
+export function deleteDocUnderTag(data) {
 
 }
 
