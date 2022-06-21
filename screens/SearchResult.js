@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Text } from 'galio-framework';
-import { View, StyleSheet, Dimensions, Button } from "react-native";
+import { View, StyleSheet, Dimensions, Button, Image } from "react-native";
 import { ColorPicker, ModalInput, Separator, Tag } from "react-native-btr";
 import * as Location from 'expo-location';
 import MapView, { Marker } from 'react-native-maps';
@@ -294,10 +294,14 @@ export default function SearchResult(props) {
   // END OF MAP LOADING AND LOCATION
   return (
     <Block safe fluid style={styles.container}>
-      {!showMap && <Button title="Show Map" onPress={() => setShowMap(true)} />}
-
+      {!showMap && 
+      <TouchableOpacity
+        onPress={() => setShowMap(true)}>
+        <Image source={require('../assets/imgs/showMap.png')} style={styles.fullImage} />
+      </TouchableOpacity>}
+      
       {showMap && <Block style={styles.container2}>
-        <Text p>Select a building to filter result.</Text>
+        <Text p bold color = 'white' style={{padding: 10}}>Select a building to filter result:</Text>
         <Block style={styles.mapContainer}>
           {<MapView
             style={styles.map}
@@ -335,10 +339,15 @@ export default function SearchResult(props) {
             }}
           />
         }
-        {showMap && <Button title="Hide Map" onPress={() => setShowMap(false)} />}
+        {showMap && 
+        <TouchableOpacity
+        onPress={() => setShowMap(false)}>
+        <Image source={require('../assets/imgs/hidemap.png')} style={styles.fullImage2} />
+        </TouchableOpacity>
+        }
 
       </Block>}
-      <Block style={{ flexDirection: "row", flexWrap: "nowrap" }}>
+      <Block style={{ marginHorizontal: 16, flexDirection: "row", flexWrap: "nowrap" }}>
         {tags.map((tag, index) => {
           const backgroundColor = tag.active ? tag.color : "#0000";
           const color = tag.active ? "#fff" : tag.color;
@@ -396,9 +405,10 @@ const styles = StyleSheet.create({
     width: width - 32,
     marginTop: 10,
     marginHorizontal: 16,
-    borderWidth: 1,
-    borderRadius: 3,
-    borderColor: argonTheme.COLORS.BORDER,
+    backgroundColor: '#6a7ddf',
+    // borderWidth: 1,
+    borderRadius: 5,
+    // borderColor: argonTheme.COLORS.BORDER,
   },
   container3: {
     flex: 0.5,
@@ -442,5 +452,18 @@ const styles = StyleSheet.create({
   },
   progress: {
     margin: 10,
+  },
+  fullImage: {
+    width: width - 32,
+    height: 50,
+    marginBottom: 10,
+    marginHorizontal:16,
+    resizeMode: 'contain',
+  },
+  fullImage2: {
+    width: '100%',
+    height: 50,
+  
+    resizeMode: 'contain',
   },
 });
