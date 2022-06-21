@@ -79,8 +79,9 @@ function HookFormImplementation(props) {
     <DevStatus status="developing">
       <Block>
         <ScrollView>
+          {/* TODO: Make this one compulsory */}
           <Heading title="Name of Wiki*" />
-          <InputBox name="name" control={control} />  {/* TODO: make it a must */}
+          <InputBox name="name" control={control} />
           <Heading title="Thumbnail" />
           <InputBox name="photo" placeholder="URL of the picture" control={control} />
           <Heading title="Description" />
