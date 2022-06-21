@@ -49,8 +49,7 @@ export async function addDataToFireStoreCustom(datas, {coll_name}) {
  */
 export async function addSingleDataToFireStore(data, {coll_name, doc_name}) {
     const db = getFirestore();
-    const coll = collection(db, coll_name);
-    await setDoc(doc(coll, doc_name), data)
+    await setDoc(doc(db, coll_name, doc_name), data)
     if (DEV_STATUS != "publishing") {
         Alert.alert(
             "Successfully added to database",

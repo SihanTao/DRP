@@ -16,6 +16,8 @@ import sampleData from "../constants/sampleData"
 
 const { height, width } = Dimensions.get('window');
 
+const collection_name = "tmp"
+
 /** A share page which allows users to upload wiki pages to database */
 export default function WikiShare(props) {
   return (<HookFormImplementation {...props} />)
@@ -28,7 +30,10 @@ export default function WikiShare(props) {
 function HookFormImplementation(props) {
   const { control, handleSubmit } = useForm();
   const onSubmit = (data) => {
-    addSingleDataToFireStore(data, {coll_name: "tmp", doc_name: data.name})
+    addSingleDataToFireStore(data, {
+      coll_name: collection_name,
+      doc_name: data.name,
+    })
   };
 
   const Heading = ({title="Title"}) => (<>
@@ -40,7 +45,7 @@ function HookFormImplementation(props) {
   /** 
    * An InputBox which will be controlled.
    * @param name
-   *   The name of the entry of data that will be stored in database
+   *   The key of the entry of data that will be stored in database
    * @param control
    *   Should be the control from `react-hook-form` library
    */
