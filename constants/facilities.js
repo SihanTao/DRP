@@ -5,6 +5,10 @@ const CENTRAL_LIBRARY = "Central Library";
 const EEE = "Electrical and Electronic Engineering Building";
 const CHEM = 'Chemistry Building';
 const IB = "Imperial College Business School";
+const BLACKETT = "Blackett Laboratory";
+const SKEMPTON = 'Skempton Building';
+const CITY = "City & Guilds Building";
+const DYSON = "Dyson Building of Design Engineering";
 
 const facilities = [
 
@@ -17,8 +21,8 @@ const facilities = [
             floor: 2
         },
         description:
-          "Electrical and Electronic Engineering Building 2nd floor? Cozy and" +
-          "nice. A wonderful place to enjoy your holiday.",
+            "Electrical and Electronic Engineering Building 2nd floor? Cozy and" +
+            "nice. A wonderful place to enjoy your holiday.",
         photo: 'https://i.ibb.co/6shJ6fZ/EEE-Water-Fountain-1.jpg',
         maps: [
             {
@@ -235,7 +239,7 @@ const facilities = [
         url: '',
         avgRating: 0,
         numRatings: 0,
-        building: {HUXLEY}
+        building: { HUXLEY }
     }, {
         name: 'Toilet Huxley 224',
         toilet: true,
@@ -311,7 +315,7 @@ const facilities = [
             }
         ],
         building: HUXLEY,
-        description: "Between Huxley labs and Blackett" 
+        description: "Between Huxley labs and Blackett"
     }, {
         name: 'Secret Luxurious Female Toilet',
         toilet: true,
@@ -348,7 +352,7 @@ const facilities = [
             }
         ],
         building: HUXLEY,
-    },   
+    },
 
     // Cafe
     {
@@ -392,7 +396,7 @@ const facilities = [
         maps: [  // TODO: Add corrent map
             {
                 url: 'https://ih1.redbubble.net/image.959951874.3860/pp,840x' +
-                     '830-pad,1000x1000,f8f8f8.jpg'
+                    '830-pad,1000x1000,f8f8f8.jpg'
             }
         ],
         building: CHEM,
@@ -418,7 +422,7 @@ const facilities = [
         maps: [  // TODO: Add corrent map
             {
                 url: 'https://ih1.redbubble.net/image.959951874.3860/pp,840x' +
-                     '830-pad,1000x1000,f8f8f8.jpg'
+                    '830-pad,1000x1000,f8f8f8.jpg'
             }
         ],
         building: IB,
@@ -464,16 +468,16 @@ const facilities = [
             }
         ],
         building: SHERFIELD,
-    }, 
+    },
     // microwave 
     {
         name: 'EEE Cafe Microwave Oven',
         microwave: true,
         location: "EEE 2nd-floor cafe",
         description:
-          "A microwave oven which normally sits there quietly. But most people" +
-          "don't no that it is planning to fight for the liberty of all" +
-          "microwave ovens.",
+            "A microwave oven which normally sits there quietly. But most people" +
+            "don't no that it is planning to fight for the liberty of all" +
+            "microwave ovens.",
         photo: "https://i.ibb.co/RBFq25S/EEE-Microwave-Oven-1.jpg",
         maps: [
             {
@@ -512,4 +516,8 @@ const facilities = [
     }
 ];
 
-export default facilities;
+export {
+    CITY, DYSON,
+    SKEMPTON, BLACKETT, facilities, HUXLEY,
+    SHERFIELD, CENTRAL_LIBRARY, EEE, CHEM, IB
+};

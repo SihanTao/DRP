@@ -8,7 +8,7 @@ import { Block, theme } from 'galio-framework';
 import argonTheme from '../constants/Theme';
 import ListElement from "../components/ListElement";
 import * as Progress from 'react-native-progress';
-
+import { facilities, HUXLEY, SHERFIELD, CENTRAL_LIBRARY, EEE, CHEM, IB, BLACKETT, SKEMPTON, CITY, DYSON } from '../constants/facilities';
 import { collection, doc, setDoc, getDoc, getFirestore, query, where, getDocs, orderBy } from "firebase/firestore";
 import { async } from "@firebase/util";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -20,33 +20,43 @@ export default function SearchResult(props) {
 
   const [region, setRegion] = useState(null);
   const [marker, setMarker] = useState([{
+    id: HUXLEY,
     title: "Huxley Building",
     latlng: { latitude: 51.49906736802353, longitude: -0.17900103307703977 },
   }, {
+    id: BLACKETT,
     title: "Blackett Laboratory",
     latlng: { latitude: 51.4996723106143, longitude: -0.17933089625534746 },
   }, {
+    id: CENTRAL_LIBRARY,
     title: "Central Library",
     latlng: { latitude: 51.49834075416967, longitude: -0.1782269478696598 }
   }, {
+    id: CHEM, 
     title: "Chemistry Building (Sir Ernst Chain Building)",
     latlng: { latitude: 51.49768989822215, longitude: -0.17812193650712865 }
   }, {
+    id: SHERFIELD,
     title: "Sherfield Building",
     latlng: { latitude: 51.49867744304856, longitude: -0.1781532142436012 }
   }, {
+    id: SKEMPTON,
     title: 'Skempton Building',
     latlng: { latitude: 51.498198888050005, longitude: -0.1760628815329859 }
   }, {
+    id: CITY,
     title: "City & Guilds Building",
     latlng: { latitude: 51.49850121465218, longitude: -0.17477856029385513 }
   }, {
+    id: IB,
     title: "Imperial College Business School",
     latlng: { latitude: 51.49937335617922, longitude: -0.1747500660898253 }
   }, {
+    id: DYSON,
     title: "Dyson Building of Design Engineering",
     latlng: { latitude: 51.497919, longitude: -0.174563 }
   }, {
+    id: EEE,
     title: "Electrical and Electronic Engineering Building",
     latlng: { latitude: 51.49909979949402, longitude: -0.17636334514753066 }
   }])
@@ -224,6 +234,13 @@ export default function SearchResult(props) {
     setFilters([...newCategory]);
   }
 
+  // START OF LOCATION FILTER 
+
+  function updateLocation() {
+    const filterWithLocation = [...filters];
+
+  }
+
   useEffect(() => {
     getData(filters);
     const willFocusSubscription = props.navigation.addListener('focus', () => {
@@ -307,6 +324,8 @@ export default function SearchResult(props) {
               key={index}
               coordinate={marker.latlng}
               title={marker.title}
+              onPress={e => console.log(e.nativeEvent)}
+              identifier={marker.id}
             />
           ))}
 
