@@ -18,6 +18,27 @@ export function addDocAndTags(doc) {
 }
 
 /**
+ * Returns all relevant tags of the given documents.
+ * @param {*} doc_names names of documents {name1:true, name2:true...}
+ * @param {*} result    result.tags will be the return value
+ */
+export async function allRelevantTags(doc_names, result) {
+  result["tags"] = {}
+  const tags = result.tags
+  for (let doc_name of Object.keys(doc_names)) {
+    const doc_res = {}
+    await ReadDocFromFireStore(doc_res, {
+      coll_name: share_coll_name,
+      doc_name
+    })
+    const doc = doc_res.data
+    Object.keys(doc.tags).map((tag) => {
+      tags[tag] = true
+    })
+  }
+}
+
+/**
  * Reads all documents that has the tag. Documents are saved at docs.data
  * @param docs    used to save the results
  * @param tag     the tag
