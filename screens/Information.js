@@ -36,7 +36,7 @@ export default function Information(props) {
   // console.log(item);
   const displayImages = [
     {
-      url: item.photo,
+      url: item.url,
     },
   ]
   const currentTags = []
@@ -95,14 +95,6 @@ export default function Information(props) {
   // }, 
 // ]
 
-  const renderMap = (item) => {
-    const image = item.url
-    return (
-      <Block flex>
-      <Image source={image} style={styles.fullImage} />
-      </Block>
-    )
-  }
 
 
   const renderRating = () => {
@@ -126,12 +118,12 @@ export default function Information(props) {
       <TouchableWithoutFeedback
               onPress={() => navigation.navigate("webpage",
                   {
-                    url: item.url,
-                    title: item.name,
+                    url: item.link,
+                    title: item.title,
                   })
                 }
               >
-              <Text style={styles.url}>{item.url}</Text>
+              <Text style={styles.url}>{item.link}</Text>
             </ TouchableWithoutFeedback>
       </>
     )
@@ -246,7 +238,7 @@ export default function Information(props) {
             </ TouchableWithoutFeedback>
           </Block>
           {showRating ? renderRating() : null}
-          {(item.url === '' || item.url === undefined) ? null : renderUrl()}
+          {(item.link === '' || item.link === undefined) ? null : renderUrl()}
         </ ScrollView>
       </ Block>
     </Block>

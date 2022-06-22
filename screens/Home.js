@@ -35,8 +35,8 @@ class Home extends React.Component {
     const { navigation } = this.props;
       navigation.navigate("Information", {
         passeditem: goStudySpaceSlideShow[position],
-        url: goStudySpaceSlideShow[position].photo,
-        title: goStudySpaceSlideShow[position].name,
+        url: goStudySpaceSlideShow[position].url,
+        title: goStudySpaceSlideShow[position].title,
         showRating: false,
         id: 1,
       })
