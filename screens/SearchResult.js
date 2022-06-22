@@ -49,7 +49,7 @@ export default function SearchResult(props) {
     const ret = {};
     Object.keys(tags_res.tags).forEach((tag) => {
       if (tags_res.tags[tag]) {
-        ret[tag] = { name: tag, color: "#000000", active: false }
+        ret[tag] = { name: tag, color: "#6a7ddf", active: false }
       }
     })
     // setTAGS(ret)
