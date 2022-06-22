@@ -328,7 +328,7 @@ const InformationStack = createNativeStackNavigator();
 function InformationStackScreen({ route, navigation }) {
   return (
     <>
-    <Header back title={route.params.passeditem.name}  navigation={navigation} />
+    <Header back title={route.params.passeditem.title}  navigation={navigation} />
     <Information navigation={navigation} route={route}/>
   </>
   );

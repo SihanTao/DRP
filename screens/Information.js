@@ -22,6 +22,7 @@ export default function Information(props) {
   const { navigation } = props;
   const item = props.route.params.passeditem;
   const id = props.route.params.id;
+  const showRating = props.route.params.showRating;
   // console.log("Here in Information " + id);
 
   useEffect(() => {
@@ -29,14 +30,13 @@ export default function Information(props) {
       const fetched = await getCurrentRating(props.route.params.id);
       setRating(fetched);
     }
-
-    fetchData(id).catch(console.error);
+    showRating ? fetchData(id).catch(console.error) : null;
   }, [])
 
   // console.log(item);
   const displayImages = [
     {
-      url: item.photo,
+      url: item.url,
     },
   ]
   const currentTags = []
@@ -95,12 +95,19 @@ export default function Information(props) {
   // }, 
 // ]
 
-  const renderMap = (item) => {
-    const image = item.url
+
+
+  const renderRating = () => {
     return (
-      <Block flex>
-      <Image source={image} style={styles.fullImage} />
-      </Block>
+      <><Text bold size={25} style={styles.heading}>Rate the facility!</Text>
+          <Text style={styles.description}>Current Rating: {rating.toFixed(2)}</Text><Rating
+            type='star'
+            ratingCount={5}
+            imageSize={60}
+            onFinishRating={ratingCompleted}
+            style={{ padding: 10 }}
+          /> 
+        </>
     )
   }
 
@@ -111,12 +118,12 @@ export default function Information(props) {
       <TouchableWithoutFeedback
               onPress={() => navigation.navigate("webpage",
                   {
-                    url: item.url,
-                    title: item.name,
+                    url: item.link,
+                    title: item.title,
                   })
                 }
               >
-              <Text style={styles.url}>{item.url}</Text>
+              <Text style={styles.url}>{item.link}</Text>
             </ TouchableWithoutFeedback>
       </>
     )
@@ -217,9 +224,9 @@ export default function Information(props) {
           <Text bold size={25} style={styles.heading}>Description</Text>
           <Text style={styles.description}>{item.description}</Text>
           <Text bold size={25} style={styles.heading}>Location</Text>
-          <Text style={styles.description}>Imperial College London, South Kensington Campus, London SW7 2AZ</Text>
+          <Text style={styles.description}>{(item.location === '' || item.location === undefined) ? "Imperial College London, South Kensington Campus, London SW7 2AZ" : item.location}</Text>
           <Text bold size={25} style={styles.heading}>Opening Hours</Text>
-          <Text style={styles.description}>24/7, close on holidays </Text>
+          <Text style={styles.description}>{(item.openingHour === '' || item.openingHour === undefined) ? "24/7 close on holidays" : item.openingHour}</Text>
           <Text bold size={25} style={styles.heading}>Map</Text>
           <Block flex style={styles.imageContainer}>
             <TouchableWithoutFeedback
@@ -230,17 +237,8 @@ export default function Information(props) {
               <Image source={{ uri: item.maps[0].url }} style={styles.fullImage} />
             </ TouchableWithoutFeedback>
           </Block>
-          <Text bold size={25} style={styles.heading}>Rate the facility!</Text>
-          <Text style={styles.description}>Current Rating: {rating.toFixed(2)}</Text>
-          <Rating
-            type='star'
-            ratingCount={5}
-            imageSize={60}
-            onFinishRating={ratingCompleted}
-            style={{ padding: 10 }}
-          />
-
-          {(item.url === '' || item.url === undefined) ? null : renderUrl()}
+          {showRating ? renderRating() : null}
+          {(item.link === '' || item.link === undefined) ? null : renderUrl()}
         </ ScrollView>
       </ Block>
     </Block>

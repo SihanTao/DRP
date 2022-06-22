@@ -36,6 +36,7 @@ class ListElement extends React.Component {
               navigation.navigate("Information", {
                 passeditem: item,
                 id: idList[index],
+                showRating: true,
               })
             }
           }
@@ -76,7 +77,7 @@ class ListElement extends React.Component {
               </View>
                   </Block>
               <Text style={styles.listTitle} size={25} bold >
-                {item.name}
+                {item.title}
               </Text>
 
               <Block style={{ flexDirection: "row", flexWrap: "wrap" }}>

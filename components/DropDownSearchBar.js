@@ -18,11 +18,8 @@ export default class DropDownSearchBar extends React.Component {
   constructor(props) {
     super(props);
     //setting default state
-    this.oldSharedTabsHolder = { categories: [] }
-    this.newSharedTabsHolder = { categories: [] }
-    this.state = { isLoading: false, search: '', tabs: [] };
-    // this.arrayholder = tabs.categories;
-    this.arrayholder = shared_tabs.categories;
+    this.state = { isLoading: false, search: '', dataSource: [] };
+    this.arrayholder = tabs.categories;
   }
   componentDidMount() {
     this.setState(
@@ -134,7 +131,7 @@ export default class DropDownSearchBar extends React.Component {
           autoFocus
         />
         <FlatList
-          data={this.state.dataSource}
+          data={this.state.dataSource.length == 0 ? [{id: 'noResult', title: ' No results found'}]: this.state.dataSource }
           ItemSeparatorComponent={this.ListViewItemSeparator}
           //Item Separator View
           renderItem={({ item }) => this.renderItem(item)}
