@@ -1,7 +1,7 @@
 import React from "react";
 import { Alert } from "react-native";
 import { share_coll_name, share_tags_coll_name } from "../constants/ShareCons";
-import { deleteFieldInFireStore, mergeSingleDataToFireStore } from "./databaseReadWrite";
+import { deleteFieldInFireStore, mergeSingleDataToFireStore, ReadDocFromFireStore } from "./databaseReadWrite";
 
 /**
  * Register the document with the tag in database. Note that data.name is the key
@@ -36,9 +36,27 @@ export function deleteDocUnderTag({ doc_name, tag }) {
   })
 }
 
-// TODO
-export function checkDocTag({ doc_name, tag }) {
-
+/**
+ * Returns whether the document is under the tag.
+ * @param doc_name document name
+ * @param tag      tag name
+ * @returns {boolean} A boolean value
+ */
+export async function checkDocTag({ doc_name, tag }) {
+  const doc = {}
+  await ReadDocFromFireStore(doc, {
+    coll_name: share_tags_coll_name,
+    doc_name: tag,
+  })
+  if (doc.data) {
+    if (doc.data[doc_name]) {
+      return true
+    } else {
+      return false
+    }
+  } else {
+    return false
+  }
 }
 
 // TODO

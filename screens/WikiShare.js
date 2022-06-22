@@ -13,7 +13,7 @@ import { View } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import { addSingleDataToFireStore, deleteFieldInFireStore, ReadDocFromFireStore } from "../backend/databaseReadWrite";
 import sampleData from "../constants/sampleData"
-import { addDocUnderTag, alertTrue, dataAddTag, dataHasTag, dataRmvTag, deleteDocUnderTag } from "../backend/tagManager";
+import { addDocUnderTag, alertTrue, checkDocTag, dataAddTag, dataHasTag, dataRmvTag, deleteDocUnderTag } from "../backend/tagManager";
 import { share_coll_name } from "../constants/ShareCons";
 
 const { height, width } = Dimensions.get('window');
@@ -127,12 +127,12 @@ function HookFormImplementation(props) {
               <Button style={[{flex: 1}]}
                 title="Button_C"
                 onPress={async () => {
-                  const r = {};
-                  await ReadDocFromFireStore(r, {
-                    coll_name: "shared_tags",
-                    doc_name: "fooo",
+                  const r = await checkDocTag({
+                      doc_name: "tmpp",
+                      tag: "fooo"
                   })
-                  Alert.alert(JSON.stringify(r))
+                  alertTrue({x: r})
+                  // Alert.alert(r)
                 }}
               />
             </View>
