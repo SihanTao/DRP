@@ -16,6 +16,7 @@ import sampleData from "../constants/sampleData"
 import { addDocAndTags, addDocUnderTag, alertTrue, allRelevantTags, checkDocTag, dataAddTag, dataHasTag, dataRmvTag, deleteDocAndTags, deleteDocUnderTag, filterDocsUnderTag, filterDocsUnderTags, readDocsWithTag } from "../backend/tagManager";
 import { share_coll_name } from "../constants/ShareCons";
 import facilities from "../constants/sampleData";
+import { doc } from "firebase/firestore";
 
 const { height, width } = Dimensions.get('window');
 
@@ -31,23 +32,35 @@ export default function WikiShare(props) {
 function HookFormImplementation(props) {
   const { control, handleSubmit } = useForm();
 
-  const onSubmit = (data) => {
-    const tag_array = data.raw_tags.split(' ')
-    data["tags"] = {}
-    // below are temporary testing setting
-    data["title"] = data.name
-    data["url"] = "https://upload.wikimedia.org/wikipedia/commons/0/02/Dalby_Court_looking_north-east.jpg"
-    data["avgRating"] = 5
-    data["maps"] = [{ url: data.map }]
+  const onSubmit = async (data) => {
+    const existing_doc_recv = {}
+    await ReadDocFromFireStore(existing_doc_recv, {
+      coll_name: share_coll_name,
+      doc_name: data.name
+    })
+    if (Object.keys(existing_doc_recv.data).length == 0) {
+      const tag_array = data.raw_tags.split(' ')
+      data["tags"] = {}
+      // below are temporary testing setting
+      data["title"] = data.name
+      data["url"] = "https://upload.wikimedia.org/wikipedia/commons/0/02/Dalby_Court_looking_north-east.jpg"
+      data["avgRating"] = 5
+      data["maps"] = [{ url: data.map }]
 
-    for (let tag of tag_array) {
-      data.tags[tag] = true
+      for (let tag of tag_array) {
+        data.tags[tag] = true
+      }
+      addDocAndTags(data)
+      Alert.alert(
+        "Submission Successful",
+        JSON.stringify(data)
+      )
+    } else {
+      Alert.alert(
+        "Submission Failed",
+        "Wiki with the same name exists, please contact the developer for update."
+      )
     }
-    addDocAndTags(data)
-    Alert.alert(
-      "Submission Successful",
-      JSON.stringify(data)
-    )
   };
 
   const onDelete = (data) => {
