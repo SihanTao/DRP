@@ -13,8 +13,9 @@ import { View } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import { addSingleDataToFireStore, deleteFieldInFireStore, ReadDocFromFireStore } from "../backend/databaseReadWrite";
 import sampleData from "../constants/sampleData"
-import { addDocUnderTag, alertTrue, checkDocTag, dataAddTag, dataHasTag, dataRmvTag, deleteDocUnderTag } from "../backend/tagManager";
+import { addDocUnderTag, alertTrue, checkDocTag, dataAddTag, dataHasTag, dataRmvTag, deleteDocUnderTag, filterDocsUnderTag, readDocsWithTag } from "../backend/tagManager";
 import { share_coll_name } from "../constants/ShareCons";
+import facilities from "../constants/sampleData";
 
 const { height, width } = Dimensions.get('window');
 
@@ -102,21 +103,19 @@ function HookFormImplementation(props) {
           <DevStatus forceHide={false} status="developing" pubHide={true}>
             <View style={[{height: 100}]} />
             <View style={[{flexDirection: "row"}]}>
-              <Button style={[{fles: 1}]}
-                title="Button_A" 
+              <Button style={[{fles: 1, marginRight: 5}]}
+                title="B_A" 
                 onPress={() => {
                   const a = {
-                    name: "tmpp"
+                    name: "tm"
                   }
                   dataAddTag(a, { tag: "foo" })
-                  dataAddTag(a, { tag: "doo" })
-                  dataRmvTag(a, { tag: "foo" })
-                  addDocUnderTag( { doc_name: a.name, tag: "fooo" })
+                  addDocUnderTag( { doc_name: a.name, tag: "foo" })
                   // Alert.alert(JSON.stringify(a))
                 }}
               />
-              <Button style={[{flex: 1}]}
-                title="Button_B" 
+              <Button style={[{flex: 1, marginRight: 5}]}
+                title="B_B" 
                 onPress={() => {
                   deleteDocUnderTag({
                     doc_name: "tmpp",
@@ -124,8 +123,8 @@ function HookFormImplementation(props) {
                   })
                 }}
               />
-              <Button style={[{flex: 1}]}
-                title="Button_C"
+              <Button style={[{flex: 1, marginRight: 5}]}
+                title="B_C"
                 onPress={async () => {
                   const r = await checkDocTag({
                       doc_name: "tmpp",
@@ -133,6 +132,17 @@ function HookFormImplementation(props) {
                   })
                   alertTrue({x: r})
                   // Alert.alert(r)
+                }}
+              />
+              <Button style={[{flex: 1, marginRight: 5}]}
+                title="B_D"
+                onPress={async () => {
+                  const docsRecv = {}
+                  await readDocsWithTag(docsRecv, {tag:"fooo"})
+                  const docs = docsRecv.data
+                  Alert.alert("1", JSON.stringify(docs))
+                  await filterDocsUnderTag(docs, {tag:"foo"})
+                  Alert.alert("2", JSON.stringify(docs))
                 }}
               />
             </View>

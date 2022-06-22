@@ -3,6 +3,13 @@ import { Alert } from "react-native";
 import { share_coll_name, share_tags_coll_name } from "../constants/ShareCons";
 import { deleteFieldInFireStore, mergeSingleDataToFireStore, ReadDocFromFireStore } from "./databaseReadWrite";
 
+export async function readDocsWithTag(docs, {tag}) {
+  await ReadDocFromFireStore(docs, {
+    coll_name: share_tags_coll_name,
+    doc_name: tag,
+  })
+}
+
 /**
  * Register the document with the tag in database. Note that data.name is the key
  * @param doc_name  the document (or piece of data)
@@ -44,10 +51,7 @@ export function deleteDocUnderTag({ doc_name, tag }) {
  */
 export async function checkDocTag({ doc_name, tag }) {
   const doc = {}
-  await ReadDocFromFireStore(doc, {
-    coll_name: share_tags_coll_name,
-    doc_name: tag,
-  })
+  await readDocsWithTag(doc, {tag})
   if (doc.data) {
     if (doc.data[doc_name]) {
       return true
@@ -59,9 +63,25 @@ export async function checkDocTag({ doc_name, tag }) {
   }
 }
 
-// TODO
-export function filterDocsUnderTag() {
-
+/**
+ * Filters documents that doesn't has the tag in docs (in place filter)
+ * @param docs  The docs that will be filtered
+ * @param tag   The tag used to filter
+ */
+export async function filterDocsUnderTag(docs, {tag}) {
+  const tagDoc = {}
+  await readDocsWithTag(tagDoc, {tag})
+  Object.keys(docs).map((key) => {
+    if (tagDoc) {
+      if (tagDoc.data[key]) {
+        // do nothing if both tags contain the same doc
+      } else {
+        docs[key] = undefined
+      }
+    } else {
+      docs[key] = undefined
+    }
+  })
 }
 
 // TODO
