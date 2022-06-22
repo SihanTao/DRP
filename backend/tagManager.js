@@ -71,22 +71,29 @@ export async function checkDocTag({ doc_name, tag }) {
 export async function filterDocsUnderTag(docs, {tag}) {
   const tagDoc = {}
   await readDocsWithTag(tagDoc, {tag})
-  Object.keys(docs).map((key) => {
+  Object.keys(docs).map((doc_name) => {
     if (tagDoc) {
-      if (tagDoc.data[key]) {
+      if (tagDoc.data[doc_name]) {
         // do nothing if both tags contain the same doc
       } else {
-        docs[key] = undefined
+        docs[doc_name] = undefined
       }
     } else {
-      docs[key] = undefined
+      docs[doc_name] = undefined
     }
   })
 }
 
-// TODO
-export function filterDocsUnderTags() {
-
+/**
+ * Filters documents that doesn't has the tags in docs (in place filter)
+ * @param docs  The docs that will be filtered
+ * @param tags  The tags used to filter
+ */
+export async function filterDocsUnderTags(docs, tags) {
+  const keys = Object.keys(tags)
+  for (let tag of Object.keys(tags)) {
+    await filterDocsUnderTag(docs, {tag})
+  }
 }
 
 /** Determines if data.tags.tag exists */

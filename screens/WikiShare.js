@@ -13,7 +13,7 @@ import { View } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import { addSingleDataToFireStore, deleteFieldInFireStore, ReadDocFromFireStore } from "../backend/databaseReadWrite";
 import sampleData from "../constants/sampleData"
-import { addDocUnderTag, alertTrue, checkDocTag, dataAddTag, dataHasTag, dataRmvTag, deleteDocUnderTag, filterDocsUnderTag, readDocsWithTag } from "../backend/tagManager";
+import { addDocUnderTag, alertTrue, checkDocTag, dataAddTag, dataHasTag, dataRmvTag, deleteDocUnderTag, filterDocsUnderTag, filterDocsUnderTags, readDocsWithTag } from "../backend/tagManager";
 import { share_coll_name } from "../constants/ShareCons";
 import facilities from "../constants/sampleData";
 
@@ -110,7 +110,7 @@ function HookFormImplementation(props) {
                     name: "tm"
                   }
                   dataAddTag(a, { tag: "foo" })
-                  addDocUnderTag( { doc_name: a.name, tag: "foo" })
+                  addDocUnderTag( { doc_name: a.name, tag: "fo" })
                   // Alert.alert(JSON.stringify(a))
                 }}
               />
@@ -142,6 +142,18 @@ function HookFormImplementation(props) {
                   const docs = docsRecv.data
                   Alert.alert("1", JSON.stringify(docs))
                   await filterDocsUnderTag(docs, {tag:"foo"})
+                  Alert.alert("2", JSON.stringify(docs))
+                }}
+              />
+              <Button style={[{flex: 1, marginRight: 5}]}
+                title="B_E"
+                onPress={async () => {
+                  const docsRecv = {}
+                  await readDocsWithTag(docsRecv, {tag:"fooo"})
+                  const docs = docsRecv.data
+                  Alert.alert("1", JSON.stringify(docs))
+                  // await filterDocsUnderTag(docs, {tag:"foo"})
+                  await filterDocsUnderTags(docs, {foo:true, fo:true})
                   Alert.alert("2", JSON.stringify(docs))
                 }}
               />
