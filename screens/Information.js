@@ -95,14 +95,6 @@ export default function Information(props) {
   // }, 
 // ]
 
-  const renderMap = (item) => {
-    const image = item.url
-    return (
-      <Block flex>
-      <Image source={image} style={styles.fullImage} />
-      </Block>
-    )
-  }
 
 
   const renderRating = () => {
@@ -131,7 +123,7 @@ export default function Information(props) {
                   })
                 }
               >
-              <Text style={styles.url}>{item.url}</Text>
+              <Text style={styles.url}>{item.link}</Text>
             </ TouchableWithoutFeedback>
       </>
     )
@@ -246,7 +238,7 @@ export default function Information(props) {
             </ TouchableWithoutFeedback>
           </Block>
           {showRating ? renderRating() : null}
-          {(item.url === '' || item.url === undefined) ? null : renderUrl()}
+          {(item.link === '' || item.link === undefined) ? null : renderUrl()}
         </ ScrollView>
       </ Block>
     </Block>
