@@ -10,15 +10,16 @@ const SKEMPTON = 'Skempton Building';
 const CITY = "City & Guilds Building";
 const DYSON = "Dyson Building of Design Engineering";
 
-const facilities = [
+const shareLocalFacilities = [
 
     // Water-fountain
     {
         title: 'EEE Cafe Water Fountain',
-        waterfountain: true,
-        STUDY: {
-            EEE: true,
-            floor: 2
+        name: 'EEE Cafe Water Fountain',
+        tags: {
+            waterfountain: true,
+            eee_building: true,
+            floor2: true,
         },
         description:
           "Electrical and Electronic Engineering Building 2nd floor? Cozy and" +
@@ -36,10 +37,11 @@ const facilities = [
         building: EEE,
     }, {
         title: 'Computing Lab Water Fountain',
-        waterfountain: true,
-        STUDY: {
-            Huxley: true,
-            floor: 2
+        name: 'Computing Lab Water Fountain',
+        tags: {
+            waterfountain: true,
+            huxley_building: true,
+            floor2: true
         },
         description:
             'Huxley ground floor, inside computing lab, need to access lab\n' +
@@ -57,11 +59,11 @@ const facilities = [
         building: HUXLEY,
     }, {
         title: 'SCR water fountain',
-        waterfountain: true,
-        STUDY: {
-            Huxley: false,
-            Sherfield: true,
-            floor: 2
+        name: 'SCR water fountain',
+        tags: {
+            waterfountain: true,
+            sherfield_building: true,
+            floor2: true,
         },
         description:
             'Inside Senior common room, next to the food-selling place\n',
@@ -78,11 +80,11 @@ const facilities = [
         building: SHERFIELD,
     }, {
         title: 'Sherfield 2nd floor water fountain',
-        waterfountain: true,
-        STUDY: {
-            Huxley: false,
-            Sherfield: true,
-            floor: 2
+        name: 'Sherfield 2nd floor water fountain',
+        tags: {
+            waterfountain: true,
+            sherfield_building: true,
+            floor2: true,
         },
         description:
             'Sherfield 2nd floor, next to the accessible toilets\n' +
@@ -103,11 +105,13 @@ const facilities = [
     // Study space
     {
         title: 'Central Library',
-        study: true,
-        STUDY: {
-            GROUP: true,
-            SILENT: true,
-            QUIET: true
+        name: 'Central Library',
+        tags: {
+            study_space: true,
+            group: true,
+            silent: true,
+            quiet: true,
+            central_library: true,
         },
         description:
             'Silent study - levels 2 and 3\n' +
@@ -128,11 +132,12 @@ const facilities = [
         building: CENTRAL_LIBRARY,
     }, {
         title: 'GoStudy Space',
-        study: true,
-        STUDY: {
-            GROUP: true,
-            SILENT: true,
-            QUIET: false
+        name: 'GoStudy Space',
+        tags: {
+            study: true,
+            group: true,
+            silent: true,
+            chemistry_building: true,
         },
         description:
             'Silent Study: Chemistry Building Rooms 460, 537\n' +
@@ -151,11 +156,11 @@ const facilities = [
         building: CHEM,
     }, {
         title: "Computing Lab",
-        study: true,
-        STUDY: {
-            GROUP: true,
-            SILENT: false,
-            QUIET: false
+        name: "Computing Lab",
+        tags: {
+            study: true,
+            group: true,
+            huxley_building: true,
         },
         description: "Huxley Building 219...",
         url: 'https://www.imperial.ac.uk/ImageCropToolT4/imageTool/uploaded-images/IMG_20151110_122250365--tojpeg_1447160413584_x2.jpg',
@@ -172,11 +177,11 @@ const facilities = [
         building: HUXLEY,
     }, {
         title: "Huxley 341&342",
-        study: true,
-        STUDY: {
-            GROUP: true,
-            SILENT: false,
-            QUIET: false
+        name: "Huxley 341&342",
+        tags: {
+            study: true,
+            group: true,
+            huxley_building: true,
         },
         description: "Huxley Building 341&342...",
         url: 'https://i.ibb.co/HTjWccS/341-342.jpg',
@@ -193,11 +198,11 @@ const facilities = [
         building: HUXLEY,
     }, {
         title: "Huxley 212",
-        study: true,
-        STUDY: {
-            GROUP: true,
-            SILENT: false,
-            QUIET: false
+        name: "Huxley 212",
+        tags: {
+            study: true,
+            group: true,
+            huxley_building: true,
         },
         description: "Huxley Building 212...",
         url: 'https://i.ibb.co/M2F716f/212.jpg',
@@ -217,11 +222,11 @@ const facilities = [
     // Toilets
     {
         title: 'Toilet Huxley 227',
-        toilet: true,
-        TOILET: {
-            ACCESSIBLE: false,
-            MALE: true,
-            FEMALE: false,
+        name: 'Toilet Huxley 227',
+        tags: {
+            toilet: true,
+            male: true,
+            huxley_building: true,
         },
         description: "Huxley Building 227...",
         url: 'https://i.ibb.co/MnY9Fx3/227.jpg',
@@ -238,11 +243,11 @@ const facilities = [
         building: { HUXLEY }
     }, {
         title: 'Toilet Huxley 224',
-        toilet: true,
-        TOILET: {
-            ACCESSIBLE: false,
-            MALE: false,
-            FEMALE: true,
+        name: 'Toilet Huxley 224',
+        tags: {
+            toilet: true,
+            female: true,
+            huxley_building: true,
         },
         description: "Huxley Building 224...",
         url: 'https://i.ibb.co/SPxzrdj/224.jpg',
@@ -259,11 +264,13 @@ const facilities = [
         building: HUXLEY
     }, {
         title: 'Library Cafe Accessible Toilet',
-        toilet: true,
-        TOILET: {
-            ACCESSIBLE: true,
-            MALE: true,
-            FEMALE: true,
+        name: 'Library Cafe Accessible Toilet',
+        tags: {
+            toilet: true,
+            accessible: true,
+            male: true,
+            female: true,
+            central_library: true,
         },
         url: 'https://w7.pngwing.com/pngs/310/99/png-transparent-unisex-public-toilet-bathroom-fee-s-text-bathroom-logo.png',
         maps: [
@@ -278,11 +285,13 @@ const facilities = [
         building: CENTRAL_LIBRARY,
     }, {
         title: 'Accessible Toilet Huxley 236C',
-        toilet: true,
-        TOILET: {
-            ACCESSIBLE: true,
-            MALE: true,
-            FEMALE: true,
+        name: 'Accessible Toilet Huxley 236C',
+        tags: {
+            toilet: true,
+            accessible: true,
+            male: true,
+            female: true,
+            huxley_building: true,
         },
         url: 'https://i.ibb.co/FzVmGZG/20220615221920.jpg',
         description: "Huxley Building 236C...",
@@ -296,11 +305,11 @@ const facilities = [
         building: HUXLEY,
     }, {
         title: 'Secret Luxurious Male Toilet',
-        toilet: true,
-        TOILET: {
-            ACCESSIBLE: false,
-            MALE: true,
-            FEMALE: false,
+        name: 'Secret Luxurious Male Toilet',
+        tags: {
+            toilet: true,
+            male: true,
+            huxley_building: true,
         },
         url: 'https://i.ibb.co/Fg3B122/secret-male.jpg',
         avgRating: 0,
@@ -314,11 +323,11 @@ const facilities = [
         description: "Between Huxley labs and Blackett"
     }, {
         title: 'Secret Luxurious Female Toilet',
-        toilet: true,
-        TOILET: {
-            ACCESSIBLE: false,
-            MALE: false,
-            FEMALE: true,
+        name: 'Secret Luxurious Female Toilet',
+        tags: {
+            toilet: true,
+            female: true,
+            huxley_building: true,
         },
         url: 'https://i.ibb.co/fqwDRMJ/secret-female.jpg',
         avgRating: 0,
@@ -332,11 +341,13 @@ const facilities = [
         building: HUXLEY,
     }, {
         title: 'Secret Luxurious Accessible Toilet',
-        toilet: true,
-        TOILET: {
-            ACCESSIBLE: true,
-            MALE: true,
-            FEMALE: true,
+        name: 'Secret Luxurious Accessible Toilet',
+        tags: {
+            toilet: true,
+            accessible: true,
+            male: true,
+            female: true,
+            huxley_building: true,
         },
         url: 'https://i.ibb.co/TTRtNw1/secret-accessible.jpg',
         description: "Between Huxley labs and Blackett",
@@ -353,12 +364,10 @@ const facilities = [
     // Cafe
     {
         title: 'SCR Restaurant',
-        cafe: true,
-        CAFE: {
-            BREAKFAST: false,
-            LUNCH: true,
-            AFTERNOON: false,
-            SUPPER: false,
+        tags: {
+            cafe: true,
+            lunch: true,
+            sherfield_building: true,
         },
         openingHour: '11:45-14:30',
         location: "The Senior Common Room is located on level 2 of the Sherfield Building.",
@@ -374,12 +383,12 @@ const facilities = [
         building: SHERFIELD,
     }, {
         title: 'The Loud Bird',
-        cafe: true,
-        CAFE: {
-            BREAKFAST: true,
-            LUNCH: true,
-            AFTERNOON: true,
-            SUPPER: false,
+        tags: {
+            cafe: true,
+            breakfast: true,
+            lunch: true,
+            afternoon: true,
+            chemistry_building: true,
         },
         openingHour: '8:00-16:00',
         location: "The outlet is located on the ground floor of the Sir Alexander Fleming Building.",
@@ -398,12 +407,12 @@ const facilities = [
         building: CHEM,
     }, {
         title: 'College Cafe',
-        cafe: true,
-        CAFE: {
-            BREAKFAST: true,
-            LUNCH: true,
-            AFTERNOON: true,
-            SUPPER: false,
+        tags: {
+            cafe: true,
+            breakfast: true,
+            lunch: true,
+            afternoon: true,
+            imperial_business_school: true,
         },
         openingHour: '8:00-18:00',
         avgRating: 0,
@@ -424,12 +433,13 @@ const facilities = [
         building: IB,
     }, {
         title: 'Library Cafe',
-        cafe: true,
-        CAFE: {
-            BREAKFAST: true,
-            LUNCH: true,
-            AFTERNOON: true,
-            SUPPER: true,
+        tags: {
+            cafe: true,
+            breakfast: true,
+            lunch: true,
+            afternoon: true,
+            supper: true,
+            central_library: true,
         },
         openingHour: '8:00-23:00',
         avgRating: 0,
@@ -445,12 +455,10 @@ const facilities = [
         building: CENTRAL_LIBRARY,
     }, {
         title: 'Neo Pizza & Pasta',
-        cafe: true,
-        CAFE: {
-            BREAKFAST: false,
-            LUNCH: true,
-            AFTERNOON: false,
-            SUPPER: false,
+        tags: {
+            cafe: true,
+            lunch: true,
+            sherfield_building: true,
         },
         openingHour: '11:30-14:30',
         avgRating: 0,
@@ -468,7 +476,10 @@ const facilities = [
     // microwave 
     {
         title: 'EEE Cafe Microwave Oven',
-        microwave: true,
+        tags: {
+            microwave: true,
+            eee_building: true,
+        },
         location: "EEE 2nd-floor cafe",
         description:
           "A microwave oven which normally sits there quietly. But most people" +
@@ -485,7 +496,10 @@ const facilities = [
         numRatings: 0,
     }, {
         title: 'Department of Computing Studnent Tea Point',
-        microwave: true,
+        tags: {
+            microwave: true,
+            huxley_building: true,
+        },
         avgRating: 0,
         numRatings: 0,
         location: "Huxley 223. Inside DoC Lab Area",
@@ -499,7 +513,10 @@ const facilities = [
         building: HUXLEY,
     }, {
         title: 'GoStudy Space Kitchen',
-        microwave: true,
+        tags: {
+            microwave: true,
+            chemistry_building: true,
+        },
         avgRating: 0,
         numRatings: 0,
         location: "Chemistry Building 448.",
@@ -516,6 +533,6 @@ const facilities = [
 
 export {
     CITY, DYSON,
-    SKEMPTON, BLACKETT, facilities, HUXLEY,
+    SKEMPTON, BLACKETT, shareLocalFacilities, HUXLEY,
     SHERFIELD, CENTRAL_LIBRARY, EEE, CHEM, IB
 };

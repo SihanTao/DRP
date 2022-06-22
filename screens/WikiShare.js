@@ -17,6 +17,8 @@ import { addDocAndTags, addDocUnderTag, alertTrue, allRelevantTags, checkDocTag,
 import { share_coll_name } from "../constants/ShareCons";
 import facilities from "../constants/sampleData";
 import { doc } from "firebase/firestore";
+import shareLocalFacilities from "../constants/shareLocalFacilities";
+import DEV_STATUS from "../constants/DevStatus";
 
 const { height, width } = Dimensions.get('window');
 
@@ -45,6 +47,7 @@ function HookFormImplementation(props) {
       data["title"] = data.name
       data["url"] = "https://upload.wikimedia.org/wikipedia/commons/0/02/Dalby_Court_looking_north-east.jpg"
       data["avgRating"] = 5
+      data["numRatings"] = 1
       data["maps"] = [{ url: data.map }]
 
       for (let tag of tag_array) {
@@ -70,6 +73,13 @@ function HookFormImplementation(props) {
       JSON.stringify(data)
     )
   };
+
+  const onSync = (data) => {
+    // console.log(shareLocalFacilities)
+    for (let wiki of shareLocalFacilities) {
+      console.log("> ", wiki)
+    }
+  }
 
   const Heading = ({title="Title"}) => (<>
     <Text style={styles.heading}>
@@ -145,6 +155,12 @@ function HookFormImplementation(props) {
                 <Button
                   title="delete"
                   onPress={handleSubmit(onDelete)}
+                />
+              </View>
+              <View style={styles.buttonWrapper}>
+                <Button
+                  title="sync local"
+                  onPress={handleSubmit(onSync)}
                 />
               </View>
             </DevStatus>
