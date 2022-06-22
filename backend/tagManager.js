@@ -53,10 +53,23 @@ export async function allRelevantTags(doc_names, result) {
  * @param tag     the tag
  */
 export async function readDocsWithTag(docs, {tag}) {
-  await ReadDocFromFireStore(docs, {
+  const refs = {}
+  docs["data"] = {}
+  await ReadDocFromFireStore(refs, {
     coll_name: share_tags_coll_name,
     doc_name: tag,
   })
+  const docRefs = refs.data
+  for (let doc_key of Object.keys(docRefs)) {
+    const coll_name = docRefs[doc_key].coll_name
+    const doc_name = docRefs[doc_key].doc_name
+    const doc_recv = {}
+    await ReadDocFromFireStore(doc_recv, {
+      coll_name,
+      doc_name,
+    })
+    docs.data[doc_name] = doc_recv.data
+  }
 }
 
 /**

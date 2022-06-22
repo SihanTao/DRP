@@ -81,7 +81,6 @@ export default class DropDownSearchBar extends React.Component {
       <Text style={styles.textStyle}
         onPress={
           () => {
-            Alert.alert(item.id)
             navigation.navigate('SearchResult', idObject)
           }
         }

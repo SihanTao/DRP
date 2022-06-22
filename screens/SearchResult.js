@@ -17,6 +17,8 @@ import { allRelevantTags, readDocsWithTag } from "../backend/tagManager";
 const { width } = Dimensions.get('screen');
 
 export default function SearchResult(props) {
+  const main_tag = props.route.params.main_tag
+
   // Here we could switch between different tags 
   // according to params
   function toggleTag(index) {
@@ -30,7 +32,7 @@ export default function SearchResult(props) {
     {name: "sample", color: "#484", active: false }
   ])
   useEffect(() => {
-    tagsRelatedToTag({ tag: props.route.params.main_tag })
+    tagsRelatedToTag({ tag: main_tag })
     getData(filters)
   }, [])
 
@@ -43,9 +45,12 @@ export default function SearchResult(props) {
     })
     const tags_res = {};
     await allRelevantTags(doc_names, tags_res);
+    tags_res.tags[main_tag] = false
     const ret = {};
     Object.keys(tags_res.tags).forEach((tag) => {
-      ret[tag] = { name: tag, color: "#000000", active: false }
+      if (tags_res.tags[tag]) {
+        ret[tag] = { name: tag, color: "#000000", active: false }
+      }
     })
     setTAGS(ret)
     setTags(ret)
@@ -58,7 +63,6 @@ export default function SearchResult(props) {
   const [filters, setFilters] = useState([]);
 
   async function getData(filters) {
-    console.log("> getData")
     const list = [];
     const placeRef = collection(getFirestore(), "facilities");
     const conditions = [];
@@ -69,12 +73,11 @@ export default function SearchResult(props) {
     await readDocsWithTag(doc_recv, {tag})
 
     const idlist = []
-    console.log("> doc_recv.data: ", doc_recv.data)
-    Object.keys(doc_recv.data).forEach((doc) => {
-      list.push(doc);
-      idlist.push(doc.name);
+    const docs = doc_recv.data
+    Object.keys(docs).forEach((doc) => {
+      list.push(docs[doc]);
+      idlist.push(docs[doc].name);
     })
-    console.log("list: ", list)
     setData([...list]);
     setIds([...idlist]);
   }
@@ -146,7 +149,6 @@ export default function SearchResult(props) {
     return willFocusSubscription;
   // }, [filters]);
   }, []);
-  console.log("> tags: ", tags)
   return (
     <Block safe fluid style={styles.container}>
       <Block style={{ flexDirection: "row", flexWrap: "wrap" }}>

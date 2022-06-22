@@ -33,6 +33,12 @@ function HookFormImplementation(props) {
   const onSubmit = (data) => {
     const tag_array = data.raw_tags.split(' ')
     data["tags"] = {}
+    // below are temporary testing setting
+    data["title"] = data.name
+    data["url"] = "https://upload.wikimedia.org/wikipedia/commons/0/02/Dalby_Court_looking_north-east.jpg"
+    data["avgRating"] = 5
+    data["maps"] = [{ url: data.map }]
+
     for (let tag of tag_array) {
       data.tags[tag] = true
     }
@@ -91,18 +97,18 @@ function HookFormImplementation(props) {
           {/* TODO: Make this one compulsory */}
           <Heading title="Name of Wiki*" />
           <InputBox name="name" control={control} />
-          <Heading title="Thumbnail" />
-          <InputBox name="photo" placeholder="URL of the picture" control={control} />
+          <Heading title="Photo" />
+          <InputBox name="url" placeholder="URL of the picture" control={control} />
           <Heading title="Description" />
           <InputBox name="description" control={control} />
           <Heading title="Location" />
           <InputBox name="location" control={control}/>
           <Heading title="Opening Hours" />
-          <InputBox name="openingHours" placeholder="opening hours" control={control} />
+          <InputBox name="openingHour" placeholder="opening hours" control={control} />
           <Heading title="Map" />
           <InputBox name="map" placeholder="URL of the map" control={control} />
           <Heading title="External Website" />
-          <InputBox name="url" placeholder="URL of the website" control={control} />
+          <InputBox name="link" placeholder="URL of the website" control={control} />
           <Heading title="Tags" />
           <InputBox name="raw_tags" placeholder="Seperate by a single space" control={control} />
           <View style={styles.buttonContainer}>
