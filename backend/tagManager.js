@@ -19,6 +19,13 @@ export function addDocAndTags(doc) {
 
 // TODO: think about problems when updating doc with tags
 
+export async function getAllTags(tags) {
+  await ReadDocFromFireStore(tags, {
+    coll_name: share_all_tags_coll_name,
+    doc_name: share_all_tags_doc_name,
+  })
+}
+
 /**
  * Returns all relevant tags of the given documents.
  * @param {*} doc_names names of documents {name1:true, name2:true...}
