@@ -3,6 +3,10 @@ import { Alert } from "react-native";
 import { share_coll_name, share_tags_coll_name } from "../constants/ShareCons";
 import { addSingleDataToFireStore, deleteFieldInFireStore, mergeSingleDataToFireStore, ReadDocFromFireStore } from "./databaseReadWrite";
 
+/**
+ * Automatically adds the doc(wiki) to database and register it with the tags.
+ * @param doc The doc(wiki) needs to have doc.tags
+ */
 export function addDocAndTags(doc) {
   Object.keys(doc.tags).map((tag) => {
     addDocUnderTag({ doc_name: doc.name, tag })
