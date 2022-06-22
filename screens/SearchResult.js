@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Text } from 'galio-framework';
-import { View, StyleSheet, Dimensions, Button, Image } from "react-native";
+import { View, TextInput, StyleSheet, ImageBackground, Dimensions, Linking, FlatList, Alert, Button, Image } from "react-native";
 import { ColorPicker, ModalInput, Separator, Tag } from "react-native-btr";
 import * as Location from 'expo-location';
 import MapView, { Marker } from 'react-native-maps';
@@ -13,10 +13,11 @@ import { collection, doc, setDoc, getDoc, getFirestore, query, where, getDocs, o
 import { async } from "@firebase/util";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { ALL_TAGS, CAFE_TAGS, STUDY_PLACE_TAGS, TOILET_TAGS, WATER_FOUNTAIN_TAGS, MICROWAVE_TAGS } from "../constants/tags";
+import { allRelevantTags, filterDocsUnderTags, readDocsWithTag } from "../backend/tagManager";
 const { width } = Dimensions.get('screen');
 
 export default function SearchResult(props) {
-  // console.log(props.route.params.studySpace);
+  const main_tag = props.route.params.main_tag
 
   const [region, setRegion] = useState(null);
   const [marker, setMarker] = useState([{
@@ -68,30 +69,43 @@ export default function SearchResult(props) {
   function toggleTag(index) {
     const tag = tags[index];
     tag.active = !tag.active;
-    setTags([...tags]);
+    setTags(tags);
   };
 
-  let TAGS = [];
-  if (props.route.params.studySpace) {
-    TAGS = STUDY_PLACE_TAGS;
-  } else if (props.route.params.toilet) {
-    TAGS = TOILET_TAGS;
-  } else if (props.route.params.cafe) {
-    TAGS = CAFE_TAGS;
-  } else if (props.route.params.waterfountain) {
-    TAGS = WATER_FOUNTAIN_TAGS
-  } else if (props.route.params.microwave) {
-    TAGS = MICROWAVE_TAGS;
-  }
-  else {
-    TAGS = ALL_TAGS;
+  // let TAGS = tagsRelatedToTag({tag: props.route.params.main_tag});
+  // const [TAGS, setTAGS] = useState([
+  //   {name: "sample", color: "#484", active: false }
+  // ])
+  useEffect(() => {
+    tagsRelatedToTag({ tag: main_tag })
+    getData(filters)
+  }, [filters])
+
+  async function tagsRelatedToTag({tag}) {
+    const docs_res = {};
+    await readDocsWithTag(docs_res, {tag})
+    const doc_names = {};
+    Object.keys(docs_res.data).forEach((doc) => {
+      doc_names[doc] = true;
+    })
+    const tags_res = {};
+    await allRelevantTags(doc_names, tags_res);
+    tags_res.tags[main_tag] = false
+    const ret = {};
+    Object.keys(tags_res.tags).forEach((tag) => {
+      if (tags_res.tags[tag]) {
+        ret[tag] = { name: tag, color: "#6a7ddf", active: false }
+      }
+    })
+    // setTAGS(ret)
+    setTags(ret)
   }
 
-  let [tags, setTags] = useState(TAGS);
+  let [tags, setTags] = useState({})
 
   const [ids, setIds] = useState([]);
   const [data, setData] = useState([]);
-  const [filters, setFilters] = useState([]);
+  const [filters, setFilters] = useState({})
 
   async function getData(filters) {
     const list = [];
@@ -99,65 +113,9 @@ export default function SearchResult(props) {
     const conditions = [];
     const params = props.route.params;
 
-    if (params.studySpace) {
-      conditions.push(where('study', '==', true));
-      if (filters.includes('Silent Study')) {
-        conditions.push(where('STUDY.SILENT', '==', true));
-      }
-
-      if (filters.includes('Group Study')) {
-        conditions.push(where('STUDY.GROUP', '==', true));
-      }
-
-      if (filters.includes('Quiet Study')) {
-        conditions.push(where('STUDY.QUIET', '==', true));
-      }
-    }
-
-    if (params.toilet) {
-      conditions.push(where('toilet', '==', true));
-      if (filters.includes('accessible')) {
-        conditions.push(where('TOILET.ACCESSIBLE', '==', true));
-      }
-
-      if (filters.includes('male')) {
-        conditions.push(where('TOILET.MALE', '==', true));
-      }
-
-      if (filters.includes('female')) {
-        conditions.push(where('TOILET.FEMALE', '==', true));
-      }
-    }
-
-    if (params.cafe) {
-      conditions.push(where('cafe', '==', true));
-      if (filters.includes('breakfast')) {
-        conditions.push(where("CAFE.BREAKFAST", '==', true))
-      }
-      if (filters.includes('lunch')) {
-        conditions.push(where("CAFE.LUNCH", '==', true))
-      }
-      if (filters.includes('afternoon')) {
-        conditions.push(where("CAFE.AFTERNOON", '==', true))
-      }
-      if (filters.includes('supper')) {
-        conditions.push(where("CAFE.SUPPER", '==', true))
-      }
-    }
-
-    if (params.waterfountain) {
-      conditions.push(where('waterfountain', '==', true))
-      if (filters.includes('Huxley')) {
-        conditions.push(where('STUDY.Huxley', '==', true))
-      }
-      if (filters.includes('Sherfield')) {
-        conditions.push(where('STUDY.Sherfield', '==', true))
-      }
-    }
-
-    if (params.microwave) {
-      conditions.push(where('microwave', '==', true))
-    }
+    const tag = params.main_tag
+    const doc_recv = {}
+    await readDocsWithTag(doc_recv, {tag})
 
     if (pressedLocation !== '') {
       conditions.push(where("building", "==", pressedLocation));
@@ -168,75 +126,32 @@ export default function SearchResult(props) {
 
     const querySnapshot = await getDocs(q);
     const idlist = []
-    querySnapshot.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
-      // console.log("=========================================");
-      // console.log(doc.id, " => ", doc.data());
-      // console.log("=========================================");
-      list.push(doc.data());
-      idlist.push(doc.id);
-    });
+    const docs = doc_recv.data
+    await filterDocsUnderTags(docs, filters)
+    Object.keys(docs).forEach((doc_name) => {
+      const doc = docs[doc_name]
+      if (doc) {
+        list.push(doc);
+        idlist.push(doc.name);
+      }
+    })
     setData([...list]);
     setIds([...idlist]);
   }
 
   function updateFilters() {
     // Initial State of Filter
-    const newCategory = [];
+    const newCategory = {};
     const params = props.route.params;
-    // console.log(params);
 
-    if (params.studySpace) {
-      if (TAGS[0].active) {
-        newCategory.push('Silent Study');
+    Object.keys(tags).forEach((tag) => {
+      const active = tags[tag].active
+      if (active) {
+        newCategory[tag] = true
       }
+    })
 
-      if (TAGS[1].active) {
-        newCategory.push('Group Study');
-      }
-
-      if (TAGS[2].active) {
-        newCategory.push('Quiet Study');
-      }
-    } else if (params.toilet) {
-      if (TAGS[0].active) {
-        newCategory.push('accessible');
-      }
-
-      if (TAGS[1].active) {
-        newCategory.push('male');
-      }
-
-      if (TAGS[2].active) {
-        newCategory.push('female');
-      }
-    } else if (params.cafe) {
-      if (TAGS[0].active) {
-        newCategory.push('breakfast');
-      }
-
-      if (TAGS[1].active) {
-        newCategory.push('lunch');
-      }
-
-      if (TAGS[2].active) {
-        newCategory.push('afternoon');
-      }
-
-      if (TAGS[3].active) {
-        newCategory.push('supper');
-      }
-    } else if (params.waterfountain) {
-      if (TAGS[0].active) {
-        newCategory.push('Huxley');
-      }
-
-      if (TAGS[1].active) {
-        newCategory.push('Sherfield')
-      }
-    }
-
-    setFilters([...newCategory]);
+    setFilters(newCategory);
   }
 
   // START OF LOCATION FILTER 
@@ -247,7 +162,7 @@ export default function SearchResult(props) {
     const willFocusSubscription = props.navigation.addListener('focus', () => {
       getData(filters);
     });
-    console.log(data)
+    // console.log(data)
 
     return willFocusSubscription;
   }, [filters, pressedLocation]);
@@ -360,10 +275,9 @@ export default function SearchResult(props) {
         </ View>}
 
       </Block>}
-
-
-      <Block style={{ marginHorizontal: 16, flexDirection: "row", flexWrap: "nowrap" }}>
-        {tags.map((tag, index) => {
+      <Block style={{ marginHorizontal: 16, flexDirection: "row", flexWrap: "wrap" }}>
+        {Object.keys(tags).map((index) => {
+          const tag = tags[index]
           const backgroundColor = tag.active ? tag.color : "#0000";
           const color = tag.active ? "#fff" : tag.color;
           return (

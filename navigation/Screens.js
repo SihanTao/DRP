@@ -5,6 +5,7 @@ import { argonTheme, tabs, articles } from "../constants";
 import DevStatus from "../constants/DevelopeStatus";
 import facilities from "../constants/facilities";
 
+import WikiShare from "../screens/WikiShare"
 import Articles from "../screens/Articles";
 import { Block } from "galio-framework";
 // drawer
@@ -36,6 +37,7 @@ import { signInAnonymous } from "../backend/auth"
 import { addDataToFireStore, testAddFireStore } from "../backend/databaseReadWrite";
 import WebPage from "../screens/WebPage";
 import ImageZoomer from "../components/ImageZoomer";
+import { Text } from "react-native-elements";
 
 export default function OnboardingStack(props) {
   initializeApp(firebaseConfig);
@@ -341,29 +343,29 @@ function ImageZoomerStackScreen({ route, navigation }) {
   );
 }
 
-const favouriteStack = createNativeStackNavigator();
+const wikiShareStack = createNativeStackNavigator();
 
 // TODO: Write the favourite page
 export function ShareScreen(props) {
   return (
-    <DevStatus status="developing">
-      <favouriteStack.Navigator
+    <DevStatus status="done">
+      <wikiShareStack.Navigator
         screenOptions={{
           mode: "card",
           headerShown: true,
         }}
       >
-        <favouriteStack.Screen
-          name="Favourite"
-          component={SearchResult}
+        <wikiShareStack.Screen
+          name="WikiShare"
+          component={WikiShare}
           options={{
             header: ({ navigation, scene }) => (
-              <Header back title="SearchResult" navigation={navigation} scene={scene} />
+              <Header back title="WikiShare" navigation={navigation} scene={scene} />
             ),
             cardStyle: { backgroundColor: "#F8F9FE" },
           }}
         />
-      </favouriteStack.Navigator>
+      </wikiShareStack.Navigator>
     </DevStatus>
   );
 }

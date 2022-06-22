@@ -29,8 +29,18 @@ function YetToBeImplementedScreen () {
  * @param {*} pubHide
  *    A boolean value. When set to true, the component will be hidden
  *    if constants.DevStatus is "publishing". This value defaults to false.
+ * @param {*} forceHide
+ *    If assigned true, the content will be hidden anyway.
  */
-export default function DevStatus ({status="done", children, pubHide=false}) {
+export default function DevStatus ({
+  status="done",
+  pubHide=false,
+  forceHide,
+  children,
+}) {
+  if (forceHide) {
+    return (<></>)
+  }
   if (DEV_STATUS=="publishing" && pubHide) {
     return (<></>)
   }

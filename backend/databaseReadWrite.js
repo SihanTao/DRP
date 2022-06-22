@@ -1,7 +1,11 @@
 import { getDatabase, ref, set, onValue } from "firebase/database";
 import uuid from 'react-native-uuid';
 import { async } from "@firebase/util";
-import { getFirestore, collection, addDoc, setDoc, doc, getDoc, updateDoc } from "firebase/firestore";
+import { getFirestore, collection, addDoc, setDoc, doc, getDoc, updateDoc, deleteField, deleteDoc } from "firebase/firestore";
+import { Alert } from "react-native";
+import { DEV_STATUS } from "../constants/DevStatus"
+
+const ALERT_ON = false
 
 export function writeUserData(name, email, password) {
     const db = getDatabase();
@@ -30,6 +34,116 @@ export async function addDataToFireStore(datas) {
     const db = getFirestore();
     for (let i = 0; i < datas.length; i++) {
         await addDoc(collection(db, "facilities"), datas[i]);
+    }
+}
+
+export async function addDataToFireStoreCustom(datas, {coll_name}) {
+    const db = getFirestore();
+    for (let i = 0; i < datas.length; i++) {
+        await addDoc(collection(db, coll_name), datas[i]);
+    }
+}
+
+/**
+ * Uploads and overwrites a piece of data(doc) to the fireStore database.
+ * @param data       data of the document
+ * @param coll_name  collection name
+ * @param doc_name   document name
+ */
+export async function addSingleDataToFireStore(data, {coll_name, doc_name}) {
+    const db = getFirestore();
+    const dataRef = doc(db, coll_name, doc_name);
+    await setDoc(dataRef, data)
+    if (DEV_STATUS != "publishing" && ALERT_ON) {
+        console.log(
+            "Successfully added to database",
+            JSON.stringify(data)
+        )
+    }
+}
+
+/**
+ * Uploads and merges a piece of data(doc) to the fireStore database.
+ * @param data       data of the document
+ * @param coll_name  collection name
+ * @param doc_name   document name
+ */
+export async function mergeSingleDataToFireStore(data, {coll_name, doc_name}) {
+    const db = getFirestore();
+    const dataRef = doc(db, coll_name, doc_name);
+    await setDoc(dataRef, data, { merge: true });
+    if (DEV_STATUS != "publishing" && ALERT_ON) {
+        console.log(
+            "Successfully merged to database",
+            JSON.stringify(data)
+        )
+    }
+}
+
+/**
+ * Deletes a piece of data(doc) from the fireStore database.
+ * @param coll_name  collection name
+ * @param doc_name   document name
+ */
+export async function deleteSingleDataFromFireStore({coll_name, doc_name}) {
+    const db = getFirestore();
+    const dataRef = doc(db, coll_name, doc_name);
+    await deleteDoc(dataRef)
+    if (DEV_STATUS != "publishing" && ALERT_ON) {
+        console.log(
+            "Successfully deleted from database",
+            JSON.stringify(data)
+        )
+    }
+}
+
+/**
+ * Deletes a field from a document in the fireStore database.
+ * @param coll_name  collection name
+ * @param doc_name   document name
+ * @param field_name field name
+ */
+export async function deleteFieldInFireStore({coll_name, doc_name, field_name}) {
+    const db = getFirestore();
+    const dataRef = doc(db, coll_name, doc_name);
+    const data = {};
+    data[field_name] = deleteField();
+    await updateDoc(dataRef, data);
+    if (DEV_STATUS != "publishing" && ALERT_ON) {
+        console.log(
+            "Successfully deleted from database",
+            JSON.stringify(data)
+        )
+    };
+}
+
+/**
+ * Gets a document from the fireStore database.
+ * Returns the data if found. Otherwise returns undefined.
+ * @param coll_name  collection name
+ * @param doc_name   document name
+ * @param doc_data   the document object which receives the data at doc_data.data
+ */
+export async function ReadDocFromFireStore(doc_data, {coll_name, doc_name}) {
+    const db = getFirestore();
+    const dataRef = doc(db, coll_name, doc_name);
+    const docSnap = await getDoc(dataRef);
+
+    if (docSnap.exists()) {
+        if (DEV_STATUS != "publishing" && ALERT_ON) {
+            console.log(
+                "Document acquired",
+                JSON.stringify(docSnap.data())
+            )
+        };
+        doc_data["data"] = docSnap.data()
+    } else {
+        if (DEV_STATUS != "publishing" && ALERT_ON) {
+            console.log(
+                "Document acquiring failed"
+            )
+        };
+        doc_data["data"] = {}
     }
 }
 
@@ -74,19 +188,16 @@ export function addArticles(data) {
 }
 
 export async function addRating(id, rating) {
-    // console.log('In addRating function ' + id);
     const db = getFirestore();
     const docRef = doc(db, 'facilities', id);
     const docSnap = await getDoc(docRef);
     let avgRating, numRatings;
     if (docSnap.exists()) {
         const data = docSnap.data();
-        // console.log("Document data:", data);
         let total = data.avgRating * data.numRatings + rating;
         numRatings = data.numRatings + 1;
         avgRating = total / numRatings;
     } else {
-        // doc.data() will be undefined in this case
         console.log("No such document!");
     }
 

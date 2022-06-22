@@ -7,9 +7,11 @@ import {
   FlatList,
   ActivityIndicator,
   Platform,
+  Alert,
 } from 'react-native';
 import { SearchBar } from 'react-native-elements';
 import { tabs } from '../constants';
+import { sharedTabs, shared_tabs } from '../constants/sharedTabs';
 import { updateIdObject } from './utils';
 
 export default class DropDownSearchBar extends React.Component {
@@ -23,10 +25,10 @@ export default class DropDownSearchBar extends React.Component {
     this.setState(
       {
         isLoading: false,
-        dataSource: tabs.categories,
+        dataSource: shared_tabs.categories,
       },
       function () {
-        this.arrayholder = tabs.categories;
+        this.arrayholder = shared_tabs.categories;
       }
     );
   }
@@ -70,20 +72,41 @@ export default class DropDownSearchBar extends React.Component {
 
   renderItem = (item) => {
     const { navigation } = this.props;
-    // console.log(item.title);
-    let idObject=updateIdObject(item.id);
+    const idObject={ main_tag: item.id };
     // Single Comes here which will be repeatative for the FlatListItems
     return (
       <Text style={styles.textStyle}
         onPress={
-          () => navigation.navigate('SearchResult', idObject)
+          () => {
+            navigation.navigate('SearchResult', idObject)
+          }
         }
       >{item.title}</Text>
     );
   }
 
+  /** Has some but where update of search results is a little delayed */
+  async getTabs() {
+    await sharedTabs(shared_tabs)
+    if (shared_tabs.ddsb_last) {
+      if (shared_tabs.ddsb_last != shared_tabs.categories.length) {
+        shared_tabs["ddsb_last"] = shared_tabs.categories.length
+        // Alert.alert("Rerender")
+        this.forceUpdate()
+      } else {
+        // Alert.alert("?")
+      }
+    } else {
+      shared_tabs["ddsb_last"] = shared_tabs.categories.length
+      // Alert.alert("Rerender")
+      this.forceUpdate()
+    }
+  }
+
   render() {
     const { navigation } = this.props;
+    // sharedTabs(shared_tabs)
+    this.getTabs()
     if (this.state.isLoading) {
       // Loading View while data is loading
       return (
