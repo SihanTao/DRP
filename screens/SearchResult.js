@@ -61,7 +61,7 @@ export default function SearchResult(props) {
     latlng: { latitude: 51.49909979949402, longitude: -0.17636334514753066 }
   }])
 
-  const [showMap, setShowMap] = useState(true);
+  const [showMap, setShowMap] = useState(false);
 
   // Here we could switch between different tags 
   // according to params
@@ -294,14 +294,14 @@ export default function SearchResult(props) {
   // END OF MAP LOADING AND LOCATION
   return (
     <Block safe fluid style={styles.container}>
-      {!showMap && 
-      <TouchableOpacity
-        onPress={() => setShowMap(true)}>
-        <Image source={require('../assets/imgs/showMap.png')} style={styles.fullImage} />
-      </TouchableOpacity>}
-      
+      {!showMap &&
+        <TouchableOpacity
+          onPress={() => setShowMap(true)}>
+          <Image source={require('../assets/imgs/showMap.png')} style={styles.fullImage} />
+        </TouchableOpacity>}
+
       {showMap && <Block style={styles.container2}>
-        <Text p bold color = 'white' style={{padding: 10}}>Select a building to filter result:</Text>
+        <Text p bold color='white' style={{ padding: 10 }}>Select a building to filter result:</Text>
         <Block style={styles.mapContainer}>
           {<MapView
             style={styles.map}
@@ -331,22 +331,37 @@ export default function SearchResult(props) {
           </View>}
 
         </Block>
-        {(pressedLocation !== "") &&
-          <Button
-            title='Reset location or Press another pin'
-            onPress={() => {
-              setPressedLocation("");
-            }}
-          />
-        }
-        {showMap && 
-        <TouchableOpacity
-        onPress={() => setShowMap(false)}>
-        <Image source={require('../assets/imgs/hidemap.png')} style={styles.fullImage2} />
-        </TouchableOpacity>
+
+        {showMap &&
+          <TouchableOpacity
+            onPress={() => setShowMap(false)}>
+            <Image source={require('../assets/imgs/hidemap.png')} style={styles.fullImage2} />
+          </TouchableOpacity>
         }
 
+        {<View style={{ flexDirection: 'row', alignItems: 'center', height: 40 }}>
+          <View style={styles.leftContainer}>
+            <Text bold style={{ color: 'white' }}> Showing: {pressedLocation == "" ? "All Buildings" : pressedLocation}</ Text>
+          </ View>
+          <View style={styles.rightContainer}>
+            {pressedLocation !== "" && <TouchableOpacity
+              backgroundColor='white'
+              title='Reset'
+              color="black"
+              style={{ zIndex: 999 }}
+              onPress={() => {
+                setPressedLocation("");
+              }}
+            >
+              <Text bold p style={{ color: 'white', paddingHorizontal: 10 }}>Reset</Text>
+            </ TouchableOpacity>
+            }
+          </ View>
+        </ View>}
+
       </Block>}
+
+
       <Block style={{ marginHorizontal: 16, flexDirection: "row", flexWrap: "nowrap" }}>
         {tags.map((tag, index) => {
           const backgroundColor = tag.active ? tag.color : "#0000";
@@ -370,8 +385,6 @@ export default function SearchResult(props) {
           );
         })}
       </Block>
-
-
       {data.length != 0 && <ListElement
         list={data}
         idList={ids}
@@ -379,7 +392,8 @@ export default function SearchResult(props) {
         route={props.route}
       />}
       {data.length == 0 &&
-        <Text h1 center>No result found.</Text>}
+        <Text h3 center>No result found.</Text>}
+
     </Block>
   );
 }
@@ -390,6 +404,17 @@ const styles = StyleSheet.create({
     fontSize: 18,
     height: 44,
   },
+  leftContainer: {
+    flex: 3,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+  },
+  rightContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
   container: {
     flex: 1,
     flexDirection: 'column',
@@ -399,7 +424,7 @@ const styles = StyleSheet.create({
     backgroundColor: theme.COLORS.WHITE,
   },
   container2: {
-    flex: 3,
+    height: 500,
     //justifyContent: "center",
     //alignItems: "center",
     width: width - 32,
@@ -408,6 +433,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#6a7ddf',
     // borderWidth: 1,
     borderRadius: 5,
+    marginBottom: 10,
     // borderColor: argonTheme.COLORS.BORDER,
   },
   container3: {
@@ -424,6 +450,13 @@ const styles = StyleSheet.create({
     marginTop: 0,
     //backgroundColor: "#abdbe3",
     width: '100%',
+  },
+  container6: {
+    width: width - 32,
+    marginHorizontal: 16,
+    backgroundColor: '#6a7ddf',
+    //borderRadius: 5,
+    marginBottom: 10,
   },
   textInput: {
     flex: 1,
@@ -457,13 +490,13 @@ const styles = StyleSheet.create({
     width: width - 32,
     height: 50,
     marginBottom: 10,
-    marginHorizontal:16,
+    marginHorizontal: 16,
     resizeMode: 'contain',
   },
   fullImage2: {
     width: '100%',
     height: 50,
-  
+
     resizeMode: 'contain',
   },
 });
