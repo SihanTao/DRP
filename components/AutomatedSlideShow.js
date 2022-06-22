@@ -15,8 +15,7 @@ export default class AutomatedSlideshow extends Component {
         this.setState({
             interval: setInterval(() => {
                 this.setState({
-
-                    position: this.state.position === this.props.dataSource.length ? 0 : (this.state.position + 1 > 6 ? 6 : this.state.position + 1)
+                    position: this.state.position === (this.props.dataSource.length - 1) ? 0 : (this.state.position + 1 >= 5 ? 5 : this.state.position + 1)
                 });
             }, 2000)
         });
@@ -29,7 +28,7 @@ export default class AutomatedSlideshow extends Component {
     render() {
         return (
             <Slideshow
-                onPress={()=>this.props.showUrl(this.state.position)}
+                onPress={() => this.props.showUrl(this.state.position)}
                 // onPress={this.props.onPress}
                 titleStyle={this.props.style}
                 dataSource={this.props.dataSource}
