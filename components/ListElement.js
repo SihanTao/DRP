@@ -24,51 +24,10 @@ class ListElement extends React.Component {
     const image = item.url;
     const params = route.params;
     const currentTags = [];
-    if (params.studySpace) {
-      if (item.STUDY.GROUP === true) {
-        currentTags.push('group');
-      }
-      if (item.STUDY.SILENT === true) {
-        currentTags.push('silent');
-      }
-      if (item.STUDY.QUIET === true) {
-        currentTags.push('quiet');
-      }
-    }
-    if (params.toilet) {
-      if (item.TOILET.ACCESSIBLE === true) {
-        currentTags.push('accessible');
-      }
-      if (item.TOILET.MALE === true) {
-        currentTags.push('male');
-      }
-      if (item.TOILET.FEMALE === true) {
-        currentTags.push('female');
-      }
-    }
-    if (params.cafe) {
-      if (item.CAFE.BREAKFAST === true) {
-        currentTags.push('breakfast');
-      }
-      if (item.CAFE.LUNCH === true) {
-        currentTags.push('lunch');
-      }
-      if (item.CAFE.AFTERNOON === true) {
-        currentTags.push('afternoon');
-      }
-      if (item.CAFE.SUPPER === true) {
-        currentTags.push('supper');
-      }
-    }
-    if (params.waterfountain) {
-      if (item.STUDY.Huxley === true) {
-        currentTags.push('huxley');
-      } 
-      if (item.STUDY.Sherfield === true) {
-        currentTags.push('sherfield');
-      } 
-     
-    }
+    Object.keys(item.tags).forEach((tag) => {
+      currentTags.push(tag)
+    })
+
     return (
       <Block flex style={{ marginVertical: 10 }}>
         <TouchableOpacity
