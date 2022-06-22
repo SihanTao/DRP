@@ -13,7 +13,7 @@ import { View } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import { addSingleDataToFireStore, deleteFieldInFireStore, ReadDocFromFireStore } from "../backend/databaseReadWrite";
 import sampleData from "../constants/sampleData"
-import { addDocUnderTag, alertTrue, checkDocTag, dataAddTag, dataHasTag, dataRmvTag, deleteDocUnderTag, filterDocsUnderTag, filterDocsUnderTags, readDocsWithTag } from "../backend/tagManager";
+import { addDocAndTags, addDocUnderTag, alertTrue, checkDocTag, dataAddTag, dataHasTag, dataRmvTag, deleteDocUnderTag, filterDocsUnderTag, filterDocsUnderTags, readDocsWithTag } from "../backend/tagManager";
 import { share_coll_name } from "../constants/ShareCons";
 import facilities from "../constants/sampleData";
 
@@ -136,13 +136,17 @@ function HookFormImplementation(props) {
               />
               <Button style={[{flex: 1, marginRight: 5}]}
                 title="B_D"
-                onPress={async () => {
-                  const docsRecv = {}
-                  await readDocsWithTag(docsRecv, {tag:"fooo"})
-                  const docs = docsRecv.data
-                  Alert.alert("1", JSON.stringify(docs))
-                  await filterDocsUnderTag(docs, {tag:"foo"})
-                  Alert.alert("2", JSON.stringify(docs))
+                onPress={() => {
+                  const doc = {
+                    name: "sample_doc",
+                    description: "some description",
+                    tags: {
+                      tag1: true,
+                      tag2: true,
+                      tag3: true,
+                    },
+                  }
+                  addDocAndTags(doc)
                 }}
               />
               <Button style={[{flex: 1, marginRight: 5}]}
@@ -152,7 +156,6 @@ function HookFormImplementation(props) {
                   await readDocsWithTag(docsRecv, {tag:"fooo"})
                   const docs = docsRecv.data
                   Alert.alert("1", JSON.stringify(docs))
-                  // await filterDocsUnderTag(docs, {tag:"foo"})
                   await filterDocsUnderTags(docs, {foo:true, fo:true})
                   Alert.alert("2", JSON.stringify(docs))
                 }}

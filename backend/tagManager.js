@@ -1,7 +1,17 @@
 import React from "react";
 import { Alert } from "react-native";
 import { share_coll_name, share_tags_coll_name } from "../constants/ShareCons";
-import { deleteFieldInFireStore, mergeSingleDataToFireStore, ReadDocFromFireStore } from "./databaseReadWrite";
+import { addSingleDataToFireStore, deleteFieldInFireStore, mergeSingleDataToFireStore, ReadDocFromFireStore } from "./databaseReadWrite";
+
+export function addDocAndTags(doc) {
+  Object.keys(doc.tags).map((tag) => {
+    addDocUnderTag({ doc_name: doc.name, tag })
+  })
+  addSingleDataToFireStore(doc, {
+    coll_name: share_coll_name,
+    doc_name: doc.name,
+  })
+}
 
 /**
  * Reads all documents that has the tag. Documents are saved at docs.data
