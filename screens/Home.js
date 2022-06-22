@@ -31,27 +31,22 @@ class Home extends React.Component {
     )
   }
 
-// renderRecommendations = () => {
-//   return (
-//     <ListElement
-//         list={data}
-//         navigation={props.navigation}
-//       />
-//   )
-// }
-
+  showUrl = (position) => {
+    const { navigation } = this.props;
+      navigation.navigate("Information", {
+        passeditem: goStudySpaceSlideShow[position],
+        url: goStudySpaceSlideShow[position].url,
+        title: goStudySpaceSlideShow[position].title,
+        showRating: false,
+        id: 1,
+      })
+  }
   renderArticles = (noRecommendation) => {
     const { navigation } = this.props;
     return (
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.articles}>
-          {/* <Tabs
-          data={[]}
-          //initialIndex={tabIndex || defaultTab}
-          //onChange={id => navigation.setParams({ tabId: id })}
-          //navigation={navigation} 
-          /> */}
         {noRecommendation ? null : this.renderRecommendationText()}
         {/* <Text bold size={16} style={styles.title}>
         Explore new events:
@@ -85,21 +80,12 @@ class Home extends React.Component {
         </Text> */}
         <Block flex card style={styles.category}>
           <AutomatedSlideshow
-            onPress={() => navigation.navigate("webpage",
-              {
-                url: 'https://www.imperial.ac.uk/admin-services/library/use-the-library/our-libraries/gostudy/',
-                title: "Go Study Space"
-              })
-            }
+            showUrl = {this.showUrl}
             style={styles.goStudyTitle}
             dataSource={goStudySpaceSlideShow}
           ></AutomatedSlideshow>
-          {/* <Block > 
-            <>
-            </>
-          </ Block> */}
         </Block>
-        <Block flex card style={styles.category}>
+        {/* <Block flex card style={styles.category}>
         <TouchableWithoutFeedback
             onPress={() => navigation.navigate("webpage",
               {
@@ -125,7 +111,7 @@ class Home extends React.Component {
               </Block>
             </ImageBackground>
           </TouchableWithoutFeedback>
-        </Block>
+        </Block> */}
 
       </ScrollView>
     )
