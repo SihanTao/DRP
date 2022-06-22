@@ -55,7 +55,7 @@ export async function addSingleDataToFireStore(data, {coll_name, doc_name}) {
     const dataRef = doc(db, coll_name, doc_name);
     await setDoc(dataRef, data)
     if (DEV_STATUS != "publishing" && ALERT_ON) {
-        Alert.alert(
+        console.log(
             "Successfully added to database",
             JSON.stringify(data)
         )
@@ -73,7 +73,7 @@ export async function mergeSingleDataToFireStore(data, {coll_name, doc_name}) {
     const dataRef = doc(db, coll_name, doc_name);
     await setDoc(dataRef, data, { merge: true });
     if (DEV_STATUS != "publishing" && ALERT_ON) {
-        Alert.alert(
+        console.log(
             "Successfully merged to database",
             JSON.stringify(data)
         )
@@ -90,7 +90,7 @@ export async function deleteSingleDataFromFireStore({coll_name, doc_name}) {
     const dataRef = doc(db, coll_name, doc_name);
     await deleteDoc(dataRef)
     if (DEV_STATUS != "publishing" && ALERT_ON) {
-        Alert.alert(
+        console.log(
             "Successfully deleted from database",
             JSON.stringify(data)
         )
@@ -110,7 +110,7 @@ export async function deleteFieldInFireStore({coll_name, doc_name, field_name}) 
     data[field_name] = deleteField();
     await updateDoc(dataRef, data);
     if (DEV_STATUS != "publishing" && ALERT_ON) {
-        Alert.alert(
+        console.log(
             "Successfully deleted from database",
             JSON.stringify(data)
         )
@@ -131,7 +131,7 @@ export async function ReadDocFromFireStore(doc_data, {coll_name, doc_name}) {
 
     if (docSnap.exists()) {
         if (DEV_STATUS != "publishing" && ALERT_ON) {
-            Alert.alert(
+            console.log(
                 "Document acquired",
                 JSON.stringify(docSnap.data())
             )
@@ -139,7 +139,7 @@ export async function ReadDocFromFireStore(doc_data, {coll_name, doc_name}) {
         doc_data["data"] = docSnap.data()
     } else {
         if (DEV_STATUS != "publishing" && ALERT_ON) {
-            Alert.alert(
+            console.log(
                 "Document acquiring failed"
             )
         };

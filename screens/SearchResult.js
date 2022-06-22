@@ -13,7 +13,7 @@ import { collection, doc, setDoc, getDoc, getFirestore, query, where, getDocs, o
 import { async } from "@firebase/util";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { ALL_TAGS, CAFE_TAGS, STUDY_PLACE_TAGS, TOILET_TAGS, WATER_FOUNTAIN_TAGS, MICROWAVE_TAGS } from "../constants/tags";
-import { allRelevantTags, readDocsWithTag } from "../backend/tagManager";
+import { allRelevantTags, filterDocsUnderTags, readDocsWithTag } from "../backend/tagManager";
 const { width } = Dimensions.get('screen');
 
 export default function SearchResult(props) {
@@ -24,17 +24,17 @@ export default function SearchResult(props) {
   function toggleTag(index) {
     const tag = tags[index];
     tag.active = !tag.active;
-    setTags([...tags]);
+    setTags(tags);
   };
 
   // let TAGS = tagsRelatedToTag({tag: props.route.params.main_tag});
-  const [TAGS, setTAGS] = useState([
-    {name: "sample", color: "#484", active: false }
-  ])
+  // const [TAGS, setTAGS] = useState([
+  //   {name: "sample", color: "#484", active: false }
+  // ])
   useEffect(() => {
     tagsRelatedToTag({ tag: main_tag })
     getData(filters)
-  }, [])
+  }, [filters])
 
   async function tagsRelatedToTag({tag}) {
     const docs_res = {};
@@ -52,7 +52,7 @@ export default function SearchResult(props) {
         ret[tag] = { name: tag, color: "#000000", active: false }
       }
     })
-    setTAGS(ret)
+    // setTAGS(ret)
     setTags(ret)
   }
 
@@ -60,7 +60,7 @@ export default function SearchResult(props) {
 
   const [ids, setIds] = useState([]);
   const [data, setData] = useState([]);
-  const [filters, setFilters] = useState([]);
+  const [filters, setFilters] = useState({})
 
   async function getData(filters) {
     const list = [];
@@ -74,9 +74,13 @@ export default function SearchResult(props) {
 
     const idlist = []
     const docs = doc_recv.data
-    Object.keys(docs).forEach((doc) => {
-      list.push(docs[doc]);
-      idlist.push(docs[doc].name);
+    await filterDocsUnderTags(docs, filters)
+    Object.keys(docs).forEach((doc_name) => {
+      const doc = docs[doc_name]
+      if (doc) {
+        list.push(doc);
+        idlist.push(doc.name);
+      }
     })
     setData([...list]);
     setIds([...idlist]);
@@ -84,60 +88,17 @@ export default function SearchResult(props) {
 
   function updateFilters() {
     // Initial State of Filter
-    const newCategory = [];
+    const newCategory = {};
     const params = props.route.params;
 
-    if (params.studySpace) {
-      if (TAGS[0].active) {
-        newCategory.push('Silent Study');
+    Object.keys(tags).forEach((tag) => {
+      const active = tags[tag].active
+      if (active) {
+        newCategory[tag] = true
       }
+    })
 
-      if (TAGS[1].active) {
-        newCategory.push('Group Study');
-      }
-
-      if (TAGS[2].active) {
-        newCategory.push('Quiet Study');
-      }
-    } else if (params.toilet) {
-      if (TAGS[0].active) {
-        newCategory.push('accessible');
-      }
-
-      if (TAGS[1].active) {
-        newCategory.push('male');
-      }
-
-      if (TAGS[2].active) {
-        newCategory.push('female');
-      }
-    } else if (params.cafe) {
-      if (TAGS[0].active) {
-        newCategory.push('breakfast');
-      }
-
-      if (TAGS[1].active) {
-        newCategory.push('lunch');
-      }
-
-      if (TAGS[2].active) {
-        newCategory.push('afternoon');
-      }
-
-      if (TAGS[3].active) {
-        newCategory.push('supper');
-      }
-    } else if (params.waterfountain) {
-      if (TAGS[0].active) {
-        newCategory.push('Huxley');
-      }
-
-      if (TAGS[1].active) {
-        newCategory.push('Sherfield')
-      }
-    }
-
-    setFilters([...newCategory]);
+    setFilters(newCategory);
   }
 
   useEffect(() => {
@@ -147,8 +108,9 @@ export default function SearchResult(props) {
     });
 
     return willFocusSubscription;
-  // }, [filters]);
-  }, []);
+  }, [filters]);
+  // }, []);
+
   return (
     <Block safe fluid style={styles.container}>
       <Block style={{ flexDirection: "row", flexWrap: "wrap" }}>
