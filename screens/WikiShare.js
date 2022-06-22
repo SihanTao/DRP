@@ -105,7 +105,8 @@ function HookFormImplementation(props) {
             title="submit"
             onPress={handleSubmit(onSubmit)}
           />
-          <DevStatus forceHide={false} status="developing" pubHide={true}>
+          {/* The Below One is Just For Testing */}
+          <DevStatus forceHide={true} status="developing" pubHide={true}>
             <View style={[{height: 100}]} />
             <View style={[{flexDirection: "row"}]}>
               <Button style={[{fles: 1, marginRight: 5}]}
