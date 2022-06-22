@@ -75,13 +75,15 @@ export default class DropDownSearchBar extends React.Component {
 
   renderItem = (item) => {
     const { navigation } = this.props;
-    // console.log(item.title);
-    let idObject=updateIdObject(item.id);
+    const idObject={ main_tag: item.id };
     // Single Comes here which will be repeatative for the FlatListItems
     return (
       <Text style={styles.textStyle}
         onPress={
-          () => navigation.navigate('SearchResult', idObject)
+          () => {
+            Alert.alert(item.id)
+            navigation.navigate('SearchResult', idObject)
+          }
         }
       >{item.title}</Text>
     );

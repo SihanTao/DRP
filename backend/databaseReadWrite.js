@@ -169,19 +169,16 @@ export function addArticles(data) {
 }
 
 export async function addRating(id, rating) {
-    // console.log('In addRating function ' + id);
     const db = getFirestore();
     const docRef = doc(db, 'facilities', id);
     const docSnap = await getDoc(docRef);
     let avgRating, numRatings;
     if (docSnap.exists()) {
         const data = docSnap.data();
-        // console.log("Document data:", data);
         let total = data.avgRating * data.numRatings + rating;
         numRatings = data.numRatings + 1;
         avgRating = total / numRatings;
     } else {
-        // doc.data() will be undefined in this case
         console.log("No such document!");
     }
 

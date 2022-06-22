@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Text } from 'galio-framework';
-import { View, TextInput, StyleSheet, ImageBackground, Dimensions, Linking, FlatList } from "react-native";
+import { View, TextInput, StyleSheet, ImageBackground, Dimensions, Linking, FlatList, Alert } from "react-native";
 import { ColorPicker, ModalInput, Separator, Tag } from "react-native-btr";
 import DropDownSearchBar from "../components/DropDownSearchBar";
 import SearchBarWithTag from "../components/SearchBarWithTag";
@@ -13,11 +13,10 @@ import { collection, doc, setDoc, getDoc, getFirestore, query, where, getDocs, o
 import { async } from "@firebase/util";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { ALL_TAGS, CAFE_TAGS, STUDY_PLACE_TAGS, TOILET_TAGS, WATER_FOUNTAIN_TAGS, MICROWAVE_TAGS } from "../constants/tags";
+import { allRelevantTags, readDocsWithTag } from "../backend/tagManager";
 const { width } = Dimensions.get('screen');
 
 export default function SearchResult(props) {
-  // console.log(props.route.params.studySpace);
-
   // Here we could switch between different tags 
   // according to params
   function toggleTag(index) {
@@ -26,108 +25,56 @@ export default function SearchResult(props) {
     setTags([...tags]);
   };
 
-  let TAGS = [];
-  if (props.route.params.studySpace) {
-    TAGS = STUDY_PLACE_TAGS;
-  } else if (props.route.params.toilet) {
-    TAGS = TOILET_TAGS;
-  } else if (props.route.params.cafe) {
-    TAGS = CAFE_TAGS;
-  } else if (props.route.params.waterfountain) {
-    TAGS = WATER_FOUNTAIN_TAGS
-  } else if (props.route.params.microwave) {
-    TAGS = MICROWAVE_TAGS;
-  }
-  else {
-    TAGS = ALL_TAGS;
+  // let TAGS = tagsRelatedToTag({tag: props.route.params.main_tag});
+  const [TAGS, setTAGS] = useState([
+    {name: "sample", color: "#484", active: false }
+  ])
+  useEffect(() => {
+    tagsRelatedToTag({ tag: props.route.params.main_tag })
+    getData(filters)
+  }, [])
+
+  async function tagsRelatedToTag({tag}) {
+    const docs_res = {};
+    await readDocsWithTag(docs_res, {tag})
+    const doc_names = {};
+    Object.keys(docs_res.data).forEach((doc) => {
+      doc_names[doc] = true;
+    })
+    const tags_res = {};
+    await allRelevantTags(doc_names, tags_res);
+    const ret = {};
+    Object.keys(tags_res.tags).forEach((tag) => {
+      ret[tag] = { name: tag, color: "#000000", active: false }
+    })
+    setTAGS(ret)
+    setTags(ret)
   }
 
-  let [tags, setTags] = useState(TAGS);
+  let [tags, setTags] = useState({})
 
   const [ids, setIds] = useState([]);
   const [data, setData] = useState([]);
   const [filters, setFilters] = useState([]);
 
   async function getData(filters) {
+    console.log("> getData")
     const list = [];
     const placeRef = collection(getFirestore(), "facilities");
     const conditions = [];
     const params = props.route.params;
 
-    if (params.studySpace) {
-      conditions.push(where('study', '==', true));
-      if (filters.includes('Silent Study')) {
-        conditions.push(where('STUDY.SILENT', '==', true));
-      }
+    const tag = params.main_tag
+    const doc_recv = {}
+    await readDocsWithTag(doc_recv, {tag})
 
-      if (filters.includes('Group Study')) {
-        conditions.push(where('STUDY.GROUP', '==', true));
-      }
-
-      if (filters.includes('Quiet Study')) {
-        conditions.push(where('STUDY.QUIET', '==', true));
-      }
-    }
-
-    if (params.toilet) {
-      conditions.push(where('toilet', '==', true));
-      if (filters.includes('accessible')) {
-        conditions.push(where('TOILET.ACCESSIBLE', '==', true));
-      }
-
-      if (filters.includes('male')) {
-        conditions.push(where('TOILET.MALE', '==', true));
-      }
-
-      if (filters.includes('female')) {
-        conditions.push(where('TOILET.FEMALE', '==', true));
-      }
-    }
-
-    if (params.cafe) {
-      conditions.push(where('cafe', '==', true));
-      if (filters.includes('breakfast')) {
-        conditions.push(where("CAFE.BREAKFAST", '==', true))
-      }
-      if (filters.includes('lunch')) {
-        conditions.push(where("CAFE.LUNCH", '==', true))
-      }
-      if (filters.includes('afternoon')) {
-        conditions.push(where("CAFE.AFTERNOON", '==', true))
-      }
-      if (filters.includes('supper')) {
-        conditions.push(where("CAFE.SUPPER", '==', true))
-      }
-    }
-
-    if (params.waterfountain) {
-      conditions.push(where('waterfountain', '==', true))
-      if (filters.includes('Huxley')) {
-        conditions.push(where('STUDY.Huxley', '==', true))
-      }
-      if (filters.includes('Sherfield')) {
-        conditions.push(where('STUDY.Sherfield', '==', true))
-      }
-    }
-
-    if (params.microwave) {
-      conditions.push(where('microwave', '==', true))
-    }
-
-    // conditions.push(orderBy("avgRating", "desc"));
-
-    const q = query(placeRef, ...conditions, orderBy("avgRating", "desc"));
-
-    const querySnapshot = await getDocs(q);
     const idlist = []
-    querySnapshot.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
-      // console.log("=========================================");
-      // console.log(doc.id, " => ", doc.data());
-      // console.log("=========================================");
-      list.push(doc.data());
-      idlist.push(doc.id);
-    });
+    console.log("> doc_recv.data: ", doc_recv.data)
+    Object.keys(doc_recv.data).forEach((doc) => {
+      list.push(doc);
+      idlist.push(doc.name);
+    })
+    console.log("list: ", list)
     setData([...list]);
     setIds([...idlist]);
   }
@@ -136,7 +83,6 @@ export default function SearchResult(props) {
     // Initial State of Filter
     const newCategory = [];
     const params = props.route.params;
-    // console.log(params);
 
     if (params.studySpace) {
       if (TAGS[0].active) {
@@ -198,12 +144,14 @@ export default function SearchResult(props) {
     });
 
     return willFocusSubscription;
-  }, [filters]);
-
+  // }, [filters]);
+  }, []);
+  console.log("> tags: ", tags)
   return (
     <Block safe fluid style={styles.container}>
       <Block style={{ flexDirection: "row", flexWrap: "wrap" }}>
-        {tags.map((tag, index) => {
+        {Object.keys(tags).map((index) => {
+          const tag = tags[index]
           const backgroundColor = tag.active ? tag.color : "#0000";
           const color = tag.active ? "#fff" : tag.color;
           return (
