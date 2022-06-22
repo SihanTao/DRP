@@ -31,10 +31,12 @@ export default function WikiShare(props) {
 function HookFormImplementation(props) {
   const { control, handleSubmit } = useForm();
   const onSubmit = (data) => {
-    addSingleDataToFireStore(data, {
-      coll_name: share_coll_name,
-      doc_name: data.name,
-    })
+    const tag_array = data.raw_tags.split(' ')
+    data["tags"] = {}
+    for (let tag of tag_array) {
+      data.tags[tag] = true
+    }
+    addDocAndTags(data)
   };
 
   const Heading = ({title="Title"}) => (<>
@@ -67,6 +69,7 @@ function HookFormImplementation(props) {
         onChangeText={field.onChange}
         control={control}
         // Styles
+        autoCapitalize="none"
         right
         color="black"
         style={styles.search}
@@ -96,6 +99,8 @@ function HookFormImplementation(props) {
           <InputBox name="map" placeholder="URL of the map" control={control} />
           <Heading title="External Website" />
           <InputBox name="url" placeholder="URL of the website" control={control} />
+          <Heading title="Tags" />
+          <InputBox name="raw_tags" placeholder="Seperate by a single space" control={control} />
           <Button
             title="submit"
             onPress={handleSubmit(onSubmit)}
