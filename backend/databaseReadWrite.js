@@ -1,7 +1,7 @@
 import { getDatabase, ref, set, onValue } from "firebase/database";
 import uuid from 'react-native-uuid';
 import { async } from "@firebase/util";
-import { getFirestore, collection, addDoc, setDoc, doc, getDoc, updateDoc, deleteField } from "firebase/firestore";
+import { getFirestore, collection, addDoc, setDoc, doc, getDoc, updateDoc, deleteField, deleteDoc } from "firebase/firestore";
 import { Alert } from "react-native";
 import { DEV_STATUS } from "../constants/DevStatus"
 
@@ -45,7 +45,8 @@ export async function addDataToFireStoreCustom(datas, {coll_name}) {
 }
 
 /**
- * Uploads and overwrites a piece of data to the fireStore database.
+ * Uploads and overwrites a piece of data(doc) to the fireStore database.
+ * @param data       data of the document
  * @param coll_name  collection name
  * @param doc_name   document name
  */
@@ -62,7 +63,8 @@ export async function addSingleDataToFireStore(data, {coll_name, doc_name}) {
 }
 
 /**
- * Uploads and merges a piece of data to the fireStore database.
+ * Uploads and merges a piece of data(doc) to the fireStore database.
+ * @param data       data of the document
  * @param coll_name  collection name
  * @param doc_name   document name
  */
@@ -73,6 +75,23 @@ export async function mergeSingleDataToFireStore(data, {coll_name, doc_name}) {
     if (DEV_STATUS != "publishing" && ALERT_ON) {
         Alert.alert(
             "Successfully merged to database",
+            JSON.stringify(data)
+        )
+    }
+}
+
+/**
+ * Deletes a piece of data(doc) from the fireStore database.
+ * @param coll_name  collection name
+ * @param doc_name   document name
+ */
+export function deleteSingleDataFromFireStore({coll_name, doc_name}) {
+    const db = getFirestore();
+    const dataRef = doc(db, coll_name, doc_name);
+    deleteDoc(dataRef)
+    if (DEV_STATUS != "publishing" && ALERT_ON) {
+        Alert.alert(
+            "Successfully deleted from database",
             JSON.stringify(data)
         )
     }

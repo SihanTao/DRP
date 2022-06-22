@@ -11,7 +11,7 @@ import { useState, useRef } from "react";
 import { useForm, useController } from 'react-hook-form';
 import { View } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
-import { addSingleDataToFireStore, deleteFieldInFireStore, ReadDocFromFireStore } from "../backend/databaseReadWrite";
+import { addSingleDataToFireStore, deleteFieldInFireStore, deleteSingleDataFromFireStore, ReadDocFromFireStore } from "../backend/databaseReadWrite";
 import sampleData from "../constants/sampleData"
 import { addDocAndTags, addDocUnderTag, alertTrue, allRelevantTags, checkDocTag, dataAddTag, dataHasTag, dataRmvTag, deleteDocUnderTag, filterDocsUnderTag, filterDocsUnderTags, readDocsWithTag } from "../backend/tagManager";
 import { share_coll_name } from "../constants/ShareCons";
@@ -143,9 +143,9 @@ function HookFormImplementation(props) {
               <Button style={[{flex: 1, marginRight: 5}]}
                 title="B_B" 
                 onPress={() => {
-                  deleteDocUnderTag({
-                    doc_name: "tmpp",
-                    tag: "fooo",
+                  deleteSingleDataFromFireStore({
+                    coll_name: share_coll_name,
+                    doc_name: "tmp",
                   })
                 }}
               />
