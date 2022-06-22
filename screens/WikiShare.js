@@ -105,10 +105,20 @@ function HookFormImplementation(props) {
           <InputBox name="url" placeholder="URL of the website" control={control} />
           <Heading title="Tags" />
           <InputBox name="raw_tags" placeholder="Seperate by a single space" control={control} />
-          <Button
-            title="submit"
-            onPress={handleSubmit(onSubmit)}
-          />
+          <View style={styles.buttonContainer}>
+            <View style={styles.buttonWrapper}>
+              <Button
+                title="submit"
+                onPress={handleSubmit(onSubmit)}
+              />
+            </View>
+            {/* <View style={styles.buttonWrapper}>
+              <Button
+                title="delete"
+                onPress={handleSubmit(onSubmit)}
+              />
+            </View> */}
+          </View>
           {/* The Below One is Just For Testing */}
           <DevStatus forceHide={true} status="developing" pubHide={true}>
             <View style={[{height: 100}]} />
@@ -209,5 +219,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 3,
     borderColor: argonTheme.COLORS.BORDER
+  },
+  buttonWrapper: {
+    flex: 1,
+    marginHorizontal: 5,
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
   },
 })
