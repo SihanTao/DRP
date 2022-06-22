@@ -58,8 +58,7 @@ export default class Tabs extends React.Component {
     this.props.onChange && this.props.onChange(id);
 
     // Here navigation
-    // console.log(id);
-    let idObject = updateIdObject(id);
+    const idObject = { main_tag: id }
     navigation.navigate('SearchResult', idObject);
   }
 
