@@ -1,6 +1,6 @@
 import React from "react";
 import { Alert } from "react-native";
-import { share_coll_name, share_tags_coll_name } from "../constants/ShareCons";
+import { share_all_tags_coll_name, share_all_tags_doc_name, share_coll_name, share_tags_coll_name } from "../constants/ShareCons";
 import { addSingleDataToFireStore, deleteFieldInFireStore, mergeSingleDataToFireStore, ReadDocFromFireStore } from "./databaseReadWrite";
 
 /**
@@ -16,6 +16,8 @@ export function addDocAndTags(doc) {
     doc_name: doc.name,
   })
 }
+
+// TODO: think about problems when updating doc with tags
 
 /**
  * Returns all relevant tags of the given documents.
@@ -68,6 +70,7 @@ export function addDocUnderTag({ doc_name, tag }) {
       doc_name: tag,
     }
   )
+  addTagToTags({tag})
 }
 
 /**
@@ -80,6 +83,43 @@ export function deleteDocUnderTag({ doc_name, tag }) {
     coll_name: share_tags_coll_name,
     doc_name: tag,
     field_name: doc_name,
+  })
+  removeTagIfEmpty({tag})
+}
+
+/* THIS FUNCTION IS NOT TESTED YET */
+/** Records the tag to a document that saves all tags in database */
+function addTagToTags({tag}) {
+  const newTag = {};
+  newTag[tag] = true;
+  mergeSingleDataToFireStore(
+    newTag,
+    {
+      coll_name: share_all_tags_coll_name,
+      doc_name: share_all_tags_doc_name,
+    }
+  )
+}
+
+/* THIS FUNCTION IS NOT TESTED YET */
+/** Deletes the tag from all_tags if no document has this tag */
+async function removeTagIfEmpty({tag}) {
+  const docs = {}
+  await readDocsWithTag(docs, {tag})
+  if (docs.data) {
+    if (Object.keys(docs.data).length == 0) {
+      deleteTagFromTags({tag})
+    }
+  }
+}
+
+/* THIS FUNCTION IS NOT TESTED YET */
+/** Deletes the tag from a document that saves all tags in database */
+function deleteTagFromTags({tag}) {
+  deleteFieldInFireStore({
+    coll_name: share_all_tags_coll_name,
+    doc_name: share_all_tags_doc_name,
+    field_name: tag,
   })
 }
 

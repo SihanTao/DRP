@@ -106,7 +106,7 @@ function HookFormImplementation(props) {
             onPress={handleSubmit(onSubmit)}
           />
           {/* The Below One is Just For Testing */}
-          <DevStatus forceHide={true} status="developing" pubHide={true}>
+          <DevStatus forceHide={false} status="developing" pubHide={true}>
             <View style={[{height: 100}]} />
             <View style={[{flexDirection: "row"}]}>
               <Button style={[{fles: 1, marginRight: 5}]}
@@ -176,6 +176,11 @@ function HookFormImplementation(props) {
                   const tags_res = {}
                   await allRelevantTags(doc_names, tags_res)
                   Alert.alert(JSON.stringify(tags_res.tags))
+                }}
+              />
+              <Button style={[{flex: 1, marginRight: 5}]}
+                title="B_G"
+                onPress={() => {
                 }}
               />
             </View>
