@@ -96,6 +96,36 @@ export async function deleteFieldInFireStore({coll_name, doc_name, field_name}) 
     };
 }
 
+/**
+ * Gets a document from the fireStore database.
+ * Returns the data if found. Otherwise returns undefined.
+ * @param coll_name  collection name
+ * @param doc_name   document name
+ * @param doc_data   the document object which receives the data at doc_data.data
+ */
+export async function ReadDocFromFireStore(doc_data, {coll_name, doc_name}) {
+    const db = getFirestore();
+    const dataRef = doc(db, coll_name, doc_name);
+    const docSnap = await getDoc(dataRef);
+
+    if (docSnap.exists()) {
+        if (DEV_STATUS != "publishing") {
+            Alert.alert(
+                "Document acquired",
+                JSON.stringify(docSnap.data())
+            )
+        };
+        doc_data["data"] = docSnap.data()
+    } else {
+        if (DEV_STATUS != "publishing") {
+            Alert.alert(
+                "Document acquiring failed"
+            )
+        };
+        doc_data["data"] = undefined
+    }
+}
+
 export async function testAddFireStore() {
     const db = getFirestore();
     const citiesRef = collection(db, "cities");

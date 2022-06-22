@@ -37,7 +37,7 @@ export function deleteDocUnderTag({ doc_name, tag }) {
 }
 
 // TODO
-export function checkDocTag() {
+export function checkDocTag({ doc_name, tag }) {
 
 }
 
