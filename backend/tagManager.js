@@ -3,6 +3,11 @@ import { Alert } from "react-native";
 import { share_coll_name, share_tags_coll_name } from "../constants/ShareCons";
 import { deleteFieldInFireStore, mergeSingleDataToFireStore, ReadDocFromFireStore } from "./databaseReadWrite";
 
+/**
+ * Reads all documents that has the tag. Documents are saved at docs.data
+ * @param docs    used to save the results
+ * @param tag     the tag
+ */
 export async function readDocsWithTag(docs, {tag}) {
   await ReadDocFromFireStore(docs, {
     coll_name: share_tags_coll_name,
