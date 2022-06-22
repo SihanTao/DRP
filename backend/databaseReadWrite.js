@@ -5,6 +5,8 @@ import { getFirestore, collection, addDoc, setDoc, doc, getDoc, updateDoc, delet
 import { Alert } from "react-native";
 import { DEV_STATUS } from "../constants/DevStatus"
 
+const ALERT_ON = false
+
 export function writeUserData(name, email, password) {
     const db = getDatabase();
 
@@ -51,7 +53,7 @@ export async function addSingleDataToFireStore(data, {coll_name, doc_name}) {
     const db = getFirestore();
     const dataRef = doc(db, coll_name, doc_name);
     await setDoc(dataRef, data)
-    if (DEV_STATUS != "publishing") {
+    if (DEV_STATUS != "publishing" && ALERT_ON) {
         Alert.alert(
             "Successfully added to database",
             JSON.stringify(data)
@@ -68,7 +70,7 @@ export async function mergeSingleDataToFireStore(data, {coll_name, doc_name}) {
     const db = getFirestore();
     const dataRef = doc(db, coll_name, doc_name);
     await setDoc(dataRef, data, { merge: true });
-    if (DEV_STATUS != "publishing") {
+    if (DEV_STATUS != "publishing" && ALERT_ON) {
         Alert.alert(
             "Successfully merged to database",
             JSON.stringify(data)
@@ -88,7 +90,7 @@ export async function deleteFieldInFireStore({coll_name, doc_name, field_name}) 
     const data = {};
     data[field_name] = deleteField();
     await updateDoc(dataRef, data);
-    if (DEV_STATUS != "publishing") {
+    if (DEV_STATUS != "publishing" && ALERT_ON) {
         Alert.alert(
             "Successfully deleted from database",
             JSON.stringify(data)
@@ -109,7 +111,7 @@ export async function ReadDocFromFireStore(doc_data, {coll_name, doc_name}) {
     const docSnap = await getDoc(dataRef);
 
     if (docSnap.exists()) {
-        if (DEV_STATUS != "publishing") {
+        if (DEV_STATUS != "publishing" && ALERT_ON) {
             Alert.alert(
                 "Document acquired",
                 JSON.stringify(docSnap.data())
@@ -117,7 +119,7 @@ export async function ReadDocFromFireStore(doc_data, {coll_name, doc_name}) {
         };
         doc_data["data"] = docSnap.data()
     } else {
-        if (DEV_STATUS != "publishing") {
+        if (DEV_STATUS != "publishing" && ALERT_ON) {
             Alert.alert(
                 "Document acquiring failed"
             )

@@ -7,26 +7,31 @@ import {
   FlatList,
   ActivityIndicator,
   Platform,
+  Alert,
 } from 'react-native';
 import { SearchBar } from 'react-native-elements';
 import { tabs } from '../constants';
+import { sharedTabs, shared_tabs } from '../constants/sharedTabs';
 import { updateIdObject } from './utils';
 
 export default class DropDownSearchBar extends React.Component {
   constructor(props) {
     super(props);
     //setting default state
-    this.state = { isLoading: false, search: '' };
-    this.arrayholder = tabs.categories;
+    this.oldSharedTabsHolder = { categories: [] }
+    this.newSharedTabsHolder = { categories: [] }
+    this.state = { isLoading: false, search: '', tabs: [] };
+    // this.arrayholder = tabs.categories;
+    this.arrayholder = shared_tabs.categories;
   }
   componentDidMount() {
     this.setState(
       {
         isLoading: false,
-        dataSource: tabs.categories,
+        dataSource: shared_tabs.categories,
       },
       function () {
-        this.arrayholder = tabs.categories;
+        this.arrayholder = shared_tabs.categories;
       }
     );
   }
@@ -82,8 +87,28 @@ export default class DropDownSearchBar extends React.Component {
     );
   }
 
+  /** Has some but where update of search results is a little delayed */
+  async getTabs() {
+    await sharedTabs(shared_tabs)
+    if (shared_tabs.ddsb_last) {
+      if (shared_tabs.ddsb_last != shared_tabs.categories.length) {
+        shared_tabs["ddsb_last"] = shared_tabs.categories.length
+        // Alert.alert("Rerender")
+        this.forceUpdate()
+      } else {
+        // Alert.alert("?")
+      }
+    } else {
+      shared_tabs["ddsb_last"] = shared_tabs.categories.length
+      // Alert.alert("Rerender")
+      this.forceUpdate()
+    }
+  }
+
   render() {
     const { navigation } = this.props;
+    // sharedTabs(shared_tabs)
+    this.getTabs()
     if (this.state.isLoading) {
       // Loading View while data is loading
       return (

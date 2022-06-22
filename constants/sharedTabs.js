@@ -1,11 +1,15 @@
 import React from "react"
 import { getAllTags } from "../backend/tagManager"
 
+export const shared_tabs = {
+  categories: []
+}
+
 /**
  * Get all valid tags from database and return a list of tabs
  * @param tabs tabs.categories gets the result
  */
-export default async function sharedTabs(tabs) {
+export async function sharedTabs(tabs) {
   const tags = {}
   await getAllTags(tags)
   tabs["categories"] = []
