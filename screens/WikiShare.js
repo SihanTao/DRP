@@ -30,6 +30,7 @@ export default function WikiShare(props) {
  */
 function HookFormImplementation(props) {
   const { control, handleSubmit } = useForm();
+
   const onSubmit = (data) => {
     const tag_array = data.raw_tags.split(' ')
     data["tags"] = {}
@@ -45,6 +46,14 @@ function HookFormImplementation(props) {
     addDocAndTags(data)
     Alert.alert(
       "Submission Successful",
+      JSON.stringify(data)
+    )
+  };
+
+  const onDelete = (data) => {
+    deleteDocAndTags({ doc_name: data.name })
+    Alert.alert(
+      "Deletion Successful",
       JSON.stringify(data)
     )
   };
@@ -91,7 +100,7 @@ function HookFormImplementation(props) {
   }
 
   return (
-    <DevStatus status="developing">
+    <DevStatus status="done">
       <Block>
         <ScrollView>
           {/* TODO: Make this one compulsory */}
@@ -118,15 +127,17 @@ function HookFormImplementation(props) {
                 onPress={handleSubmit(onSubmit)}
               />
             </View>
-            {/* <View style={styles.buttonWrapper}>
-              <Button
-                title="delete"
-                onPress={handleSubmit(onSubmit)}
-              />
-            </View> */}
+            <DevStatus pubHide={true}>
+              <View style={styles.buttonWrapper}>
+                <Button
+                  title="delete"
+                  onPress={handleSubmit(onDelete)}
+                />
+              </View>
+            </DevStatus>
           </View>
           {/* The Below One is Just For Testing */}
-          <DevStatus forceHide={false} status="developing" pubHide={true}>
+          <DevStatus forceHide={true} status="developing" pubHide={true}>
             <View style={[{height: 100}]} />
             <View style={[{flexDirection: "row"}]}>
               <Button style={[{fles: 1, marginRight: 5}]}
