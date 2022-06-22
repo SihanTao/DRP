@@ -73,6 +73,18 @@ export async function readDocsWithTag(docs, {tag}) {
 }
 
 /**
+ * Reads all documents that has the tag. Documents are saved at docs.data
+ * @param docs    used to save the results
+ * @param tag     the tag
+ */
+export async function readDocRefsWithTag(docs, {tag}) {
+  await ReadDocFromFireStore(docs, {
+    coll_name: share_tags_coll_name,
+    doc_name: tag,
+  })
+}
+
+/**
  * Register the document with the tag in database. Note that data.name is the key
  * @param doc_name  the document (or piece of data)
  * @param tag       the tag
@@ -125,7 +137,7 @@ function addTagToTags({tag}) {
 /** Deletes the tag from all_tags if no document has this tag */
 async function removeTagIfEmpty({tag}) {
   const docs = {}
-  await readDocsWithTag(docs, {tag})
+  await readDocRefsWithTag(docs, {tag})
   if (docs.data) {
     if (Object.keys(docs.data).length == 0) {
       deleteTagFromTags({tag})
@@ -151,7 +163,7 @@ function deleteTagFromTags({tag}) {
  */
 export async function checkDocTag({ doc_name, tag }) {
   const doc = {}
-  await readDocsWithTag(doc, {tag})
+  await readDocRefsWithTag(doc, {tag})
   if (doc.data) {
     if (doc.data[doc_name]) {
       return true
@@ -170,7 +182,7 @@ export async function checkDocTag({ doc_name, tag }) {
  */
 export async function filterDocsUnderTag(docs, {tag}) {
   const tagDoc = {}
-  await readDocsWithTag(tagDoc, {tag})
+  await readDocRefsWithTag(tagDoc, {tag})
   Object.keys(docs).map((doc_name) => {
     if (tagDoc) {
       if (tagDoc.data[doc_name]) {
