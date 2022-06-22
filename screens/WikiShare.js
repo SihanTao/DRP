@@ -13,7 +13,7 @@ import { View } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import { addSingleDataToFireStore, deleteFieldInFireStore, deleteSingleDataFromFireStore, ReadDocFromFireStore } from "../backend/databaseReadWrite";
 import sampleData from "../constants/sampleData"
-import { addDocAndTags, addDocUnderTag, alertTrue, allRelevantTags, checkDocTag, dataAddTag, dataHasTag, dataRmvTag, deleteDocUnderTag, filterDocsUnderTag, filterDocsUnderTags, readDocsWithTag } from "../backend/tagManager";
+import { addDocAndTags, addDocUnderTag, alertTrue, allRelevantTags, checkDocTag, dataAddTag, dataHasTag, dataRmvTag, deleteDocAndTags, deleteDocUnderTag, filterDocsUnderTag, filterDocsUnderTags, readDocsWithTag } from "../backend/tagManager";
 import { share_coll_name } from "../constants/ShareCons";
 import facilities from "../constants/sampleData";
 
@@ -126,7 +126,7 @@ function HookFormImplementation(props) {
             </View> */}
           </View>
           {/* The Below One is Just For Testing */}
-          <DevStatus forceHide={true} status="developing" pubHide={true}>
+          <DevStatus forceHide={false} status="developing" pubHide={true}>
             <View style={[{height: 100}]} />
             <View style={[{flexDirection: "row"}]}>
               <Button style={[{fles: 1, marginRight: 5}]}
@@ -143,10 +143,7 @@ function HookFormImplementation(props) {
               <Button style={[{flex: 1, marginRight: 5}]}
                 title="B_B" 
                 onPress={() => {
-                  deleteSingleDataFromFireStore({
-                    coll_name: share_coll_name,
-                    doc_name: "tmp",
-                  })
+                  deleteDocAndTags({ doc_name: "Sample123"})
                 }}
               />
               <Button style={[{flex: 1, marginRight: 5}]}

@@ -1,7 +1,7 @@
 import React from "react";
 import { Alert } from "react-native";
 import { share_all_tags_coll_name, share_all_tags_doc_name, share_coll_name, share_tags_coll_name } from "../constants/ShareCons";
-import { addSingleDataToFireStore, deleteFieldInFireStore, mergeSingleDataToFireStore, ReadDocFromFireStore } from "./databaseReadWrite";
+import { addSingleDataToFireStore, deleteFieldInFireStore, deleteSingleDataFromFireStore, mergeSingleDataToFireStore, ReadDocFromFireStore } from "./databaseReadWrite";
 
 /**
  * Automatically adds the doc(wiki) to database and register it with the tags.
@@ -14,6 +14,23 @@ export function addDocAndTags(doc) {
   addSingleDataToFireStore(doc, {
     coll_name: share_coll_name,
     doc_name: doc.name,
+  })
+}
+
+export async function deleteDocAndTags({doc_name}) {
+  const doc_recv = {}
+  await ReadDocFromFireStore(doc_recv, {
+    coll_name: share_coll_name,
+    doc_name
+  })
+  const doc = doc_recv.data
+  const tags = doc.tags
+  Object.keys(tags).map((tag) => {
+    deleteDocUnderTag({ doc_name, tag })
+  })
+  deleteSingleDataFromFireStore({
+    coll_name: share_coll_name,
+    doc_name
   })
 }
 
@@ -133,22 +150,24 @@ function addTagToTags({tag}) {
   )
 }
 
-/* THIS FUNCTION IS NOT TESTED YET */
 /** Deletes the tag from all_tags if no document has this tag */
 async function removeTagIfEmpty({tag}) {
   const docs = {}
   await readDocRefsWithTag(docs, {tag})
   if (docs.data) {
     if (Object.keys(docs.data).length == 0) {
-      deleteTagFromTags({tag})
+      await deleteTagFromTags({tag})
+      await deleteSingleDataFromFireStore({
+        coll_name: share_tags_coll_name,
+        doc_name: tag
+      })
     }
   }
 }
 
-/* THIS FUNCTION IS NOT TESTED YET */
 /** Deletes the tag from a document that saves all tags in database */
-function deleteTagFromTags({tag}) {
-  deleteFieldInFireStore({
+async function deleteTagFromTags({tag}) {
+  await deleteFieldInFireStore({
     coll_name: share_all_tags_coll_name,
     doc_name: share_all_tags_doc_name,
     field_name: tag,

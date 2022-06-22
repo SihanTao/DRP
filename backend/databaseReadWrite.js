@@ -85,10 +85,10 @@ export async function mergeSingleDataToFireStore(data, {coll_name, doc_name}) {
  * @param coll_name  collection name
  * @param doc_name   document name
  */
-export function deleteSingleDataFromFireStore({coll_name, doc_name}) {
+export async function deleteSingleDataFromFireStore({coll_name, doc_name}) {
     const db = getFirestore();
     const dataRef = doc(db, coll_name, doc_name);
-    deleteDoc(dataRef)
+    await deleteDoc(dataRef)
     if (DEV_STATUS != "publishing" && ALERT_ON) {
         Alert.alert(
             "Successfully deleted from database",
@@ -143,7 +143,7 @@ export async function ReadDocFromFireStore(doc_data, {coll_name, doc_name}) {
                 "Document acquiring failed"
             )
         };
-        doc_data["data"] = undefined
+        doc_data["data"] = {}
     }
 }
 
