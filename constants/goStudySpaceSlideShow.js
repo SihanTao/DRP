@@ -14,7 +14,7 @@ export default [
         url: 'https://pxl-imperialacuk.terminalfour.net/fit-in/959x430/prod01/channel_2/media/migration/administration-and-support-services/211029-gostudy-spaces-rm537-001_1635779844596_x4.jpg',
         maps: [
             {
-                link: "https://i.ibb.co/G5dpT3q/Chemistry-Building.png"
+                url: "https://i.ibb.co/G5dpT3q/Chemistry-Building.png"
             }
         ],
         link: 'https://www.imperial.ac.uk/admin-services/library/use-the-library/our-libraries/gostudy/',
@@ -30,7 +30,7 @@ export default [
         url: 'https://www.planetsport.com/image-library/og/1600/s/snooker-2022-23-season-schedule.jpg',
         maps: [
             {
-                link: "https://i.ibb.co/cgQfnYX/Untitled-29.png"
+                url: "https://i.ibb.co/cgQfnYX/Untitled-29.png"
             }
         ],
         link: 'https://www.union.ic.ac.uk/rcc/snooker_billiards/home/about.php',
@@ -48,7 +48,7 @@ export default [
         url: 'https://www.fluidra.com/projects//web/app/uploads/2021/07/20-experiencia-wellness.jpg',
         maps: [
             {
-                link: "https://i.ibb.co/vP3FsKZ/Untitled-31.png"
+                url: "https://i.ibb.co/vP3FsKZ/Untitled-31.png"
             }
         ],
         link: 'https://www.imperial.ac.uk/ethos/what-we-offer/swimming-pool/',
@@ -63,7 +63,7 @@ export default [
         url: 'https://i.ibb.co/zs9DwdZ/IMG-8541.jpg',
         maps: [
             {
-                link: "https://i.ibb.co/7j5fQzw/Untitled-32.png"
+                url: "https://i.ibb.co/7j5fQzw/Untitled-32.png"
             }
         ],
         link: '',
@@ -91,7 +91,7 @@ export default [
         url: 'https://pxl-imperialacuk.terminalfour.net/prod01/channel_2/media/migration/administration-and-support-services/the-loud-bird-wood-backgroundpng_1613099809796_x4.jpg',
         maps: [  // TODO: Add corrent map
             {
-                link: 'https://i.ibb.co/FmMrXWS/Untitled-32.png'
+                url: 'https://i.ibb.co/FmMrXWS/Untitled-32.png'
             }
         ],
     },
@@ -111,7 +111,7 @@ export default [
         url: 'https://www.imperial.ac.uk/media/migration/administration-and-support-services/0000-191111-autumn-library-queens-lawn-018_1635242587445_x2.jpg',
         maps: [
             {
-                link: 'https://i.ibb.co/2s8PsJr/Central-Lib.png'
+                url: 'https://i.ibb.co/2s8PsJr/Central-Lib.png'
             }
         ],
         link: 'https://www.imperial.ac.uk/admin-services/library/use-the-library/our-libraries/central-library/',
