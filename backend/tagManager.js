@@ -17,6 +17,21 @@ export function addDocAndTags(doc) {
   })
 }
 
+export async function mergeDocAndTags(doc) {
+  const doc_recv = {}
+  await ReadDocFromFireStore(doc_recv, {
+    coll_name: share_coll_name,
+    doc_name: doc.name,
+  })
+  if (doc_recv.data) {  // if document already exists
+    const tags = doc_recv.data.tags
+    for (let tag of Object.keys(tags)) {
+      deleteDocUnderTag({ doc_name: doc.name, tag })
+    }
+  }
+  addDocAndTags(doc)
+}
+
 export async function deleteDocAndTags({doc_name}) {
   const doc_recv = {}
   await ReadDocFromFireStore(doc_recv, {
@@ -230,6 +245,15 @@ export async function filterDocsUnderTags(docs, tags) {
 /** Determines if data.tags.tag exists */
 export function dataHasTag(data, { tag }) {
   return data.tags[tag]
+}
+
+export async function docNotExists({doc_name}) {
+  const existing_doc_recv = {}
+  await ReadDocFromFireStore(existing_doc_recv, {
+    coll_name: share_coll_name,
+    doc_name: doc_name
+  })
+  return Object.keys(existing_doc_recv.data).length === 0
 }
 
 function tagsAddTag(tags, { tag }) {

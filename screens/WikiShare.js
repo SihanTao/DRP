@@ -13,11 +13,11 @@ import { View } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import { addSingleDataToFireStore, deleteFieldInFireStore, deleteSingleDataFromFireStore, ReadDocFromFireStore } from "../backend/databaseReadWrite";
 import sampleData from "../constants/sampleData"
-import { addDocAndTags, addDocUnderTag, alertTrue, allRelevantTags, checkDocTag, dataAddTag, dataHasTag, dataRmvTag, deleteDocAndTags, deleteDocUnderTag, filterDocsUnderTag, filterDocsUnderTags, readDocsWithTag } from "../backend/tagManager";
+import { addDocAndTags, addDocUnderTag, alertTrue, allRelevantTags, checkDocTag, dataAddTag, dataHasTag, dataRmvTag, deleteDocAndTags, deleteDocUnderTag, docNotExists, filterDocsUnderTag, filterDocsUnderTags, mergeDocAndTags, readDocsWithTag } from "../backend/tagManager";
 import { share_coll_name } from "../constants/ShareCons";
 import facilities from "../constants/sampleData";
 import { doc } from "firebase/firestore";
-import shareLocalFacilities from "../constants/shareLocalFacilities";
+import { shareLocalFacilities } from "../constants/shareLocalFacilities";
 import DEV_STATUS from "../constants/DevStatus";
 
 const { height, width } = Dimensions.get('window');
@@ -35,12 +35,7 @@ function HookFormImplementation(props) {
   const { control, handleSubmit } = useForm();
 
   const onSubmit = async (data) => {
-    const existing_doc_recv = {}
-    await ReadDocFromFireStore(existing_doc_recv, {
-      coll_name: share_coll_name,
-      doc_name: data.name
-    })
-    if (Object.keys(existing_doc_recv.data).length == 0) {
+    if (await docNotExists({ doc_name: data.name })) {
       const tag_array = data.raw_tags.split(' ')
       data["tags"] = {}
       // below are temporary testing setting
@@ -75,9 +70,8 @@ function HookFormImplementation(props) {
   };
 
   const onSync = (data) => {
-    // console.log(shareLocalFacilities)
     for (let wiki of shareLocalFacilities) {
-      console.log("> ", wiki)
+      mergeDocAndTags(wiki)
     }
   }
 
@@ -157,14 +151,18 @@ function HookFormImplementation(props) {
                   onPress={handleSubmit(onDelete)}
                 />
               </View>
+            </DevStatus>
+          </View>
+          <DevStatus pubHide={true}>
+            <View style={[styles.buttonContainer, {marginTop: 50}]}>
               <View style={styles.buttonWrapper}>
                 <Button
                   title="sync local"
                   onPress={handleSubmit(onSync)}
                 />
               </View>
-            </DevStatus>
-          </View>
+            </View>
+          </DevStatus>
           {/* The Below One is Just For Testing */}
           <DevStatus forceHide={true} status="developing" pubHide={true}>
             <View style={[{height: 100}]} />

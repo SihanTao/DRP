@@ -40,7 +40,7 @@ const shareLocalFacilities = [
         name: 'Computing Lab Water Fountain',
         tags: {
             waterfountain: true,
-            huxley_building: true,
+            huxley: true,
             floor2: true
         },
         description:
@@ -134,7 +134,7 @@ const shareLocalFacilities = [
         title: 'GoStudy Space',
         name: 'GoStudy Space',
         tags: {
-            study: true,
+            study_space: true,
             group: true,
             silent: true,
             chemistry_building: true,
@@ -158,9 +158,9 @@ const shareLocalFacilities = [
         title: "Computing Lab",
         name: "Computing Lab",
         tags: {
-            study: true,
+            study_space: true,
             group: true,
-            huxley_building: true,
+            huxley: true,
         },
         description: "Huxley Building 219...",
         url: 'https://www.imperial.ac.uk/ImageCropToolT4/imageTool/uploaded-images/IMG_20151110_122250365--tojpeg_1447160413584_x2.jpg',
@@ -179,9 +179,9 @@ const shareLocalFacilities = [
         title: "Huxley 341&342",
         name: "Huxley 341&342",
         tags: {
-            study: true,
+            study_space: true,
             group: true,
-            huxley_building: true,
+            huxley: true,
         },
         description: "Huxley Building 341&342...",
         url: 'https://i.ibb.co/HTjWccS/341-342.jpg',
@@ -200,9 +200,9 @@ const shareLocalFacilities = [
         title: "Huxley 212",
         name: "Huxley 212",
         tags: {
-            study: true,
+            study_space: true,
             group: true,
-            huxley_building: true,
+            huxley: true,
         },
         description: "Huxley Building 212...",
         url: 'https://i.ibb.co/M2F716f/212.jpg',
@@ -226,7 +226,7 @@ const shareLocalFacilities = [
         tags: {
             toilet: true,
             male: true,
-            huxley_building: true,
+            huxley: true,
         },
         description: "Huxley Building 227...",
         url: 'https://i.ibb.co/MnY9Fx3/227.jpg',
@@ -240,14 +240,14 @@ const shareLocalFacilities = [
         link: '',
         avgRating: 0,
         numRatings: 0,
-        building: { HUXLEY }
+        building: { HUXLEY },
     }, {
         title: 'Toilet Huxley 224',
         name: 'Toilet Huxley 224',
         tags: {
             toilet: true,
             female: true,
-            huxley_building: true,
+            huxley: true,
         },
         description: "Huxley Building 224...",
         url: 'https://i.ibb.co/SPxzrdj/224.jpg',
@@ -261,7 +261,7 @@ const shareLocalFacilities = [
         link: '',
         avgRating: 0,
         numRatings: 0,
-        building: HUXLEY
+        building: HUXLEY,
     }, {
         title: 'Library Cafe Accessible Toilet',
         name: 'Library Cafe Accessible Toilet',
@@ -291,7 +291,7 @@ const shareLocalFacilities = [
             accessible: true,
             male: true,
             female: true,
-            huxley_building: true,
+            huxley: true,
         },
         url: 'https://i.ibb.co/FzVmGZG/20220615221920.jpg',
         description: "Huxley Building 236C...",
@@ -309,7 +309,7 @@ const shareLocalFacilities = [
         tags: {
             toilet: true,
             male: true,
-            huxley_building: true,
+            huxley: true,
         },
         url: 'https://i.ibb.co/Fg3B122/secret-male.jpg',
         avgRating: 0,
@@ -327,7 +327,7 @@ const shareLocalFacilities = [
         tags: {
             toilet: true,
             female: true,
-            huxley_building: true,
+            huxley: true,
         },
         url: 'https://i.ibb.co/fqwDRMJ/secret-female.jpg',
         avgRating: 0,
@@ -347,7 +347,7 @@ const shareLocalFacilities = [
             accessible: true,
             male: true,
             female: true,
-            huxley_building: true,
+            huxley: true,
         },
         url: 'https://i.ibb.co/TTRtNw1/secret-accessible.jpg',
         description: "Between Huxley labs and Blackett",
@@ -364,6 +364,7 @@ const shareLocalFacilities = [
     // Cafe
     {
         title: 'SCR Restaurant',
+        name: 'SCR Restaurant',
         tags: {
             cafe: true,
             lunch: true,
@@ -383,6 +384,7 @@ const shareLocalFacilities = [
         building: SHERFIELD,
     }, {
         title: 'The Loud Bird',
+        name: 'The Loud Bird',
         tags: {
             cafe: true,
             breakfast: true,
@@ -407,6 +409,7 @@ const shareLocalFacilities = [
         building: CHEM,
     }, {
         title: 'College Cafe',
+        name: 'College Cafe',
         tags: {
             cafe: true,
             breakfast: true,
@@ -433,6 +436,7 @@ const shareLocalFacilities = [
         building: IB,
     }, {
         title: 'Library Cafe',
+        name: 'Library Cafe',
         tags: {
             cafe: true,
             breakfast: true,
@@ -455,6 +459,7 @@ const shareLocalFacilities = [
         building: CENTRAL_LIBRARY,
     }, {
         title: 'Neo Pizza & Pasta',
+        name: 'Neo Pizza & Pasta',
         tags: {
             cafe: true,
             lunch: true,
@@ -476,6 +481,7 @@ const shareLocalFacilities = [
     // microwave 
     {
         title: 'EEE Cafe Microwave Oven',
+        name: 'EEE Cafe Microwave Oven',
         tags: {
             microwave: true,
             eee_building: true,
@@ -496,9 +502,10 @@ const shareLocalFacilities = [
         numRatings: 0,
     }, {
         title: 'Department of Computing Studnent Tea Point',
+        name: 'Department of Computing Studnent Tea Point',
         tags: {
             microwave: true,
-            huxley_building: true,
+            huxley: true,
         },
         avgRating: 0,
         numRatings: 0,
@@ -513,6 +520,7 @@ const shareLocalFacilities = [
         building: HUXLEY,
     }, {
         title: 'GoStudy Space Kitchen',
+        name: 'GoStudy Space Kitchen',
         tags: {
             microwave: true,
             chemistry_building: true,
