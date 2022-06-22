@@ -37,6 +37,10 @@ function HookFormImplementation(props) {
       data.tags[tag] = true
     }
     addDocAndTags(data)
+    Alert.alert(
+      "Submission Successful",
+      JSON.stringify(data)
+    )
   };
 
   const Heading = ({title="Title"}) => (<>
