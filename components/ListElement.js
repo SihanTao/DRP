@@ -21,7 +21,7 @@ class ListElement extends React.Component {
 
   renderProduct = (item, index) => {
     const { navigation, route, idList } = this.props;
-    const image = item.photo;
+    const image = item.url;
     const params = route.params;
     const currentTags = [];
     if (params.studySpace) {
@@ -118,7 +118,7 @@ class ListElement extends React.Component {
               </View>
                   </Block>
               <Text style={styles.listTitle} size={25} bold >
-                {item.name}
+                {item.title}
               </Text>
 
               <Block style={{ flexDirection: "row", flexWrap: "wrap" }}>

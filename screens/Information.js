@@ -36,7 +36,7 @@ export default function Information(props) {
   // console.log(item);
   const displayImages = [
     {
-      url: item.photo,
+      url: item.url,
     },
   ]
   const currentTags = []
@@ -126,8 +126,8 @@ export default function Information(props) {
       <TouchableWithoutFeedback
               onPress={() => navigation.navigate("webpage",
                   {
-                    url: item.url,
-                    title: item.name,
+                    url: item.link,
+                    title: item.title,
                   })
                 }
               >
