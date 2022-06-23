@@ -123,7 +123,7 @@ export default function SearchResult(props) {
     const docs = doc_recv.data
     console.log("[i] getData > filter: ", filters)
     if (pressedLocation && pressedLocation != "") {
-      if (tags[pressedLocation]) {
+      if (tags[pressedLocation] || pressedLocation === main_tag) {
         await filterDocsUnderTags(docs, filters)
       } else {
         Object.keys(docs).map((doc_name) => {
@@ -183,15 +183,11 @@ export default function SearchResult(props) {
   const [lastLoc, setLastLoc] = useState("")
   useEffect(() => {
     console.log("[i] useEffect[pressedLocation]")
-    // console.log("[i] useEffect[pressedLocation] > last: ", lastLoc)
-    // console.log("[i] useEffect[pressedLocation] > new: ", pressedLocation)
     if (lastLoc != "" && tags[lastLoc] && tags[lastLoc].active) {
-      // console.log("[i] useEffect[pressedLocation] > toggle last")
       toggleTag(lastLoc)
     }
     setLastLoc(pressedLocation)
     if (pressedLocation != "" && tags[pressedLocation] && !tags[pressedLocation].active) {
-      // console.log("[i] useEffect[pressedLocation] > toggle new")
       toggleTag(pressedLocation)
     }
     console.log("[i] useEffect[pressedLocation] > call updateFilters()")
@@ -261,8 +257,6 @@ export default function SearchResult(props) {
                 title={marker.title}
                 onPress={e => {
                   setPressedLocation(e.nativeEvent.id);
-                  // console.log(pressedLocation);
-                  // console.log(e.nativeEvent);
                 }}
                 identifier={marker.id}
               />
