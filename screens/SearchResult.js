@@ -245,8 +245,14 @@ export default function SearchResult(props) {
           onPress={() => setShowMap(true)}>
           <Image source={require('../assets/imgs/showMap.png')} style={styles.fullImage} />
         </TouchableOpacity>}
-
+        
       {showMap && <Block style={styles.container2}>
+      {showMap &&
+          <TouchableOpacity
+            onPress={() => setShowMap(false)}>
+            <Image source={require('../assets/imgs/hidemap.png')} style={styles.fullImage2} />
+          </TouchableOpacity>
+        }
         <Text p bold color='white' style={{ padding: 10 }}>Select a building to filter result:</Text>
         <Block style={styles.mapContainer}>
           {<MapView
@@ -277,13 +283,6 @@ export default function SearchResult(props) {
           </View>}
 
         </Block>
-
-        {showMap &&
-          <TouchableOpacity
-            onPress={() => setShowMap(false)}>
-            <Image source={require('../assets/imgs/hidemap.png')} style={styles.fullImage2} />
-          </TouchableOpacity>
-        }
 
         {<View style={{ flexDirection: 'row', alignItems: 'center', height: 40 }}>
           <View style={styles.leftContainer}>
