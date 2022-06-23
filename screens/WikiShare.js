@@ -180,7 +180,7 @@ function HookFormImplementation(props) {
           <Heading title="External Website" />
           <InputBox name="link" placeholder="URL of the website" control={control} />
           <Heading title="Tags (seperate tags by a single space)" />
-          <InputBox name="raw_tags" placeholder="Seperate by a single space" control={control} />
+          <InputBox name="raw_tags" placeholder="example_tags sherfield_building relax" control={control} />
           <View style={styles.buttonContainer}>
             <View style={styles.buttonWrapper}>
               <Button
