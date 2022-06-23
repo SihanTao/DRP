@@ -25,6 +25,7 @@ class ListElement extends React.Component {
     const params = route.params;
     const currentTags = [];
     Object.keys(item.tags).forEach((tag) => {
+      if (tag !== params.main_tag)
       currentTags.push(tag)
     })
 
