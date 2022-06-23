@@ -44,59 +44,18 @@ export default function Information(props) {
 
   // console.log(item);
   // Create customised tags for study & toilet
-  if (item.study) {
-    generateStudyPlaceTags(item);
-  } else if (item.toilet) {
-    generateToiletTags(item);
-  }
-
-  function generateStudyPlaceTags(item) {
-    if (item.STUDY.GROUP) {
-      currentTags.push({
-        id: 'group', title: '#group'
-      });
-    }
-
-    if (item.STUDY.QUIET) {
-      currentTags.push({
-        id: 'quiet', title: '#quiet'
-      });
-    }
-
-    if (item.STUDY.SILENT) {
-      currentTags.push({
-        id: 'silent', title: '#silent'
-      });
-    }
-  }
-
-  function generateToiletTags(item) {
-    if (item.TOILET.ACCESSIBLE) {
-      currentTags.push({
-        id: 'accessible', title: '#accessible'
-      });
-    }
-
-    if (item.TOILET.FEMALE) {
-      currentTags.push({
-        id: 'male', title: '#male'
-      });
-    }
-
-    if (item.TOILET.MALE) {
-      currentTags.push({
-        id: 'female', title: '#female'
-      });
-    }
-  }
+  console.log("> item:", item)
+  Object.keys(item.tags).forEach((tag) => {
+    currentTags.push({
+      id: tag, title: "#"+tag
+    })
+  })
 
   // const imagesList = [{
   //   url: 'https://aboutreact.com/wp-content/uploads/2018/08/react_nativeset_opacity_of_image.png',
 
   // }, 
 // ]
-
-
 
   const renderRating = () => {
     return (
