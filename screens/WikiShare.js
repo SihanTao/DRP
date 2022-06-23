@@ -48,7 +48,7 @@ function HookFormImplementation(props) {
       for (let tag of tag_array) {
         data.tags[tag] = true
       }
-      addDocAndTags(data)
+      addDocAndTags(data, {})
       Alert.alert(
         "Submission Successful",
         JSON.stringify(data)
@@ -71,7 +71,7 @@ function HookFormImplementation(props) {
 
   const onSync = async (data) => {
     for (let wiki of shareLocalFacilities) {
-      await mergeDocAndTags(wiki)
+      mergeDocAndTags(wiki)
     }
     Alert.alert(
       "Submission Successful",
@@ -212,7 +212,7 @@ function HookFormImplementation(props) {
                       tag4: true,
                     },
                   }
-                  addDocAndTags(doc)
+                  addDocAndTags(doc, {})
                 }}
               />
               <Button style={[{flex: 1, marginRight: 5}]}

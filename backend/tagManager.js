@@ -5,16 +5,22 @@ import { addSingleDataToFireStore, deleteFieldInFireStore, deleteSingleDataFromF
 
 /**
  * Automatically adds the doc(wiki) to database and register it with the tags.
+ * Evenif you don't want to set noUpdateTag, you need to call this function as
+ * "addDocAndTags(x, {})"
  * @param doc The doc(wiki) needs to have doc.tags
+ * @param noUpdateTag
+ *   defaults to false. If set to true, this function doesn't update tags.
  */
-export function addDocAndTags(doc) {
-  Object.keys(doc.tags).map((tag) => {
-    addDocUnderTag({ doc_name: doc.name, tag })
-  })
-  addSingleDataToFireStore(doc, {
+export async function addDocAndTags(doc, { noUpdateTag=false }) {
+  await addSingleDataToFireStore(doc, {
     coll_name: share_coll_name,
     doc_name: doc.name,
   })
+  if (!noUpdateTag) {
+    Object.keys(doc.tags).map((tag) => {
+      addDocUnderTag({ doc_name: doc.name, tag })
+    })
+  }
 }
 
 export async function mergeDocAndTags(doc) {
@@ -23,15 +29,22 @@ export async function mergeDocAndTags(doc) {
     coll_name: share_coll_name,
     doc_name: doc.name,
   })
-  // console.log(">", doc_recv)
   if (doc_recv.data && doc_recv.data.tags) {  // if document already exists
     const tags = doc_recv.data.tags
-    // console.log(">", tags)
-    for (let tag of Object.keys(tags)) {
-      await deleteDocUnderTag({ doc_name: doc.name, tag })
-    }
+    Object.keys(doc.tags).map((tag) => {  // Bind new tags with doc
+      if (!tags[tag]) {
+        addDocUnderTag({ doc_name: doc.name, tag })
+      }
+    })
+    Object.keys(tags).map((tag) => {  // Unbind deleted tags with doc
+      if (!doc.tags[tag]) {
+        deleteDocUnderTag({ doc_name: doc.name, tag })
+      }
+    })
+    addDocAndTags(doc, { noUpdateTag: true })
+  } else {
+    addDocAndTags(doc, {})
   }
-  await addDocAndTags(doc)
 }
 
 export async function deleteDocAndTags({doc_name}) {
