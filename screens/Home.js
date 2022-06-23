@@ -78,7 +78,7 @@ class Home extends React.Component {
         {/* <Text bold size={16} style={styles.title}>
         Explore facilities:
         </Text> */}
-        <Block flex card style={styles.category}>
+        <Block flex style={styles.category2}>
           <AutomatedSlideshow
             showUrl = {this.showUrl}
             style={styles.goStudyTitle}
@@ -146,6 +146,11 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
   },
   category: {
+    backgroundColor: theme.COLORS.WHITE,
+    marginVertical: theme.SIZES.BASE / 2,
+    borderWidth: 0,
+  },
+  category2: {
     backgroundColor: theme.COLORS.WHITE,
     marginVertical: theme.SIZES.BASE / 2,
     borderWidth: 0,

@@ -2,6 +2,22 @@ const title = "GoStudy spaces"
 
 export default [
     {
+        title: 'Cinema in GoStudy',
+        description:
+            'This room provides cinema-like seats, and insulating panels to kill the sound. You can also use this room as a project presentation place.',
+        url: 'https://i.ibb.co/LCdt13t/70-DA1-C5-F-B4-C0-46-D7-89-B0-CC71-B54-B7366-1-105-c.jpg',
+        maps: [
+            {
+                url: 'https://i.ibb.co/G5dpT3q/Chemistry-Building.png'
+            }
+        ],
+        // link: 'https://www.imperial.ac.uk/admin-services/library/use-the-library/our-libraries/central-library/',
+        location: 'Chemistry building floor 4, room 430',
+        openingHour: 'everyday until 12:00 am',
+        avgRating: 0,
+        numRatings: 0,
+    },
+    {
         title: 'GoStudy Space',
         study: true,
         STUDY: {
@@ -95,29 +111,5 @@ export default [
             }
         ],
     },
-    {
-        title: 'Central Library',
-        study: true,
-        STUDY: {
-            GROUP: true,
-            SILENT: true,
-            QUIET: true
-        },
-        description:
-            'Silent study - levels 2 and 3\n' +
-            'Quiet study - levels 1, 4 and 5\n' +
-            'Group study - level 1\n' +
-            'Height adjustable desks - levels 2 and 3\n',
-        url: 'https://www.imperial.ac.uk/media/migration/administration-and-support-services/0000-191111-autumn-library-queens-lawn-018_1635242587445_x2.jpg',
-        maps: [
-            {
-                url: 'https://i.ibb.co/2s8PsJr/Central-Lib.png'
-            }
-        ],
-        link: 'https://www.imperial.ac.uk/admin-services/library/use-the-library/our-libraries/central-library/',
-        location: '',
-        openingHour: '',
-        avgRating: 0,
-        numRatings: 0,
-    }
+    
 ]
