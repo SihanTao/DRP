@@ -9,6 +9,7 @@ const BLACKETT = "blackett_laboratory";
 const SKEMPTON = 'skempton_building';
 const CITY = "city&guilds_building";
 const DYSON = "dyson_building";
+const OTHER = "other"
 
 const shareLocalFacilities = [
 
@@ -536,11 +537,85 @@ const shareLocalFacilities = [
             }
         ],
         building: CHEM,
-    }
+    },
+    // Events
+    {
+        title: "GIG-A-BITES - Unknown to Known",
+        name: "GIG-A-BITES - Unknown to Known",
+        tags: {
+            event: true,
+            blyth_centre: true,
+            year22: true,
+            june: true,
+            jazz: true,
+            music: true,
+        },
+        openingHour: "29 June 2022",
+        avgRating: 0,
+        numRatings: 0,
+        location: "Outside, between I-HUB and MSRH, Translation and Innovation Hub (I-HUB) Campus: White City Campus",
+        description: "Intricate melodies and textural grooves combine over sonic landscapes informed by ragas of the Indian subcontinent. Mostly improvised, always interactive, honest and raw.",
+        url: "https://www.imperial.ac.uk/ImageCropToolT4/imageTool/uploaded-images/utk-brighton-april-2021_1654697683830_eventfeatured2018_x2.webp",
+        maps: [
+            {
+                url: "https://www.virtuoso.com/TouchPoints/Sites/VCom/Images/image-not-available-map.png"
+            }
+        ],
+        building: OTHER,
+    },
+    {
+        title: "GIG-A-BITES - The Coalminers",
+        name: "GIG-A-BITES - The Coalminers",
+        tags: {
+            event: true,
+            blyth_centre: true,
+            year22: true,
+            july: true,
+            music: true,
+        },
+        openingHour: "27 July 2022",
+        avgRating: 0,
+        numRatings: 0,
+        location: "Outside, between I-HUB and MSRH, Translation and Innovation Hub (I-HUB) Campus: White City Campus",
+        description: "This brilliant five piece band bring the rhythem and soul of New Orleans alive, playing songs ranging from Professor Longhair to Allen Toussaint, Mardi Gras parade anthems to Fats Domino Rock & Roll classics and the swampy funk of The Meters and Dr John. They take their name from the Toussaint/Dorsey song 'Working In A Coalmine'.",
+        url: "https://www.imperial.ac.uk/ImageCropToolT4/imageTool/uploaded-images/patlevett-3-1_1654688389700_eventlandscape2018_x2.webp",
+        maps: [
+            {
+                url: "https://www.virtuoso.com/TouchPoints/Sites/VCom/Images/image-not-available-map.png"
+            }
+        ],
+        building: OTHER,
+    },
+    // Other
+    {
+        title: "Student Hub",
+        name: "Student Hub",
+        tags: {
+            student_hub: true,
+            service: true,
+        },
+        openingHour: "Monday to Friday 10am - 4pm",
+        avgRating: 0,
+        numRatings: 0,
+        location: "The Student Hub \n" +
+                  "Level 3 Sherfield Building\n" +
+                  "South Kensington Campus\n" +
+                  "Imperial College London\n" +
+                  "SW7 2AZ",
+        description: "The Student Hub brings together many of Imperial's key support services in one easily accessible place. It is a hub for advice and information on a wide range of aspects of College life, including admissions, finance, exchange programmes and exam arrangements. Our team are on hand to answer your questions in person, by email or online. ",
+        url: "https://pxl-imperialacuk.terminalfour.net/fit-in/2158x610/filters:upscale()/filters:format(webp)/prod01/channel_2/media/migration/imperial-students/00-171014-imp-studenthub-024_1598955039196_x4.jpg",
+        maps: [
+            {
+                url: "https://www.virtuoso.com/TouchPoints/Sites/VCom/Images/image-not-available-map.png"
+            }
+        ],
+        building: SHERFIELD,
+        link: "https://www.imperial.ac.uk/student-hub/"
+    },
 ];
 
 export {
-    CITY, DYSON,
+    CITY, DYSON, OTHER,
     SKEMPTON, BLACKETT, shareLocalFacilities, HUXLEY,
     SHERFIELD, CENTRAL_LIBRARY, EEE, CHEM, IB
 };

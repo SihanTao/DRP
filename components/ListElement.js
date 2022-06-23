@@ -124,8 +124,9 @@ class ListElement extends React.Component {
         }}
       >
         {categories &&
-          categories.map((item, index) =>
-            this.renderProduct(item, index)
+          categories.map((item, index) => {
+            return this.renderProduct(item, index)
+          }
           )}
       </ScrollView>
     );

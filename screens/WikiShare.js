@@ -41,12 +41,13 @@ function HookFormImplementation(props) {
   }
 
   const processData = (data) => {
-      const tag_array = data.raw_tags.split(' ')
+      const tag_array = data.raw_tags.toLowerCase().split(' ')
 
       defaultOrNot(data, "title", data.name)
       defaultOrNot(data, "url", "https://upload.wikimedia.org/wikipedia/commons/0/02/Dalby_Court_looking_north-east.jpg")
       defaultOrNot(data, "avgRating", 0)
       defaultOrNot(data, "numRatings", 0)
+      defaultOrNot(data, "map", "https://www.virtuoso.com/TouchPoints/Sites/VCom/Images/image-not-available-map.png")
       defaultOrNot(data, "maps", [{ url: data.map }])
 
       data["tags"] = {}
@@ -136,6 +137,7 @@ function HookFormImplementation(props) {
     name,
     placeholder=name,
     control=null,
+    height=48,
   }) => {
     const {field} = useController({
       control,
@@ -152,10 +154,11 @@ function HookFormImplementation(props) {
         autoCapitalize="none"
         right
         color="black"
-        style={styles.search}
+        style={[styles.search, {height}]}
         placeholder={placeholder}
         placeholderTextColor={'#8898AA'}
         iconContent={null}
+        multiline={true}
       />
     </>);
   }
@@ -170,9 +173,9 @@ function HookFormImplementation(props) {
           <Heading title="Photo" />
           <InputBox name="url" placeholder="URL of the picture" control={control} />
           <Heading title="Description" />
-          <InputBox name="description" control={control} />
+          <InputBox name="description" control={control} height={128} />
           <Heading title="Location" />
-          <InputBox name="location" control={control}/>
+          <InputBox name="location" control={control} height={64}/>
           <Heading title="Opening Hours" />
           <InputBox name="openingHour" placeholder="opening hours" control={control} />
           <Heading title="Map" />
@@ -180,7 +183,7 @@ function HookFormImplementation(props) {
           <Heading title="External Website" />
           <InputBox name="link" placeholder="URL of the website" control={control} />
           <Heading title="Tags (seperate tags by a single space)" />
-          <InputBox name="raw_tags" placeholder="Seperate by a single space" control={control} />
+          <InputBox name="raw_tags" placeholder="example_tags sherfield_building relax" control={control} height={64} />
           <View style={styles.buttonContainer}>
             <View style={styles.buttonWrapper}>
               <Button
