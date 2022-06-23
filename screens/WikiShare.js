@@ -34,20 +34,33 @@ export default function WikiShare(props) {
 function HookFormImplementation(props) {
   const { control, handleSubmit } = useForm();
 
+  const defaultOrNot = (data, prop, val) => {
+    if (!data[prop] || data[prop] === "") {
+      data[prop] = val
+    }
+  }
+
+  const processData = (data) => {
+      const tag_array = data.raw_tags.split(' ')
+
+      defaultOrNot(data, "title", data.name)
+      defaultOrNot(data, "url", "https://upload.wikimedia.org/wikipedia/commons/0/02/Dalby_Court_looking_north-east.jpg")
+      defaultOrNot(data, "avgRating", 0)
+      defaultOrNot(data, "numRatings", 0)
+      defaultOrNot(data, "maps", [{ url: data.map }])
+
+      data["tags"] = {}
+      for (let tag of tag_array) {
+        if (tag !== "") {
+          data.tags[tag] = true
+        }
+      }
+  }
+
   const onSubmit = async (data) => {
     if (await docNotExists({ doc_name: data.name })) {
-      const tag_array = data.raw_tags.split(' ')
-      data["tags"] = {}
-      // below are temporary testing setting
-      data["title"] = data.name
-      data["url"] = "https://upload.wikimedia.org/wikipedia/commons/0/02/Dalby_Court_looking_north-east.jpg"
-      data["avgRating"] = 5
-      data["numRatings"] = 1
-      data["maps"] = [{ url: data.map }]
+      processData(data)
 
-      for (let tag of tag_array) {
-        data.tags[tag] = true
-      }
       addDocAndTags(data)
       Alert.alert(
         "Submission Successful",
@@ -61,6 +74,33 @@ function HookFormImplementation(props) {
     }
   };
 
+  /* FUNCTION DISCARDED, NOT WORKING */
+  const onUpdate = async (data) => {
+    if (!await docNotExists({ doc_name: data.name })) {
+      processData(data)
+
+      Object.keys(data).forEach((key) => {
+        if (data[key] === "" || data[key] === 0) {
+          data[key] = undefined
+        }
+      })
+      if (!data.map) {
+        data.maps = undefined
+      }
+      if (!data.raw_tags) {
+        data.tags = undefined
+      }
+
+      console.log("[v] >", data)
+      mergeDocAndTags(data)
+    } else {
+      Alert.alert(
+        "Submission Failed",
+        "Wiki with the same name does not exist, so you cannot update it."
+      )
+    }
+  }
+
   const onDelete = (data) => {
     deleteDocAndTags({ doc_name: data.name })
     Alert.alert(
@@ -69,10 +109,14 @@ function HookFormImplementation(props) {
     )
   };
 
-  const onSync = (data) => {
+  const onSync = async (data) => {
     for (let wiki of shareLocalFacilities) {
-      mergeDocAndTags(wiki)
+      addDocAndTags(wiki)
     }
+    Alert.alert(
+      "Submission Successful",
+      "All local wikis are added to database."
+    )
   }
 
   const Heading = ({title="Title"}) => (<>
@@ -144,17 +188,25 @@ function HookFormImplementation(props) {
                 onPress={handleSubmit(onSubmit)}
               />
             </View>
-            <DevStatus pubHide={true}>
-              <View style={styles.buttonWrapper}>
-                <Button
-                  title="delete"
-                  onPress={handleSubmit(onDelete)}
-                />
-              </View>
-            </DevStatus>
           </View>
           <DevStatus pubHide={true}>
             <View style={[styles.buttonContainer, {marginTop: 50}]}>
+              <DevStatus>
+                <View style={styles.buttonWrapper}>
+                  <Button
+                    title="delete"
+                    onPress={handleSubmit(onDelete)}
+                  />
+                </View>
+              </DevStatus>
+              <DevStatus forceHide={true}>
+                <View style={styles.buttonWrapper}>
+                  <Button
+                    title="update"
+                    onPress={handleSubmit(onUpdate)}
+                  />
+                </View>
+              </DevStatus>
               <View style={styles.buttonWrapper}>
                 <Button
                   title="sync local"
@@ -163,6 +215,7 @@ function HookFormImplementation(props) {
               </View>
             </View>
           </DevStatus>
+          <View style={[{height: 300}]} />
           {/* The Below One is Just For Testing */}
           <DevStatus forceHide={true} status="developing" pubHide={true}>
             <View style={[{height: 100}]} />

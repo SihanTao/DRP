@@ -8,12 +8,13 @@ import { Block, theme } from 'galio-framework';
 import argonTheme from '../constants/Theme';
 import ListElement from "../components/ListElement";
 import * as Progress from 'react-native-progress';
-import { facilities, HUXLEY, SHERFIELD, CENTRAL_LIBRARY, EEE, CHEM, IB, BLACKETT, SKEMPTON, CITY, DYSON } from '../constants/facilities';
+import { HUXLEY, SHERFIELD, CENTRAL_LIBRARY, EEE, CHEM, IB, BLACKETT, SKEMPTON, CITY, DYSON } from '../constants/shareLocalFacilities';
 import { collection, doc, setDoc, getDoc, getFirestore, query, where, getDocs, orderBy } from "firebase/firestore";
 import { async } from "@firebase/util";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { ALL_TAGS, CAFE_TAGS, STUDY_PLACE_TAGS, TOILET_TAGS, WATER_FOUNTAIN_TAGS, MICROWAVE_TAGS } from "../constants/tags";
 import { allRelevantTags, filterDocsUnderTags, readDocsWithTag } from "../backend/tagManager";
+import { convertCompilerOptionsFromJson } from "typescript";
 const { width } = Dimensions.get('screen');
 
 export default function SearchResult(props) {
@@ -78,6 +79,7 @@ export default function SearchResult(props) {
   // ])
   useEffect(() => {
     tagsRelatedToTag({ tag: main_tag })
+    console.log("[i] 1 > call getData()")
     getData(filters)
   }, [filters])
 
@@ -108,26 +110,30 @@ export default function SearchResult(props) {
   const [filters, setFilters] = useState({})
 
   async function getData(filters) {
+    console.log("[i] getData")
     const list = [];
-    const placeRef = collection(getFirestore(), "facilities");
-    const conditions = [];
     const params = props.route.params;
-
     const tag = params.main_tag
+    const idlist = []
+
     const doc_recv = {}
+    console.log("[i] getData > flag")
     await readDocsWithTag(doc_recv, {tag})
 
-    if (pressedLocation !== '') {
-      conditions.push(where("building", "==", pressedLocation));
-    }
-    // conditions.push(orderBy("avgRating", "desc"));
-
-    const q = query(placeRef, ...conditions);
-
-    const querySnapshot = await getDocs(q);
-    const idlist = []
     const docs = doc_recv.data
-    await filterDocsUnderTags(docs, filters)
+    console.log("[i] getData > filter: ", filters)
+    if (pressedLocation && pressedLocation != "") {
+      if (tags[pressedLocation]) {
+        await filterDocsUnderTags(docs, filters)
+      } else {
+        Object.keys(docs).map((doc_name) => {
+          docs[doc_name] = undefined
+        })
+      }
+    } else {
+      await filterDocsUnderTags(docs, filters)
+    }
+    console.log("[i] getData > filtered!")
     Object.keys(docs).forEach((doc_name) => {
       const doc = docs[doc_name]
       if (doc) {
@@ -140,6 +146,7 @@ export default function SearchResult(props) {
   }
 
   function updateFilters() {
+    console.log("[i] updateFilters > IN")
     // Initial State of Filter
     const newCategory = {};
     const params = props.route.params;
@@ -152,20 +159,44 @@ export default function SearchResult(props) {
     })
 
     setFilters(newCategory);
+    console.log("[i] updateFilters > OUT")
   }
 
   // START OF LOCATION FILTER 
   const [pressedLocation, setPressedLocation] = useState("");
 
   useEffect(() => {
+    console.log("[i] 2 > call getData()")
     getData(filters);
     const willFocusSubscription = props.navigation.addListener('focus', () => {
+      console.log("[i] 3 > call getData()")
       getData(filters);
     });
     // console.log(data)
 
     return willFocusSubscription;
-  }, [filters, pressedLocation]);
+  }, [filters]);
+
+  const lastLocations = {
+    locs: {}
+  }
+  const [lastLoc, setLastLoc] = useState("")
+  useEffect(() => {
+    console.log("[i] useEffect[pressedLocation]")
+    // console.log("[i] useEffect[pressedLocation] > last: ", lastLoc)
+    // console.log("[i] useEffect[pressedLocation] > new: ", pressedLocation)
+    if (lastLoc != "" && tags[lastLoc] && tags[lastLoc].active) {
+      // console.log("[i] useEffect[pressedLocation] > toggle last")
+      toggleTag(lastLoc)
+    }
+    setLastLoc(pressedLocation)
+    if (pressedLocation != "" && tags[pressedLocation] && !tags[pressedLocation].active) {
+      // console.log("[i] useEffect[pressedLocation] > toggle new")
+      toggleTag(pressedLocation)
+    }
+    console.log("[i] useEffect[pressedLocation] > call updateFilters()")
+    updateFilters();
+  }, [pressedLocation])
 
   // Get user location
   const [location, setLocation] = useState(null);
@@ -292,6 +323,7 @@ export default function SearchResult(props) {
                 }}
                 onPress={() => {
                   toggleTag(index);
+                  console.log("[i] Tag > call updateFilters()")
                   updateFilters();
                 }}
               />

@@ -5,16 +5,45 @@ import { addSingleDataToFireStore, deleteFieldInFireStore, deleteSingleDataFromF
 
 /**
  * Automatically adds the doc(wiki) to database and register it with the tags.
+ * Evenif you don't want to set noUpdateTag, you need to call this function as
+ * "addDocAndTags(x, {})"
  * @param doc The doc(wiki) needs to have doc.tags
+ * @param noUpdateTag
+ *   defaults to false. If set to true, this function doesn't update tags.
  */
-export function addDocAndTags(doc) {
-  Object.keys(doc.tags).map((tag) => {
-    addDocUnderTag({ doc_name: doc.name, tag })
-  })
-  addSingleDataToFireStore(doc, {
+export async function addDocAndTags(doc) {
+  const doc_recv = {}
+  await ReadDocFromFireStore(doc_recv, {
     coll_name: share_coll_name,
     doc_name: doc.name,
   })
+  if (doc_recv.data && doc_recv.data.tags) {  // if document already exists
+    const tags = doc_recv.data.tags
+    if (doc.tags) {
+      Object.keys(doc.tags).map((tag) => {  // Bind new tags with doc
+        if (!tags[tag]) {
+          addDocUnderTag({ doc_name: doc.name, tag })
+        }
+      })
+      Object.keys(tags).map((tag) => {  // Unbind deleted tags with doc
+        if (!doc.tags[tag]) {
+          deleteDocUnderTag({ doc_name: doc.name, tag })
+        }
+      })
+    }
+    await addSingleDataToFireStore(doc, {
+      coll_name: share_coll_name,
+      doc_name: doc.name,
+    })
+  } else {
+    await addSingleDataToFireStore(doc, {
+      coll_name: share_coll_name,
+      doc_name: doc.name,
+    })
+    Object.keys(doc.tags).map((tag) => {
+      addDocUnderTag({ doc_name: doc.name, tag })
+    })
+  }
 }
 
 export async function mergeDocAndTags(doc) {
@@ -23,13 +52,27 @@ export async function mergeDocAndTags(doc) {
     coll_name: share_coll_name,
     doc_name: doc.name,
   })
-  if (doc_recv.data) {  // if document already exists
+  if (doc_recv.data && doc_recv.data.tags) {  // if document already exists
     const tags = doc_recv.data.tags
-    for (let tag of Object.keys(tags)) {
-      deleteDocUnderTag({ doc_name: doc.name, tag })
+    if (doc.tags) {
+      Object.keys(doc.tags).map((tag) => {  // Bind new tags with doc
+        if (!tags[tag]) {
+          addDocUnderTag({ doc_name: doc.name, tag })
+        }
+      })
+      Object.keys(tags).map((tag) => {  // Unbind deleted tags with doc
+        if (!doc.tags[tag]) {
+          deleteDocUnderTag({ doc_name: doc.name, tag })
+        }
+      })
     }
+    await mergeSingleDataToFireStore(doc, {
+      coll_name: share_coll_name,
+      doc_name: doc.name
+    })
+  } else {
+    addDocAndTags(doc)
   }
-  addDocAndTags(doc)
 }
 
 export async function deleteDocAndTags({doc_name}) {
@@ -121,20 +164,20 @@ export async function readDocRefsWithTag(docs, {tag}) {
  * @param doc_name  the document (or piece of data)
  * @param tag       the tag
  */
-export function addDocUnderTag({ doc_name, tag }) {
+export async function addDocUnderTag({ doc_name, tag }) {
   const newTagInfo = {}
   newTagInfo[doc_name] = {
     coll_name: share_coll_name,
     doc_name: doc_name,
   }
-  mergeSingleDataToFireStore(
+  await mergeSingleDataToFireStore(
     newTagInfo,
     {
       coll_name: share_tags_coll_name,
       doc_name: tag,
     }
   )
-  addTagToTags({tag})
+  await addTagToTags({tag})
 }
 
 /**
@@ -142,21 +185,21 @@ export function addDocUnderTag({ doc_name, tag }) {
  * @param doc_name document name
  * @param tag      tag name
  */
-export function deleteDocUnderTag({ doc_name, tag }) {
-  deleteFieldInFireStore({
+export async function deleteDocUnderTag({ doc_name, tag }) {
+  await deleteFieldInFireStore({
     coll_name: share_tags_coll_name,
     doc_name: tag,
     field_name: doc_name,
   })
-  removeTagIfEmpty({tag})
+  await removeTagIfEmpty({tag})
 }
 
 /* THIS FUNCTION IS NOT TESTED YET */
 /** Records the tag to a document that saves all tags in database */
-function addTagToTags({tag}) {
+async function addTagToTags({tag}) {
   const newTag = {};
   newTag[tag] = true;
-  mergeSingleDataToFireStore(
+  await mergeSingleDataToFireStore(
     newTag,
     {
       coll_name: share_all_tags_coll_name,

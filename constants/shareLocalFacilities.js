@@ -1,14 +1,14 @@
 // Building constants
-const HUXLEY = "Huxley Building";
-const SHERFIELD = 'Sherfield Building';
-const CENTRAL_LIBRARY = "Central Library";
-const EEE = "Electrical and Electronic Engineering Building";
-const CHEM = 'Chemistry Building';
-const IB = "Imperial College Business School";
-const BLACKETT = "Blackett Laboratory";
-const SKEMPTON = 'Skempton Building';
-const CITY = "City & Guilds Building";
-const DYSON = "Dyson Building of Design Engineering";
+const HUXLEY = "huxley";
+const SHERFIELD = 'sherfield_building';
+const CENTRAL_LIBRARY = "central_library";
+const EEE = "eee_building";
+const CHEM = 'chemistry_building';
+const IB = "imperial_business_school";
+const BLACKETT = "blackett_laboratory";
+const SKEMPTON = 'skempton_building';
+const CITY = "city&guilds_building";
+const DYSON = "dyson_building";
 
 const shareLocalFacilities = [
 
@@ -17,7 +17,7 @@ const shareLocalFacilities = [
         title: 'EEE Cafe Water Fountain',
         name: 'EEE Cafe Water Fountain',
         tags: {
-            waterfountain: true,
+            water_fountain: true,
             eee_building: true,
             floor2: true,
         },
@@ -39,7 +39,7 @@ const shareLocalFacilities = [
         title: 'Computing Lab Water Fountain',
         name: 'Computing Lab Water Fountain',
         tags: {
-            waterfountain: true,
+            water_fountain: true,
             huxley: true,
             floor2: true
         },
@@ -61,7 +61,7 @@ const shareLocalFacilities = [
         title: 'SCR water fountain',
         name: 'SCR water fountain',
         tags: {
-            waterfountain: true,
+            water_fountain: true,
             sherfield_building: true,
             floor2: true,
         },
@@ -82,7 +82,7 @@ const shareLocalFacilities = [
         title: 'Sherfield 2nd floor water fountain',
         name: 'Sherfield 2nd floor water fountain',
         tags: {
-            waterfountain: true,
+            water_fountain: true,
             sherfield_building: true,
             floor2: true,
         },

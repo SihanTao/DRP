@@ -4,6 +4,7 @@ import { async } from "@firebase/util";
 import { getFirestore, collection, addDoc, setDoc, doc, getDoc, updateDoc, deleteField, deleteDoc } from "firebase/firestore";
 import { Alert } from "react-native";
 import { DEV_STATUS } from "../constants/DevStatus"
+import { share_coll_name } from "../constants/ShareCons";
 
 const ALERT_ON = false
 
@@ -189,7 +190,7 @@ export function addArticles(data) {
 
 export async function addRating(id, rating) {
     const db = getFirestore();
-    const docRef = doc(db, 'facilities', id);
+    const docRef = doc(db, share_coll_name, id);
     const docSnap = await getDoc(docRef);
     let avgRating, numRatings;
     if (docSnap.exists()) {
@@ -211,7 +212,7 @@ export async function addRating(id, rating) {
 
 export async function getCurrentRating(id) {
     const db = getFirestore();
-    const docRef = doc(db, 'facilities', id);
+    const docRef = doc(db, share_coll_name, id);
     const docSnap = await getDoc(docRef);
     let rating = 0;
     if (docSnap.exists()) {

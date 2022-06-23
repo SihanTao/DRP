@@ -28,6 +28,7 @@ export default function Information(props) {
   useEffect(() => {
     const fetchData = async () => {
       const fetched = await getCurrentRating(props.route.params.id);
+      // console.log("> id: ", props.route.params.id)
       setRating(fetched);
     }
     showRating ? fetchData(id).catch(console.error) : null;
