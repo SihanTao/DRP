@@ -34,20 +34,38 @@ export default function WikiShare(props) {
 function HookFormImplementation(props) {
   const { control, handleSubmit } = useForm();
 
-  const onSubmit = async (data) => {
-    if (await docNotExists({ doc_name: data.name })) {
-      const tag_array = data.raw_tags.split(' ')
-      data["tags"] = {}
-      // below are temporary testing setting
-      data["title"] = data.name
-      data["url"] = "https://upload.wikimedia.org/wikipedia/commons/0/02/Dalby_Court_looking_north-east.jpg"
-      data["avgRating"] = 5
-      data["numRatings"] = 1
-      data["maps"] = [{ url: data.map }]
+  const defaultOrNot = (data, prop, val) => {
+    if (!data[prop] || data[prop] === "") {
+      data[prop] = val
+    }
+  }
 
+  const processData = (data) => {
+      const tag_array = data.raw_tags.split(' ')
+
+      defaultOrNot(data, "title", data.name)
+      defaultOrNot(data, "url", "https://upload.wikimedia.org/wikipedia/commons/0/02/Dalby_Court_looking_north-east.jpg")
+      defaultOrNot(data, "avgRating", 0)
+      defaultOrNot(data, "numRatings", 0)
+      defaultOrNot(data, "maps", [{ url: data.map }])
+
+      data["tags"] = {}
       for (let tag of tag_array) {
         data.tags[tag] = true
       }
+  }
+
+  const onSubmit = async (data) => {
+    if (await docNotExists({ doc_name: data.name })) {
+      processData(data)
+
+      // TODO: for merge
+      // Object.keys(data).forEach((key) => {
+      //   if (data[key] === "") {
+      //     data[key] = undefined
+      //   }
+      // })
+
       addDocAndTags(data, {})
       Alert.alert(
         "Submission Successful",
