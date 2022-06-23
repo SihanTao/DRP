@@ -188,17 +188,17 @@ function HookFormImplementation(props) {
                 onPress={handleSubmit(onSubmit)}
               />
             </View>
-            <DevStatus pubHide={true}>
-              <View style={styles.buttonWrapper}>
-                <Button
-                  title="delete"
-                  onPress={handleSubmit(onDelete)}
-                />
-              </View>
-            </DevStatus>
           </View>
           <DevStatus pubHide={true}>
             <View style={[styles.buttonContainer, {marginTop: 50}]}>
+              <DevStatus>
+                <View style={styles.buttonWrapper}>
+                  <Button
+                    title="delete"
+                    onPress={handleSubmit(onDelete)}
+                  />
+                </View>
+              </DevStatus>
               <DevStatus forceHide={true}>
                 <View style={styles.buttonWrapper}>
                   <Button
