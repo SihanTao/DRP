@@ -69,10 +69,14 @@ function HookFormImplementation(props) {
     )
   };
 
-  const onSync = (data) => {
+  const onSync = async (data) => {
     for (let wiki of shareLocalFacilities) {
-      mergeDocAndTags(wiki)
+      await mergeDocAndTags(wiki)
     }
+    Alert.alert(
+      "Submission Successful",
+      "All local wikis are added to database."
+    )
   }
 
   const Heading = ({title="Title"}) => (<>

@@ -23,13 +23,15 @@ export async function mergeDocAndTags(doc) {
     coll_name: share_coll_name,
     doc_name: doc.name,
   })
-  if (doc_recv.data) {  // if document already exists
+  // console.log(">", doc_recv)
+  if (doc_recv.data && doc_recv.data.tags) {  // if document already exists
     const tags = doc_recv.data.tags
+    // console.log(">", tags)
     for (let tag of Object.keys(tags)) {
-      deleteDocUnderTag({ doc_name: doc.name, tag })
+      await deleteDocUnderTag({ doc_name: doc.name, tag })
     }
   }
-  addDocAndTags(doc)
+  await addDocAndTags(doc)
 }
 
 export async function deleteDocAndTags({doc_name}) {
@@ -121,20 +123,20 @@ export async function readDocRefsWithTag(docs, {tag}) {
  * @param doc_name  the document (or piece of data)
  * @param tag       the tag
  */
-export function addDocUnderTag({ doc_name, tag }) {
+export async function addDocUnderTag({ doc_name, tag }) {
   const newTagInfo = {}
   newTagInfo[doc_name] = {
     coll_name: share_coll_name,
     doc_name: doc_name,
   }
-  mergeSingleDataToFireStore(
+  await mergeSingleDataToFireStore(
     newTagInfo,
     {
       coll_name: share_tags_coll_name,
       doc_name: tag,
     }
   )
-  addTagToTags({tag})
+  await addTagToTags({tag})
 }
 
 /**
@@ -142,21 +144,21 @@ export function addDocUnderTag({ doc_name, tag }) {
  * @param doc_name document name
  * @param tag      tag name
  */
-export function deleteDocUnderTag({ doc_name, tag }) {
-  deleteFieldInFireStore({
+export async function deleteDocUnderTag({ doc_name, tag }) {
+  await deleteFieldInFireStore({
     coll_name: share_tags_coll_name,
     doc_name: tag,
     field_name: doc_name,
   })
-  removeTagIfEmpty({tag})
+  await removeTagIfEmpty({tag})
 }
 
 /* THIS FUNCTION IS NOT TESTED YET */
 /** Records the tag to a document that saves all tags in database */
-function addTagToTags({tag}) {
+async function addTagToTags({tag}) {
   const newTag = {};
   newTag[tag] = true;
-  mergeSingleDataToFireStore(
+  await mergeSingleDataToFireStore(
     newTag,
     {
       coll_name: share_all_tags_coll_name,
