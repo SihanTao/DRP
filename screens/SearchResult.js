@@ -11,7 +11,7 @@ import * as Progress from 'react-native-progress';
 import { HUXLEY, SHERFIELD, CENTRAL_LIBRARY, EEE, CHEM, IB, BLACKETT, SKEMPTON, CITY, DYSON } from '../constants/shareLocalFacilities';
 import { collection, doc, setDoc, getDoc, getFirestore, query, where, getDocs, orderBy } from "firebase/firestore";
 import { async } from "@firebase/util";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { ALL_TAGS, CAFE_TAGS, STUDY_PLACE_TAGS, TOILET_TAGS, WATER_FOUNTAIN_TAGS, MICROWAVE_TAGS } from "../constants/tags";
 import { allRelevantTags, filterDocsUnderTags, readDocsWithTag } from "../backend/tagManager";
 import { convertCompilerOptionsFromJson } from "typescript";
@@ -301,29 +301,31 @@ export default function SearchResult(props) {
 
       </Block>}
       <Block style={{ marginHorizontal: 16, flexDirection: "row", flexWrap: "wrap" }}>
-        {Object.keys(tags).map((index) => {
-          const tag = tags[index]
-          const backgroundColor = tag.active ? tag.color : "#0000";
-          const color = tag.active ? "#fff" : tag.color;
-          return (
-            <Block key={tag.name + index} style={{ margin: 2 }}>
-              <Tag
-                name={tag.name}
-                style={{
-                  backgroundColor,
-                  color,
-                  borderWidth: 1,
-                  borderRadius: 50,
-                }}
-                onPress={() => {
-                  toggleTag(index);
-                  console.log("[i] Tag > call updateFilters()")
-                  updateFilters();
-                }}
-              />
-            </Block>
-          );
-        })}
+        <ScrollView horizontal={true} >
+          {Object.keys(tags).map((index) => {
+            const tag = tags[index]
+            const backgroundColor = tag.active ? tag.color : "#0000";
+            const color = tag.active ? "#fff" : tag.color;
+            return (
+              <Block key={tag.name + index} style={{ margin: 2 }}>
+                <Tag
+                  name={tag.name}
+                  style={{
+                    backgroundColor,
+                    color,
+                    borderWidth: 1,
+                    borderRadius: 50,
+                  }}
+                  onPress={() => {
+                    toggleTag(index);
+                    console.log("[i] Tag > call updateFilters()")
+                    updateFilters();
+                  }}
+                />
+              </Block>
+            );
+          })}
+        </ScrollView>
       </Block>
       {data.length != 0 && <ListElement
         list={data}
