@@ -64,7 +64,7 @@ function HookFormImplementation(props) {
       addDocAndTags(data)
       Alert.alert(
         "Submission Successful",
-        JSON.stringify(data)
+        // JSON.stringify(data)
       )
     } else {
       Alert.alert(
@@ -179,7 +179,7 @@ function HookFormImplementation(props) {
           <InputBox name="map" placeholder="URL of the map" control={control} />
           <Heading title="External Website" />
           <InputBox name="link" placeholder="URL of the website" control={control} />
-          <Heading title="Tags" />
+          <Heading title="Tags (seperate tags by a single space)" />
           <InputBox name="raw_tags" placeholder="Seperate by a single space" control={control} />
           <View style={styles.buttonContainer}>
             <View style={styles.buttonWrapper}>
