@@ -51,7 +51,9 @@ function HookFormImplementation(props) {
 
       data["tags"] = {}
       for (let tag of tag_array) {
-        data.tags[tag] = true
+        if (tag !== "") {
+          data.tags[tag] = true
+        }
       }
   }
 
@@ -59,14 +61,7 @@ function HookFormImplementation(props) {
     if (await docNotExists({ doc_name: data.name })) {
       processData(data)
 
-      // TODO: for merge
-      // Object.keys(data).forEach((key) => {
-      //   if (data[key] === "") {
-      //     data[key] = undefined
-      //   }
-      // })
-
-      addDocAndTags(data, {})
+      addDocAndTags(data)
       Alert.alert(
         "Submission Successful",
         JSON.stringify(data)
@@ -79,6 +74,33 @@ function HookFormImplementation(props) {
     }
   };
 
+  /* FUNCTION DISCARDED, NOT WORKING */
+  const onUpdate = async (data) => {
+    if (!await docNotExists({ doc_name: data.name })) {
+      processData(data)
+
+      Object.keys(data).forEach((key) => {
+        if (data[key] === "" || data[key] === 0) {
+          data[key] = undefined
+        }
+      })
+      if (!data.map) {
+        data.maps = undefined
+      }
+      if (!data.raw_tags) {
+        data.tags = undefined
+      }
+
+      console.log("[v] >", data)
+      mergeDocAndTags(data)
+    } else {
+      Alert.alert(
+        "Submission Failed",
+        "Wiki with the same name does not exist, so you cannot update it."
+      )
+    }
+  }
+
   const onDelete = (data) => {
     deleteDocAndTags({ doc_name: data.name })
     Alert.alert(
@@ -89,7 +111,7 @@ function HookFormImplementation(props) {
 
   const onSync = async (data) => {
     for (let wiki of shareLocalFacilities) {
-      mergeDocAndTags(wiki)
+      addDocAndTags(wiki)
     }
     Alert.alert(
       "Submission Successful",
@@ -177,6 +199,14 @@ function HookFormImplementation(props) {
           </View>
           <DevStatus pubHide={true}>
             <View style={[styles.buttonContainer, {marginTop: 50}]}>
+              <DevStatus forceHide={true}>
+                <View style={styles.buttonWrapper}>
+                  <Button
+                    title="update"
+                    onPress={handleSubmit(onUpdate)}
+                  />
+                </View>
+              </DevStatus>
               <View style={styles.buttonWrapper}>
                 <Button
                   title="sync local"
@@ -230,7 +260,7 @@ function HookFormImplementation(props) {
                       tag4: true,
                     },
                   }
-                  addDocAndTags(doc, {})
+                  addDocAndTags(doc)
                 }}
               />
               <Button style={[{flex: 1, marginRight: 5}]}

@@ -11,12 +11,35 @@ import { addSingleDataToFireStore, deleteFieldInFireStore, deleteSingleDataFromF
  * @param noUpdateTag
  *   defaults to false. If set to true, this function doesn't update tags.
  */
-export async function addDocAndTags(doc, { noUpdateTag=false }) {
-  await addSingleDataToFireStore(doc, {
+export async function addDocAndTags(doc) {
+  const doc_recv = {}
+  await ReadDocFromFireStore(doc_recv, {
     coll_name: share_coll_name,
     doc_name: doc.name,
   })
-  if (!noUpdateTag) {
+  if (doc_recv.data && doc_recv.data.tags) {  // if document already exists
+    const tags = doc_recv.data.tags
+    if (doc.tags) {
+      Object.keys(doc.tags).map((tag) => {  // Bind new tags with doc
+        if (!tags[tag]) {
+          addDocUnderTag({ doc_name: doc.name, tag })
+        }
+      })
+      Object.keys(tags).map((tag) => {  // Unbind deleted tags with doc
+        if (!doc.tags[tag]) {
+          deleteDocUnderTag({ doc_name: doc.name, tag })
+        }
+      })
+    }
+    await addSingleDataToFireStore(doc, {
+      coll_name: share_coll_name,
+      doc_name: doc.name,
+    })
+  } else {
+    await addSingleDataToFireStore(doc, {
+      coll_name: share_coll_name,
+      doc_name: doc.name,
+    })
     Object.keys(doc.tags).map((tag) => {
       addDocUnderTag({ doc_name: doc.name, tag })
     })
@@ -31,19 +54,24 @@ export async function mergeDocAndTags(doc) {
   })
   if (doc_recv.data && doc_recv.data.tags) {  // if document already exists
     const tags = doc_recv.data.tags
-    Object.keys(doc.tags).map((tag) => {  // Bind new tags with doc
-      if (!tags[tag]) {
-        addDocUnderTag({ doc_name: doc.name, tag })
-      }
+    if (doc.tags) {
+      Object.keys(doc.tags).map((tag) => {  // Bind new tags with doc
+        if (!tags[tag]) {
+          addDocUnderTag({ doc_name: doc.name, tag })
+        }
+      })
+      Object.keys(tags).map((tag) => {  // Unbind deleted tags with doc
+        if (!doc.tags[tag]) {
+          deleteDocUnderTag({ doc_name: doc.name, tag })
+        }
+      })
+    }
+    await mergeSingleDataToFireStore(doc, {
+      coll_name: share_coll_name,
+      doc_name: doc.name
     })
-    Object.keys(tags).map((tag) => {  // Unbind deleted tags with doc
-      if (!doc.tags[tag]) {
-        deleteDocUnderTag({ doc_name: doc.name, tag })
-      }
-    })
-    addDocAndTags(doc, { noUpdateTag: true })
   } else {
-    addDocAndTags(doc, {})
+    addDocAndTags(doc)
   }
 }
 
