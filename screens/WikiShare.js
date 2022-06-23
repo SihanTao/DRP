@@ -41,7 +41,7 @@ function HookFormImplementation(props) {
   }
 
   const processData = (data) => {
-      const tag_array = data.raw_tags.split(' ')
+      const tag_array = data.raw_tags.toLowerCase().split(' ')
 
       defaultOrNot(data, "title", data.name)
       defaultOrNot(data, "url", "https://upload.wikimedia.org/wikipedia/commons/0/02/Dalby_Court_looking_north-east.jpg")
