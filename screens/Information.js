@@ -228,7 +228,7 @@ export default function Information(props) {
           <Text style={styles.description}>{(item.location === '' || item.location === undefined) ? "Imperial College London, South Kensington Campus, London SW7 2AZ" : item.location}</Text>
           <Text bold size={25} style={styles.heading}>Opening Hours</Text>
           <Text style={styles.description}>{(item.openingHour === '' || item.openingHour === undefined) ? "24/7 close on holidays" : item.openingHour}</Text>
-          <Text bold size={25} style={styles.heading}>Map</Text>
+          <Text bold size={25} style={styles.heading}>Map {"(click to zoom)"}</Text>
           <Block flex style={styles.imageContainer}>
             <TouchableWithoutFeedback
               onPress={() => navigation.navigate("ImageZoomer", {

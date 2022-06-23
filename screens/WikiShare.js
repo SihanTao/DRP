@@ -47,6 +47,7 @@ function HookFormImplementation(props) {
       defaultOrNot(data, "url", "https://upload.wikimedia.org/wikipedia/commons/0/02/Dalby_Court_looking_north-east.jpg")
       defaultOrNot(data, "avgRating", 0)
       defaultOrNot(data, "numRatings", 0)
+      defaultOrNot(data, "map", "https://www.virtuoso.com/TouchPoints/Sites/VCom/Images/image-not-available-map.png")
       defaultOrNot(data, "maps", [{ url: data.map }])
 
       data["tags"] = {}
