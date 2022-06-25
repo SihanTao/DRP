@@ -8,6 +8,7 @@ import {
   ActivityIndicator,
   Platform,
   Alert,
+  Dimensions,
 } from 'react-native';
 import { SearchBar } from 'react-native-elements';
 import { tabs } from '../constants';
@@ -18,53 +19,86 @@ export default class DropDownSearchBar extends React.Component {
   constructor(props) {
     super(props);
     //setting default state
-    this.state = { isLoading: false, search: '', dataSource: [] };
-    this.arrayholder = tabs.categories;
+    this.state = {
+      refreshAvailable: true,
+      isLoading: true,
+      search: '',
+      dataSource: [],
+      arrayholder: tabs.categories,
+    };
   }
-  componentDidMount() {
+  async componentDidMount() {
+    this.setState({
+      isLoading: true,
+    })
+    console.log("[i] DropDownSearchBar.componentDidMount")
+    await sharedTabs(shared_tabs)
     this.setState(
       {
         isLoading: false,
         dataSource: shared_tabs.categories,
+        arrayholder: shared_tabs.categories,
       },
-      function () {
-        this.arrayholder = shared_tabs.categories;
-      }
     );
   }
 
   search = text => {
+    console.log("[i] DropDownSearchBar.search")
     // console.log(text);
   };
   clear = () => {
+    console.log("[i] DropDownSearchBar.clear")
     this.search.clear();
   };
 
-  SearchFilterFunction(text) {
-    //passing the inserted text in textinput
-    const newData = this.arrayholder.filter(function (item) {
-      //applying filter for the inserted text in search bar
-      const itemData = item.title ? item.title.toUpperCase() : ''.toUpperCase();
-      const textData = text.toUpperCase();
+
+  async SearchFilterFunction(text) {
+    console.log("[i] DropDownSearchBar.SearchFilterFunction")
+    const textData =
+      text
+        .split(' ')
+        .filter((str) => (str != ''))
+        .join('_')
+        .toLowerCase();
+    // passing the inserted text in textinput
+    const newData = this.state.arrayholder.filter(function (item) {
+      // applying filter for the inserted text in search bar
+      const itemData = item.title ? item.title : '';
+      // const textData = text.toUpperCase();
       return itemData.indexOf(textData) > -1;
     });
 
-    this.setState({
-      //setting the filtered newData on datasource
-      //After setting the data it will automatically re-render the view
-      dataSource: newData,
-      search: text,
-    });
+    if (newData.length == 0 && this.state.refreshAvailable) {
+      this.setState({
+        search: text,
+        refreshAvailable: false,
+      })
+      await this.componentDidMount()
+      this.SearchFilterFunction(text)
+    } else {
+      this.setState({
+        // setting the filtered newData on datasource
+        // After setting the data it will automatically re-render the view
+        // refreshing is only available when user find something
+        refreshAvailable: newData.length != 0,
+        dataSource: newData,
+        search: text,
+      });
+    }
+
   }
 
   ListViewItemSeparator = () => {
-    //Item sparator view
+    // Item sparator view
+    const fullWidth = Dimensions.get('window').width
+    const marginHorizontal = fullWidth * 0.02
     return (
       <View
         style={{
-          height: 0.3,
-          width: '90%',
-          backgroundColor: '#080808',
+          height: 1,
+          width: fullWidth - 2 * marginHorizontal,
+          backgroundColor: '#D0D0D0',
+          marginHorizontal,
         }}
       />
     );
@@ -85,33 +119,16 @@ export default class DropDownSearchBar extends React.Component {
     );
   }
 
-  /** Has some but where update of search results is a little delayed */
-  async getTabs() {
-    await sharedTabs(shared_tabs)
-    if (shared_tabs.ddsb_last) {
-      if (shared_tabs.ddsb_last != shared_tabs.categories.length) {
-        shared_tabs["ddsb_last"] = shared_tabs.categories.length
-        // Alert.alert("Rerender")
-        this.forceUpdate()
-      } else {
-        // Alert.alert("?")
-      }
-    } else {
-      shared_tabs["ddsb_last"] = shared_tabs.categories.length
-      // Alert.alert("Rerender")
-      this.forceUpdate()
-    }
-  }
-
   render() {
+    console.log("[i] DropDownSearchBar.render")
     const { navigation } = this.props;
-    // sharedTabs(shared_tabs)
-    this.getTabs()
     if (this.state.isLoading) {
       // Loading View while data is loading
       return (
-        <View style={{ flex: 1, paddingTop: 20 }}>
-          <ActivityIndicator />
+        <View style={styles.viewStyle}>
+          <View style={{ flex: 1, paddingTop: 20 }}>
+            <ActivityIndicator />
+          </View>
         </View>
       );
     }
@@ -129,6 +146,7 @@ export default class DropDownSearchBar extends React.Component {
           placeholder="What are you Looking for?"
           value={this.state.search}
           autoFocus
+          autoCapitalize='none'
         />
         <FlatList
           data={this.state.dataSource.length == 0 ? [{id: 'noResult', title: ' No results found'}]: this.state.dataSource }

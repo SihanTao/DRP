@@ -10,6 +10,7 @@ export const shared_tabs = {
  * @param tabs tabs.categories gets the result
  */
 export async function sharedTabs(tabs) {
+  console.log("[i] sharedTabs.sharedTabs")
   const tags = {}
   await getAllTags(tags)
   tabs["categories"] = []

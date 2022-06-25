@@ -34,7 +34,6 @@ export default function Information(props) {
     showRating ? fetchData(id).catch(console.error) : null;
   }, [])
 
-  // console.log(item);
   const displayImages = [
     {
       url: item.url,
@@ -42,9 +41,7 @@ export default function Information(props) {
   ]
   const currentTags = []
 
-  // console.log(item);
   // Create customised tags for study & toilet
-  console.log("> item:", item)
   Object.keys(item.tags).forEach((tag) => {
     currentTags.push({
       id: tag, title: "#"+tag
