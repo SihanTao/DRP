@@ -30,4 +30,5 @@ deploy-prod:
     - expo --version
     - expo install expo-updates
     - expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD
+    - export NODE_OPTIONS="--max-old-space-size=2048"
     - expo publish
