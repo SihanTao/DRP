@@ -21,6 +21,20 @@ class DrawerItem extends React.Component {
             color={focused ? "white" : argonTheme.COLORS.PRIMARY}
           />
         );
+      case "Search":
+        return (<MaterialCommunityIcons
+          name='magnify'
+          size={14}
+          color={focused ? "white" : "rgba(0,0,0,0.5)"}
+        />)
+      case "Share":
+        return (
+          <MaterialCommunityIcons
+            name="plus-box"
+            size={14}
+            color={focused ? "white" : "#00000080"}
+          />
+        )
       case "Elements":
         return (
           <Icon
@@ -73,12 +87,6 @@ class DrawerItem extends React.Component {
           size={14}
           color={focused ? "white" : "rgba(0,0,0,0.5)"}
         />);
-      case "Search":
-        return (<MaterialCommunityIcons
-          name='magnify'
-          size={14}
-          color={focused ? "white" : "rgba(0,0,0,0.5)"}
-        />)
       default:
         return null;
     }

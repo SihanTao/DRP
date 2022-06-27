@@ -14,7 +14,7 @@ const BottomTabNavigator = () => {
                 component={HomeStackScreen}
                 options={{
                     headerShown: false,
-                    tabBarShowLabel: false,
+                    tabBarShowLabel: true,
                     tabBarIcon: ({ color, size }) => (
                         <MaterialCommunityIcons name="home" color={color} size={size} />
                     ),
@@ -25,7 +25,7 @@ const BottomTabNavigator = () => {
                 component={SearchStackScreen}
                 options={{
                     headerShown: false,
-                    tabBarShowLabel: false,
+                    tabBarShowLabel: true,
                     tabBarIcon: ({ color, size }) => (
                         <MaterialCommunityIcons name="magnify" color={color} size={size} />
                     ),
@@ -44,8 +44,8 @@ const BottomTabNavigator = () => {
             <Tab.Screen name="Share"
                 component={ShareScreen}
                 options={{
-                    tabBarShowLabel: false,
                     headerShown: false,
+                    tabBarShowLabel: true,
                     tabBarIcon: ({ color, size }) => (
                         <MaterialCommunityIcons name="plus-box" color={color} size={size} />
                     ),
