@@ -19,6 +19,8 @@ import facilities from "../constants/sampleData";
 import { doc } from "firebase/firestore";
 import { shareLocalFacilities } from "../constants/shareLocalFacilities";
 import DEV_STATUS from "../constants/DevStatus";
+import { rtDatabase } from "../backend/realtimeDatabase";
+import database from '@react-native-firebase/database'
 
 const { height, width } = Dimensions.get('window');
 
@@ -229,77 +231,11 @@ function HookFormImplementation(props) {
           </DevStatus>
           <View style={[{height: 300}]} />
           {/* The Below One is Just For Testing */}
-          <DevStatus forceHide={true} status="developing" pubHide={true}>
+          <DevStatus forceHide={false} status="developing" pubHide={true}>
             <View style={[{height: 100}]} />
             <View style={[{flexDirection: "row"}]}>
               <Button style={[{fles: 1, marginRight: 5}]}
                 title="B_A" 
-                onPress={() => {
-                  const a = {
-                    name: "tm"
-                  }
-                  dataAddTag(a, { tag: "foo" })
-                  addDocUnderTag( { doc_name: a.name, tag: "fo" })
-                  // Alert.alert(JSON.stringify(a))
-                }}
-              />
-              <Button style={[{flex: 1, marginRight: 5}]}
-                title="B_B" 
-                onPress={() => {
-                  deleteDocAndTags({ doc_name: "Sample123"})
-                }}
-              />
-              <Button style={[{flex: 1, marginRight: 5}]}
-                title="B_C"
-                onPress={async () => {
-                  const r = await checkDocTag({
-                      doc_name: "tmpp",
-                      tag: "fooo"
-                  })
-                  alertTrue({x: r})
-                  // Alert.alert(r)
-                }}
-              />
-              <Button style={[{flex: 1, marginRight: 5}]}
-                title="B_D"
-                onPress={() => {
-                  const doc = {
-                    name: "sample_doc_2",
-                    description: "some description",
-                    tags: {
-                      tag1: true,
-                      // tag2: true,
-                      tag4: true,
-                    },
-                  }
-                  addDocAndTags(doc)
-                }}
-              />
-              <Button style={[{flex: 1, marginRight: 5}]}
-                title="B_E"
-                onPress={async () => {
-                  const docsRecv = {}
-                  await readDocsWithTag(docsRecv, {tag:"fooo"})
-                  const docs = docsRecv.data
-                  Alert.alert("1", JSON.stringify(docs))
-                  await filterDocsUnderTags(docs, {foo:true, fo:true})
-                  Alert.alert("2", JSON.stringify(docs))
-                }}
-              />
-              <Button style={[{flex: 1, marginRight: 5}]}
-                title="B_F"
-                onPress={async () => {
-                  const doc_names = {
-                    "sample_doc": true,
-                    "sample_doc_2": true,
-                  }
-                  const tags_res = {}
-                  await allRelevantTags(doc_names, tags_res)
-                  Alert.alert(JSON.stringify(tags_res.tags))
-                }}
-              />
-              <Button style={[{flex: 1, marginRight: 5}]}
-                title="B_G"
                 onPress={() => {
                 }}
               />
