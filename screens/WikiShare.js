@@ -177,16 +177,16 @@ function HookFormImplementation(props) {
         <ScrollView>
           <View style={{height: 10}} />
           {/* TODO: Make this one compulsory */}
-          <Heading title="Name of Thing*" />
+          <Heading title="Name of the Thing*" />
           <InputBox name="name" control={control} />
-          <Heading title="Photo" />
+          <Heading title="Thumbnail" />
           <InputBox name="url" placeholder="URL of the picture" control={control} />
           <Heading title="Description" />
           <InputBox name="description" control={control} height={128} />
           <Heading title="Location" />
           <InputBox name="location" control={control} height={64}/>
           <Heading title="Time" />
-          <InputBox name="openingHour" placeholder="opening hours" control={control} />
+          <InputBox name="openingHour" placeholder="opening hours or when it happens" control={control} />
           <Heading title="Map" />
           <InputBox name="map" placeholder="URL of the map" control={control} />
           <Heading title="External Website" />
