@@ -360,7 +360,7 @@ export function ShareScreen(props) {
           component={WikiShare}
           options={{
             header: ({ navigation, scene }) => (
-              <Header back title="WikiShare" navigation={navigation} scene={scene} />
+              <Header title="WikiShare" navigation={navigation} scene={scene} />
             ),
             cardStyle: { backgroundColor: "#F8F9FE" },
           }}

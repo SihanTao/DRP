@@ -175,8 +175,9 @@ function HookFormImplementation(props) {
     <DevStatus status="done">
       <Block>
         <ScrollView>
+          <View style={{height: 10}} />
           {/* TODO: Make this one compulsory */}
-          <Heading title="Name of Wiki*" />
+          <Heading title="Name of Thing*" />
           <InputBox name="name" control={control} />
           <Heading title="Photo" />
           <InputBox name="url" placeholder="URL of the picture" control={control} />
@@ -184,7 +185,7 @@ function HookFormImplementation(props) {
           <InputBox name="description" control={control} height={128} />
           <Heading title="Location" />
           <InputBox name="location" control={control} height={64}/>
-          <Heading title="Opening Hours" />
+          <Heading title="Time" />
           <InputBox name="openingHour" placeholder="opening hours" control={control} />
           <Heading title="Map" />
           <InputBox name="map" placeholder="URL of the map" control={control} />
