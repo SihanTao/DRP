@@ -8,6 +8,29 @@ import { share_coll_name } from "../constants/ShareCons";
 
 const ALERT_ON = false
 
+// tmp test function
+export function writeTestData() {
+    const db = getDatabase();
+    const dataRef = ref(db, "test/test1/")
+
+    set(dataRef, {
+        title: "test1",
+        content: "YES! YES! YES!"
+    }).then(() => {
+        console.log("[i] databaseReadWrite.writeTestData > test data written")
+    })
+}
+
+// tmp test function
+export function readTestData() {
+    const db = getDatabase();
+    const dataRef = ref(db, "test/test1/content");
+    onValue(dataRef, (snapshot) => {
+        const data = snapshot.val();
+        console.log("[i] databaseReadWrite.readTestData >", data)
+    })
+}
+
 export function writeUserData(name, email, password) {
     const db = getDatabase();
 

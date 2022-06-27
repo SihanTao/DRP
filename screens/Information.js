@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, Dimensions, ScrollView, ImageBackground, Image, Modal, TouchableWithoutFeedback } from "react-native";
+import { View, StyleSheet, Dimensions, ScrollView, ImageBackground, Image, Modal, TouchableWithoutFeedback, Alert } from "react-native";
 import { Rating, AirbnbRating } from 'react-native-ratings';
 import { Block, theme } from 'galio-framework';
 import goStudySpaceSlideShow from "../constants/goStudySpaceSlideShow";
@@ -11,11 +11,32 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import ImageViewer from 'react-native-image-zoom-viewer';
 import ImageZoomer from "../components/ImageZoomer";
 import { addRating, getCurrentRating } from "../backend/databaseReadWrite";
+import { doc, getFirestore, onSnapshot } from "firebase/firestore";
+import { share_coll_name } from "../constants/ShareCons";
 
 const toiletMap = require("../assets/imgs/huxley_floor2.jpeg");
 
-
 const { width } = Dimensions.get('screen');
+const ratingTimesLimit = {}
+
+let ratingListener = undefined
+
+function setRatingListener(setRating, {doc_name}) {
+  const db = getFirestore()
+  if (doc_name && setRating) {
+    if (ratingListener) {
+      ratingListener();
+    };
+    ratingListener = onSnapshot(
+      doc(db, share_coll_name, doc_name),
+      (doc) => {
+        const data = doc.data()
+        console.log("[i] Information.setRatingListener >", data.numRatings);
+        setRating(data.avgRating)
+      },
+    );
+  }
+}
 
 export default function Information(props) {
   const [rating, setRating] = useState(0);
@@ -53,16 +74,19 @@ export default function Information(props) {
 
   // }, 
 // ]
-
+  
   const renderRating = () => {
     return (
       <><Text bold size={25} style={styles.heading}>Rate the facility!</Text>
-          <Text style={styles.description}>Current Rating: {rating.toFixed(2)}</Text><Rating
+          <Text style={styles.description}>Current Rating: {rating.toFixed(2)}</Text>
+          <Rating
             type='star'
             ratingCount={5}
             imageSize={60}
             onFinishRating={ratingCompleted}
             style={{ padding: 10 }}
+            fractions={0}
+            startingValue={rating}
           /> 
         </>
     )
@@ -132,13 +156,28 @@ export default function Information(props) {
     );
   };
 
+  const maxRatingTimes = 1
+
   async function ratingCompleted(rating) {
-    // console.log("Rating is: " + rating);
-    // console.log("In ratingCompleted function " + id);
-    const avgRating = await addRating(id, rating);
-    setRating(avgRating);
-    alert("Thank you for rating the facility!");
+    if (ratingTimesLimit[item.name]) {
+      if (ratingTimesLimit[item.name] < maxRatingTimes) {
+        console.log("[i] Information.ratingCompleted > A")
+        ratingTimesLimit[item.name] += 1;
+        alert("Thank you for rating the facility!");
+      } else {
+        console.log("[i] Information.ratingCompleted > B")
+        alert("You have rated")
+        setRating(rating)
+      }
+    } else {
+      console.log("[i] Information.ratingCompleted > C")
+      ratingTimesLimit[item.name] = 1;
+      const avgRating = await addRating(id, rating);
+      alert("Thank you for rating the facility!");
+    }
   }
+
+  setRatingListener(setRating, { doc_name: item.name });
 
   return (
     <Block safe fluid style={styles.container}>

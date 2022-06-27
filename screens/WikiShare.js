@@ -11,16 +11,14 @@ import { useState, useRef } from "react";
 import { useForm, useController } from 'react-hook-form';
 import { View } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
-import { addSingleDataToFireStore, deleteFieldInFireStore, deleteSingleDataFromFireStore, ReadDocFromFireStore } from "../backend/databaseReadWrite";
+import { addSingleDataToFireStore, deleteFieldInFireStore, deleteSingleDataFromFireStore, ReadDocFromFireStore, readTestData, writeTestData } from "../backend/databaseReadWrite";
 import sampleData from "../constants/sampleData"
 import { addDocAndTags, addDocUnderTag, alertTrue, allRelevantTags, checkDocTag, dataAddTag, dataHasTag, dataRmvTag, deleteDocAndTags, deleteDocUnderTag, docNotExists, filterDocsUnderTag, filterDocsUnderTags, mergeDocAndTags, readDocsWithTag } from "../backend/tagManager";
 import { share_coll_name } from "../constants/ShareCons";
 import facilities from "../constants/sampleData";
-import { doc } from "firebase/firestore";
+import { doc, getFirestore, onSnapshot } from "firebase/firestore";
 import { shareLocalFacilities } from "../constants/shareLocalFacilities";
 import DEV_STATUS from "../constants/DevStatus";
-import { rtDatabase } from "../backend/realtimeDatabase";
-import database from '@react-native-firebase/database'
 
 const { height, width } = Dimensions.get('window');
 
@@ -235,8 +233,34 @@ function HookFormImplementation(props) {
             <View style={[{height: 100}]} />
             <View style={[{flexDirection: "row"}]}>
               <Button style={[{fles: 1, marginRight: 5}]}
-                title="B_A" 
+                title="B_A"
                 onPress={() => {
+                  writeTestData()
+                }}
+              />
+              <Button style={[{fles: 1, marginRight: 5}]}
+                title="B_B"
+                onPress={() => {
+                  readTestData()
+                }}
+              />
+              <Button style={[{fles: 1, marginRight: 5}]}
+                title="B_C"
+                onPress={() => {
+                  addSingleDataToFireStore({title: "a", value: 5}, {
+                    coll_name: "tmp",
+                    doc_name: "tmp1",
+                  })
+                }}
+              />
+              <Button style={[{fles: 1, marginRight: 5}]}
+                title="B_D"
+                onPress={() => {
+                  const db = getFirestore()
+                  const dataRef = doc(db, "tmp", "tmp1")
+                  const foo = onSnapshot(dataRef, (doc) => {
+                    console.log("[i] WikiShare.B_D >", JSON.stringify(doc.data()))
+                  })
                 }}
               />
             </View>
