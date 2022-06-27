@@ -147,6 +147,7 @@ export default class DropDownSearchBar extends React.Component {
           value={this.state.search}
           autoFocus
           autoCapitalize='none'
+          autoCorrect={false}
         />
         <FlatList
           data={this.state.dataSource.length == 0 ? [{id: 'noResult', title: ' No results found'}]: this.state.dataSource }

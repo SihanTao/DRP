@@ -132,6 +132,8 @@ function HookFormImplementation(props) {
    *   The key of the entry of data that will be stored in database
    * @param control
    *   Should be the control from `react-hook-form` library
+   * @param height
+   *   This variable is deprecated and not used.
    */
   const InputBox = ({
     name,
@@ -145,20 +147,26 @@ function HookFormImplementation(props) {
       name,
     })
 
+    const [nHeight, setNHeight] = useState(48)
+
     return (<>
       <Input
         value={field.value}
         onChangeText={field.onChange}
         control={control}
+        onContentSizeChange={e=>{
+          setNHeight(e.nativeEvent.contentSize.height + 20)
+        }}
         // Styles
         autoCapitalize="none"
         right
         color="black"
-        style={[styles.search, {height}]}
+        style={[styles.search, {height: nHeight}]}
         placeholder={placeholder}
         placeholderTextColor={'#8898AA'}
         iconContent={null}
         multiline={true}
+        autoCorrect={false}
       />
     </>);
   }
