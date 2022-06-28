@@ -39,6 +39,9 @@ function setDocsListener(updateData, {main_tag, filters, list}) {
           }
         }
         const data = doc.data()
+        // console.log("[i] SearchResult.setDocsListener > filters", filters)
+        // console.log("[i] SearchResult.setDocsListener > data", Object.keys(data).sort())
+        // console.log("[i] SearchResult.setDocsListener > list", Object.keys(list).map((k) => (list[k].name)).sort())
         await filterDocsUnderTags(data, filters)
         Object.keys(data).forEach((key) => {
           addOne(key)
@@ -46,6 +49,7 @@ function setDocsListener(updateData, {main_tag, filters, list}) {
         list.forEach((doc) => {
           addOne(doc.name)
         })
+        // console.log("[i] SearchResult.setDocsListener > compareData", compareData)
         let shouldUpdate = false
         Object.keys(compareData).forEach((key) => {
           if (compareData[key] < 2) {
@@ -53,7 +57,7 @@ function setDocsListener(updateData, {main_tag, filters, list}) {
           }
         })
         if (shouldUpdate) {
-          // updateData(filters)
+          updateData(filters)
         }
       }
     )
@@ -164,7 +168,7 @@ export default function SearchResult(props) {
     await readDocsWithTag(doc_recv, {tag})
 
     const docs = doc_recv.data
-    console.log("[i] SearchResult.getData > filter: ", filters)
+    console.log("[i] SearchResult.getData > filters: ", filters)
     if (pressedLocation && pressedLocation != "") {
       if (tags[pressedLocation] || pressedLocation === main_tag) {
         await filterDocsUnderTags(docs, filters)
