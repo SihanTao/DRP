@@ -39,12 +39,14 @@ function setDocsListener(updateData, {main_tag, filters, list}) {
           }
         }
         const data = doc.data()
-        // console.log("[i] SearchResult.setDocsListener > filters", filters)
-        // console.log("[i] SearchResult.setDocsListener > data", Object.keys(data).sort())
-        // console.log("[i] SearchResult.setDocsListener > list", Object.keys(list).map((k) => (list[k].name)).sort())
         await filterDocsUnderTags(data, filters)
+        // console.log("[i] SearchResult.setDocsListener > filters", filters)
+        // console.log("[i] SearchResult.setDocsListener > data", Object.keys(data).filter((key) => (data[key])).sort())
+        // console.log("[i] SearchResult.setDocsListener > list", Object.keys(list).map((k) => (list[k].name)).sort())
         Object.keys(data).forEach((key) => {
-          addOne(key)
+          if (data[key]) {
+            addOne(key)
+          }
         })
         list.forEach((doc) => {
           addOne(doc.name)
@@ -183,12 +185,15 @@ export default function SearchResult(props) {
     console.log("[i] SearchResult.getData > filtered!")
     Object
       .keys(docs)
+      .filter((key) => (docs[key]))
       .sort((a, b) => {
         const docA = docs[a]
         const docB = docs[b]
         if (!docA || !docB) return 0;
         if (docA.avgRating < docB.avgRating) return 1;
         if (docA.avgRating > docB.avgRating) return -1;
+        if (docA.name < docB.name) return -1;
+        if (docA.name > docB.name) return 1;
         return 0;
       })
       .forEach((doc_name) => {
