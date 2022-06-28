@@ -30,9 +30,11 @@ function setRatingListener(setRating, {doc_name}) {
     ratingListener = onSnapshot(
       doc(db, share_coll_name, doc_name),
       (doc) => {
-        console.log("[i] Information.setRatingListener >", data.numRatings);
         const data = doc.data()
-        setRating(data.avgRating)
+        if (data) {
+          console.log("[i] Information.setRatingListener >", data.numRatings);
+          setRating(data.avgRating)
+        }
       },
     );
   }
@@ -63,11 +65,13 @@ export default function Information(props) {
   const currentTags = []
 
   // Create customised tags for study & toilet
-  Object.keys(item.tags).forEach((tag) => {
-    currentTags.push({
-      id: tag, title: "#"+tag
+  if (item.tags) {
+    Object.keys(item.tags).forEach((tag) => {
+      currentTags.push({
+        id: tag, title: "#"+tag
+      })
     })
-  })
+  }
 
   // const imagesList = [{
   //   url: 'https://aboutreact.com/wp-content/uploads/2018/08/react_nativeset_opacity_of_image.png',
@@ -198,11 +202,11 @@ export default function Information(props) {
               renderProduct(item, index)
             )}
         </ScrollView>
-        <Tabs
+        {currentTags.length > 0 && <Tabs
           data={currentTags}
           navigation={navigation}
           isInfo={true}
-        />
+        />}
       </Block>
       <Block flex center style={styles.home}>
         <ScrollView
