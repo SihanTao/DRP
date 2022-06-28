@@ -17,7 +17,7 @@ export default class AutomatedSlideshow extends Component {
                 this.setState({
                     position: this.state.position === (this.props.dataSource.length - 1) ? 0 : (this.state.position + 1 >= 5 ? 5 : this.state.position + 1)
                 });
-            }, 2000)
+            }, 5000)
         });
     }
 
