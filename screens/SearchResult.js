@@ -28,7 +28,8 @@ function setDocsListener(updateData, {main_tag, filters, list}) {
     }
     docsListener = onSnapshot(
       doc(db, share_tags_coll_name, main_tag),
-      (doc) => {
+      async (doc) => {
+        console.log("[i] SearchResult.setDocsListener > I heared something")
         const compareData = {}
         const addOne = (id) => {
           if (compareData[id]) {
@@ -38,6 +39,7 @@ function setDocsListener(updateData, {main_tag, filters, list}) {
           }
         }
         const data = doc.data()
+        await filterDocsUnderTags(data, filters)
         Object.keys(data).forEach((key) => {
           addOne(key)
         })
@@ -51,7 +53,7 @@ function setDocsListener(updateData, {main_tag, filters, list}) {
           }
         })
         if (shouldUpdate) {
-          updateData(filters)
+          // updateData(filters)
         }
       }
     )
@@ -180,6 +182,7 @@ export default function SearchResult(props) {
       .sort((a, b) => {
         const docA = docs[a]
         const docB = docs[b]
+        if (!docA || !docB) return 0;
         if (docA.avgRating < docB.avgRating) return 1;
         if (docA.avgRating > docB.avgRating) return -1;
         return 0;

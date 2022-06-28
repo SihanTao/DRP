@@ -30,8 +30,8 @@ function setRatingListener(setRating, {doc_name}) {
     ratingListener = onSnapshot(
       doc(db, share_coll_name, doc_name),
       (doc) => {
-        const data = doc.data()
         console.log("[i] Information.setRatingListener >", data.numRatings);
+        const data = doc.data()
         setRating(data.avgRating)
       },
     );
