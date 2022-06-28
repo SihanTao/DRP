@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Text } from 'galio-framework';
+import { useState, useEffect } from "react";
+import { Text } from 'galio-framework'
 import { View, TextInput, StyleSheet, ImageBackground, Dimensions, Linking, FlatList, Alert, Button, Image } from "react-native";
 import { ColorPicker, ModalInput, Separator, Tag } from "react-native-btr";
 import * as Location from 'expo-location';
@@ -9,13 +9,54 @@ import argonTheme from '../constants/Theme';
 import ListElement from "../components/ListElement";
 import * as Progress from 'react-native-progress';
 import { HUXLEY, SHERFIELD, CENTRAL_LIBRARY, EEE, CHEM, IB, BLACKETT, SKEMPTON, CITY, DYSON } from '../constants/shareLocalFacilities';
-import { collection, doc, setDoc, getDoc, getFirestore, query, where, getDocs, orderBy } from "firebase/firestore";
+import { collection, doc, setDoc, getDoc, getFirestore, query, where, getDocs, orderBy, onSnapshot } from "firebase/firestore";
 import { async } from "@firebase/util";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { ALL_TAGS, CAFE_TAGS, STUDY_PLACE_TAGS, TOILET_TAGS, WATER_FOUNTAIN_TAGS, MICROWAVE_TAGS } from "../constants/tags";
 import { allRelevantTags, filterDocsUnderTags, readDocsWithTag } from "../backend/tagManager";
 import { convertCompilerOptionsFromJson } from "typescript";
+import { share_tags_coll_name } from "../constants/ShareCons";
+
 const { width } = Dimensions.get('screen');
+let docsListener = undefined
+
+function setDocsListener(updateData, {main_tag, filters, list}) {
+  const db = getFirestore();
+  if (main_tag && updateData) {
+    if (docsListener) {
+      docsListener()
+    }
+    docsListener = onSnapshot(
+      doc(db, share_tags_coll_name, main_tag),
+      (doc) => {
+        const compareData = {}
+        const addOne = (id) => {
+          if (compareData[id]) {
+            compareData[id] += 1
+          } else {
+            compareData[id] = 1
+          }
+        }
+        const data = doc.data()
+        Object.keys(data).forEach((key) => {
+          addOne(key)
+        })
+        list.forEach((doc) => {
+          addOne(doc.name)
+        })
+        let shouldUpdate = false
+        Object.keys(compareData).forEach((key) => {
+          if (compareData[key] < 2) {
+            shouldUpdate = true
+          }
+        })
+        if (shouldUpdate) {
+          updateData(filters)
+        }
+      }
+    )
+  }
+}
 
 export default function SearchResult(props) {
   const main_tag = props.route.params.main_tag
@@ -110,18 +151,18 @@ export default function SearchResult(props) {
   const [filters, setFilters] = useState({})
 
   async function getData(filters) {
-    console.log("[i] getData")
+    console.log("[i] SearchResult.getData")
     const list = [];
     const params = props.route.params;
     const tag = params.main_tag
     const idlist = []
 
     const doc_recv = {}
-    console.log("[i] getData > flag")
+    console.log("[i] SearchResult.getData > flag")
     await readDocsWithTag(doc_recv, {tag})
 
     const docs = doc_recv.data
-    console.log("[i] getData > filter: ", filters)
+    console.log("[i] SearchResult.getData > filter: ", filters)
     if (pressedLocation && pressedLocation != "") {
       if (tags[pressedLocation] || pressedLocation === main_tag) {
         await filterDocsUnderTags(docs, filters)
@@ -133,7 +174,7 @@ export default function SearchResult(props) {
     } else {
       await filterDocsUnderTags(docs, filters)
     }
-    console.log("[i] getData > filtered!")
+    console.log("[i] SearchResult.getData > filtered!")
     Object
       .keys(docs)
       .sort((a, b) => {
@@ -150,12 +191,13 @@ export default function SearchResult(props) {
           idlist.push(doc.name);
         }
       })
+    // console.log("[i] SearchResult.getData > list:", list)
     setData([...list]);
     setIds([...idlist]);
   }
 
   function updateFilters() {
-    console.log("[i] updateFilters > IN")
+    console.log("[i] SearchResult.updateFilters > IN")
     // Initial State of Filter
     const newCategory = {};
     const params = props.route.params;
@@ -168,17 +210,17 @@ export default function SearchResult(props) {
     })
 
     setFilters(newCategory);
-    console.log("[i] updateFilters > OUT")
+    console.log("[i] SearchResult.updateFilters > OUT")
   }
 
   // START OF LOCATION FILTER 
   const [pressedLocation, setPressedLocation] = useState("");
 
   useEffect(() => {
-    console.log("[i] 2 > call getData()")
+    console.log("[i] SearchResult.2 > call getData()")
     getData(filters);
     const willFocusSubscription = props.navigation.addListener('focus', () => {
-      console.log("[i] 3 > call getData()")
+      console.log("[i] SearchResult.3 > call getData()")
       getData(filters);
     });
     // console.log(data)
@@ -191,7 +233,7 @@ export default function SearchResult(props) {
   }
   const [lastLoc, setLastLoc] = useState("")
   useEffect(() => {
-    console.log("[i] useEffect[pressedLocation]")
+    console.log("[i] SearchResult.useEffect[pressedLocation]")
     if (lastLoc != "" && tags[lastLoc] && tags[lastLoc].active) {
       toggleTag(lastLoc)
     }
@@ -199,7 +241,7 @@ export default function SearchResult(props) {
     if (pressedLocation != "" && tags[pressedLocation] && !tags[pressedLocation].active) {
       toggleTag(pressedLocation)
     }
-    console.log("[i] useEffect[pressedLocation] > call updateFilters()")
+    console.log("[i] SearchResult.useEffect[pressedLocation] > call updateFilters()")
     updateFilters();
   }, [pressedLocation])
 
@@ -241,6 +283,12 @@ export default function SearchResult(props) {
   } else if (location) {
     text = "";
   }
+
+  setDocsListener(getData, {
+    main_tag: props.route.params.main_tag,
+    filters,
+    list: data,
+  })
 
   // END OF MAP LOADING AND LOCATION
   return (

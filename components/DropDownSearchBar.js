@@ -27,6 +27,13 @@ export default class DropDownSearchBar extends React.Component {
       arrayholder: tabs.categories,
     };
   }
+
+  sortCategories(a, b) {
+    if (a.id < b.id) return -1;
+    if (a.id > b.id) return 1;
+    return 0;
+  }
+
   async componentDidMount() {
     this.setState({
       isLoading: true,
@@ -36,8 +43,8 @@ export default class DropDownSearchBar extends React.Component {
     this.setState(
       {
         isLoading: false,
-        dataSource: shared_tabs.categories,
-        arrayholder: shared_tabs.categories,
+        dataSource: shared_tabs.categories.sort(this.sortCategories),
+        arrayholder: shared_tabs.categories.sort(this.sortCategories),
       },
     );
   }
