@@ -25,10 +25,9 @@ deploy-prod:
   stage: deploy
   script:
     - echo "This job deploys something from the $CI_COMMIT_BRANCH branch."
-    - yarn install
-    - npm install --global expo-cli
-    - expo --version
-    - expo install expo-updates
-    - expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD
-    - export NODE_OPTIONS="--max-old-space-size=2048"
-    - expo publish
+    # - yarn install
+    # - npm install --global expo-cli
+    # - expo --version
+    # - expo install expo-updates
+    # - expo login -u $EXPO_USERNAME -p $EXPO_PASSWORD
+    # - expo publish
