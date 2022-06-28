@@ -134,13 +134,22 @@ export default function SearchResult(props) {
       await filterDocsUnderTags(docs, filters)
     }
     console.log("[i] getData > filtered!")
-    Object.keys(docs).forEach((doc_name) => {
-      const doc = docs[doc_name]
-      if (doc) {
-        list.push(doc);
-        idlist.push(doc.name);
-      }
-    })
+    Object
+      .keys(docs)
+      .sort((a, b) => {
+        const docA = docs[a]
+        const docB = docs[b]
+        if (docA.avgRating < docB.avgRating) return 1;
+        if (docA.avgRating > docB.avgRating) return -1;
+        return 0;
+      })
+      .forEach((doc_name) => {
+        const doc = docs[doc_name]
+        if (doc) {
+          list.push(doc);
+          idlist.push(doc.name);
+        }
+      })
     setData([...list]);
     setIds([...idlist]);
   }
@@ -301,7 +310,7 @@ export default function SearchResult(props) {
       </Block>}
       <Block style={{ marginHorizontal: 16, flexDirection: "row", flexWrap: "wrap" }}>
         <ScrollView horizontal={true} >
-          {Object.keys(tags).map((index) => {
+          {Object.keys(tags).sort().map((index) => {
             const tag = tags[index]
             const backgroundColor = tag.active ? tag.color : "#0000";
             const color = tag.active ? "#fff" : tag.color;

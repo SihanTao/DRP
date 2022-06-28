@@ -235,7 +235,17 @@ function HookFormImplementation(props) {
               <Button style={[{fles: 1, marginRight: 5}]}
                 title="B_A"
                 onPress={() => {
-                  writeTestData()
+                  const k = {
+                    a: true,
+                    z: true,
+                    c: true,
+                    d: true,
+                    x: true,
+                    k: true,
+                  }
+                  Object.keys(k).sort().forEach((key) => {
+                    console.log("[i] WikiShare.B_A >", key)
+                  })
                 }}
               />
               <Button style={[{fles: 1, marginRight: 5}]}
